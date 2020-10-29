@@ -1,0 +1,164 @@
+import React, { useState } from 'react';
+import { Row,Button,Input } from 'reactstrap';
+import Select from 'react-select';
+import CustomSelectInput from '../components/common/CustomSelectInput';
+import { Colxx } from '../components/common/CustomBootstrap';
+import {
+  menuHiddenBreakpoint,
+  searchPath,
+  
+} from '../constants/defaultValues';
+import './Customcss.css'
+
+const selectFilters = [
+    { label: 'All Sessions', value: 'all-sessions', key: 0 },
+    { label: 'Live Sessions', value: 'live-sessions', key: 1 },
+    { label: 'On Demand Sessions', value: 'on-demand-sessions', key: 2 },
+    { label: 'Post Sessions', value: 'post-sessions', key: 3},
+];
+  
+  const selectSort = [
+    { label: 'Time', value: 'time', key: 0 },
+    { label: 'Date Posted', value: 'posted', key: 1 },
+    { label: 'Most Seen', value: 'seen', key: 2 }
+  ]
+  
+
+const CustomSelect = ({intl}) =>{
+    const [selectedFilter, setSelectedFilter] = useState('');
+    const [selectedSort, setSelectedSort] = useState('');
+    const [searchKeyword,setSearchKeyword ] = useState('');
+    const [search, setSearch] = useState('');
+
+    const handleSearchInputKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        search();
+      }
+    };
+
+    // const search = () => {
+    //   // history.push(`${searchPath}?key=${searchKeyword}`);
+    //   setSearchKeyword('');
+    // };
+  
+    // const handleSearchIconClick = (e) => {
+    //   if (window.innerWidth < menuHiddenBreakpoint) {
+    //     let elem = e.target;
+    //     if (!e.target.classList.contains('search')) {
+    //       if (e.target.parentElement.classList.contains('search')) {
+    //         elem = e.target.parentElement;
+    //       } else if (
+    //         e.target.parentElement.parentElement.classList.contains('search')
+    //       ) {
+    //         elem = e.target.parentElement.parentElement;
+    //       }
+    //     }
+  
+    //     if (elem.classList.contains('mobile-view')) {
+    //       search();
+    //       elem.classList.remove('mobile-view');
+    //       removeEventsSearch();
+    //     } else {
+    //       elem.classList.add('mobile-view');
+    //       addEventsSearch();
+    //     }
+    //   } else {
+    //     search();
+    //   }
+    //   e.stopPropagation();
+    // };
+  
+    // const removeEventsSearch = () => {
+    //   document.removeEventListener('click', handleDocumentClickSearch, true);
+    // };
+
+    // const handleDocumentClickSearch = (e) => {
+    //   let isSearchClick = false;
+    //   if (
+    //     e.target &&
+    //     e.target.classList &&
+    //     (e.target.classList.contains('navbar') ||
+    //       e.target.classList.contains('simple-icon-magnifier'))
+    //   ) {
+    //     isSearchClick = true;
+    //     if (e.target.classList.contains('simple-icon-magnifier')) {
+    //       search();
+    //     }
+    //   } else if (
+    //     e.target.parentElement &&
+    //     e.target.parentElement.classList &&
+    //     e.target.parentElement.classList.contains('search')
+    //   ) {
+    //     isSearchClick = true;
+    //   }
+  
+    //   if (!isSearchClick) {
+    //     const input = document.querySelector('.mobile-view');
+    //     if (input && input.classList) input.classList.remove('mobile-view');
+    //     removeEventsSearch();
+    //     setSearchKeyword('');
+    //   }
+    // };
+
+    // const addEventsSearch = () => {
+    //   document.addEventListener('click', handleDocumentClickSearch, true);
+    // };
+
+    
+  const onSearchKey=(e) => {
+    if (e.key === 'Enter') {
+      setSearch(e.target.value.toLowerCase());
+    }
+  }
+
+    return(
+        <>
+        <Row>
+        <div>
+        <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
+                <input 
+                style={{minHeight:"38px",position:'relative'}}
+                  type="text"
+                  name="keyword"
+                  id="search"
+                  placeholder={['menu.search']}
+                  onKeyPress={(e) => onSearchKey(e)}
+                />
+              </div>
+        </div>
+      <Colxx xxs="6" md="2" className="mb-5">
+<span className="mr-2">Filter By</span>
+        <Select
+          components={{ Input: CustomSelectInput }}
+          className="react-select"
+          classNamePrefix="react-select"
+          name="form-field-name"
+          value={selectedFilter}
+          onChange={setSelectedFilter}
+          defaultInputValue="All Sessions"
+          options={selectFilters}
+           />
+</Colxx>
+<Colxx xxs="6" md="2">
+<span className="mr-2">Sort By</span>
+<Select
+          components={{ Input: CustomSelectInput }}
+          className="react-select"
+          classNamePrefix="react-select"
+          name="form-field-name"
+          value={selectedSort}
+          onChange={setSelectedSort}
+          defaultInputValue="Time"
+          options={selectSort}
+        />
+</Colxx>
+<Colxx xxs="12" md="3" style={{right:'0',position:'absolute'}}>
+<Button color="primary" className="mb-2">
+                Create Session
+              </Button>
+</Colxx>
+</Row>        </>
+    )
+}
+
+export default CustomSelect;
