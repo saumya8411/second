@@ -1,12 +1,7 @@
 const router = require('express').Router();
-const Json2csvParser = require("json2csv").Parser;
-const fs = require("fs");
 const mysql = require('mysql');
-const connectDB = require('../db/connect');
-const Library = require('../db/models/library_table');
 
 //Connecting to database
-connectDB();
 let connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
@@ -26,12 +21,15 @@ let connection = mysql.createConnection({
 router.get('/' , async (req,res) => {
 
     try{
-
         //Fetch User Specific Data 
-        let libraryContent = await  Library.find({customer_id : req.user.customer_id});
-            
-        res.status(200).json({
-            libraryContent
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE  CUSTOMER_ID =${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json({
+                result
+            });
         })
 
     }
@@ -45,10 +43,15 @@ router.get('/' , async (req,res) => {
 //To fetch all the data where type = video
 router.get('/videos' , async (req,res) => {
     try{
-        let videoContent = await  Library.find({customer_id : req.user.customer_id , library_item_type : "video"});
-        res.status(200).json({
-            videoContent
-        });
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='video' AND CUSTOMER_ID = ${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json({
+                result
+            });
+        })
     }
     catch(err){
         console.error(err);
@@ -60,10 +63,15 @@ router.get('/videos' , async (req,res) => {
 //To fetch all the data where type = recording
 router.get('/recordings' , async (req,res) => {
     try{
-        let recordingContent = await  Library.find({customer_id : req.user.customer_id , library_item_type : "recording"});
-        res.status(200).json({
-            recordingContent
-        });
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='recording' AND CUSTOMER_ID = ${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json({
+                result
+            });
+        })
     }
     catch(err){
         console.error(err);
@@ -74,10 +82,15 @@ router.get('/recordings' , async (req,res) => {
 //To fetch all the data where type = assignment
 router.get('/assignments' , async (req,res) => {
     try{
-        let assignmentContent = await  Library.find({customer_id : req.user.customer_id , library_item_type : "assignment"});
-        res.status(200).json({
-            assignmentContent
-        });
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='assignment' AND CUSTOMER_ID = ${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json({
+                result
+            });
+        })
     }
     catch(err){
         console.error(err);
@@ -88,10 +101,15 @@ router.get('/assignments' , async (req,res) => {
 //To fetch all the data where type = quiz
 router.get('/quizs' , async (req,res) => {
     try{
-        let quizContent = await  Library.find({customer_id : req.user.customer_id , library_item_type : "quiz"});
-        res.status(200).json({
-            quizContent
-        });
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='quiz' AND CUSTOMER_ID = ${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json({
+                result
+            });
+        })
     }
     catch(err){
         console.error(err);
@@ -103,10 +121,17 @@ router.get('/quizs' , async (req,res) => {
 //To fetch all the data where type = handout
 router.get('/handouts' , async (req,res) => {
     try{
-        let handoutsContent = await  Library.find({customer_id : req.user.customer_id , library_item_type : "handout"});
-        res.status(200).json({
-            handoutsContent
-        });
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='handout' AND CUSTOMER_ID = ${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json({
+                result
+            });
+        })
+
+        
     }
     catch(err){
         console.error(err);
@@ -118,11 +143,17 @@ router.get('/handouts' , async (req,res) => {
 //To search Particular fileName
 router.post('/search' , async (req,res) => {
     try{
-        const {searchInput} = req.body;
+        const searchInput = req.body.searchInput;
         console.log(searchInput);
-        let searchContent = await Library.find({ customer_id : req.user.customer_id , library_item_name : searchInput })
+        
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_NAME LIKE '%${searchInput}%'  `;
 
-        res.status(200).json(searchContent);
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+            res.status(200).json(result);
+        })
+
     }
     catch(err){
         console.error(err)
@@ -135,7 +166,13 @@ router.post('/search' , async (req,res) => {
 router.delete('/:id' , async (req,res) => {
     try{
        
-        await Library.remove({library_item_id : req.params.id , customer_id:req.user.customer_id })
+        let sql = `DELETE FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_ID = ${req.params.id} AND CUSTOMER_ID = ${req.user.customer_id} `;
+
+        let query = await connection.query(sql , (err, result) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+        })
+
         console.log('Deleted ')
         res.send('Successfuly deleted library content');
 
@@ -150,7 +187,7 @@ router.delete('/:id' , async (req,res) => {
 router.get('/download/:id' , async (req,res) => {
     try{
 
-        let libraryContent = await  Library.find({ library_item_id:req.params.id });
+        // let libraryContent = await  Library.find({ library_item_id:req.params.id });
         
         let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_ID = ${req.params.id}`;
         let query = await connection.query(sql , (err, libraryContent) => {
