@@ -7,7 +7,10 @@ const libraryRouter = require('./library/routes/index')
 
 const app = express()
 
-app.use(express.json())
+//Body Parser
+app.use(express.urlencoded({extended : false}));
+app.use(express.json());
+
 app.use(userRouter)
 app.use(sessionRouter)
 app.use('/library' , libraryRouter)
