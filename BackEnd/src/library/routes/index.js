@@ -1,12 +1,25 @@
 const router = require('express').Router();
 const Json2csvParser = require("json2csv").Parser;
 const fs = require("fs");
+const mysql = require('mysql');
 const connectDB = require('../db/connect');
 const Library = require('../db/models/library_table');
 
 //Connecting to database
 connectDB();
-
+let connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'oyesters'
+  });
+   
+  connection.connect(err => {
+      if(err){
+          throw err;
+      }
+      console.log("MYSQL Connected")
+  });
 
 // To fetch all the data related to that customer
 //i.e. all material 
@@ -134,19 +147,39 @@ router.delete('/:id' , async (req,res) => {
 })
 
 //To download 
-router.post('/download/:id' , async (req,res) => {
+router.get('/download/:id' , async (req,res) => {
     try{
 
-        let libraryContent = await  Library.find({ customer_id:req.user.customer_id , library_item_id:req.params.id });
-        const jsonData = JSON.parse(JSON.stringify(libraryContent));
+        let libraryContent = await  Library.find({ library_item_id:req.params.id });
         
-        const json2csvParser = new Json2csvParser({ header: true});
-        const csv = json2csvParser.parse(jsonData);
-    
-        fs.writeFile("Report.csv", csv, function(error) {
-          if (error) throw error;
-          console.log("Write to Report.csv successfully!");
-        });
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_ID = ${req.params.id}`;
+        let query = await connection.query(sql , (err, libraryContent) => {
+            if(err) throw err;
+            console.log('RAN successfully') 
+
+
+            let absPath = libraryContent[0].library_item_location; // Absolute path to the server storage folder
+            let fileName = libraryContent[0].library_item_name; // The default name the browser will use to store file
+            
+            // console.log(absPath);
+
+            if(libraryContent[0].library_item_type == "quiz" || libraryContent[0].library_item_type == "handout" || libraryContent[0].library_item_type == "assignment"){
+                absPath = `${absPath}\\${fileName}.pdf`;
+                fileName = fileName + "-Report.pdf"; 
+            }
+            else if(libraryContent[0].library_item_type == "video" || libraryContent[0].library_item_type == "recording"){
+                absPath = `${absPath}\\${fileName}.mp4`;
+                console.log(absPath);
+                fileName = fileName + "-Video.mp4";
+            }
+            else{
+                fileName = fileName + "-ERROR.pdf";
+            }
+
+            res.download(absPath, fileName); 
+
+        })
+
         
 
     }
