@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 import RemoteSession from './RemoteSession';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css';
 
 const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
@@ -35,6 +37,7 @@ const options = [
 
 const OndemandSession = () =>{
   const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true);
+  const [tagsLO, setTagsLO] = useState([]);
 
     const onSubmit = (values, { setSubmitting }) => {
         const payload = {
@@ -105,6 +108,14 @@ const OndemandSession = () =>{
                     </div>
                   ) : null}
                 </FormGroup>
+                <FormGroup className="error-l-100">
+<Label>Seo Tags:</Label>
+                <TagsInput
+                    value={tagsLO}
+                    onChange={(val) => setTagsLO(val)}
+                    inputProps={{ placeholder: '' }}
+                  />
+                  </FormGroup>
                 <FormGroup className="error-l-100">
                   <Label>Do You Want TimeLine: </Label>
                   <Switch

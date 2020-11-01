@@ -73,3 +73,37 @@ input[type="radio"]:checked + .box span:before {
     transform: translateY(0px);
     opacity: 1;
   }
+
+.sessionlookicon{
+    margin:auto 0;
+    font-size:1.3rem;
+}
+
+.iconcolumn:focus,.iconcolumn:focus-within{
+    background-color:yellow;
+    padding:30px;
+}
+
+.iconcolumn{
+    cursor: pointer;
+}
+.emailtext{
+ height: 0;
+ overflow: hidden;
+ transition: .7s height;
+ margin-bottom: 10px;
+display: flex;
+
+}
+
+.emailcard:hover .emailtext{
+height: 30px;
+transition: .7s height;
+}
+.hiddenbutton{
+    color: black !important;
+
+}
+.hiddenbutton:hover{
+    color:purple !important
+}

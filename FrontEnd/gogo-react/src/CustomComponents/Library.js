@@ -4,6 +4,7 @@ import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
 import products from '../data/products';
 import { Colxx } from '../components/common/CustomBootstrap';
+import PopoverItem from '../components/common/PopoverItem';
 
 import DatatablePagination from '../components/DatatablePagination';
 const data = [
@@ -59,7 +60,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
   return (
     <>
       <table
-        style={{ maxWidth: '1100px' }}
+        style={{ maxWidth: '1100px',margin:'0 auto' }}
         {...getTableProps()}
         className={`r-table table ${classnames({ 'table-divided': divided })}`}
       >
@@ -105,9 +106,8 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
                   </td>
                 ))}
                 <td>
-                  {/* <Button color="light">
-                    Launch
-                  </Button> */}
+                <PopoverItem id={`1${row.id}`}/>
+
                 </td>
               </tr>
             );
@@ -138,7 +138,7 @@ export const Library = () => {
       {
         Header: 'Name',
         accessor: 'name',
-        cellClass: 'list-item-heading w-20',
+        cellClass: 'list-item-heading w-40',
         Cell: (props) => <>{props.value}</>,
       },
       {
@@ -156,7 +156,7 @@ export const Library = () => {
       {
         Header: 'Size',
         accessor: 'size',
-        cellClass: 'text-muted  w-40 ',
+        cellClass: 'text-muted  w-20 ',
         Cell: (props) => <>{props.value}</>,
       },
     ],
@@ -170,7 +170,7 @@ export const Library = () => {
           <Card style={{ width: '100%' }}>
             <CardBody>
               <div className="mb-4"> */}
-                    <div className="mb-4" style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+                    <div className="mb-4">
 
                 <Table columns={cols} data={data} divided />
                 </div>

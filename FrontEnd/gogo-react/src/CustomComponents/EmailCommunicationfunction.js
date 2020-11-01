@@ -23,6 +23,8 @@ import {
 import EmailCommunication from './EmailCommunication';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
+import img from './bebinca-thumb.jpg'
+
 
 function Emailcommunicationfunction() {
 const [mailonSignup, setMailonSignup] = useState(true);
@@ -36,9 +38,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   
   return (
     <>
-    <Card className="mb-4 pl-4 pr-4 pb-4 pt-4">
-              <CardHeader className="mb-4">
-                <Nav tabs className="card-header-tabs ">
+                <Nav tabs className="card-header-tabs mb-3 mt-3">
                   <NavItem>
                     <NavLink
                       to="#"
@@ -85,13 +85,12 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                     </NavLink>
                   </NavItem>
                 </Nav>
-              </CardHeader>
               <TabContent activeTab={activeFirstTab}>
                 <TabPane tabId="1">
-                <Card className="p-4 mb-3">
-<Row>
+                
+<Row className="mb-3">
   <Colxx xs="12" sm="6">
-    <CardTitle>Mail On Signup</CardTitle>
+    <h3>Mail On Signup</h3>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -109,7 +108,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   </Colxx>
 </Row>
 {mailonSignup ? (
-  <CardBody>
+  
     <Row>
       <Colxx xs="12" sm="6">
         <label>
@@ -121,10 +120,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
           />
           <div className="front-end box">
             <Card
-              className="p-4 mb-3"
+              className="p-4 mb-3 emailcard"
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
-              <CardImg top width="100%" src="" alt="Theme1 img" />
+              <CardImg top width="100%" src={img} alt="Theme1 img" className="emailimg" />
+              <Row className="emailtext">
+                <Colxx xxs="4">
+                <span className="hiddenbutton">Preview</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
+                </Colxx>
+              </Row>
               <CardBody>
                 <CardTitle>Theme1</CardTitle>
               </CardBody>
@@ -142,10 +148,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
           />
           <div className="front-end box">
             <Card
-              className="p-4 mb-3"
+              className="p-4 mb-3 emailcard"
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
-              <CardImg top width="100%" src="" alt="Theme1 img" />
+              <CardImg top width="100%" src={img} alt="Theme1 img" />
+              <Row className="emailtext">
+                <Colxx xxs="4">
+                <span className="hiddenbutton">Preview</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
+                </Colxx>
+              </Row>
               <CardBody>
                 <CardTitle>Theme2</CardTitle>
               </CardBody>
@@ -154,15 +167,14 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
         </label>
       </Colxx>
     </Row>
-  </CardBody>
+  
 ) : (
   ''
 )}
-</Card>
-<Card className="p-4 mb-3">
-<Row>
+
+<Row className="mb-3 mt-4">
   <Colxx xs="12" sm="6">
-    <CardTitle>Purchase Email</CardTitle>
+    <h3>Purchase Email</h3>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -180,7 +192,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   </Colxx>
 </Row>
 {purchaseEmail ? (
-  <CardBody>
+  
     <Row>
       <Colxx xs="12" sm="6">
         <label>
@@ -192,10 +204,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
           />
           <div className="front-end box">
             <Card
-              className="p-4 mb-3"
+              className="p-4 mb-3 emailcard"
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
-              <CardImg top width="100%" src="" alt="Theme1 img" />
+              <CardImg top width="100%" src={img} alt="Theme1 img" />
+              <Row className="emailtext">
+                <Colxx xxs="4">
+                <span className="hiddenbutton">Preview</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
+                </Colxx>
+              </Row>
               <CardBody>
                 <CardTitle>Theme1</CardTitle>
               </CardBody>
@@ -213,10 +232,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
           />
           <div className="front-end box">
             <Card
-              className="p-4 mb-3"
+              className="p-4 mb-3 emailcard"
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
-              <CardImg top width="100%" src="" alt="Theme1 img" />
+              <CardImg top width="100%" src={img} alt="Theme1 img" />
+              <Row className="emailtext">
+                <Colxx xxs="4">
+                <span className="hiddenbutton">Preview</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
+                </Colxx>
+              </Row>
               <CardBody>
                 <CardTitle>Theme2</CardTitle>
               </CardBody>
@@ -225,15 +251,14 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
         </label>
       </Colxx>
     </Row>
-  </CardBody>
+
 ) : (
   ''
 )}
-</Card>
-<Card className="p-4 mb-3">
-<Row>
+
+{/* <Row className="mt-4">
   <Colxx xs="12" sm="6">
-    <CardTitle>Account Verification</CardTitle>
+    <h3>Account Verification</h3>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -251,7 +276,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   </Colxx>
 </Row>
 {accountverification ? (
-  <CardBody>
+  
     <Row>
       <Colxx xs="12" sm="6">
         <label>
@@ -265,10 +290,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
           />
           <div className="front-end box">
             <Card
-              className="p-4 mb-3"
+              className="p-4 mb-3 emailcard"
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
-              <CardImg top width="100%" src="" alt="Theme1 img" />
+              <CardImg top width="100%" src={img} alt="Theme1 img" />
+              <Row className="emailtext">
+                <Colxx xxs="4">
+                <span className="hiddenbutton">Preview</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
+                </Colxx>
+              </Row>
               <CardBody>
                 <CardTitle>Theme1</CardTitle>
               </CardBody>
@@ -288,10 +320,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
           />
           <div className="front-end box">
             <Card
-              className="p-4 mb-3"
+              className="p-4 mb-3 emailcard"
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
-              <CardImg top width="100%" src="" alt="Theme1 img" />
+              <CardImg top width="100%" src={img} alt="Theme1 img" />
+              <Row className="emailtext">
+                <Colxx xxs="4">
+                <span className="hiddenbutton">Preview</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
+                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
+                </Colxx>
+              </Row>
               <CardBody>
                 <CardTitle>Theme2</CardTitle>
               </CardBody>
@@ -300,11 +339,9 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
         </label>
       </Colxx>
     </Row>
-  </CardBody>
 ) : (
 ""
-)}
-</Card>
+)} */}
 <EmailCommunication/>
                 </TabPane>
                 <TabPane tabId="2">
@@ -315,7 +352,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                 </TabPane>
                              </TabContent>
 
-              </Card>
+              
     </>
   );
 }

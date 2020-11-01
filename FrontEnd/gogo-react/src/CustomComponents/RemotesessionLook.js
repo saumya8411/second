@@ -3,24 +3,9 @@ import { Colxx, Separator } from '../components/common/CustomBootstrap';
 import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input, Col} from 'reactstrap';
 import './Customcss.css';
 import Switch from 'rc-switch';
-import {iconsmind} from '../data/icons'
+import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
-import Editable from './Editable'
-const IconGroup = ({ iconSet }) => {
-    return (
-      <div className="mb-5">
-        {iconSet.icons.map((icon, index) => {
-          return (
-            <div className="glyph" key={index}>
-              <div className={`glyph-icon ${icon}`} />
-              {/* <div className="class-name">{icon}</div> */}
-            </div>
-          );
-        })}
-        <div className="clearfix" />
-      </div>
-    );
-  };
+import Editable from './Editable';
   
 
 function RemotesessionLook() {
@@ -186,14 +171,6 @@ function RemotesessionLook() {
 </Card> 
 
 
-<Row style={{marginBottom:'20px'}}>
-          <Colxx xxs='12' md="4">
-              <h3>Modules</h3>
-              <p>Modules is here</p>
-          </Colxx>
-          
-</Row>   
-
 <Card className="p-4 mb-3">
     <Row>
         <Colxx xs="12" sm="6">
@@ -253,7 +230,9 @@ function RemotesessionLook() {
         <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={setConclusion}/>
     </Colxx>
 </Row>
-<Row>
+<Card className="p-3 mt-4">
+  <CardBody>
+<Row className="mt-4">
 <Colxx xs="12" md="6">
 {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
 
@@ -282,18 +261,45 @@ function RemotesessionLook() {
 </Colxx>
 <Colxx xs="12" md="6">
     
-    <div className="mind-icons">
+    {/* <div className="mind-icons">
                     <div className="glyph" style={{boxShadow:'rgba(149, 157, 165, 0.2) 0px 8px 24px',height:'min-content',width:'min-content'}}>
               <div className={`glyph-icon ${iconsmind[28].icons[8]}`} />
               {/* <div className="class-name">{icon}</div> */}
-            </div>
+            {/* </div>
             
-</div>
-    
+</div>  */}
+<Row >
+  <Colxx xxs="12" sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon`} />
+  <div className="class-name">Video</div>
+  </Colxx>
+<Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+<div className={`glyph-icon ${simplelineicons[151]} mr-2 sessionlookicon`} />
+<div className="class-name">Embedded</div>
 
+
+</Colxx>
+<Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+
+<div className={`glyph-icon ${simplelineicons[157]} mr-2 sessionlookicon`} />
+<div className="class-name">PDF</div>
+
+</Colxx>
+<Colxx xxs="12" sm="6" lg="3" >
+  <div className="iconcolumn">
+  <div className={`glyph-icon ${iconsmind[28].icons[7]} sessionlookicon`} />
+  <div className="class-name">Live</div>
+  </div>
+  </Colxx>
+</Row>
 </Colxx>
 
 </Row>
+</CardBody>
+<Button mode="filled" color="primary" style={{maxWidth:"200px"}}>Add lesson</Button>
+</Card>
+
+<Button mode="filled" color="secondary" style={{maxWidth:"200px"}} className="mt-4">Add Chapter</Button>
+
 </Card>
     </CardBody>
 </Card>

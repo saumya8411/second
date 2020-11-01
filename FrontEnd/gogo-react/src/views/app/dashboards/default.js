@@ -47,13 +47,13 @@ const DefaultDashboard = ({ intl, match }) => {
       <Row>
       <Colxx xxs="12">
       <TabularData/>
-     <OndemandSession />
+     {/* <OndemandSession />
        <SessionInput/>
       <RemotesessionLook/>
       <Emailcommunicationfunction/>
       <CreateSessions/>
       <Remotelook/>
-      <Themepage/>
+      <Themepage/> */}
       </Colxx>
       </Row>{/* <Row>
         <Colxx lg="4" md="12" className="mb-4">

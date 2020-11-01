@@ -39,7 +39,7 @@ function SessionInput() {
                         setActiveFirstTab('1');
                       }}
                     >
-                      Remote Session
+                      Live Session
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -54,7 +54,7 @@ function SessionInput() {
                         setActiveFirstTab('2');
                       }}
                     >
-                      OnDemand Session
+                      Recorded Session
                     </NavLink>
                   </NavItem>
                  

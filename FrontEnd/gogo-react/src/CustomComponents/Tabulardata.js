@@ -7,7 +7,10 @@ import products from '../data/products';
 import DatatablePagination from '../components/DatatablePagination';
 import CreateSession from './CreateSessions';
 import Library from './Library';
-
+import './Customcss.css'
+import PopoverItem from '../components/common/PopoverItem';
+import { Link } from 'react-router-dom';
+import { adminRoot } from '../constants/defaultValues';
 
 function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
     const {
@@ -31,11 +34,17 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
       useSortBy,
       usePagination
     );
-  
+  console.log(getTableBodyProps,"gettable------body----props")
+  console.log(getTableProps,"gettable------props")
+  console.log(prepareRow,"prepare------row")
+  console.log(page,"----------------page")
+  const clickHandlerTable = (props) =>{
+    console.log(props)
+  }
     return (
       <>
         <table
-        style={{maxWidth:'1000px'}}
+        style={{margin:'0 auto'}}
           {...getTableProps()}
           className={`r-table table ${classnames({ 'table-divided': divided })}`}
         >
@@ -68,6 +77,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
           </thead>
    */}
           <tbody {...getTableBodyProps()}>
+            <Link to={`${adminRoot}/sessiondetail`}>
             {page.map((row) => {
               prepareRow(row);
               return (
@@ -79,20 +89,24 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
                         className: cell.column.cellClass,
                       })}
                     >
+                      
                       {cell.render('Cell')}
-                    {cellIndex===3?"  registrants":""}
+                    {cellIndex===4?"  registrants":""}
                     {cellIndex===1?"  INR":""}
                     </td>
                   ))}
-                  <td>
-                  <Button color="light">
+                  <td >
+                    <div style={{display:"flex",alignItems:"center"}}>
+                  <Button color="light" onClick={()=>clickHandlerTable(row.id)} className="mr-3">
                     Launch
                   </Button>
+                  <PopoverItem id={row.id}/>
+                  </div>
                 </td>
                 </tr>
               );
             })}
-          </tbody>
+        </Link>  </tbody>
         </table>
   
         <DatatablePagination
@@ -129,6 +143,12 @@ export const TabularData = () => {
           Cell: (props) => <>{props.value}</>,
         },
         {
+          Header: 'Tags',
+          accessor: 'tags',
+          cellClass: 'text-muted  w-20',
+          Cell: (props) => <>{props.value}</>,
+        },
+        {
           Header: 'Published Date',
           accessor: 'date',
           cellClass: 'text-muted  w-20',
@@ -137,16 +157,15 @@ export const TabularData = () => {
         {
           Header: 'Registrations',
           accessor: 'registrations',
-          cellClass: 'text-muted  w-40',
+          cellClass: 'text-muted  w-20',
           Cell: (props) => <>{props.value}</>,
         },
       ],
       []
     );
     return (
-      <div className="mb-4" style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+      <div className="mb-4">
          {products.length>0?(<Table columns={cols} data={products} divided  />):(<CreateSession/>)} 
-         <Library/>
       </div>
     );
   };

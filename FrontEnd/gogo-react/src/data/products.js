@@ -34,7 +34,7 @@ const produtcs = [
     type: 'On-Demand',
     date: '26-Nov-2020',
     status: 'ON HOLD',
-    trainername: 'Joe',
+    tags: 'Joe',
     description: 'Wedding cake with flowers Macarons and blueberries',
     fee: 500,
     registrations:20
@@ -46,7 +46,7 @@ const produtcs = [
     type: 'On-Demand',
     date: '26-Dec-2020',
     status: 'ON HOLD',
-    trainername: 'Joe',
+    tags: 'Joe',
     description: 'Wedding cake with flowers Macarons and blueberries',
     fee: 700,
     registrations:30
@@ -58,7 +58,7 @@ const produtcs = [
     type: 'On-Demand',
     date: '26-Dec-2020',
     status: 'ON HOLD',
-    trainername: 'Joe',
+    tags: 'Joe',
     description: 'Wedding cake with flowers Macarons and blueberries',
     fee: 1000,
     registrations:10
@@ -71,7 +71,7 @@ const produtcs = [
     type: 'On-Demand',
     date: '19-Nov-2020',
     status: 'ON HOLD',
-    trainername: 'Joe',
+    tags: 'Joe',
     description: 'Wedding cake with flowers Macarons and blueberries',
     fee: 2000,
     registrations:40
