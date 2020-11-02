@@ -1,24 +1,13 @@
 const router = require('express').Router();
 const mysql = require('mysql');
+const auth = require('../../middleware/deepakAuth')
 
 //Connecting to database
-let connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '',
-    database : 'oyesters'
-  });
-   
-  connection.connect(err => {
-      if(err){
-          throw err;
-      }
-      console.log("MYSQL Connected")
-  });
+const connection = require('../../db/sql')
 
 // To fetch all the data related to that customer
 //i.e. all material 
-router.get('/' , async (req,res) => {
+router.get('/',auth,async (req,res) => {
 
     try{
         //Fetch User Specific Data 
@@ -29,7 +18,7 @@ router.get('/' , async (req,res) => {
             console.log('RAN successfully') 
             res.status(200).json({
                 result
-            });
+            })
         })
 
     }
@@ -41,7 +30,7 @@ router.get('/' , async (req,res) => {
 })
 
 //To fetch all the data where type = video
-router.get('/videos' , async (req,res) => {
+router.get('/videos' ,auth, async (req,res) => {
     try{
         let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='video' AND CUSTOMER_ID = ${req.user.customer_id} `;
 
@@ -61,7 +50,7 @@ router.get('/videos' , async (req,res) => {
 
 
 //To fetch all the data where type = recording
-router.get('/recordings' , async (req,res) => {
+router.get('/recordings' ,auth, async (req,res) => {
     try{
         let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='recording' AND CUSTOMER_ID = ${req.user.customer_id} `;
 
@@ -80,7 +69,7 @@ router.get('/recordings' , async (req,res) => {
 })
 
 //To fetch all the data where type = assignment
-router.get('/assignments' , async (req,res) => {
+router.get('/assignments' ,auth, async (req,res) => {
     try{
         let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='assignment' AND CUSTOMER_ID = ${req.user.customer_id} `;
 
@@ -99,7 +88,7 @@ router.get('/assignments' , async (req,res) => {
 })
 
 //To fetch all the data where type = quiz
-router.get('/quizs' , async (req,res) => {
+router.get('/quizs' ,auth, async (req,res) => {
     try{
         let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='quiz' AND CUSTOMER_ID = ${req.user.customer_id} `;
 
@@ -119,7 +108,7 @@ router.get('/quizs' , async (req,res) => {
 
 
 //To fetch all the data where type = handout
-router.get('/handouts' , async (req,res) => {
+router.get('/handouts' ,auth, async (req,res) => {
     try{
         let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='handout' AND CUSTOMER_ID = ${req.user.customer_id} `;
 
@@ -141,7 +130,7 @@ router.get('/handouts' , async (req,res) => {
 
 
 //To search Particular fileName
-router.post('/search' , async (req,res) => {
+router.post('/search' ,auth, async (req,res) => {
     try{
         const searchInput = req.body.searchInput;
         console.log(searchInput);
@@ -163,7 +152,7 @@ router.post('/search' , async (req,res) => {
 
 
 //To delete a particular item
-router.delete('/:id' , async (req,res) => {
+router.delete('/:id' ,auth, async (req,res) => {
     try{
        
         let sql = `DELETE FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_ID = ${req.params.id} AND CUSTOMER_ID = ${req.user.customer_id} `;
@@ -184,7 +173,7 @@ router.delete('/:id' , async (req,res) => {
 })
 
 //To download 
-router.get('/download/:id' , async (req,res) => {
+router.get('/download/:id',auth , async (req,res) => {
     try{
 
         // let libraryContent = await  Library.find({ library_item_id:req.params.id });

@@ -1,10 +1,7 @@
 const app = require('./app')
-const morgan = require('morgan');
-const port = process.env.PORT 
-
-app.use(morgan('dev'));
+const PORT = process.env.PORT 
 
 
-app.listen(port, () => {
-    console.log('Server is up on port ' + port)
+app.listen(PORT, () => {
+    console.log('Server is up on port ' + PORT)
 })
