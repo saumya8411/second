@@ -27,9 +27,9 @@ import img from './bebinca-thumb.jpg'
 
 
 function Emailcommunicationfunction() {
-const [mailonSignup, setMailonSignup] = useState(true);
-const [accountverification, setAccountverification] = useState(true);
-const [purchaseEmail, setPurchaseEmail] = useState(true);
+const [mailonSignup, setMailonSignup] = useState(false);
+const [accountverification, setAccountverification] = useState(false);
+const [purchaseEmail, setPurchaseEmail] = useState(false);
 const [accountverificationtheme, setAccountverificationtheme] = useState('1');
 const [purchaseemailtheme, setPurchaseemailtheme] = useState('1');
 const [mailonsignuptheme, setMailonsignuptheme] = useState('1');

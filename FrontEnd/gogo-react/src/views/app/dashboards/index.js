@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 // import { ProtectedRoute, UserRole } from '../../../helpers/authHelper';
+import Breadcrumb from '../../../containers/navs/Breadcrumb';
 
 const DashboardDefault = React.lazy(() =>
   import(/* webpackChunkName: "dashboard-default" */ './default')
@@ -16,6 +17,9 @@ const EcommerceDefault = React.lazy(() =>
 );
 
 const Dashboards = ({ match }) => (
+  <>
+  {console.log(match)}
+<h1>{match.path.split("/")[2].toUpperCase()}</h1>
   <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />
@@ -61,5 +65,6 @@ const Dashboards = ({ match }) => (
       <Redirect to="/error" />
     </Switch>
   </Suspense>
+  </>
 );
 export default Dashboards;

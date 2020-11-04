@@ -13,14 +13,16 @@ import './Customcss.css'
 const selectFilters = [
     { label: 'All Sessions', value: 'all-sessions', key: 0 },
     { label: 'Live Sessions', value: 'live-sessions', key: 1 },
-    { label: 'On Demand Sessions', value: 'on-demand-sessions', key: 2 },
-    { label: 'Post Sessions', value: 'post-sessions', key: 3},
+    { label: 'Recorded Sessions', value: 'Record-sessions', key: 2 },
+    { label: 'Launched', value: 'launched', key: 3},
+    {label:'Yet to Launch',value: 'yet-to-launch', key: 4}
 ];
   
   const selectSort = [
-    { label: 'Time', value: 'time', key: 0 },
-    { label: 'Date Posted', value: 'posted', key: 1 },
-    { label: 'Most Seen', value: 'seen', key: 2 }
+    { label: 'date', value: 'date', key: 0 },
+    { label: 'Name', value: 'name', key: 1 },
+    { label: 'Fees', value: 'fees', key: 2 },
+    { label: 'Registration', value: 'registration', key: 3 }
   ]
   
 
@@ -114,7 +116,7 @@ const CustomSelect = ({intl}) =>{
     return(
         <>
         <Row>
-        <div>
+        <div style={{display:'flex',alignItems:'center'}}>
         <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
                 <input 
                 style={{minHeight:"38px",position:'relative'}}
@@ -135,7 +137,6 @@ const CustomSelect = ({intl}) =>{
           name="form-field-name"
           value={selectedFilter}
           onChange={setSelectedFilter}
-          defaultInputValue="All Sessions"
           options={selectFilters}
            />
 </Colxx>
@@ -148,12 +149,11 @@ const CustomSelect = ({intl}) =>{
           name="form-field-name"
           value={selectedSort}
           onChange={setSelectedSort}
-          defaultInputValue="Time"
           options={selectSort}
         />
 </Colxx>
 <Colxx xxs="12" md="3" style={{right:'0',position:'absolute'}}>
-<Button color="primary" className="mb-2">
+<Button color="primary" className="mb-2 p-3">
                 Create Session
               </Button>
 </Colxx>

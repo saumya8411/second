@@ -11,6 +11,12 @@ const Dashboards = React.lazy(() =>
 const Pages = React.lazy(() =>
   import(/* webpackChunkName: "pages" */ '../../CustomComponents/Library')
 );
+const LiveSession = React.lazy(() =>
+  import(/* webpackChunkName: "pages" */ '../../CustomComponents/Remotelook')
+);
+const RecordedSession = React.lazy(() =>
+  import(/* webpackChunkName: "pages" */ '../../CustomComponents/RemotesessionLook')
+);
 const Applications = React.lazy(() =>
   import(/* webpackChunkName: "applications" */ './applications')
 );
@@ -31,10 +37,10 @@ const App = ({ match }) => {
             <Redirect
               exact
               from={`${match.url}/`}
-              to={`${match.url}/dashboards`}
+              to={`${match.url}/dashboard`}
             />
             <Route
-              path={`${match.url}/dashboards`}
+              path={`${match.url}/dashboard`}
               render={(props) => <Dashboards {...props} />}
             />
             <Route
@@ -49,6 +55,14 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/library`}
               render={(props) => <Pages {...props} />}
+            />
+            <Route
+              path={`${match.url}/livesession`}
+              render={(props) => <LiveSession {...props} />}
+            />
+            <Route
+              path={`${match.url}/recordedsession`}
+              render={(props) => <RecordedSession {...props} />}
             />
             <Route
               path={`${match.url}/communication`}

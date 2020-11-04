@@ -1,37 +1,48 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Colxx, Separator } from '../components/common/CustomBootstrap';
 import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input, Col} from 'reactstrap';
 import './Customcss.css';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
-import Editable from './Editable';
-  
+import produtcs from '../data/products';
 
-function RemotesessionLook() {
+import Editable from './Editable';
+
+function RemotesessionLook(props) {
       const [multiplechapters, setMultiplechapters] = useState(true);
-      const [multiplethumbnails, setMultiplethumbnails] = useState(true);
+      const [enabletimline,setTimeline] = useState(true);
       const [conclusion, setConclusion] = useState("");
       const [chapername, onChapternameChange] = useState("First Chapter");
       const [lessonname, onLessonnameChange] = useState("");
       const [description, onDescriptionChange] = useState("My Description");
       const [tagline, onTaglineChange] = useState("My Tagline");
+      const {uniquesessionid} = props.location.state;
+      const [data,setData] = useState(produtcs[uniquesessionid-1]);
 
-       
+
+useEffect(() => {
+  //call your data from backend with uniquesessionid and store in data
+  //setData(result);
+  return () => {
+      //do what you want you do when component unmounts
+
+  }
+}, [data])
     return (
         <section>
       <Card className="p-4 mb-3">
           <CardBody>
             <Row>
      <Colxx md="9" sm="12">
-                <Row >
+                <Row>
             <nav>
                 <ul className="d-flex">
-                    <li>
-                         <h3>Session Name</h3>
+                    <li style={{display:'flex',alignItems:'center'}}>
+    <h3>{data.title}</h3>
                     </li>
                     <li className="marking">
-                        <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>Session Type</span>
+    <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>{data.type}</span>
                     </li>
                 </ul>
             </nav>
@@ -41,7 +52,7 @@ function RemotesessionLook() {
                 <ul className="d-flex">
                   
                     <li>
-                         <span>Date</span>
+    <span>{data.type}</span>
                     </li>
                     <li className="marking">
                         <span>Time</span>
@@ -52,7 +63,7 @@ function RemotesessionLook() {
 </Row>
 </Colxx>
 <Colxx md="3" sm="12">
-  <Button outline color="secondary">
+  <Button outline color="secondary" style={{fontSize:'1.3rem'}}>
     Launch
   </Button>
 </Colxx>
@@ -99,7 +110,7 @@ function RemotesessionLook() {
               <h3>Description</h3>
               {/* <p>Description is here</p> */}
               <Editable
-      text={description}
+      text={data.description}
       placeholder="Write a good description"
       type="input"
     >
@@ -144,7 +155,8 @@ function RemotesessionLook() {
                         </ul>
                     </Colxx>
                     <Colxx md="4" sm="12" className="marking cardseparations">
-                        <h5>Edit Profile</h5>
+                    <Button outline color="secondary" style={{width:'max-content',height:'min-content',fontSize:'1.1rem'}}>Edit Profile</Button>
+
                     </Colxx>
                     
                 </Row>
@@ -153,51 +165,37 @@ function RemotesessionLook() {
 
               </CardBody>
               </Card>
-<Card className="p-4 mb-3">
-          <CardBody>
-            <Row>
-     <Colxx md="6" sm="12">
-     <Row style={{marginBottom:'20px'}}>
-          <Colxx xxs='12' md="4">
-              <h3>List Of Occurance</h3>
-              <p>Occurance is here</p>
-          </Colxx>
-          
-</Row> 
-</Colxx>  
-          
-</Row>  
-</CardBody>
-</Card> 
+ 
 
 
 <Card className="p-4 mb-3">
     <Row>
-        <Colxx xs="12" sm="6">
+        <Colxx xxs="12" xs="6">
     <CardTitle>Session Material</CardTitle>
     </Colxx>
-    <Colxx xs="12" sm="6" >
-        <div className="d-flex justify-content-around" style={{maxWidth:'400px'}}>
-    <FormGroup className="error-l-100">
+    <Colxx xxs="12" xs="6" >
+    {/* <FormGroup className="error-l-100">
                   <Label>Multiple Chapters: </Label>
                   <Switch
               className="custom-switch custom-switch-secondary custom-switch-small"
               checked={multiplechapters}
               onChange={(secondary) => setMultiplechapters(secondary)}
             />
-                  </FormGroup>
+                  </FormGroup> */}
+                <Row>
+                  <Colxx xs="12" sm="4">
                   <FormGroup className="error-l-100">
-                  <Label>Multiple Thumbnails: </Label>
+                  <Label>Enable Timeline: </Label>
                   <Switch
               className="custom-switch custom-switch-secondary custom-switch-small"
-              checked={multiplethumbnails}
-              onChange={(secondary) => setMultiplethumbnails(secondary)}
+              checked={enabletimline}
+              onChange={(secondary) => setTimeline(secondary)}
             />
                   </FormGroup>
-                  <Button outline color="secondary" className="mb-2">
+                  </Colxx>  <Colxx xs="12" sm="8">  <Button outline color="secondary" className="mb-2">
                 Preview
               </Button>
-                  </div>
+              </Colxx> </Row>
     </Colxx>
     </Row>
    

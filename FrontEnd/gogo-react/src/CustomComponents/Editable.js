@@ -15,7 +15,7 @@ function Editable({
 
 // Event handler while pressing any key while editing
   const handleKeyDown = (event, type) => {
-    // Handle when key is pressed
+    // console.log(event,type)
   };
 
 /*

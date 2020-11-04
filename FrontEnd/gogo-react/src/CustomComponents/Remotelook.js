@@ -1,14 +1,38 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Colxx, Separator } from '../components/common/CustomBootstrap';
 import {Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input, Col,Form} from 'reactstrap';
 import './Customcss.css';
 import { func } from 'prop-types';
+import produtcs from '../data/products';
 // import Switch from 'rc-switch';
 // import {iconsmind} from '../data/icons'
 // import 'rc-switch/assets/index.css';
 
+const Remotelook = (props) =>{
+    const {uniquesessionid} = props.location.state;
+     console.log(props.location)
+    console.log(uniquesessionid)
+    const [data,setData] = useState(produtcs[uniquesessionid-1]);
+console.log(data,produtcs)
+    useEffect(() => {
+        //call your data from backend with uniquesessionid and store in data
+        //setData(result);
+        return () => {
+            //do what you want you do when component unmounts
 
-const Remotelook = () =>{
+        }
+    }, [data])
+
+    const fileUploadButton = () => {
+        document.getElementById('fileButton').click();
+        document.getElementById('fileButton').onchange = () =>{      
+        this.setState({
+            fileUploadState:document.getElementById('fileButton').value
+                });
+            }
+        }
+
+
     return(
         <section>
       <Card className="p-4 mb-3">
@@ -18,11 +42,11 @@ const Remotelook = () =>{
                 <Row >
             <nav>
                 <ul className="d-flex">
-                    <li>
-                         <h3>Session Name</h3>
+                    <li className="d-flex align-items-center">
+                         <h3 style={{marginBottom:'0'}}>{data.title}</h3>
                     </li>
-                    <li className="marking">
-                        <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>Session Type</span>
+                    <li className="d-flex align-items-center marking">
+    <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>{data.type}</span>
                     </li>
                 </ul>
             </nav>
@@ -31,8 +55,8 @@ const Remotelook = () =>{
             <nav>
                 <ul className="d-flex">
                   
-                    <li>
-                         <span>Date</span>
+                    <li className="d-flex align-items-center">
+    <span>{data.date}</span>
                     </li>
                     <li className="marking">
                         <span>Time</span>
@@ -45,14 +69,14 @@ const Remotelook = () =>{
             <nav>
                 <ul className="d-flex">
                   
-                    <li>
-                        <h6> <a href="" style={{cursor:'pointer'}}>Link</a></h6>
+                    <li className="d-flex align-items-center">
+    <h6 className="mb-0"> <a href="" style={{cursor:'pointer'}}>{data.link?data.link:"there is no link in database"}</a></h6>
                     </li>
-                    <li className="marking">
-                        <p><span>Code</span></p>
+                    <li className="marking d-flex align-items-center">
+                        <p className="mb-0" style={{marginBottom:0}}><span>Code</span></p>
                     </li>
-                    <li className="marking">
-                      <p>  <span>Password</span></p>
+                    <li className="marking d-flex align-items-center">
+                      <p style={{marginBottom:0}} className="mb-0">  <span>Password</span></p>
                     </li>
                     
                 </ul>
@@ -60,7 +84,7 @@ const Remotelook = () =>{
 </Row>
 </Colxx>
 <Colxx md="3" sm="12">
-    <Button outline color="secondary">Launch</Button>
+    <Button outline color="secondary" style={{fontSize:'1.3rem'}}>Launch</Button>
 </Colxx>
 </Row>
 </CardBody>
@@ -79,7 +103,7 @@ const Remotelook = () =>{
      <Row style={{marginBottom:'20px'}}>
           <Colxx xxs='12' md="4">
               <h3>Description</h3>
-              <p>Description is here</p>
+    <p>{data.description}</p>
           </Colxx>
           
 </Row>
@@ -108,7 +132,7 @@ const Remotelook = () =>{
                         </ul>
                     </Colxx>
                     <Colxx md="4" sm="12" className="cardseparations">
-                        <Button outline color="secondary" style={{width:'max-content',height:'min-content'}}>Edit Profile</Button>
+                        <Button outline color="secondary" style={{width:'max-content',height:'min-content',fontSize:'1.1rem'}}>Edit Profile</Button>
                     </Colxx>
                     
                 </Row>
@@ -142,7 +166,19 @@ const Remotelook = () =>{
               <h3>Session Material</h3>
               <Row style={{width:'100%'}}>
                   <Colxx xxs="12" sm="4">
-              <Button color="secondary" type="file" className="mb-2">Upload</Button></Colxx>
+                  
+<Input id="fileButton" type="file" hidden />
+<Button onClick={fileUploadButton}>
+    Upload
+</Button>
+{/* <Button color="secondary" type="file" className="mb-2" onClick={fileUploadButton}>Upload</Button> */}
+
+{/* {this.state.fileUploadState} */}
+{/* 
+<Input type="file">
+              <Button color="secondary" type="file" className="mb-2">Upload</Button>
+              </Input> */}
+                      </Colxx>
               <Colxx xxs="12" sm="8">
               <Button color="secondary">Pick From Library</Button></Colxx>
               </Row>

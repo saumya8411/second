@@ -12,7 +12,7 @@ import PopoverItem from '../components/common/PopoverItem';
 import { Link } from 'react-router-dom';
 import { adminRoot } from '../constants/defaultValues';
 
-function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
+function Table({ columns, data, divided = false, defaultPageSize = data.length }) {
     const {
       getTableProps,
       getTableBodyProps,
@@ -34,10 +34,10 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
       useSortBy,
       usePagination
     );
-  console.log(getTableBodyProps,"gettable------body----props")
-  console.log(getTableProps,"gettable------props")
-  console.log(prepareRow,"prepare------row")
-  console.log(page,"----------------page")
+  // console.log(getTableBodyProps,"gettable------body----props")
+  // console.log(getTableProps,"gettable------props")
+  // console.log(prepareRow,"prepare------row")
+  // console.log(page,"----------------page")
   const clickHandlerTable = (props) =>{
     console.log(props)
   }
@@ -77,27 +77,41 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
           </thead>
    */}
           <tbody {...getTableBodyProps()}>
-            <Link to={`${adminRoot}/sessiondetail`}>
+            
             {page.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell, cellIndex) => (
-                    <td
+                   
+                   <td
                       key={`td_${cellIndex}`}
                       {...cell.getCellProps({
                         className: cell.column.cellClass,
                       })}
                     >
-                      
-                      {cell.render('Cell')}
+
+{cellIndex===0?(
+  <Link to={{
+  pathname: row.original.type==="Recorded"?`${adminRoot}/recordedsession`:`${adminRoot}/livesession`,
+  state: {
+  uniquesessionid:row.original.id 
+  }
+}}
+>{cell.render('Cell')}</Link>
+
+):cell.render('Cell')}
+                      {row.original.type==="Recorded" && console.log("true it is")}
                     {cellIndex===4?"  registrants":""}
                     {cellIndex===1?"  INR":""}
+                    {cellIndex===0?<p style={{fontSize:'.8rem'}}>{row.original.type}</p>:""}
+                    
                     </td>
+                    
                   ))}
                   <td >
                     <div style={{display:"flex",alignItems:"center"}}>
-                  <Button color="light" onClick={()=>clickHandlerTable(row.id)} className="mr-3">
+                  <Button color="light" onClick={()=>clickHandlerTable(row.id)} className="mr-3" style={{fontSize:'1.2rem'}}>
                     Launch
                   </Button>
                   <PopoverItem id={row.id}/>
@@ -106,10 +120,10 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
                 </tr>
               );
             })}
-        </Link>  </tbody>
+          </tbody>
         </table>
   
-        <DatatablePagination
+        {/* <DatatablePagination
           page={pageIndex}
           pages={pageCount}
           canPrevious={canPreviousPage}
@@ -121,7 +135,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
           onPageChange={(p) => gotoPage(p)}
           onPageSizeChange={(s) => setPageSize(s)}
           paginationMaxSize={pageCount}
-        />
+        /> */}
       </>
     );
   }

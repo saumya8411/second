@@ -35,7 +35,8 @@ const options = [
         { value: 'you', label: 'You' },
         ];
 
-const OndemandSession = () =>{
+const OndemandSession = (props) =>{
+  
   const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true);
   const [tagsLO, setTagsLO] = useState([]);
 
