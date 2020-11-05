@@ -165,20 +165,13 @@ const Login = ({ history, loading, error, loginUserAction }) => {
                 </Form>
               )}
             </Formik>
-         <Row className="mt-4">
-<Colxx xxs="12" sm="4">
+         <Row className="mt-4 d-flex justify-content-center">
+        <div style={{width:'90%'}}>   
          <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3">
          <div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />
 <span>Google</span>
            </Button>
-           </Colxx >
-           <Colxx xxs="12" sm="4">    
-         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3">
-         <div className={`glyph-icon ${simplelineicons[171]} mr-2 `} />
-<span>Facebook</span>
-           </Button>
-
-           </Colxx>         </Row>
+           </div>      </Row>
           </div>
         </Card>
       </Colxx>

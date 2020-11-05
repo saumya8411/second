@@ -23,8 +23,12 @@ const Applications = React.lazy(() =>
 const Ui = React.lazy(() => import(/* webpackChunkName: "ui" */ '../../CustomComponents/EmailCommunicationfunction'));
 const Menu = React.lazy(() => import(/* webpackChunkName: "menu" */ './menu'));
 const BlankPage = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './blank-page')
+);
+const Themepage = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/ThemePage')
 );
+
 const SessionDetail = React.lazy(() =>
 import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/RemotesessionLook')
 );
@@ -37,11 +41,15 @@ const App = ({ match }) => {
             <Redirect
               exact
               from={`${match.url}/`}
-              to={`${match.url}/dashboard`}
+              to={`${match.url}/blankpage`}
             />
             <Route
               path={`${match.url}/dashboard`}
               render={(props) => <Dashboards {...props} />}
+            />
+            <Route
+              path={`${match.url}/blankpage`}
+              render={(props) => <BlankPage {...props} />}
             />
             <Route
               path={`${match.url}/applications`}
@@ -74,7 +82,7 @@ const App = ({ match }) => {
             />
             <Route
               path={`${match.url}/themesetting`}
-              render={(props) => <BlankPage {...props} />}
+              render={(props) => <Themepage {...props} />}
             />
               <Route
               path={`${match.url}/sessiondetail`}

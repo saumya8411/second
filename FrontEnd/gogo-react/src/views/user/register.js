@@ -1,4 +1,6 @@
 import React, { createRef, useState } from "react";
+import {iconsmind,simplelineicons} from '../../data/icons'
+
 import {
   Row,
   Card,
@@ -161,7 +163,13 @@ const Register = ({ history }) => {
               )} 
             </Formik>
          
-         
+            <Row className="mt-4 d-flex justify-content-center">
+        <div style={{width:'90%'}}>   
+         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3">
+         <div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />
+<span>Google</span>
+           </Button>
+           </div>      </Row>
             
          </div>
         </Card> 

@@ -31,7 +31,7 @@ import CreateSessions from '../../../CustomComponents/CreateSessions';
 import Remotelook from '../../../CustomComponents/Remotelook';
 import Emailcommunicationfunction from '../../../CustomComponents/EmailCommunicationfunction';
 import Themepage from '../../../CustomComponents/ThemePage';
-
+import Icons from '../ui/components/icons'
 const DefaultDashboard = ({ intl, match }) => {
   const { messages } = intl;
 
@@ -134,6 +134,7 @@ const DefaultDashboard = ({ intl, match }) => {
           <TopRatedItems />
         </Colxx>
       </Row> */}
+      <Icons/>
     </>
   );
 };

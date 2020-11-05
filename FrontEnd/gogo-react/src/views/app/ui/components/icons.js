@@ -32,8 +32,8 @@ const IconsUi = ({ match }) => {
     <>
       <Row>
         <Colxx xxs="12">
-          <Breadcrumb heading="menu.icons" match={match} />
-          <Separator className="mb-5" />
+          {/* <Breadcrumb heading="menu.icons" match={match} />
+          <Separator className="mb-5" /> */}
         </Colxx>
       </Row>
       <Row>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row,Button,Input } from 'reactstrap';
+import { Row,Button,Input,Modal } from 'reactstrap';
 import Select from 'react-select';
 import CustomSelectInput from '../components/common/CustomSelectInput';
 import { Colxx } from '../components/common/CustomBootstrap';
@@ -9,6 +9,7 @@ import {
   
 } from '../constants/defaultValues';
 import './Customcss.css'
+import SessionInput from './SessionInput';
 
 const selectFilters = [
     { label: 'All Sessions', value: 'all-sessions', key: 0 },
@@ -31,6 +32,7 @@ const CustomSelect = ({intl}) =>{
     const [selectedSort, setSelectedSort] = useState('');
     const [searchKeyword,setSearchKeyword ] = useState('');
     const [search, setSearch] = useState('');
+    const [modalLarge, setModalLarge] = useState(false);
 
     const handleSearchInputKeyPress = (e) => {
       if (e.key === 'Enter') {
@@ -153,9 +155,16 @@ const CustomSelect = ({intl}) =>{
         />
 </Colxx>
 <Colxx xxs="12" md="3" style={{right:'0',position:'absolute'}}>
-<Button color="primary" className="mb-2 p-3">
+<Button color="primary" className="mb-2 p-3" onClick={() => setModalLarge(true)}>
                 Create Session
               </Button>
+              <Modal  
+                  isOpen={modalLarge}
+                  size="lg"
+                  toggle={() => setModalLarge(!modalLarge)}
+                >
+                  <SessionInput/>
+                </Modal>
 </Colxx>
 </Row>        </>
     )
