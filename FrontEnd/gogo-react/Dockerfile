@@ -1,13 +1,16 @@
+#base image
 FROM node:14.15.0-alpine
 
-WORKDIR '/usr/src/app'
+#copy all files from current directory to docker
+COPY . /usr/src/app
 
-COPY .package.json ./
+WORKDIR /usr/src/app
 
+# add `/usr/src/app/node_modules/.bin` to $PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
 RUN npm install
 
-COPY . .
-
-ENV PORT 3000
-
-CMD ["npm","start"]
+# start app
+CMD ["npm", "start"]
