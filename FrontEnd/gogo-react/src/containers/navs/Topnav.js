@@ -11,6 +11,7 @@ import {
   DropdownMenu,
   Input,
 } from 'reactstrap';
+import img from './s0.png'
 
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -208,99 +209,43 @@ const TopNav = ({
         <NavLink
           to="#"
           location={{}}
-          className="menu-button d-none d-md-block"
+          className="menu-button d-none d-lg-block d-sm-none d-xxl-none"
           onClick={(e) =>
             menuButtonClick(e, menuClickCount, containerClassnames)
           }
         >
-          <MenuIcon />
+          <MobileMenuIcon />
         </NavLink>
+
         <NavLink
           to="#"
           location={{}}
-          className="menu-button-mobile d-xs-block d-sm-block d-md-none"
+          className="menu-button-mobile d-xs-block d-sm-block d-lg-none"
           onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
         >
           <MobileMenuIcon />
         </NavLink>
-
-        <div className="search">
-          <Input
-            name="searchKeyword"
-            id="searchKeyword"
-            placeholder={messages['menu.search']}
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            onKeyPress={(e) => handleSearchInputKeyPress(e)}
-          />
-          <span
-            className="search-icon"
-            onClick={(e) => handleSearchIconClick(e)}
-          >
-            <i className="simple-icon-magnifier" />
+        <div className="ml-3">        
+        {/* <span className="d-none d-xs-block" >
+        Oyster Trainings
+        </span> */}
+        <span className="logo-mobile d-block" style={{width:'160px',height:'50px'}}>
+         <img src={img} style={{width:'100%',height:'100%'}}/>
           </span>
         </div>
-
-        {/* <div className="d-inline-block">
-          <UncontrolledDropdown className="ml-2">
-            <DropdownToggle
-              caret
-              color="light"
-              size="sm"
-              className="language-button"
-            >
-              <span className="name">{locale.toUpperCase()}</span>
-            </DropdownToggle>
-            <DropdownMenu className="mt-3" right>
-              {localeOptions.map((l) => {
-                return (
-                  <DropdownItem
-                    onClick={() => handleChangeLocale(l.id, l.direction)}
-                    key={l.id}
-                  >
-                    {l.name}
-                  </DropdownItem>
-                );
-              })}
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div> */}
-        {/* <div className="position-relative d-none d-none d-lg-inline-block">
-          <a
-            className="btn btn-outline-primary btn-sm ml-2"
-            target="_top"
-            href={buyUrl}
-          >
-            <IntlMessages id="user.buy" />
-          </a>
-        </div> */}
+      
+       
       </div>
-      <NavLink className="navbar-logo" to={adminRoot}>
-        
-        <span className="d-none d-xs-block" >
-        Oyster Trainings
-        </span>
-        <span className="logo-mobile d-block d-xs-none" />
-      </NavLink>
 
       <div className="navbar-right">
+    <div className="d-inline-block">
+    <p className="name mr-1">Enable dark mode</p>
         {isDarkSwitchActive && <TopnavDarkSwitch />}
-        <div className="header-icons d-inline-block align-middle">
-          <TopnavEasyAccess />
-          <TopnavNotifications />
-          <button
-            className="header-icon btn btn-empty d-none d-sm-inline-block"
-            type="button"
-            id="fullScreenButton"
-            onClick={toggleFullScreen}
-          >
-            {isInFullScreen ? (
-              <i className="simple-icon-size-actual d-block" />
-            ) : (
-              <i className="simple-icon-size-fullscreen d-block" />
-            )}
-          </button>
         </div>
+         <div className="header-icons d-inline-block align-middle">
+         
+          <TopnavNotifications />
+         </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">

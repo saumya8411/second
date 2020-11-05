@@ -6,7 +6,7 @@ const data = [
     id: 'dashboards',
     icon: 'iconsminds-shop-4',
     label: 'menu.dashboards',
-    to: `${adminRoot}/dashboards`,
+    to: `${adminRoot}/dashboard`,
     // roles: [UserRole.Admin, UserRole.Editor],
     // subs: [
     //   {
@@ -193,7 +193,7 @@ const data = [
     id: 'sessions',
     icon: 'iconsminds-air-balloon-1',
     label: 'Sessions',
-    to: `${adminRoot}/dashboards`,
+    to: `${adminRoot}/dashboard`,
     // subs: [
     //   {
     //     icon: 'simple-icon-check',

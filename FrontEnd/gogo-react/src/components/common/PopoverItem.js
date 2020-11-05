@@ -22,7 +22,7 @@ const PopoverItem = ({ id, item }) => {
             {/* </div>
             
 </div>  */}
-<div className={`glyph-icon ${simplelineicons[22]}`} onClick={() => setPopoverOpen(true)} id={`popover_${id}`} style={{width:'min-content',cursor:'pointer'}} />
+<div className={`glyph-icon ${simplelineicons[22]}`} onClick={() => setPopoverOpen(true)} id={`popover_${id}`} style={{width:'min-content',cursor:'pointer',fontSize:'1.6rem'}} />
 
       <Popover
         placement={"bottom"}

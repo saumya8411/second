@@ -1,14 +1,14 @@
 const data = [
   {
     img: '/assets/img/profiles/l-2.jpg',
-    title: 'Joisse Kaycee just sent a new comment!',
-    date: '09.04.2018 - 12:45',
+    title: 'Vedant just told to edit this!',
+    date: '1 november 2020',
     id: 1,
   },
   {
     img: '/assets/img/notifications/thumb-1.jpg',
-    title: '1 item is out of stock!',
-    date: '09.04.2018 - 12:45',
+    title: 'Nikhil Found that this data is from data/Notification!',
+    date: '2 november 2020',
     id: 2,
   },
   {

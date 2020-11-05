@@ -29,22 +29,14 @@ const TopnavDarkSwitch = () => {
   };
 
   return (
-    <div className="d-none d-md-inline-block align-middle mr-3">
+    <div className="d-flex justify-content-center align-middle mr-3">
       <Switch
         id="tooltip_switch"
         className="custom-switch custom-switch-primary custom-switch-small"
         checked={switchChecked}
         onChange={changeMode}
       />
-      <Tooltip
-        placement="left"
-        isOpen={tooltipOpen}
-        target="tooltip_switch"
-        toggle={() => setTooltipOpen(!tooltipOpen)}
-      >
-        Dark Mode
-      </Tooltip>
-    </div>
+       </div>
   );
 };
 export default TopnavDarkSwitch;
