@@ -32,6 +32,7 @@ import Remotelook from '../../../CustomComponents/Remotelook';
 import Emailcommunicationfunction from '../../../CustomComponents/EmailCommunicationfunction';
 import Themepage from '../../../CustomComponents/ThemePage';
 import Icons from '../ui/components/icons'
+import SessionMaterial from '../../../CustomComponents/SessionMaterial';
 const DefaultDashboard = ({ intl, match }) => {
   const { messages } = intl;
 
@@ -135,6 +136,7 @@ const DefaultDashboard = ({ intl, match }) => {
         </Colxx>
       </Row> */}
       <Icons/>
+
     </>
   );
 };

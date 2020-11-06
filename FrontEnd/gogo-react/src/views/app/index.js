@@ -15,7 +15,7 @@ const LiveSession = React.lazy(() =>
   import(/* webpackChunkName: "pages" */ '../../CustomComponents/Remotelook')
 );
 const RecordedSession = React.lazy(() =>
-  import(/* webpackChunkName: "pages" */ '../../CustomComponents/RemotesessionLook')
+  import(/* webpackChunkName: "pages" */ '../../CustomComponents/SessionMaterial')
 );
 const Applications = React.lazy(() =>
   import(/* webpackChunkName: "applications" */ './applications')

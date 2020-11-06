@@ -4,6 +4,9 @@ import {Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input, Col,Form} fr
 import './Customcss.css';
 import { func } from 'prop-types';
 import produtcs from '../data/products';
+import {iconsmind,simplelineicons} from '../data/icons'
+import { Link } from 'react-router-dom';
+
 // import Switch from 'rc-switch';
 // import {iconsmind} from '../data/icons'
 // import 'rc-switch/assets/index.css';
@@ -35,6 +38,9 @@ console.log(data,produtcs)
 
     return(
         <section>
+            <Link to="/app/dashboard/default">              
+        <div className={`glyph-icon ${iconsmind[2].icons[42]} sessionlookicon`} style={{fontSize:'3rem'}} />
+        </Link>
       <Card className="p-4 mb-3">
           <CardBody>
             <Row>

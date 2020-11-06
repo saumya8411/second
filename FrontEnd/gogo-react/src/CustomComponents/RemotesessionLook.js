@@ -19,7 +19,17 @@ function RemotesessionLook(props) {
       const [tagline, onTaglineChange] = useState("My Tagline");
       const {uniquesessionid} = props.location.state;
       const [data,setData] = useState(produtcs[uniquesessionid-1]);
-
+      const [sessionMaterial,setSessionMaterial] = useState([{
+        name:"Artificial intelligence basics",
+        lesson:[{
+          name:"xyz",
+          video:"",
+          assignment:"",
+          notes:"",
+          thumbnail:"",
+          quiz:"",
+        }]
+      }]);
 
 useEffect(() => {
   //call your data from backend with uniquesessionid and store in data
@@ -29,6 +39,34 @@ useEffect(() => {
 
   }
 }, [data])
+
+const AddLesson = (props) =>{
+const newarray = sessionMaterial;
+const newlesson = {
+  name:"",
+          video:"",
+          assignment:"",
+          notes:"",
+          thumbnail:"",
+          quiz:"",
+}
+newarray[props].lesson.push(newlesson)
+setSessionMaterial(newarray,console.log(sessionMaterial))
+}
+
+const AddChaper = () =>{
+  
+}
+
+const Changeattribute = (props,index) =>{
+  const newarray = sessionMaterial;
+  const named = props.target.name
+console.log(newarray[index],newarray[index][named],named,)  
+  newarray[index][props.target.name] = props.target.value
+  setSessionMaterial(newarray,console.log(sessionMaterial))
+    
+}
+
     return (
         <section>
       <Card className="p-4 mb-3">
@@ -198,108 +236,171 @@ useEffect(() => {
               </Colxx> </Row>
     </Colxx>
     </Row>
-   
+    <Card className="p-4">
+
     <CardBody>
-<Card className="p-4">
-<Row>
-    <Colxx xs="12" md="6">
-    <Editable
-      text={chapername}
-      placeholder="Write a chapter name"
-      type="input"
-    >
-      <Input
-        type="text"
-        name="chapter"
-        placeholder="Write a chapter name"
-        value={chapername}
-        onChange={e => onChapternameChange(e.target.value)}
-      />
-      {/* <Input 
-       name="task"
-       placeholder="Write a task name"
-    //    value={chapername}
-      onChange={onChapternameChange}/> */}
-    </Editable>
-  
+      {sessionMaterial.map((item,index)=>{
+        return(
+          <>
+          <Row>
+          <Colxx xs="12" md="6">
+          <Editable
+            text={item.name}
+            placeholder="Write a chapter name"
+            type="input"
+          >
+            <Input
+              type="text"
+              name="name"
+              placeholder="Write a chapter name"
+              value={item.name}
+              onChange={e => Changeattribute(e,index)}
+            />
+             </Editable>
         
-    </Colxx>
-    <Colxx xs="12" md="6">
-        <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={setConclusion}/>
-    </Colxx>
-</Row>
-<Card className="p-3 mt-4">
-  <CardBody>
-<Row className="mt-4">
-<Colxx xs="12" md="6">
-{/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
-
-<Editable
-      text={lessonname}
-      placeholder="Write a lesson name"
-      type="input"
-    >
-      {/* <input
-        type="text"
-        name="task"
-        placeholder="Write a task name"
-        value={conclusion}
-        onChange={e => setConclusion(e.target.value)}
-      /> */}
-      <Input
-        type="text"
-        name="lesson"
-        placeholder="Write a Lesson name"
-        value={lessonname}
-        onChange={e => onLessonnameChange(e.target.value)}
-      />
-     
-    </Editable>
-
-</Colxx>
-<Colxx xs="12" md="6">
-    
-    {/* <div className="mind-icons">
-                    <div className="glyph" style={{boxShadow:'rgba(149, 157, 165, 0.2) 0px 8px 24px',height:'min-content',width:'min-content'}}>
-              <div className={`glyph-icon ${iconsmind[28].icons[8]}`} />
-              {/* <div className="class-name">{icon}</div> */}
-            {/* </div>
-            
-</div>  */}
-<Row >
-  <Colxx xxs="12" sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon`} />
-  <div className="class-name">Video</div>
-  </Colxx>
-<Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
-<div className={`glyph-icon ${simplelineicons[151]} mr-2 sessionlookicon`} />
-<div className="class-name">Embedded</div>
-
-
-</Colxx>
-<Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
-
-<div className={`glyph-icon ${simplelineicons[157]} mr-2 sessionlookicon`} />
-<div className="class-name">PDF</div>
-
-</Colxx>
-<Colxx xxs="12" sm="6" lg="3" >
-  <div className="iconcolumn">
-  <div className={`glyph-icon ${iconsmind[28].icons[7]} sessionlookicon`} />
-  <div className="class-name">Live</div>
-  </div>
-  </Colxx>
-</Row>
-</Colxx>
-
-</Row>
-</CardBody>
-<Button mode="filled" color="primary" style={{maxWidth:"200px"}}>Add lesson</Button>
-</Card>
-
+              
+          </Colxx>
+          <Colxx xs="12" md="6">
+            <Label>What Will Students Learn After this Chapter</Label>
+              <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={setConclusion}/>
+          </Colxx>
+      </Row>
+      <Card className="p-3 mt-4">
+        <CardBody>
+  {item.lesson.map((lessonitem,lessonindex)=>{
+    return(
+      <>
+      <Row className="mt-4">
+      <Colxx xs="12" md="6">
+      {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
+      
+      <Editable
+            text={lessonitem.name}
+            placeholder="Write a lesson name"
+            type="input"
+          >
+            {/* <input
+              type="text"
+              name="task"
+              placeholder="Write a task name"
+              value={conclusion}
+              onChange={e => setConclusion(e.target.value)}
+            /> */}
+            <Input
+              type="text"
+              name="lesson"
+              placeholder="Write a Lesson name"
+              value={lessonitem.name}
+              onChange={e => onLessonnameChange(e.target.value)}
+            />
+           
+          </Editable>
+      
+      </Colxx>
+      <Colxx xs="12" md="6">
+          
+         <Row>
+        <Colxx xxs="12" sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon`} />
+        <div className="class-name">Video</div>
+        </Colxx>
+      <Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+      <div className={`glyph-icon ${simplelineicons[151]} mr-2 sessionlookicon`} />
+      <div className="class-name">Embedded</div>
+      
+      
+      </Colxx>
+      <Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+      
+      <div className={`glyph-icon ${simplelineicons[157]} mr-2 sessionlookicon`} />
+      <div className="class-name">PDF</div>
+      
+      </Colxx>
+      <Colxx xxs="12" sm="6" lg="3" >
+        <div className="iconcolumn">
+        <div className={`glyph-icon ${iconsmind[28].icons[7]} sessionlookicon`} />
+        <div className="class-name">Live</div>
+        </div>
+        </Colxx>
+      </Row>
+      </Colxx>
+      
+      </Row>
+      
+      </>
+    )
+  })}
+      <Row className="mt-4">
+      <Colxx xs="12" md="6">
+      {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
+      
+      <Editable
+            text={lessonname}
+            placeholder="Write a lesson name"
+            type="input"
+          >
+            {/* <input
+              type="text"
+              name="task"
+              placeholder="Write a task name"
+              value={conclusion}
+              onChange={e => setConclusion(e.target.value)}
+            /> */}
+            <Input
+              type="text"
+              name="lesson"
+              placeholder="Write a Lesson name"
+              value={lessonname}
+              onChange={e => onLessonnameChange(e.target.value)}
+            />
+           
+          </Editable>
+      
+      </Colxx>
+      <Colxx xs="12" md="6">
+          
+          {/* <div className="mind-icons">
+                          <div className="glyph" style={{boxShadow:'rgba(149, 157, 165, 0.2) 0px 8px 24px',height:'min-content',width:'min-content'}}>
+                    <div className={`glyph-icon ${iconsmind[28].icons[8]}`} />
+                    {/* <div className="class-name">{icon}</div> */}
+                  {/* </div>
+                  
+      </div>  */}
+      <Row >
+        <Colxx xxs="12" sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon`} />
+        <div className="class-name">Video</div>
+        </Colxx>
+      <Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+      <div className={`glyph-icon ${simplelineicons[151]} mr-2 sessionlookicon`} />
+      <div className="class-name">Embedded</div>
+      
+      
+      </Colxx>
+      <Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+      
+      <div className={`glyph-icon ${simplelineicons[157]} mr-2 sessionlookicon`} />
+      <div className="class-name">PDF</div>
+      
+      </Colxx>
+      <Colxx xxs="12" sm="6" lg="3" >
+        <div className="iconcolumn">
+        <div className={`glyph-icon ${iconsmind[28].icons[7]} sessionlookicon`} />
+        <div className="class-name">Live</div>
+        </div>
+        </Colxx>
+      </Row>
+      </Colxx>
+      
+      </Row>
+      </CardBody>
+      <Button mode="filled" color="primary" style={{maxWidth:"200px"}} onClick={()=>AddLesson(index)}>Add lesson</Button>
+      </Card>
+      </>
+       
+        )
+      })}
 <Button mode="filled" color="secondary" style={{maxWidth:"200px"}} className="mt-4">Add Chapter</Button>
-
+</CardBody>
 </Card>
-    </CardBody>
 </Card>
           
      </section>

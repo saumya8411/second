@@ -18,30 +18,6 @@ const initialValues = {
     occur:'',
   }
 const CreatesessionSchema = Yup.object().shape({   
-        occur: Yup.array()
-          .min(1, 'select this')
-          .of(
-            Yup.object().shape({
-              label: Yup.string().required(),
-              value: Yup.string().required(),
-            })
-          ),
-          trainer: Yup.array()
-          .min(1, 'select this')
-          .of(
-            Yup.object().shape({
-              label: Yup.string().required(),
-              value: Yup.string().required(),
-            })
-          ),
-          correspondance: Yup.array()
-          .min(1, 'select this')
-          .of(
-            Yup.object().shape({
-              label: Yup.string().required(),
-              value: Yup.string().required(),
-            })
-          ),
         name:Yup.string().required('Name is required!'),
 description:Yup.string().required('Description is required!') ,
 fee:Yup.number().required("Fees is required"),
@@ -184,9 +160,9 @@ const RemoteSession = () =>{
           type="time"
           name="time"
           id="time"
-          value={""}
+          value={time}
           placeholder="Time to start from"
-          onChange={e=>setTime(e.taeget.value)}
+          onChange={e=>setTime(e.target.value)}
         />
               
                   

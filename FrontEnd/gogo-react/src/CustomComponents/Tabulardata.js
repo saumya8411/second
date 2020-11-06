@@ -25,6 +25,7 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
       gotoPage,
       setPageSize,
       state: { pageIndex, pageSize },
+      
     } = useTable(
       {
         columns,

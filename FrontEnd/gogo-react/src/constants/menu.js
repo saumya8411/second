@@ -41,7 +41,7 @@ const data = [
   },
   {
     id: 'lms-theme',
-    icon: 'iconsminds-digital-drawing',
+    icon: 'iconsminds-monitor---phone',
     label: 'Lms theme',
     to: `${adminRoot}/themesetting`,
     // subs: [
@@ -191,7 +191,7 @@ const data = [
   },
   {
     id: 'sessions',
-    icon: 'iconsminds-air-balloon-1',
+    icon: 'simple-icon-earphones-alt',
     label: 'Sessions',
     to: `${adminRoot}/dashboard`,
     // subs: [
@@ -214,7 +214,7 @@ const data = [
   },
   {
     id: 'Communication',
-    icon: '',
+    icon: 'simple-icon-phone',
     label: 'Communication',
     to: `${adminRoot}/communication`,
     // subs: [
@@ -347,7 +347,7 @@ const data = [
   },
   {
     id: 'Library',
-    icon: 'iconsminds-three-arrow-fork',
+    icon: 'iconsminds-library',
     label: 'Library',
     to: `${adminRoot}/library`,
     // subs: [
@@ -382,20 +382,26 @@ const data = [
   },
   {
     id: 'Stats',
-    icon: 'iconsminds-three-arrow-fork',
+    icon: 'iconsminds-statistic',
     label: 'Stats',
     to: `${adminRoot}/stats`,},
     {
       id: 'Paymentdetail',
-      icon: 'iconsminds-three-arrow-fork',
+      icon: 'iconsminds-billing',
       label: 'Payment Details',
       to: `${adminRoot}/library`,},
-  {
-    id: 'blankpage',
-    icon: 'iconsminds-bucket',
-    label: 'menu.blank-page',
-    to: `${adminRoot}/blank-page`,
-  },
+      {
+        id: 'Support',
+        icon: 'iconsminds-support',
+        label: 'Support',
+        to: `${adminRoot}/library`,},
+    
+  //     {
+  //   id: 'blankpage',
+  //   icon: 'iconsminds-bucket',
+  //   label: 'menu.blank-page',
+  //   to: `${adminRoot}/blank-page`,
+  // },
   {
     id: 'docs',
     icon: 'iconsminds-library',
