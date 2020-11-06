@@ -62,8 +62,10 @@ router.post('/users' , async (req,res) => {
 })
 
 router.post('/users/login', async (req, res) => {
+    console.log(req.body);
+
     try {
-        const {customer_email,customer_password} = req.body;
+        const {customer_email,customer_password} = req.body.values;
         
         let sql = `SELECT * FROM CUSTOMER_TABLE WHERE CUSTOMER_EMAIL = '${customer_email}'`;
 
@@ -73,12 +75,14 @@ router.post('/users/login', async (req, res) => {
             }
             console.log('RAN successfully') 
 
-            if(!result){
+            if(result.length==0){
                 return res.status(200).json({
                             success:0,
                             error:"Email not registered",
                         });
             }
+            
+            console.log(result);
 
             //Match Password
             const matchPassword = bcrypt.compareSync(customer_password,result[0].customer_password);

@@ -12,6 +12,7 @@ import { loginUser } from '../../redux/actions';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { adminRoot } from '../../constants/defaultValues';
+import axios from 'axios';
 import axiosInstance from '../../helpers/axiosInstance';
 
 const validatePassword = (value) => {
@@ -34,15 +35,15 @@ const validateEmail = (value) => {
   return error;
 };
 const initialvalue = {
-  email: "",
-  password: ""
+  customer_email: "",
+  customer_password: ""
 };
 
 const validation = Yup.object().shape({
-  password: Yup.string()
+  customer_password: Yup.string()
       .min(8, "Password should have min 8 characters")
       .required("Password is required"),
-      email:Yup.string()
+      customer_email:Yup.string()
       .min(6, "Email should have min 7 characters")
       .required("Email is required"),
 });
@@ -62,10 +63,20 @@ const Login = ({ history, loading, error, loginUserAction }) => {
 
       //Values should have customer_email , customer_password parameter  
       //according to Database
-      axiosInstance.post('/users/login' , {
-        body : values
+      
+      console.log("✅",values);
+      console.log("----------")
+
+      // const tempvalues = JSON.stringify({
+      //   customer_email:values.customer_email,
+      //   customer_password:values.customer_password
+      // });
+    
+      axios.post('http://localhost:5000/users/login' , {
+        values
       })
       .then(response => {
+        console.log(response);
         //Response will be of format
         //For Fail
         // {
@@ -121,7 +132,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/" className="white">
+            <NavLink to="/users/login" method="POST" className="white">
               <span className="logo-single" />
             </NavLink>
             <CardTitle className="mb-4">
@@ -143,12 +154,12 @@ const Login = ({ history, loading, error, loginUserAction }) => {
                     </Label>
                     <Field
                       className="form-control"
-                      name="email"
+                      name="customer_email"
                       
                     />
-                    {errors.email && touched.email ? (
+                    {errors.customer_email && touched.customer_email ? (
                     <div className="invalid-feedback d-block">
-                      {errors.email}
+                      {errors.customer_email}
                     </div>
                   ) : null}
                   </FormGroup>
@@ -159,12 +170,12 @@ const Login = ({ history, loading, error, loginUserAction }) => {
                     <Field
                       className="form-control"
                       type="password"
-                      name="password"
+                      name="customer_password"
                     
                     />
-                    {errors.password && touched.password && (
+                    {errors.customer_password && touched.customer_password && (
                       <div className="invalid-feedback d-block">
-                        {errors.password}
+                        {errors.customer_password}
                       </div>
                     )}
                   </FormGroup>

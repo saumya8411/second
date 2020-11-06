@@ -260,12 +260,12 @@ export const Library = () => {
     
 
     //searchInput is only for library_item_name
-    axiosInstance.post('/search' , {
-                      body : {
-                        searchInput
-                      }
-                  })  
-                  .then(response => {
+    // axiosInstance.post('/search' , {
+    //                   body : {
+    //                     searchInput
+    //                   }
+    //               })  
+    //               .then(response => {
                     //Fail
                     // {
                     //   error : err 
@@ -276,8 +276,8 @@ export const Library = () => {
                     //   result
                     // }
 
-                  })
-                  .catch(err => console.log(err))
+                  // })
+                  // .catch(err => console.log(err))
 
     
     //item id
@@ -313,7 +313,7 @@ export const Library = () => {
     return () => {
 
     }
-  },[input])
+  },[])
 
   return (
     <>
