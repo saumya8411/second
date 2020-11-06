@@ -12,6 +12,8 @@ import { loginUser } from '../../redux/actions';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { adminRoot } from '../../constants/defaultValues';
+import axiosInstance from '../../helpers/axiosInstance';
+import axios from 'axios';
 
 const validatePassword = (value) => {
   let error;
@@ -58,6 +60,16 @@ const Login = ({ history, loading, error, loginUserAction }) => {
   const onUserLogin = (values) => {
     if (!loading) {
       console.log(values)
+
+      axios.post("http://localhost:5000/users/login" , {
+        values
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => console.log(err))
+
+
       history.push(adminRoot)
     }
   };

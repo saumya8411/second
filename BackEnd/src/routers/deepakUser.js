@@ -14,8 +14,9 @@ router.get('/users',auth,(req,res)=>{
 
 //Create a new User
 router.post('/users' , async (req,res) => {
+    console.log(req.body);
     try{
-        let {customer_id,customer_first_name,customer_last_name,customer_email,customer_password,customer_phone_number} = req.body;
+        let {customer_first_name,customer_last_name,customer_email,customer_password,customer_phone_number} = req.body.values;
         
         //Checking if email is already Registered or not
         let sqlCheck = `SELECT * FROM CUSTOMER_TABLE WHERE CUSTOMER_EMAIL='${customer_email}'`;
@@ -34,7 +35,7 @@ router.post('/users' , async (req,res) => {
                 const salt = bcrypt.genSaltSync(10);
                 customer_password = await bcrypt.hashSync(customer_password,salt)
 
-                let sql = `INSERT INTO CUSTOMER_TABLE(CUSTOMER_ID,CUSTOMER_FIRST_NAME,CUSTOMER_LAST_NAME,CUSTOMER_EMAIL,CUSTOMER_PASSWORD,CUSTOMER_PHONE_NUMBER) VALUES(${customer_id},'${customer_first_name}','${customer_last_name}','${customer_email}','${customer_password}','${customer_phone_number}')`;
+                let sql = `INSERT INTO CUSTOMER_TABLE(CUSTOMER_FIRST_NAME,CUSTOMER_LAST_NAME,CUSTOMER_EMAIL,CUSTOMER_PASSWORD,CUSTOMER_PHONE_NUMBER) VALUES('${customer_first_name}','${customer_last_name}','${customer_email}','${customer_password}','${customer_phone_number}')`;
 
                 let query = await connection.query(sql , (err, result) => {
                     if(err) {

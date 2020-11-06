@@ -22,6 +22,7 @@ import { AiOutlineApple } from "react-icons/ai";
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import { adminRoot } from "../../constants/defaultValues";
+import axios from 'axios';
 
 const initialValues = {
   customer_first_name: "",
@@ -68,6 +69,15 @@ const Register = ({ history }) => {
   //make your network request here...if request success make 
   const onSubmit = (values) => {
     console.log(values);
+
+    axios.post('http://localhost:5000/users' , {
+      values
+    })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(err => console.log(err))
+
     history.push("/user/domainregistration")
   };
 
