@@ -22,6 +22,7 @@ import { Formik, Form, Field } from "formik";
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import { adminRoot } from "../../constants/defaultValues";
+import axiosInstance from "../../helpers/axiosInstance";
 
 const initialValues = {
   name: "",
@@ -53,6 +54,26 @@ const Register = ({ history }) => {
   //make your network request here...if request success make 
   const onSubmit = (values) => {
     console.log(values);
+
+    //Values Should have these parameters
+    //customer_id,customer_first_name,customer_last_name,customer_email,customer_password,customer_phone_number
+    axiosInstance.post('/users')
+                  .then(response => {
+                    //For Fail
+                    // {
+                    //   success:0,
+                    //   error:"Email Already Registered"
+                    // }
+
+                    //For Success
+                    // {
+                    //   success:1,
+                    //   message:"User Successfully Created"
+                    // }
+
+                  })
+                  .catch(err => console.log(err))
+
     history.push("/user/domainregistration")
   };
 

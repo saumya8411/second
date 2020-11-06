@@ -27,7 +27,7 @@ router.post('/users' , async (req,res) => {
             if(result.length != 0){
                 return res.status(500).json({
                             success:0,
-                            message:"Email Already Registered"
+                            error:"Email Already Registered"
                         });
             }
             else{
@@ -55,8 +55,8 @@ router.post('/users' , async (req,res) => {
         console.log(err)
         return res.status(500).json({
             success:0,
-            message:"Database connection error",
-            error:err
+            error:"Database connection error",
+            errorReturned:err
         });
     }
 })
@@ -76,7 +76,7 @@ router.post('/users/login', async (req, res) => {
             if(!result){
                 return res.status(200).json({
                             success:0,
-                            message:"Email not registered"
+                            error:"Email not registered",
                         });
             }
 
@@ -86,7 +86,7 @@ router.post('/users/login', async (req, res) => {
             if(!matchPassword){
                 return res.status(200).json({
                     success:0,
-                    message:"Incorrect Email or Password"
+                    error:"Incorrect Email or Password",
                 });
             }
 
@@ -106,8 +106,8 @@ router.post('/users/login', async (req, res) => {
             console.log(err)
             return res.status(500).json({
                 success:0,
-                message:"Database connection error",
-                error:err
+                error:"Database connection error",
+                errorReturned:err
             });
         }
 })

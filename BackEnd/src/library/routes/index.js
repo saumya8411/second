@@ -24,7 +24,9 @@ router.get('/',auth,async (req,res) => {
     }
     catch(err){
         console.log(err)
-        res.status(404).send(err);
+        res.status(500).json({
+            error : err
+        });
     }
 
 })
@@ -44,7 +46,9 @@ router.get('/videos' ,auth, async (req,res) => {
     }
     catch(err){
         console.error(err);
-        res.send(err);
+        res.json({
+            error : err
+        });
     }
 })
 
@@ -64,7 +68,9 @@ router.get('/recordings' ,auth, async (req,res) => {
     }
     catch(err){
         console.error(err);
-        res.send(err);
+        res.json({
+          error : err
+        });
     }
 })
 
@@ -83,7 +89,9 @@ router.get('/assignments' ,auth, async (req,res) => {
     }
     catch(err){
         console.error(err);
-        res.send(err);
+        res.json({
+            error : err
+        });
     }
 })
 
@@ -102,7 +110,9 @@ router.get('/quizs' ,auth, async (req,res) => {
     }
     catch(err){
         console.error(err);
-        res.send(err);
+        res.json({
+           error: err
+        });
     }
 })
 
@@ -124,7 +134,9 @@ router.get('/handouts' ,auth, async (req,res) => {
     }
     catch(err){
         console.error(err);
-        res.send(err);
+        res.json({
+            error : err
+        });
     }
 })
 
@@ -140,13 +152,17 @@ router.post('/search' ,auth, async (req,res) => {
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
             console.log('RAN successfully') 
-            res.status(200).json(result);
+            res.status(200).json({
+                result
+            });
         })
 
     }
     catch(err){
         console.error(err)
-        res.send(err);
+        res.json({
+            error : err
+        });
     }
 })
 
@@ -163,12 +179,18 @@ router.delete('/:id' ,auth, async (req,res) => {
         })
 
         console.log('Deleted ')
-        res.send('Successfuly deleted library content');
+        // res.send('Successfuly deleted library content');
+        res.json({
+            success: 1,
+            message : 'Successfuly deleted library content'
+        })
 
     }
     catch(err){
         console.log(err)
-        res.status(500).send(err)
+        res.status(500).json({
+            error : err
+        })
     }
 })
 
@@ -211,7 +233,9 @@ router.get('/download/:id',auth , async (req,res) => {
     }
     catch(err){
         console.error(err)
-        res.send(err)
+        res.json({
+            error : err
+        })
     }
 })
 

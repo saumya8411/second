@@ -10,6 +10,7 @@ let connection = mysql.createConnection({
    
 connection.connect(err => {
     if(err){
+        console.log(process.env.DB)
         throw err;
     }
     console.log("MYSQL Connected")

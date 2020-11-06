@@ -12,6 +12,7 @@ import { loginUser } from '../../redux/actions';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { adminRoot } from '../../constants/defaultValues';
+import axiosInstance from '../../helpers/axiosInstance';
 
 const validatePassword = (value) => {
   let error;
@@ -58,6 +59,34 @@ const Login = ({ history, loading, error, loginUserAction }) => {
   const onUserLogin = (values) => {
     if (!loading) {
       console.log(values)
+
+      //Values should have customer_email , customer_password parameter  
+      //according to Database
+      axiosInstance.post('/users/login' , {
+        body : values
+      })
+      .then(response => {
+        //Response will be of format
+        //For Fail
+        // {
+        //   success:0,
+        //   error:"Incorrect Email or Password",
+        // }
+
+        //For Success
+        // {
+        //   success:1,
+        //   message:"Login Successful",
+        //   user:result[0],
+        //   token:jwtToken
+        // }
+
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+
       history.push(adminRoot)
     }
   };
