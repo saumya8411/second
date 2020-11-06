@@ -6,10 +6,8 @@ import products from '../data/products';
 import { Colxx } from '../components/common/CustomBootstrap';
 import PopoverItem from '../components/common/PopoverItem';
 import { NavLink } from 'react-router-dom';
-import axiosInstance from '../helpers/axiosInstance';
 
 import DatatablePagination from '../components/DatatablePagination';
-import { useEffect } from 'react';
 const data = [
  {
 name: 'quiz-1',
@@ -166,155 +164,7 @@ export const Library = () => {
     []
   );
   const [activeFirstTab, setActiveFirstTab] = useState('1');
-  const [libraryData, setlibraryData] = useState([]);
 //backend team find a way to sort or filter data via this feature and show in tabs
-  
-  useEffect(() => {
-
-    //To fetch all materials
-    //according to customer_id of the user
-    axiosInstance.get('/')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-                  })
-                  .catch(err => console.log(err))
-
-
-    axiosInstance.get('/videos')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err 
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-                  })
-                  .catch(err => console.log(err))
-
-    axiosInstance.get('/recordings')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err 
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-                  })
-                  .catch(err => console.log(err))
-    
-    axiosInstance.get('/handouts')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err 
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-                  })
-                  .catch(err => console.log(err))
-
-    axiosInstance.get('/quizs')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err 
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-                  })
-                  .catch(err => console.log(err))
-
-    axiosInstance.get('/assignments')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err 
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-                  })
-                  .catch(err => console.log(err))
-    
-
-    //searchInput is only for library_item_name
-    // axiosInstance.post('/search' , {
-    //                   body : {
-    //                     searchInput
-    //                   }
-    //               })  
-    //               .then(response => {
-                    //Fail
-                    // {
-                    //   error : err 
-                    // }
-
-                    //Success
-                    // {
-                    //   result
-                    // }
-
-                  // })
-                  // .catch(err => console.log(err))
-
-    
-    //item id
-    axiosInstance.delete('/:id')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err
-                    // }
-
-                    //Success
-                    // {
-                    //   success: 1,
-                    //   message : 'Successfuly deleted library content'
-                    // }
-
-                  })
-                  .catch(err => console.log(err))
-
-    //item id
-    axiosInstance.get('/download/:id')
-                  .then(response => {
-                    //Fail
-                    // {
-                    //   error : err
-                    // }
-                  })
-                  .catch(err => console.log(err))
-
-
-
-    setlibraryData(data)
-    return () => {
-
-    }
-  },[])
-
   return (
     <>
        <Nav tabs className="card-header-tabs mb-3">

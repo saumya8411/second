@@ -7,9 +7,9 @@ import Breadcrumb from '../../containers/navs/Breadcrumb';
 const BlankPage = ({ match }) => {
   return (
     <>
-      <Row>
+      <Row> 
         <Colxx xxs="12">
-          <Breadcrumb heading="menu.blank-page" match={match} />
+          <Breadcrumb heading="Dashboard" match={match} />
           <Separator className="mb-5" />
         </Colxx>
       </Row>

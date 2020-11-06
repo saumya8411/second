@@ -72,7 +72,7 @@ input[type="radio"] {
     display: none;
   }
 input[type="radio"]:checked + .box {
-    background-color: #007e90;
+    background-color: none;
     padding: 15px 13px; 
 border-radius:12px; }
 input[type="radio"]:checked + .box span {
@@ -105,11 +105,13 @@ input[type="radio"]:checked + .box span:before {
 display: flex;
 
 }
-
-.emailcard:hover .emailtext{
-height: 30px;
-transition: .7s height;
+.inside{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+
 .hiddenbutton{
     color: black !important;
 

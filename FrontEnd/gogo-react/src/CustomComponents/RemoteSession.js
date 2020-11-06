@@ -23,6 +23,13 @@ description:Yup.string().required('Description is required!') ,
 fee:Yup.number().required("Fees is required"),
     
      });
+     const course = [
+       {value : 'Option1', label: 'Option1'},
+       {value : 'Option2', label: 'Option2'},
+       {value : 'Option3', label: 'Option3'},
+       {value : 'Option4', label: 'Option4'},
+       {value : 'Option5', label: 'Option5'}
+     ]
 
 
      const options = [
@@ -47,11 +54,16 @@ fee:Yup.number().required("Fees is required"),
 const RemoteSession = () =>{
     const [startDateRange, setStartDateRange] = useState(new Date());
     const [time, setTime] = useState("");
+    const [days, setDays] = useState(0)
+    const [endDateRange, setEndDateRange] = useState(new Date())
     const [duration, setDuration] = useState("");
 
     // const consolelog = (e) =>{
 //   console.log(e.target.value)
 // }
+const calculateDate = (endDateRange,startDateRange) => {
+  days = setDays(endDateRange - startDateRange)
+}
 
     const onSubmit = (values, { setSubmitting }) => {
         const payload = {
@@ -155,18 +167,17 @@ const RemoteSession = () =>{
                  </Colxx>
                  <Colxx xxs="6">
                  <FormGroup className="error-l-100">
-                  <Label>Time </Label>
-                  <Input
-          type="time"
-          name="time"
-          id="time"
-          value={time}
-          placeholder="Time to start from"
-          onChange={e=>setTime(e.target.value)}
-        />
+                  <Label>End Date </Label>
+                  <DatePicker
+                  selected={endDateRange}
+                  selectsStart
+                  startDate={endDateRange}
+                  onChange={setEndDateRange}
+                  placeholderText={['form-components.start']}
+                />
               
                   
-                </FormGroup>
+                </FormGroup> 
                
                  </Colxx>
                  </Row>   
@@ -186,8 +197,23 @@ const RemoteSession = () =>{
                   
                 </FormGroup>
                 </Colxx>
-                
-                <Colxx xxs="6">              
+                <Colxx xxs="6"> 
+                <FormGroup className="error-l-100">
+                  <Label>Time </Label>
+                  <Input
+          type="time"
+          name="time"
+          id="time"
+          value={time}
+          placeholder="Time to start from"
+          onChange={e=>setTime(e.target.value)}
+        />
+              
+                  
+                </FormGroup>
+                </Colxx> 
+                  </Row>
+                               
                 <FormGroup className="error-l-75">
                   <Label>Fees</Label>
                   <Field className="form-control" name="fee" 
@@ -199,7 +225,23 @@ const RemoteSession = () =>{
                     </div>
                   ) : null}
                 </FormGroup>
-                </Colxx>         </Row>
+                <FormGroup className="error-l-100">
+                  <Label>Associated with any Course </Label>
+                  <FormikReactSelect
+                    name="correspondance"
+                    id="correspondance"
+                    value={values.course}
+                    
+                    options={course}
+                    onChange={setFieldValue}
+                    onBlur={setFieldTouched}
+                  />
+                  {errors.correspondance && touched.correspondance ? (
+                    <div className="invalid-feedback d-block">
+                      {errors.correspondance}
+                    </div>
+                  ) : null}
+                </FormGroup>
                 <FormGroup className="error-l-100">
                   <Label>Correspondance </Label>
                   <FormikReactSelect

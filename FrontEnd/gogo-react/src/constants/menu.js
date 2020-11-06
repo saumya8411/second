@@ -6,7 +6,7 @@ const data = [
     id: 'dashboards',
     icon: 'iconsminds-shop-4',
     label: 'menu.dashboards',
-    to: `${adminRoot}/dashboard`,
+    to: `/app/blankpage`,
     // roles: [UserRole.Admin, UserRole.Editor],
     // subs: [
     //   {

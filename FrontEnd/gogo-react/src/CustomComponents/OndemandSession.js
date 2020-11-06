@@ -1,5 +1,5 @@
 import React,{useRef,useState} from 'react'
-import { Row, Card, CardBody, FormGroup, Label, Button } from 'reactstrap';
+import { Row, Card, CardBody, FormGroup, Label, Button,Input } from 'reactstrap';
 import { Formik, Form, Field } from 'formik';
 import {FormikReactSelect } from '../containers/form-validations/FormikFields';
 import { Colxx } from '../components/common/CustomBootstrap';
@@ -26,7 +26,7 @@ const CreatesessionSchema = Yup.object().shape({
               value: Yup.string().required(),
             })
           ),
-        name:Yup.string().required('Name is required!'),
+        Duration:Yup.string().required('Duration of course is required!'),
 description:Yup.string().required('Description is required!') ,
 fee:Yup.number().required("Fees is required")      
      });
@@ -117,16 +117,11 @@ const OndemandSession = (props) =>{
                     inputProps={{ placeholder: '' }}
                   />
                   </FormGroup>
-                <FormGroup className="error-l-100">
-                  <Label>Do You Want TimeLine: </Label>
-                  <Switch
-              className="custom-switch custom-switch-secondary custom-switch-small"
-              checked={checkedSecondarySmall}
-              onChange={(secondary) => setCheckedSecondarySmall(secondary)}
-            />
-                  </FormGroup>
+
                   <FormGroup className="error-l-75">
-                  <Label>Number of Days</Label>
+                  <Label>Duration of Course(in days)
+                    
+                  </Label>
                   <Field className="form-control" name="name" 
                   disabled={!checkedSecondarySmall}
                   />
@@ -147,7 +142,12 @@ const OndemandSession = (props) =>{
                     </div>
                   ) : null}
                 </FormGroup>
-                
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" />{' '}
+                    Enable Registration for this Session
+                  </Label>
+                </FormGroup>
                
                 <Button color="primary" type="submit">
                   Submit

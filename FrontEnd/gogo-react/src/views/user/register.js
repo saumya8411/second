@@ -1,6 +1,6 @@
 import React, { createRef, useState } from "react";
 import {iconsmind,simplelineicons} from '../../data/icons'
-
+import './auth.css'
 import {
   Row,
   Card,
@@ -18,62 +18,56 @@ import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../redux/actions";
 import { Formik, Form, Field } from "formik";
-
+import { AiOutlineApple } from "react-icons/ai";
 import IntlMessages from "../../helpers/IntlMessages";
 import { Colxx } from "../../components/common/CustomBootstrap";
 import { adminRoot } from "../../constants/defaultValues";
-import axiosInstance from "../../helpers/axiosInstance";
 
 const initialValues = {
-  name: "",
-  email: "",
-  mobile: "",
-  institutename: ""
+  customer_first_name: "",
+  customer_email: "",
+  customer_phone_number: "",
+  customer_last_name: "",
+  customer_password: "",
+  customer_password_confirm: ""
+  //institutename: ""
 };
 
 const validation = Yup.object().shape({
-  name: Yup.string()
+  customer_first_name: Yup.string()
     .min(2, "please enter correct name")
     .max(20, "please enter correct name")
     .required("Name is required"),
-  mobile: Yup.number()
+  customer_phone_number: Yup.number()
     .typeError("Must specify a number")
     .positive("Please enter correct mobile")
     .required("Required")
     .nullable(),
-  email: Yup.string()
+  customer_email: Yup.string()
     .min(7, "Email should be min 7 characters")
     .required("Email is required"),
-  institutename: Yup.string()
-    .min(2, "please enter correct insitute")
-    .max(50, "please enter correct institute")
-    .required("insitute name is required")
+  customer_last_name: Yup.string()
+    .min(2, "please enter correct name")
+    .max(20, "please enter correct name")
+    .required("Name is required"),
+  customer_password: Yup.string()
+  .min(8, "min 8 characters")
+  .max(100, "please enter correct password")
+  .required("Name is required"),
+  customer_password_confirm: Yup.string()
+  .min(8, "min 8 characters")
+  .max(100, "please enter correct password")
+  .required("Name is required"),
+ // institutename: Yup.string()
+  //  .min(2, "please enter correct insitute")
+  //  .max(50, "please enter correct institute")
+  //   .required("insitute name is required")
 });
 const Register = ({ history }) => {
   
   //make your network request here...if request success make 
   const onSubmit = (values) => {
     console.log(values);
-
-    //Values Should have these parameters
-    //customer_id,customer_first_name,customer_last_name,customer_email,customer_password,customer_phone_number
-    axiosInstance.post('/users')
-                  .then(response => {
-                    //For Fail
-                    // {
-                    //   success:0,
-                    //   error:"Email Already Registered"
-                    // }
-
-                    //For Success
-                    // {
-                    //   success:1,
-                    //   message:"User Successfully Created"
-                    // }
-
-                  })
-                  .catch(err => console.log(err))
-
     history.push("/user/domainregistration")
   };
 
@@ -118,66 +112,94 @@ const Register = ({ history }) => {
                 >
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      Name:
+                      Firstname
                     </Label> 
                     <Field
                       className="form-control"
-                      name="name"
+                      name="customer_first_name"
                     /> 
-                    {errors.name && touched.name ? (
+                    {errors.customer_first_name && touched.customer_first_name ? (
                       <div className="invalid-feedback d-block">
-                        {errors.name}
-                      </div>
-                    ) : null}
-                  </FormGroup> 
-                  <FormGroup className="form-group has-float-label">
-                    <Label>
-                      Email:
-                    </Label> 
-                    <Field
-                      className="form-control"
-                      name="email"
-                    /> 
-                    {errors.email && touched.email ? (
-                      <div className="invalid-feedback d-block">
-                        {errors.email}
+                        {errors.customer_first_name}
                       </div>
                     ) : null}
                   </FormGroup>
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      Mobile:
+                      Lastname
                     </Label> 
                     <Field
                       className="form-control"
-                      name="mobile"
+                      name="customer_last_name"
                     /> 
-                    {errors.mobile && touched.mobile ? (
+                    {errors.customer_last_name && touched.customer_last_name ? (
                       <div className="invalid-feedback d-block">
-                        {errors.mobile}
+                        {errors.customer_last_name}
                       </div>
                     ) : null}
                   </FormGroup>
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      Institute Name:
+                      Email
                     </Label> 
                     <Field
                       className="form-control"
-                      name="institutename"
+                      name="customer_email"
                     /> 
-                    {errors.institutename && touched.institutename ? (
+                    {errors.customer_email && touched.customer_email ? (
                       <div className="invalid-feedback d-block">
-                        {errors.institutename}
+                        {errors.customer_email}
                       </div>
                     ) : null}
-                  </FormGroup> 
+                  </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <Label>
+                      Mobile
+                    </Label> 
+                    <Field
+                      className="form-control"
+                      name="customer_phone_number"
+                    /> 
+                    {errors.customer_phone_number && touched.customer_phone_number ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.customer_phone_number}
+                      </div>
+                    ) : null}
+                  </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <Label>
+                      Password
+                    </Label> 
+                    <Field
+                      className="form-control"
+                      name="customer_password" type="password"
+                    /> 
+                    {errors.customer_password && touched.customer_password ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.customer_password}
+                      </div>
+                    ) : null}
+                  </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <Label>
+                      Confirm Password
+                    </Label> 
+                    <Field
+                      className="form-control"
+                      name="customer_password_confirm" type="password"
+                    /> 
+                    {errors.customer_password_confirm && touched.customer_password_confirm ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.customer_password_confirm}
+                      </div>
+                    ) : null}
+                  </FormGroup>
                    <div className="d-flex justify-content-between align-items-center">
                     <NavLink to="/user/login">
-                      Already Have A Account 
+                      Already Registered? 
                     </NavLink> 
-                    <Button color="primary" type="submit">
-                    Register
+                    <Button color="primary" type="submit" className="register">
+                    Next
                   </Button> 
                   </div> 
                 </Form>
@@ -186,9 +208,13 @@ const Register = ({ history }) => {
          
             <Row className="mt-4 d-flex justify-content-center">
         <div style={{width:'90%'}}>   
-         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3">
+         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
          <div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />
-<span>Google</span>
+<span>Register Using Google</span>
+           </Button>
+           <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
+        <AiOutlineApple className="mr-2 apple" />
+<span>Register Using Apple</span>
            </Button>
            </div>      </Row>
             

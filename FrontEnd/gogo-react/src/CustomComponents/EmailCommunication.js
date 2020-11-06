@@ -21,7 +21,7 @@ import Switch from 'rc-switch';
 import './Customcss.css';
 import { useTable, usePagination, useSortBy } from 'react-table';
 // import { handleDOMChanges } from 'react-sortablejs/dist/util';
-
+import img from './bebinca-thumb.jpg'
 
 
 
@@ -57,12 +57,12 @@ this.setState(newarray,console.log(this.state.courses))
     return (
       <div>
 
-      <h3 clas="mb-4">Course Alert</h3> 
-      <Card className="p-4 mb-3">
+      <h1 className="mb-4 heading">Course Alert</h1> 
+      
         {this.state.courses.map((item,index) => {
           return (
             <>
-            <Row key={item.id} className="mb-3">
+            <Row key={item.id} className="mb-3 ml-4">
               <Colxx xxs="3">{item.name}</Colxx>
               <Colxx xxs="3">
                 <FormGroup className="error-l-100">
@@ -85,10 +85,20 @@ this.setState(newarray,console.log(this.state.courses))
             
             </Row>
       {item.status && ( <Row>
-            <Colxx sm="12" md="12">
-            
+            <Colxx sm="6" md="6">
+            <div className="front-end box">
+            <Card
+              className="p-4 mb-3 ml-4 inside"
+              style={{ minWidth: '200px', minHeight: '200px' }}
+            >
+              <CardImg top width="100%" src={img} alt="Theme1 img" className="emailimg" />
+              <CardBody>
+                
+              </CardBody>
+            </Card>
+          </div>
             </Colxx>
-            <Colxx sm="12" md="12">
+            <Colxx sm="6" md="6">
             <p>After how many days of inactivity do you want to notify your user</p>
             <Form>
               <Input type="num" name="notification" onChange={(e)=>{
@@ -98,13 +108,14 @@ this.setState(newarray,console.log(this.state.courses))
                         // changeCourses(newarray)
                         // console.log(courses)
                       }} className="mb-3" />
+              <div className="d-flex justify-content-center"><Button className="">Submit</Button></div>
             </Form>
             </Colxx>
           </Row>
       )}   
           </>);
         })}
-      </Card>
+      
       </div>
     )
   }

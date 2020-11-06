@@ -1,25 +1,35 @@
 import React from 'react'
 import * as Yup from "yup";
 import { Formik, Form, Field} from "formik";
-import {FormGroup,Button,Label,Card,Row,CardTitle } from 'reactstrap'
+import {FormGroup,Button,Label,Card,Row,CardTitle,InputGroupAddon,InputGroup,InputGroupText,Input } from 'reactstrap'
 import { NavLink, Redirect } from "react-router-dom";
 import { Colxx } from "../../components/common/CustomBootstrap";
 
 const initialValues = {
-    name: "",
+    institutename: "",
     subdomain: "",
+    otp_in_mobile: "",
+    otp_in_email:""
   };
 
 
   const validation = Yup.object().shape({
-    name: Yup.string()
-      .min(2, "please enter correct name")
-      .max(20, "please enter correct name")
-      .required("Website Name is required"),
-     subdomain: Yup.string()
+    institutename: Yup.string()
+    .min(2, "please enter correct insitute")
+    .max(50, "please enter correct institute")
+    .required("insitute name is required"),
+    subdomain: Yup.string()
       .min(2, "Subdomain should be min 2 characters")
+      .max(50, "please enter correct subdomian")
       .required("Subdomain is required"),
-    
+    otp_in_mobile: Yup.string()
+    .min(4, "Please Enter valid otp")
+    .max(6, "Please Enter correct otp")
+    .required("OTP is Required"),
+    otp_in_email: Yup.string()
+    .min(4, "Please Enter valid otp")
+    .max(6, "Please Enter correct otp")
+    .required("OTP is Required")
   });
 
 function DomainRegistration({history}) {
@@ -71,32 +81,74 @@ history.push("/app")
                 >
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      Website Name:
+                      institute Name
                     </Label> 
                     <Field
                       className="form-control"
-                      name="name"
-                    /> 
-                    {errors.name && touched.name ? (
+                      name="institutename"/> 
+                    {errors.institutename && touched.institutename ? (
                       <div className="invalid-feedback d-block">
-                        {errors.name}
+                        {errors.institutename}
                       </div>
                     ) : null}
-                  </FormGroup> 
+                  </FormGroup>
                   <FormGroup className="form-group has-float-label">
+                    <InputGroup>
                     <Label>
-                      SubDomain:
+                      SubDomain
                     </Label> 
-                    <Field
-                      className="form-control"
-                      name="subdomain"
-                    /> 
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>https://</InputGroupText>
+                    </InputGroupAddon>
+                    <Field className="form-control"
+                      name="subdomain"/>
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>.oyestershowtime.in</InputGroupText>
+                    </InputGroupAddon>
+                    </InputGroup>
                     {errors.subdomain && touched.subdomain ? (
                       <div className="invalid-feedback d-block">
                         {errors.subdomain}
                       </div>
                     ) : null}
                   </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <Label>
+                      OTP in Mobile
+                    </Label> 
+                    <Field
+                      className="form-control"
+                      name="otp_in_mobile"
+                    />
+                    {errors.otp_in_mobile && touched.otp_in_mobile ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.otp_in_mobile}
+                      </div>
+                    ) : null}
+                  </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <Label>
+                      OTP in Email
+                    </Label> 
+                    <Field
+                      className="form-control"
+                      name="otp_in_email"
+                    /> 
+                    {errors.otp_in_email && touched.otp_in_email ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.otp_in_email}
+                      </div>
+                    ) : null}
+                  </FormGroup> 
+               {/* <FormGroup className="form-group has-float-label">
+                    <Label>
+                      SubDomain
+                    </Label> 
+                    <Field
+                      
+                    /> 
+                    
+                      </FormGroup> */}
                     <Button color="primary" type="submit">
                     Complete Registration
                   </Button> 

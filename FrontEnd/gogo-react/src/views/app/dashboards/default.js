@@ -135,7 +135,7 @@ const DefaultDashboard = ({ intl, match }) => {
           <TopRatedItems />
         </Colxx>
       </Row> */}
-      <Icons/>
+      
 
     </>
   );

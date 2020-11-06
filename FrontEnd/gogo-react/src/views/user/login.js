@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import './auth.css'
 import { Formik, Form, Field } from 'formik';
 import { NotificationManager } from '../../components/common/react-notifications';
 import * as Yup from "yup";
 import {iconsmind,simplelineicons} from '../../data/icons'
-
+import { AiOutlineApple } from "react-icons/ai";
 import { loginUser } from '../../redux/actions';
 import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { adminRoot } from '../../constants/defaultValues';
-import axios from 'axios';
-import axiosInstance from '../../helpers/axiosInstance';
 
 const validatePassword = (value) => {
   let error;
@@ -60,44 +58,6 @@ const Login = ({ history, loading, error, loginUserAction }) => {
   const onUserLogin = (values) => {
     if (!loading) {
       console.log(values)
-
-      //Values should have customer_email , customer_password parameter  
-      //according to Database
-      
-      console.log("✅",values);
-      console.log("----------")
-
-      // const tempvalues = JSON.stringify({
-      //   customer_email:values.customer_email,
-      //   customer_password:values.customer_password
-      // });
-    
-      axios.post('http://localhost:5000/users/login' , {
-        values
-      })
-      .then(response => {
-        console.log(response);
-        //Response will be of format
-        //For Fail
-        // {
-        //   success:0,
-        //   error:"Incorrect Email or Password",
-        // }
-
-        //For Success
-        // {
-        //   success:1,
-        //   message:"Login Successful",
-        //   user:result[0],
-        //   token:jwtToken
-        // }
-
-      })
-      .catch(err => {
-        console.log(err);
-      })
-
-
       history.push(adminRoot)
     }
   };
@@ -132,7 +92,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             </p>
           </div>
           <div className="form-side">
-            <NavLink to="/users/login" method="POST" className="white">
+            <NavLink to="/" className="white">
               <span className="logo-single" />
             </NavLink>
             <CardTitle className="mb-4">
@@ -150,7 +110,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
                 <Form className="av-tooltip tooltip-label-bottom">
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                    Email:
+                    Email
                     </Label>
                     <Field
                       className="form-control"
@@ -207,9 +167,13 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             </Formik>
          <Row className="mt-4 d-flex justify-content-center">
         <div style={{width:'90%'}}>   
-         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3">
+         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
          <div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />
-<span>Google</span>
+<span>Register Using Google</span>
+           </Button>
+           <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
+        <AiOutlineApple className="mr-2 apple" />
+<span>Register Using Apple</span>
            </Button>
            </div>      </Row>
           </div>

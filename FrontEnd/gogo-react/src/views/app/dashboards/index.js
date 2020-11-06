@@ -19,7 +19,7 @@ const EcommerceDefault = React.lazy(() =>
 const Dashboards = ({ match }) => (
   <>
   {console.log(match)}
-<h1>{match.path.split("/")[2].toUpperCase()}</h1>
+<h1>Sessions</h1>
   <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />

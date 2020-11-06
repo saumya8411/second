@@ -90,7 +90,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                 
 <Row className="mb-3">
   <Colxx xs="12" sm="6">
-    <h3>Mail On Signup</h3>
+    <h1 className="heading">Mail On Signup</h1>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -124,15 +124,8 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
               style={{ minWidth: '200px', minHeight: '200px' }}
             >
               <CardImg top width="100%" src={img} alt="Theme1 img" className="emailimg" />
-              <Row className="emailtext">
-                <Colxx xxs="4">
-                <span className="hiddenbutton">Preview</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
-                </Colxx>
-              </Row>
               <CardBody>
-                <CardTitle>Theme1</CardTitle>
+                
               </CardBody>
             </Card>
           </div>
@@ -146,24 +139,6 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
             value="2"
             onChange={(e) => setMailonsignuptheme(e.target.value)}
           />
-          <div className="front-end box">
-            <Card
-              className="p-4 mb-3 emailcard"
-              style={{ minWidth: '200px', minHeight: '200px' }}
-            >
-              <CardImg top width="100%" src={img} alt="Theme1 img" />
-              <Row className="emailtext">
-                <Colxx xxs="4">
-                <span className="hiddenbutton">Preview</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
-                </Colxx>
-              </Row>
-              <CardBody>
-                <CardTitle>Theme2</CardTitle>
-              </CardBody>
-            </Card>
-          </div>
         </label>
       </Colxx>
     </Row>
@@ -174,7 +149,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
 
 <Row className="mb-3 mt-4">
   <Colxx xs="12" sm="6">
-    <h3>Purchase Email</h3>
+    <h1 className="heading">Purchase Email</h1>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -211,12 +186,10 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
               <Row className="emailtext">
                 <Colxx xxs="4">
                 <span className="hiddenbutton">Preview</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
                 </Colxx>
               </Row>
               <CardBody>
-                <CardTitle>Theme1</CardTitle>
+                
               </CardBody>
             </Card>
           </div>
@@ -231,22 +204,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
             onChange={(e) => setPurchaseemailtheme(e.target.value)}
           />
           <div className="front-end box">
-            <Card
-              className="p-4 mb-3 emailcard"
-              style={{ minWidth: '200px', minHeight: '200px' }}
-            >
-              <CardImg top width="100%" src={img} alt="Theme1 img" />
-              <Row className="emailtext">
-                <Colxx xxs="4">
-                <span className="hiddenbutton">Preview</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Edit</span>
-                </Colxx><Colxx xxs="4"><span className="hiddenbutton">Select</span>
-                </Colxx>
-              </Row>
-              <CardBody>
-                <CardTitle>Theme2</CardTitle>
-              </CardBody>
-            </Card>
+
           </div>
         </label>
       </Colxx>

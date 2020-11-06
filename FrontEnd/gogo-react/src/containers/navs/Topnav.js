@@ -179,7 +179,7 @@ const TopNav = ({
   };
 
   const handleLogout = () => {
-    logoutUserAction(history);
+    history.push('/user/login');
   };
 
   const menuButtonClick = (e, _clickCount, _conClassnames) => {
