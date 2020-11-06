@@ -89,6 +89,10 @@ router.post('/users/login', async (req, res) => {
                     error:"Incorrect Email or Password",
                 });
             }
+            
+            result[0].customer_password = "@nothingis%#passowrd&sothis1245isawesome";
+
+            
 
             const jwtToken = jwt.sign({temporaryResult : result},process.env.JWT_KEY,{
                 expiresIn:"1h"

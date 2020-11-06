@@ -11,7 +11,7 @@ const auth = (req,res,next) => {
         if(!token){
             return res.status(500).json({
                 success:0,
-                message:"Access Denied",
+                error:"Access Denied",
             });
         }
         //Remove Bearer
@@ -20,21 +20,26 @@ const auth = (req,res,next) => {
             if(err){
                 return res.status(500).json({
                     success:0,
-                    message:"Invalid token",
+                    error:"Invalid token",
                 });
             }
 
-            let sql = `SELECT * FROM CUSTOMER_TABLE WHERE CUSTOMER_EMAIL='${req.body.customer_email}'`;
-           
-            connection.query(sql,(err,result) => {
-                if(err){
-                    throw err;
-                }
+            // console.log(decoded.temporaryResult[0])
+            
+            req.user = decoded.temporaryResult[0];
+            next();
 
-                req.user = result[0]
-                req.token = token
-                next();
-            })
+            // let sql = `SELECT * FROM CUSTOMER_TABLE WHERE CUSTOMER_EMAIL='${req.body.customer_email}'`;
+           
+            // connection.query(sql,(err,result) => {
+            //     if(err){
+            //         throw err;
+            //     }
+
+            //     req.user = result[0]
+            //     req.token = token
+            //     next();
+            // })
         })
 
 
@@ -43,8 +48,8 @@ const auth = (req,res,next) => {
         console.error(err)
         return res.status(500).json({
             success:0,
-            message:"Authentication Error",
-            error:err
+            error:"Authentication Error",
+            errorReturned:err
         });
     }
 }
