@@ -1,4 +1,4 @@
-let themeid = ThemeId;
+let themeid = 1;
 var changehtml = "";
 var changecss = "";
 $(() => {
@@ -37,8 +37,8 @@ $(() => {
 
         type: "remote",
         // stepsBeforeSave: 3,
-        urlStore: `http://localhost:5000/themes/api/database/store/${themeid}`,
-        urlLoad: `http://localhost:5000/themes/api/database/${themeid}`,
+        urlStore: `http://localhost:3333/api/database/store/${themeid}`,
+        urlLoad: `http://localhost:3333/api/database/${themeid}`,
         // urlLoad: "http://localhost:27017/db/htmlthemes/1",
         // // For custom parameters/headers on requests
         // params: { _some_token: "...." },
