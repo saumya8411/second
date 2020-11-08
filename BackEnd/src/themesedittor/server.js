@@ -3,12 +3,17 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 // const url = "mongodb://localhost/db";
-const url =
-  "mongodb+srv://admin:rUfn8zyboxYjpzYY@cluster0.gynnv.mongodb.net/sampledb?retryWrites=true&w=majority";
-mongoose.connect(url, { useNewUrlParser: true });
+console.log('❓',process.env.MONGO_URI);
+// const url = process.env.MONGO_URI;
+const url = "mongodb+srv://admin:rUfn8zyboxYjpzYY@cluster0.gynnv.mongodb.net/sampledb?retryWrites=true&w=majority";
+mongoose.connect(url, { useNewUrlParser: true,useMongoClient:true,useUnifiedTopology:true });
 
+app.use(express.static(__dirname+"/public"))
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.set('views', path.join(__dirname,"/views"));
+// app.use(express.static("/public"));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,7 +24,7 @@ con.on("open", () => {
 // app.use("/", express.static(path.join(__dirname, "/public")));
 //this line execute index.js in api folder
 app.use("/api", require("./routes/index").route);
-app.listen(3333);
+// app.listen(3333);
 
 app.use("/edit/:id", (req, res) => {
   const themeid = req.params.id;
@@ -28,6 +33,9 @@ app.use("/edit/:id", (req, res) => {
 
 app.use("/editnewsletter", (req, res) => {
   // const themeid = req.params.id;
-  // res.render("edit", { themeid });
+  // res.render("edit", { themeid }); 
   res.render("editnewsletter");
 });
+
+
+module.exports = app

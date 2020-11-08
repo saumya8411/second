@@ -1,7 +1,8 @@
+const http = require('https');
 
 
 const sendWelcomeEmail = (email, name) => {
- var options = {
+  var options = {
   "method": "POST",
   "hostname": "api.transmail.com",
   "port": null,
@@ -9,7 +10,7 @@ const sendWelcomeEmail = (email, name) => {
   "headers": {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "api_key",
+    "authorization": `Zoho-enczapikey ${process.env.API_TRANSMAIL}`,
   }
 };
 
@@ -25,16 +26,19 @@ var req = http.request(options, function (res) {
     console.log(body.toString());
   });
 });
+console.log('==================================================');
+console.log(email,name);
 
-req.write(JSON.stringify({ bounce_address: 'bounce_address@domain.com',
-  from: { address: 'senders_mail@domain.com', name: 'TestMail' },
+req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
+  from: { address: process.env.SENDERS_MAIL, name: 'TestMail' },
   to: 
    [ { email_address: 
-        { address: 'receiver_mail@domain.com',
-          name: 'karthikeyan' } } ],
+        { address: email,
+          name: name } } ],
   subject: 'Welcome!!!!!!',
   htmlbody: `nice to have you here ${name}` }));
 req.end();
+console.log("==============================================>");
 }
 
 const sendCancelationEmail = (email, name) => {
@@ -46,7 +50,7 @@ const sendCancelationEmail = (email, name) => {
   "headers": {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "api_key",
+    "authorization": process.env.API_TRANSMAIL
   }
 };
 
@@ -63,12 +67,12 @@ var req = http.request(options, function (res) {
   });
 });
 
-req.write(JSON.stringify({ bounce_address: 'bounce_address@domain.com',
-  from: { address: 'senders_mail@domain.com', name: 'TestMail' },
+req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
+  from: { address: process.env.SENDERS_MAIL, name: 'TestMail' },
   to: 
    [ { email_address: 
-        { address: 'receiver_mail@domain.com',
-          name: 'karthikeyan' } } ],
+        { address: email,
+          name: name } } ],
   subject: 'goodbye',
   htmlbody: `hope, to see you soon!!!! ${name}` }));
 req.end();

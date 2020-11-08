@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 
 import DatePicker from 'react-datepicker';
 
@@ -16,23 +17,24 @@ const initialValues = {
     session_description:'',
     session_fee:0,
     session_occurance:'',
-    duration:''
+    session_duration:'',
+    session_associated_course:''
   }
 const CreatesessionSchema = Yup.object().shape({   
-        name:Yup.string().required('Name is required!'),
-description:Yup.string().required('Description is required!') ,
-fee:Yup.number().required("Fees is required"),
+        session_name:Yup.string().required('Name is required!'),
+session_description:Yup.string().required('Description is required!') ,
+session_fee:Yup.number().required("Fees is required"),
     
      });
      const course = [
-       {value : 'Option1', label: 'Option1'},
+       {value : 'option1', label: 'Option1'},
        {value : 'Option2', label: 'Option2'},
        {value : 'Option3', label: 'Option3'},
        {value : 'Option4', label: 'Option4'},
        {value : 'Option5', label: 'Option5'}
      ]
      const dur = [
-      {value : 'Option1', label: 'Option1'},
+      {value : 1, label: 'Option1'},
       {value : 'Option2', label: 'Option2'},
       {value : 'Option3', label: 'Option3'},
       {value : 'Option4', label: 'Option4'},
@@ -75,13 +77,26 @@ const calculateDate = (endDateRange,startDateRange) => {
 
     const onSubmit = (values, { setSubmitting }) => {
         const payload = {
-          ...values,
-          reactSelect: values.reactSelect.map((t) => t.value),
+          //...values,
+        //  reactSelect: values.reactSelect.map((t) => t.value),
+          
         };
+
+        axios.post('http://localhost:5000/sessions/createLiveSession', {
+          values
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => console.log(err))
+        
+
+
         setTimeout(() => {
           console.log(JSON.stringify(payload, null, 2));
           setSubmitting(false);
         }, 1000);
+        console.log(values)
       };
     
     return(
@@ -114,12 +129,12 @@ const calculateDate = (endDateRange,startDateRange) => {
                   <Label>Description</Label>
                   <Field
                     className="form-control"
-                    name="description"
+                    name="session_description"
                     component="textarea"
                   />
-                  {errors.description && touched.description ? (
+                  {errors.session_description && touched.session_description ? (
                     <div className="invalid-feedback d-block">
-                      {errors.description}
+                      {errors.session_description}
                     </div>
                   ) : null}
                 </FormGroup>
@@ -196,7 +211,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                    <Colxx xxs="6">
                    <FormGroup className="error-l-100">
                       <Label for="duration">Duration</Label>
-                      <FormikReactSelect type="select" name="duration" id="duration" value={values.dur} options={dur}  onChange={setFieldValue}
+                      <FormikReactSelect type="select" name="session_duration" id="duration" value={values.session_dur} options={dur}  onChange={setFieldValue}
                     onBlur={setFieldTouched}  multiple />
                     </FormGroup>
 
@@ -232,17 +247,17 @@ const calculateDate = (endDateRange,startDateRange) => {
                 <FormGroup className="error-l-100">
                   <Label>Associated with any Course </Label>
                   <FormikReactSelect
-                    name="correspondance"
-                    id="correspondance"
-                    value={values.course}
+                    name="session_correspondance_id"
+                    id="session_associated_course"
+                    value={values.session_associated_course}
                     
                     options={course}
                     onChange={setFieldValue}
                     onBlur={setFieldTouched}
                   />
-                  {errors.correspondance && touched.correspondance ? (
+                  {errors.session_associated_course && touched.session_associated_course ? (
                     <div className="invalid-feedback d-block">
-                      {errors.correspondance}
+                      {errors.session_associated_course}
                     </div>
                   ) : null}
                 </FormGroup>

@@ -49,7 +49,7 @@ async function sendsms (toNumber,msg){
         var msg;
         
         var username = urlencode('User_email');
-        var hash = 'hash_code'; // The hash key could be found under Help->All Documentation->Your hash key. Alternatively you can use your Textlocal password in plain text.
+        var hash = process.env.HASH_TEXTLOCAL; // The hash key could be found under Help->All Documentation->Your hash key. Alternatively you can use your Textlocal password in plain text.
         var sender = 'OYESTR';
         var data = 'username=' + username + '&hash=' + hash + '&sender=' + sender + '&numbers=' + toNumber + '&message=' + data;
         console.log(data);

@@ -25,8 +25,10 @@ const auth = (req,res,next) => {
             }
 
             // console.log(decoded.temporaryResult[0])
-            
-            req.user = decoded.temporaryResult[0];
+            console.log(decoded.temporaryResult);
+
+            req.user = decoded.temporaryResult;
+            // console.log(req.user)
             next();
 
             // let sql = `SELECT * FROM CUSTOMER_TABLE WHERE CUSTOMER_EMAIL='${req.body.customer_email}'`;

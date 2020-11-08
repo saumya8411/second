@@ -5,9 +5,10 @@ const cors = require('cors');
 // require('./db/mongoose')
 
 
-
+//Routes
 // const userRouter = require('./routers/user')
-const userRouter = require('./routers/deepakUser')
+const userRouter = require('./loginSignup/customer/customer')
+// const userRouter = require('./routers/deepakUser')
 const sessionRouter = require('./routers/session')
 const libraryRouter = require('./library/routes/index')
 
@@ -36,8 +37,11 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended : false}));
 app.use(express.json());
 
+
 app.use(userRouter)
 app.use(sessionRouter)
+app.use('/sessions', require('./Sessions/index'))
+app.use('/themes',require('./themesedittor/server'))
 app.use('/library' , libraryRouter)
 
 module.exports = app
