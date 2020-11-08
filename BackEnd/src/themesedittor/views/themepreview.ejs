@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="/themes.js"></script>
+    <title>Document</title>
+    <script>
+        const themeid = "<%= themeid %>";
+    </script>
+</head>
+
+<body>
+    <div id="gjs">
+    </div>
+    <form action="/edit/:<%= themeid %>" class=" button-div">
+        <button type="submit" id="newbtn" class="btn btn-primary btn-lg button">Edit-Page</button>
+    </form>
+</body>
+
+</html>
