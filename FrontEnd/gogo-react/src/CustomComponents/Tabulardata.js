@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React,{useState} from 'react';
 import { Card, CardBody, CardTitle,Button } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
@@ -11,6 +11,8 @@ import './Customcss.css'
 import PopoverItem from '../components/common/PopoverItem';
 import { Link } from 'react-router-dom';
 import { adminRoot } from '../constants/defaultValues';
+import Counter from './useCounter'
+import useCounter from './useCounter';
 
 function Table({ columns, data, divided = false, defaultPageSize = data.length }) {
     const {
@@ -25,7 +27,7 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
       gotoPage,
       setPageSize,
       state: { pageIndex, pageSize },
-      
+    
     } = useTable(
       {
         columns,
@@ -35,12 +37,18 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
       useSortBy,
       usePagination
     );
+    const [name, setName] = useState("Launch")
+    const change = (text) => setName(text);
   // console.log(getTableBodyProps,"gettable------body----props")
   // console.log(getTableProps,"gettable------props")
   // console.log(prepareRow,"prepare------row")
   // console.log(page,"----------------page")
   const clickHandlerTable = (props) =>{
     console.log(props)
+  }
+  //const [name , ChangeName] = useCounter()
+  const info = {
+    name : 'Launched'
   }
     return (
       <>
@@ -112,8 +120,8 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
                   ))}
                   <td >
                     <div style={{display:"flex",alignItems:"center"}}>
-                  <Button color="light" onClick={()=>clickHandlerTable(row.id)} className="mr-3" style={{fontSize:'1.2rem'}}>
-                    Launch
+                  <Button color="secondary" onClick={()=>{clickHandlerTable(row.id); change("Launched");}} className="mr-3" style={{fontSize:'1.2rem'}}>
+                   {name}
                   </Button>
                   <PopoverItem id={row.id}/>
                   </div>

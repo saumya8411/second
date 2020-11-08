@@ -12,10 +12,11 @@ import DatePicker from 'react-datepicker';
 
 const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
-    name:'',
-    description:'',
-    fee:0,
-    occur:'',
+    session_name:'',
+    session_description:'',
+    session_fee:0,
+    session_occurance:'',
+    duration:''
   }
 const CreatesessionSchema = Yup.object().shape({   
         name:Yup.string().required('Name is required!'),
@@ -30,6 +31,13 @@ fee:Yup.number().required("Fees is required"),
        {value : 'Option4', label: 'Option4'},
        {value : 'Option5', label: 'Option5'}
      ]
+     const dur = [
+      {value : 'Option1', label: 'Option1'},
+      {value : 'Option2', label: 'Option2'},
+      {value : 'Option3', label: 'Option3'},
+      {value : 'Option4', label: 'Option4'},
+      {value : 'Option5', label: 'Option5'}
+    ]
 
 
      const options = [
@@ -95,10 +103,10 @@ const calculateDate = (endDateRange,startDateRange) => {
                 <Form className="av-tooltip tooltip-label-right">
                 <FormGroup className="error-l-75">
                   <Label>Session Name</Label>
-                  <Field className="form-control" name="name" />
-                  {errors.name && touched.name ? (
+                  <Field className="form-control" name="session_name" />
+                  {errors.session_name && touched.session_name ? (
                     <div className="invalid-feedback d-block">
-                      {errors.name}
+                      {errors.session_name}
                     </div>
                   ) : null}
                 </FormGroup>
@@ -115,6 +123,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                     </div>
                   ) : null}
                 </FormGroup>
+
                 <FormGroup className="error-l-100">
                   <Label>Trainer </Label>
                   <FormikReactSelect
@@ -135,17 +144,17 @@ const calculateDate = (endDateRange,startDateRange) => {
                 <FormGroup className="error-l-100">
                   <Label>Occur </Label>
                   <FormikReactSelect
-                    name="occur"
+                    name="session_occurance"
                     id="occur"
-                    value={values.occur}
+                    value={values.session_occurance}
                     
                     options={options}
                     onChange={setFieldValue}
                     onBlur={setFieldTouched}
                   />
-                  {errors.occur && touched.occur ? (
+                  {errors.session_occurance && touched.session_occurance ? (
                     <div className="invalid-feedback d-block">
-                      {errors.occur}
+                      {errors.session_occurance}
                     </div>
                   ) : null}
                 </FormGroup>
@@ -159,6 +168,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                   selectsStart
                   startDate={startDateRange}
                   onChange={setStartDateRange}
+                  name="session_start_date"
                   placeholderText={['form-components.start']}
                 />
               
@@ -173,6 +183,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                   selectsStart
                   startDate={endDateRange}
                   onChange={setEndDateRange}
+                  name="session_end_date"
                   placeholderText={['form-components.start']}
                 />
               
@@ -184,18 +195,11 @@ const calculateDate = (endDateRange,startDateRange) => {
                  <Row>
                    <Colxx xxs="6">
                    <FormGroup className="error-l-100">
-                  <Label>duration </Label>
-                  <Input
-          type="time"
-          name="duration"
-          id="duration"
-          value={""}
-          placeholder="Time to start from"
-          onChange={e=>setDuration(e.target.value)}
-        />
-              
-                  
-                </FormGroup>
+                      <Label for="duration">Duration</Label>
+                      <FormikReactSelect type="select" name="duration" id="duration" value={values.dur} options={dur}  onChange={setFieldValue}
+                    onBlur={setFieldTouched}  multiple />
+                    </FormGroup>
+
                 </Colxx>
                 <Colxx xxs="6"> 
                 <FormGroup className="error-l-100">
@@ -216,12 +220,12 @@ const calculateDate = (endDateRange,startDateRange) => {
                                
                 <FormGroup className="error-l-75">
                   <Label>Fees</Label>
-                  <Field className="form-control" name="fee" 
+                  <Field className="form-control" name="session_fee" 
                   
                   />
-                  {errors.fee && touched.fee ? (
+                  {errors.session_fee && touched.session_fee ? (
                     <div className="invalid-feedback d-block">
-                      {errors.fee}
+                      {errors.session_fee}
                     </div>
                   ) : null}
                 </FormGroup>

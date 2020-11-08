@@ -272,13 +272,13 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   </Card>
      
     
-    
+
     <Card className="p-4 mb-3">
         <Row>
-            <Colxx xxs="12" xs="6">
+            <Colxx  >
         <CardTitle>Session Material</CardTitle>
         </Colxx>
-        <Colxx xxs="12" xs="6" >
+        <Colxx  xs="6" >
         {/* <FormGroup className="error-l-100">
                       <Label>Multiple Chapters: </Label>
                       <Switch
@@ -288,7 +288,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 />
                       </FormGroup> */}
                     <Row>
-                      <Colxx xs="12" sm="4">
+                      <Colxx  sm="4">
                       <FormGroup className="error-l-100">
                       <Label>Enable Timeline: </Label>
                       <Switch
@@ -310,7 +310,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
             return(
               <>
               <Row className="mt-3">
-              <Colxx xs="12" md="6">
+              <Colxx  md="6">
               <Editable
                 text={item.name}
                 placeholder="Write a chapter name"
@@ -327,7 +327,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
             
                   
               </Colxx>
-              <Colxx xs="12" md="6">
+              <Colxx md="6">
                 <Label>What Will Students Learn After this Chapter</Label>
                   <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={e=>this.setState({conclusion:e.target.value})}/>
               </Colxx>
@@ -339,7 +339,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
         return(
           <>
           <Row className="mt-4">
-          <Colxx xs="12" md="6">
+          <Colxx  md="6">
           {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
           
           <Editable
@@ -363,29 +363,31 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 />
                
               </Editable>
-          
+                
           </Colxx>
-          <Colxx xs="12" md="6">
+                
+          <Colxx  md="6">
               
-             <Row>
-            <Colxx xxs="12" sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon`} />
+             <Row className="mt-4 text-center">
+               
+            <Colxx  sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon mt-4`} />
             <Input id="fileButton" type="file" hidden name="video"/>
             <div className="class-name" name="video" onClick={()=>this.fileUploadButton(index,lessonindex,"fileButton")}>Video</div>
             </Colxx>
-          <Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+          <Colxx  sm="6" lg="3" className="iconcolumn mt-4">
           <div className={`glyph-icon ${simplelineicons[151]} mr-2 sessionlookicon`} />
           <div className="class-name" >Embedded</div>
           
           
           </Colxx>
-          <Colxx xxs="12" sm="6" lg="3" className="iconcolumn">
+          <Colxx  sm="6" lg="3" className="iconcolumn mt-4">
           
           <div className={`glyph-icon ${simplelineicons[157]} mr-2 sessionlookicon`} />
           <div className="class-name">PDF</div>
           
           </Colxx>
-          <Colxx xxs="12" sm="6" lg="3" >
-            <div className="iconcolumn">
+          <Colxx  sm="6" lg="3" >
+            <div className="iconcolumn mt-4">
             <div className={`glyph-icon ${iconsmind[28].icons[7]} sessionlookicon`} />
             <div className="class-name">Live</div>
             </div>
@@ -409,7 +411,8 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </CardBody>
     </Card>
     </Card>
-              
+  
+         
          </section>
     
         )

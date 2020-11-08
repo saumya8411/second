@@ -9,7 +9,7 @@ const BlankPage = ({ match }) => {
     <>
       <Row> 
         <Colxx xxs="12">
-          <Breadcrumb heading="Dashboard" match={match} />
+          <h1>Dashboard</h1>
           <Separator className="mb-5" />
         </Colxx>
       </Row>

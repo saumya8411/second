@@ -3,8 +3,21 @@
 }
 .registerug{
     font-size: 15px;
-
+    width: 50%;
 }
 .apple{
     font-size: 20px;
+}
+.image{
+    width: 40%;
+    margin-bottom: 10% ;
+}
+.logo{
+    width:15%;
+    margin-right: 5%;
+}
+.logo2{
+    width:13%;
+    margin-right: 6%;
+    margin-bottom: 5px;
 }

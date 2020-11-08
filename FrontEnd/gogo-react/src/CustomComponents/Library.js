@@ -11,7 +11,7 @@ import DatatablePagination from '../components/DatatablePagination';
 const data = [
  {
 name: 'quiz-1',
-size: '',
+size: '---',
 type:'Quiz',
 uploaded: '28-10-2020'
 
@@ -60,6 +60,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
 
   return (
     <>
+    
       <table
         style={{ maxWidth: '1100px',margin:'0 auto' }}
         {...getTableProps()}
