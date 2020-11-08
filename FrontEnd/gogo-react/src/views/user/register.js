@@ -8,18 +8,23 @@ import {
   FormGroup,
   Label,
   Input,
-  Button
+  Button,
+  InputGroupAddon,
+  InputGroup,
+  InputGroupText
 } from "reactstrap";
 import * as Yup from "yup";
 import { Wizard, Steps, Step } from 'react-albus';
 import BottomNavigation from '../../components/wizard/BottomNavigation';
-
+import Apple from './apple.png'
+import Logo from './logo.png'
 import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { registerUser } from "../../redux/actions";
 import { Formik, Form, Field } from "formik";
 import { AiOutlineApple } from "react-icons/ai";
 import IntlMessages from "../../helpers/IntlMessages";
+import Google from './google.png'
 import { Colxx } from "../../components/common/CustomBootstrap";
 import { adminRoot } from "../../constants/defaultValues";
 import axios from 'axios';
@@ -30,11 +35,21 @@ const initialValues = {
   customer_phone_number: "",
   customer_last_name: "",
   customer_password: "",
-  customer_password_confirm: ""
-  //institutename: ""
+  customer_password_confirm: "",
+  customer_institute_name: "",
+  customer_subdomain_name: "",
+  acceptTerms: false
 };
 
 const validation = Yup.object().shape({
+  customer_institute_name: Yup.string()
+    .min(2, "please enter correct insitute")
+    .max(50, "please enter correct institute")
+    .required("insitute name is required"),
+    customer_subdomain_name: Yup.string()
+      .min(2, "Subdomain should be min 2 characters")
+      .max(50, "please enter correct subdomian")
+      .required("Subdomain is required"),
   customer_first_name: Yup.string()
     .min(2, "please enter correct name")
     .max(20, "please enter correct name")
@@ -47,6 +62,8 @@ const validation = Yup.object().shape({
   customer_email: Yup.string()
     .min(7, "Email should be min 7 characters")
     .required("Email is required"),
+    acceptTerms: Yup.bool()
+    .oneOf([true], 'Accept Terms & Conditions is required'),
   customer_last_name: Yup.string()
     .min(2, "please enter correct name")
     .max(20, "please enter correct name")
@@ -56,29 +73,29 @@ const validation = Yup.object().shape({
   .max(100, "please enter correct password")
   .required("Name is required"),
   customer_password_confirm: Yup.string()
-  .min(8, "min 8 characters")
-  .max(100, "please enter correct password")
-  .required("Name is required"),
+  .oneOf([Yup.ref('customer_password'), null], 'Passwords must match')
  // institutename: Yup.string()
   //  .min(2, "please enter correct insitute")
   //  .max(50, "please enter correct institute")
   //   .required("insitute name is required")
 });
+
+
 const Register = ({ history }) => {
   
   //make your network request here...if request success make 
   const onSubmit = (values) => {
     console.log(values);
 
-    axios.post('http://localhost:5000/users' , {
-      values
-    })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(err => console.log(err))
+   // axios.post('http://localhost:5000/users' , {
+   //   values
+  //  })
+  //  .then(response => {
+  //    console.log(response)
+  //  })
+  //  .catch(err => console.log(err))
 
-    history.push("/user/domainregistration")
+    history.push("../app/blankpage")
   };
 
   return (
@@ -96,8 +113,8 @@ const Register = ({ history }) => {
             </p> 
           </div> 
           <div className="form-side">
-            <NavLink to="/" className="white">
-              <span className="logo-single" />
+            <NavLink to="" className="white">
+              <img src={Logo} className="image"  alt="1111"/>
             </NavLink> 
             <CardTitle className="mb-4">
               <IntlMessages id="user.register" />
@@ -107,6 +124,8 @@ const Register = ({ history }) => {
               initialValues={initialValues}
               onSubmit={onSubmit}
               validationSchema={validation}
+
+
             >
                
               {({ handleSubmit,
@@ -126,7 +145,7 @@ const Register = ({ history }) => {
                     </Label> 
                     <Field
                       className="form-control"
-                      name="customer_first_name"
+                      name="customer_first_name" /*  value="firstname" onChange={(e) => setFirstname(e.target.value)} */
                     /> 
                     {errors.customer_first_name && touched.customer_first_name ? (
                       <div className="invalid-feedback d-block">
@@ -140,7 +159,7 @@ const Register = ({ history }) => {
                     </Label> 
                     <Field
                       className="form-control"
-                      name="customer_last_name"
+                      name="customer_last_name" /* value="lastname" onChange={(e) => setLastname(e.target.value)} */
                     /> 
                     {errors.customer_last_name && touched.customer_last_name ? (
                       <div className="invalid-feedback d-block">
@@ -154,7 +173,7 @@ const Register = ({ history }) => {
                     </Label> 
                     <Field
                       className="form-control"
-                      name="customer_email"
+                      name="customer_email" /* value="email" onChange={(e) => setEmail(e.target.value)} */
                     /> 
                     {errors.customer_email && touched.customer_email ? (
                       <div className="invalid-feedback d-block">
@@ -168,7 +187,7 @@ const Register = ({ history }) => {
                     </Label> 
                     <Field
                       className="form-control"
-                      name="customer_phone_number"
+                      name="customer_phone_number" /* value="mobile" onChange={(e) => setMobile(e.target.value)} */
                     /> 
                     {errors.customer_phone_number && touched.customer_phone_number ? (
                       <div className="invalid-feedback d-block">
@@ -182,7 +201,7 @@ const Register = ({ history }) => {
                     </Label> 
                     <Field
                       className="form-control"
-                      name="customer_password" type="password"
+                      name="customer_password" type="password" /*  value="password" onChange={(e) => setPassword(e.target.value)} */
                     /> 
                     {errors.customer_password && touched.customer_password ? (
                       <div className="invalid-feedback d-block">
@@ -204,12 +223,56 @@ const Register = ({ history }) => {
                       </div>
                     ) : null}
                   </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <Label>
+                      institute Name
+                    </Label> 
+                    <Field
+                      className="form-control"
+                      name="customer_institute_name"/> 
+                    {errors.customer_institute_name && touched.customer_institute_name ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.customer_institute_name}
+                      </div>
+                    ) : null}
+                  </FormGroup>
+                  <FormGroup className="form-group has-float-label">
+                    <InputGroup>
+                    <Label>
+                      SubDomain
+                    </Label> 
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>https://</InputGroupText>
+                    </InputGroupAddon>
+                    <Field className="form-control"
+                      name="customer_subdomain_name"/>
+                    <InputGroupAddon addonType="prepend">
+                      <InputGroupText>.oyestershowtime.in</InputGroupText>
+                    </InputGroupAddon>
+                    </InputGroup>
+                    {errors.customer_subdomain_name && touched.customer_subdomain_name ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.customer_subdomain_name}
+                      </div>
+                    ) : null}
+                  </FormGroup>
+                  <FormGroup check>
+                    <Label check>
+                    <Field type="checkbox" name="acceptTerms" className={'form-check-input ' + (errors.acceptTerms && touched.acceptTerms ? ' is-invalid' : '')} />{' '}
+                      I accept the terms & conditions
+                    </Label>
+                    {errors.acceptTerms && touched.acceptTerms ? (
+                      <div className="invalid-feedback d-block">
+                        {errors.acceptTerms}
+                      </div>
+                    ) : null}
+                  </FormGroup>
                    <div className="d-flex justify-content-between align-items-center">
                     <NavLink to="/user/login">
                       Already Registered? 
                     </NavLink> 
                     <Button color="primary" type="submit" className="register">
-                    Next
+                    Register
                   </Button> 
                   </div> 
                 </Form>
@@ -219,11 +282,12 @@ const Register = ({ history }) => {
             <Row className="mt-4 d-flex justify-content-center">
         <div style={{width:'90%'}}>   
          <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
-         <div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />
+         {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
+         <img src={Google} className="logo"/> 
 <span>Register Using Google</span>
            </Button>
            <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
-        <AiOutlineApple className="mr-2 apple" />
+        <img src={Apple} className="logo2" />
 <span>Register Using Apple</span>
            </Button>
            </div>      </Row>

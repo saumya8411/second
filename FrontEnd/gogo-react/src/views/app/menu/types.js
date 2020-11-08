@@ -55,8 +55,8 @@ const MenuTypes = ({
     <>
       <Row>
         <Colxx xxs="12">
-          <Breadcrumb heading="menu.types" match={match} />
-          "this is types of menu/types"
+          <h1>Stats</h1>
+          
           <Separator className="mb-5" />
         </Colxx>
       </Row>

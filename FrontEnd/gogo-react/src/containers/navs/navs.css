@@ -1,0 +1,24 @@
+.heading{
+    margin-left: 10%;
+    margin-top: 15px;
+}
+.heading2{
+    margin-top: 15px;
+    margin-left: 10%;
+}
+.icons{
+    margin-left: 10%;
+    font-size: 35px;
+}
+#fb{
+    color: #4867AA;
+}
+#insta{
+    color: #813D93;
+}
+#twi{
+    color: #50ABF1;
+}
+.a{
+    margin-left: 0%;
+}

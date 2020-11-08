@@ -12,9 +12,9 @@ import 'react-tagsinput/react-tagsinput.css';
 
 const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
-    name:'',
-    description:'',
-    fee:0,
+    session_name:'',
+    session_description:'',
+    session_fee:0,
     timeline:'',
   }
 const CreatesessionSchema = Yup.object().shape({   
@@ -26,9 +26,9 @@ const CreatesessionSchema = Yup.object().shape({
               value: Yup.string().required(),
             })
           ),
-        Duration:Yup.string().required('Duration of course is required!'),
-description:Yup.string().required('Description is required!') ,
-fee:Yup.number().required("Fees is required")      
+session_duration:Yup.string().required('Duration of course is required!'),
+session_description:Yup.string().required('Description is required!') ,
+session_fee:Yup.number().required("Fees is required")      
      });
 
 const options = [
@@ -71,10 +71,10 @@ const OndemandSession = (props) =>{
                 <Form className="av-tooltip tooltip-label-right">
                 <FormGroup className="error-l-75">
                   <Label>Session Name</Label>
-                  <Field className="form-control" name="name" />
-                  {errors.name && touched.name ? (
+                  <Field className="form-control" name="session_name" />
+                  {errors.session_name && touched.session_name ? (
                     <div className="invalid-feedback d-block">
-                      {errors.name}
+                      {errors.session_name}
                     </div>
                   ) : null}
                 </FormGroup>
@@ -82,12 +82,12 @@ const OndemandSession = (props) =>{
                   <Label>Description</Label>
                   <Field
                     className="form-control"
-                    name="description"
+                    name="session_description"
                     component="textarea"
                   />
-                  {errors.description && touched.description ? (
+                  {errors.session_description && touched.session_description ? (
                     <div className="invalid-feedback d-block">
-                      {errors.description}
+                      {errors.session_description}
                     </div>
                   ) : null}
                 </FormGroup>
@@ -115,6 +115,7 @@ const OndemandSession = (props) =>{
                     value={tagsLO}
                     onChange={(val) => setTagsLO(val)}
                     inputProps={{ placeholder: '' }}
+                    name="session_tags"
                   />
                   </FormGroup>
 
@@ -122,23 +123,23 @@ const OndemandSession = (props) =>{
                   <Label>Duration of Course(in days)
                     
                   </Label>
-                  <Field className="form-control" name="name" 
+                  <Field className="form-control" name="session_duration" 
                   disabled={!checkedSecondarySmall}
                   />
-                  {errors.timeline && touched.timeline ? (
+                  {errors.session_duration && touched.session_duration ? (
                     <div className="invalid-feedback d-block">
-                      {errors.timeline}
+                      {errors.session_duration}
                     </div>
                   ) : null}
                 </FormGroup>
                 <FormGroup className="error-l-75">
                   <Label>Fees</Label>
-                  <Field className="form-control" name="fee" 
+                  <Field className="form-control" name="session_fee" 
                   
                   />
-                  {errors.fee && touched.fee ? (
+                  {errors.session_fee && touched.session_fee ? (
                     <div className="invalid-feedback d-block">
-                      {errors.fee}
+                      {errors.session_fee}
                     </div>
                   ) : null}
                 </FormGroup>

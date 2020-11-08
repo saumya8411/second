@@ -32,6 +32,7 @@ function Themepage() {
 
   return (
     <>
+<<<<<<< HEAD
       <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink
@@ -85,6 +86,62 @@ function Themepage() {
           <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
             <h3>Default Theme</h3>
             {/* <Colxx xs="12" sm="6">
+=======
+    <h1>Themes</h1>
+    <Nav tabs className="card-header-tabs mb-3">
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab === '1',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab('1');
+                      }}
+                    >
+                   <h6> General</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab === '2',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab('2');
+                      }}
+                    >
+                      <h6>Blog Post</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab === '3',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab('3');
+                      }}
+                    >
+                 <h6>Affiliate Pages</h6>
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+             
+              <TabContent activeTab={activeFirstTab}>
+                <TabPane tabId="1">
+<Row className="mt-3 mb-2" style={{marginLeft:'15px'}}>
+    <h3>Default Theme</h3>
+  {/* <Colxx xs="12" sm="6">
+>>>>>>> 574adc0d4ba09ee04e5aee7007e85cad795da226
     <div
       className="d-flex justify-content-around"
       style={{ maxWidth: '400px' }}

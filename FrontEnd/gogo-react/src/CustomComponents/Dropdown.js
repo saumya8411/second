@@ -26,6 +26,7 @@ const selectFilters = [
     { label: 'Registration', value: 'registration', key: 3 }
   ]
   
+  
 
 const CustomSelect = ({intl}) =>{
     const [selectedFilter, setSelectedFilter] = useState('');
@@ -118,6 +119,7 @@ const CustomSelect = ({intl}) =>{
     return(
         <>
         <Row>
+          <Colxx xs="12" md="3" className="mt-4">
         <div style={{display:'flex',alignItems:'center'}}>
         <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
                 <input 
@@ -130,7 +132,8 @@ const CustomSelect = ({intl}) =>{
                 />
               </div>
         </div>
-      <Colxx xxs="6" md="2" className="mb-5">
+        </Colxx>
+      <Colxx xs="12" md="3" className="mb-4">
 <span className="mr-2">Filter By</span>
         <Select
           components={{ Input: CustomSelectInput }}
@@ -142,7 +145,7 @@ const CustomSelect = ({intl}) =>{
           options={selectFilters}
            />
 </Colxx>
-<Colxx xxs="6" md="2">
+<Colxx xs="12" md="3">
 <span className="mr-2">Sort By</span>
 <Select
           components={{ Input: CustomSelectInput }}
@@ -154,8 +157,8 @@ const CustomSelect = ({intl}) =>{
           options={selectSort}
         />
 </Colxx>
-<Colxx xxs="12" md="3" style={{right:'0',position:'absolute'}}>
-<Button color="primary" className="mb-2 p-3" onClick={() => setModalLarge(true)}>
+<Colxx xs="12" md="3" >
+<Button color="primary" className="mb-2 p-3 mt-4 create" onClick={() => setModalLarge(true)}>
                 Create Session
               </Button>
               <Modal  

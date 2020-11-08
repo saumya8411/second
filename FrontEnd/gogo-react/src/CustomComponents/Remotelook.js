@@ -60,7 +60,7 @@ console.log(data,produtcs)
                 <Row style={{marginBottom:'20px'}}>
             <nav>
                 <ul className="d-flex">
-                  
+                   
                     <li className="d-flex align-items-center">
     <span>{data.date}</span>
                     </li>
