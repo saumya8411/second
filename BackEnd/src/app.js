@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(userRouter)
 app.use(sessionRouter)
 app.use('/sessions', require('./Sessions/index'))
-app.use('/themes',require('./themesedittor/server'))
+app.use('/themes',require('./server'))
 app.use('/library' , libraryRouter)
 
 module.exports = app

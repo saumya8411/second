@@ -44,6 +44,7 @@
 
 const express = require("express");
 const app = express();
+// const router = require('express').Router();
 const path = require("path");
 const mongoose = require("mongoose");
 // const url = "mongodb://localhost/db";
@@ -65,9 +66,10 @@ con.on("open", () => {
 // app.use("/", express.static(path.join(__dirname, "/public")));
 //this line execute index.js in api folder
 app.use("/api", require("./themes/routes/index").route);
-app.listen(3333);
+// app.listen(3333);
 
 app.use("/edit/:id", (req, res) => {
+  console.log('jha aa rha hai')
   const themeid = req.params.id;
   res.render("edit", { themeid });
 });
@@ -77,3 +79,5 @@ app.use("/editnewsletter", (req, res) => {
   // res.render("edit", { themeid });
   res.render("editnewsletter");
 });
+
+module.exports = app
