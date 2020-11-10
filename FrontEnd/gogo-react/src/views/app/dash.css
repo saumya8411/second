@@ -1,0 +1,43 @@
+#card121{
+    background-color: #BC6FF1;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+}
+#card122{
+    background-color: #9088D4;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+}
+#card123{
+    background-color: #FF9A8C;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+}
+#card124{
+    background-color: #EA86B6;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+}
+#users{
+    font-size: 50px;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+#number{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+#small{
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2px;
+}
+
