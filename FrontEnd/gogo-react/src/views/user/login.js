@@ -14,6 +14,9 @@ import IntlMessages from '../../helpers/IntlMessages';
 import { adminRoot } from '../../constants/defaultValues';
 import axiosInstance from '../../helpers/axiosInstance';
 import axios from 'axios';
+import Apple from './apple.png'
+import Logo from './logo.png'
+import Google from './google.png'
 
 const validatePassword = (value) => {
   let error;
@@ -105,7 +108,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
           </div>
           <div className="form-side">
             <NavLink to="/" className="white">
-              <span className="logo-single" />
+            <img src={Logo} className="image"  alt="1111"/>
             </NavLink>
             <CardTitle className="mb-4">
               <IntlMessages id="user.login-title" />
@@ -179,12 +182,13 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             </Formik>
          <Row className="mt-4 d-flex justify-content-center">
         <div style={{width:'90%'}}>   
-         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
-         <div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />
+        <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
+         {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
+         <img src={Google} className="logo"/> 
 <span>Register Using Google</span>
            </Button>
            <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
-        <AiOutlineApple className="mr-2 apple" />
+        <img src={Apple} className="logo2" />
 <span>Register Using Apple</span>
            </Button>
            </div>      </Row>

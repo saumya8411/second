@@ -13,6 +13,8 @@ import { FaUsers } from 'react-icons/fa';
 import { FaCode } from 'react-icons/fa';
 import { FaDatabase } from 'react-icons/fa';
 import { FaWifi } from 'react-icons/fa';
+import { FaFilter } from 'react-icons/fa';
+
 import { LineChart } from '../../components/charts';
 
 import { lineChartData } from '../../data/charts';
@@ -35,7 +37,7 @@ const number = 43;
     <>
       <Row> 
         <Colxx xxs="12">
-          <h1>Dashboard</h1>
+          <h1 id="heading_dash">Dashboard</h1>
           <Separator className="mb-5" />
         </Colxx>
       </Row>
@@ -48,21 +50,12 @@ const number = 43;
           {/* <CardSubtitle tag="h6" className="mb-2 text-muted">Card subtitle</CardSubtitle> */}
           {/* <CardText>Some quick example text to build on the card title and make up the bulk of the card's content.</CardText> */}
           <Row>
-          <Col md="7">
+          <Col md="12">
             <FaUsers id="users"/>
             <h1 id="number" >{number}</h1>
             <CardText id="small">Enrollments till now</CardText>
           </Col>
-          <Col md="5">
-          <CircularProgressbar
-            value={Enroll_percentage}
-            text={`${Enroll_percentage}%`}
-            styles={buildStyles({
-              textColor: "#46b5d1",
-              pathColor: "#151965"
-            })}
-          />
-          </Col>
+
           </Row>
           {/* <Button>Button</Button> */}
         </CardBody>
@@ -73,20 +66,10 @@ const number = 43;
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
         <Row>
-          <Col md="7">
+          <Col md="12">
             <FaCode id="users"/>
             <h1 id="number" >11</h1>
             <CardText id="small">Courses till now</CardText>
-          </Col>
-          <Col md="5">
-          <CircularProgressbar
-            value={course_percentage}
-            text={`${course_percentage}%`}
-            styles={buildStyles({
-              textColor: "#46b5d1",
-              pathColor: "#ea2c62"
-            })}
-          />
           </Col>
           </Row>
         </CardBody>
@@ -142,6 +125,7 @@ const number = 43;
       </Row>
       <Card className="mt-4">
       <div className="position-absolute card-top-buttons">
+        <Row>
         <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button">
             <i className="simple-icon-refresh" />
@@ -158,6 +142,23 @@ const number = 43;
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
+        <UncontrolledDropdown>
+          <DropdownToggle color="" className="btn btn-header-light icon-button">
+            <FaFilter className="mb-1"/>
+          </DropdownToggle>
+          <DropdownMenu right>
+            <DropdownItem>
+              <Row className="ml-1">Last 7 Days</Row>
+            </DropdownItem>
+            <DropdownItem>
+            <Row className="ml-1">Last one month</Row>
+            </DropdownItem>
+            <DropdownItem>
+            <Row className="ml-1">Last three months</Row>
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+        </Row>
       </div>
       <CardBody>
         <CardTitle>

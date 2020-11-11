@@ -1,4 +1,3 @@
-
 import React,{useState} from 'react';
 import { Card, CardBody, CardTitle,Button } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
@@ -106,7 +105,7 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
   state: {
   uniquesessionid:row.original.id 
   }
-}}
+}} id="link"
 >{cell.render('Cell')}</Link>
 
 ):cell.render('Cell')}

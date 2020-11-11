@@ -32,7 +32,7 @@ function Themepage() {
 
   return (
     <>
-      <h1>Themes</h1>
+      <h1 id="themepage">Themes</h1>
       <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink
@@ -84,7 +84,7 @@ function Themepage() {
       <TabContent activeTab={activeFirstTab}>
         <TabPane tabId="1">
           <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
-            <h3>Default Theme</h3>
+            <h3 id="default">Default Theme</h3>
             {/* <Colxx xs="12" sm="6">
     <div
       className="d-flex justify-content-around"
@@ -132,11 +132,7 @@ function Themepage() {
                   />
                   <CardBody>
                     <CardTitle>Default Theme</CardTitle>
-                    <Button>
-                      <a href="http://localhost:3333/edit/1" target="_blank">
-                        Edit
-                      </a>
-                    </Button>
+                    <Button style={{borderRadius:"2px"}}>Edit</Button>
                   </CardBody>
                 </Card>
               </div>

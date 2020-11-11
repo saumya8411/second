@@ -60,7 +60,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
 
   return (
     <>
-    
+      
       <table
         style={{ maxWidth: '1100px',margin:'0 auto' }}
         {...getTableProps()}
@@ -96,9 +96,9 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
           {page.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} >
                 {row.cells.map((cell, cellIndex) => (
-                  <td
+                  <td style={{fontSize:"1.3rem"}}
                     key={`td_${cellIndex}`}
                     {...cell.getCellProps({
                       className: cell.column.cellClass,
@@ -168,6 +168,7 @@ export const Library = () => {
 //backend team find a way to sort or filter data via this feature and show in tabs
   return (
     <>
+    <h1 id="libraryh">Library</h1>
        <Nav tabs className="card-header-tabs mb-3">
                   <NavItem>
                     <NavLink

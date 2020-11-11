@@ -1,14 +1,16 @@
 .heading{
-    margin-left: 10%;
-    margin-top: 15px;
+    margin-left: 13%;
+    color: white;
 }
 .heading2{
-    margin-top: 15px;
-    margin-left: 10%;
+    display: flex;
+    margin-left: 60px;
+    justify-content: center;
+    color: white;
 }
 .icons{
-    margin-left: 10%;
-    font-size: 35px;
+    margin-left: 5%;
+    font-size: 25px;
 }
 #fb{
     color: #4867AA;
@@ -21,4 +23,8 @@
 }
 .a{
     margin-left: 0%;
+}
+.page-footer{
+    height: 40px;
+    background-color: #30233B;
 }

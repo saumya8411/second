@@ -69,7 +69,7 @@ function Communication() {
                 <TabPane tabId="1">
                   
                 </TabPane>
-                             </TabContent>
+              </TabContent>
 
               </Card>
         </div>

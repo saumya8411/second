@@ -55,7 +55,7 @@ const MenuTypes = ({
     <>
       <Row>
         <Colxx xxs="12">
-          <h1>Stats</h1>
+          <h1 style={{fontSize:"1.5rem"}}>Stats</h1>
           
           <Separator className="mb-5" />
         </Colxx>

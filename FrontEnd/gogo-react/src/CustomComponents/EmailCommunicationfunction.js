@@ -38,7 +38,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   
   return (
     <>
-    <h1>Communication</h1>
+    <h1 id="heading_Comm">Communication</h1>
                 <Nav tabs className="card-header-tabs mb-3 mt-3">
                   <NavItem>
                     <NavLink
@@ -91,7 +91,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                 
 <Row className="mb-3">
   <Colxx xs="12" sm="6">
-    <h1 className="heading">Mail On Signup</h1>
+    <h1 id="headingMoS">Mail On Signup</h1>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -150,7 +150,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
 
 <Row className="mb-3 mt-4">
   <Colxx xs="12" sm="6">
-    <h1 className="heading">Purchase Email</h1>
+    <h1 id="headingPE">Purchase Email</h1>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div

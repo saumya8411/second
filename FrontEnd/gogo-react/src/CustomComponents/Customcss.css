@@ -133,3 +133,57 @@ display: flex;
 .hiddenbutton:hover{
     color:purple !important
 }
+#themepage{
+    font-size: 1.5rem;
+}
+#default{
+    font-size: 1.3rem;
+}
+#link{
+    font-size: 1.3rem;
+}
+#heading_Comm{
+    font-size: 1.5rem;
+}
+.headingCA{
+    font-size: 1.3rem;
+    margin-left: 40px;
+}
+#headingPE{
+    font-size: 1.3rem;
+    margin-left: 40px;
+}
+#headingMoS{
+    font-size: 1.3rem;
+    margin-left: 40px;
+}
+#libraryh{
+    font-size: 1.5rem;
+}
+.edit{
+    margin-top: 30px;
+}
+#avatar{
+    width: 100%;
+    margin-top: 10px;
+}
+.design{
+    cursor: pointer;
+    width: 100%;
+}
+.design:hover{
+    box-shadow: 5px 3px 5px  #888888;
+    transition: .5s;
+}
+#lower-icons{
+    font-size: 150%;
+}
+.btn12{
+    margin-top:30px;
+}
+.btn13{
+    margin-top:80px;
+}
+.colorchange:hover{
+    color: white;
+}
