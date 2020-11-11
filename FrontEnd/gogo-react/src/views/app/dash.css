@@ -40,4 +40,39 @@
     text-align: center;
     line-height: 2px;
 }
-
+#dot{
+    width: 8px;
+    height: 8px;
+    background-color: #6FB327;
+    margin-top: 7px;
+    margin-left: 40%;
+    border: none;
+    border-radius: 50%;
+}
+#dot2{
+    width: 8px;
+    height: 8px;
+    background-color: #E55039;
+    margin-top: 7px;
+    margin-left: 28%;
+    border: none;
+    border-radius: 50%;
+}
+#dot2{
+    width: 8px;
+    height: 8px;
+    background-color: #E55039;
+    margin-top: 7px;
+    margin-left: 27%;
+    border: none;
+    border-radius: 50%;
+}
+#dot3{
+    width: 8px;
+    height: 8px;
+    background-color: #F6B93B;
+    margin-top: 7px;
+    margin-left: 25%;
+    border: none;
+    border-radius: 50%;
+}

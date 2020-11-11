@@ -148,20 +148,19 @@ const number = 43;
           </DropdownToggle>
           <DropdownMenu right>
             <DropdownItem>
-              <IntlMessages id="dashboards.sales" />
+              <Row className="ml-1">Sales <div id="dot"></div></Row>
             </DropdownItem>
             <DropdownItem>
-              Enrolled
+            <Row className="ml-1">Enrolled<div id="dot2"></div></Row>
             </DropdownItem>
             <DropdownItem>
-              Revenue
+            <Row className="ml-1">Revenue<div id="dot3"></div></Row>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
       </div>
       <CardBody>
         <CardTitle>
-          <IntlMessages id="dashboards.sales" />
         </CardTitle>
         <div className="dashboard-line-chart">
           <LineChart shadow data={lineChartData} />
