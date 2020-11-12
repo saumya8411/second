@@ -13,7 +13,7 @@ import {
   Label,
   FormGroup,
   TabPane,
-  CardImg,
+  CardImg,CardText
 } from 'reactstrap';
 import { Colxx } from '../components/common/CustomBootstrap';
 import Switch from 'rc-switch';
@@ -84,7 +84,7 @@ function Themepage() {
       <TabContent activeTab={activeFirstTab}>
         <TabPane tabId="1">
           <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
-            <h3 id="default">Default Theme</h3>
+            <h3 id="default">Themes</h3>
             {/* <Colxx xs="12" sm="6">
     <div
       className="d-flex justify-content-around"
@@ -109,7 +109,7 @@ function Themepage() {
                 value="1"
                 onChange={(e) => setTheme(e.target.value)}
               />
-              <div className="front-end box">
+              <div className="">
                 {/* <Card
                   className="p-4"
                   style={{ minWidth: '270px', minHeight: '200px' }}
@@ -119,30 +119,43 @@ function Themepage() {
                     <CardTitle>DefaultTheme</CardTitle>
                   </CardBody>
                 </Card> */}
-
+                <Row>
                 <Card
-                  className="p-4 "
+                  className="p-4 ml-4"
                   style={{ minWidth: '270px', minHeight: '200px' }}
                 >
                   <CardImg
                     top
                     width="100%"
-                    src="/assets/img/products/bebinca-thumb.jpg"
+                    src={require('./bebinca-thumb.jpg')}
                     alt="Theme1 img"
                   />
                   <CardBody>
-                    <CardTitle>Default Theme</CardTitle>
-                    <Button style={{borderRadius:"2px"}}>Edit</Button>
+                  <Input type="checkbox" />{' '} <CardText className="mt-1 font-weight-bold">Default Theme</CardText>
+                  </CardBody>
+                </Card>                <Card
+                  className="p-4 ml-4"
+                  style={{ minWidth: '270px', minHeight: '200px' }}
+                >
+                  <CardImg
+                    top
+                    width="100%"
+                    src={require('./bebinca-thumb.jpg')}
+                    alt="Theme1 img"
+                  />
+                  <CardBody>
+                  <Input type="checkbox" />{' '} <CardText className="mt-1 font-weight-bold">Blank Theme</CardText>
                   </CardBody>
                 </Card>
+                </Row>
               </div>
             </label>
           </Row>
 
-          <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
+          {/* <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
             <Colxx xs="12" sm="6">
               <h3>Blank Theme</h3>
-            </Colxx>
+            </Colxx> */}
             {/* <Colxx xs="12" sm="6">
     <div
       className="d-flex justify-content-around"
@@ -157,7 +170,7 @@ function Themepage() {
       </FormGroup>
     </div>
   </Colxx> */}
-          </Row>
+          {/* </Row> */}
           <Row style={{ marginLeft: '15px' }} className="mt-1">
             <Colxx xs="12" sm="6">
               <label>
@@ -167,7 +180,7 @@ function Themepage() {
                   value="2"
                   onChange={(e) => setTheme(e.target.value)}
                 />
-                <div className="front-end box">
+                {/* <div className="front-end box">
                   <Card
                     className="p-4"
                     style={{ minWidth: '270px', minHeight: '200px' }}
@@ -177,7 +190,7 @@ function Themepage() {
                       <CardTitle>Blank Theme</CardTitle>
                     </CardBody>
                   </Card>
-                </div>
+                </div> */}
               </label>
             </Colxx>
           </Row>

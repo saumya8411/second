@@ -187,3 +187,8 @@ display: flex;
 .colorchange:hover{
     color: white;
 }
+
+#buttonselect{
+    border-radius: 3px;
+
+}

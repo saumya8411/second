@@ -94,12 +94,9 @@ export class EmailCommunication extends Component {
                         />
                         <CardBody>
                           <Button>
-                            <a
-                              href="http://localhost:3333/editnewsletter/1"
-                              target="_blank"
-                            >
+                            
                               Edit
-                            </a>
+
                           </Button>
                         </CardBody>
                       </Card>

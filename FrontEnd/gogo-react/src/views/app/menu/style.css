@@ -1,0 +1,13 @@
+#myicon{
+    font-size: 470%;
+}
+#crd:hover{
+    margin-top: 1%;
+    cursor: pointer;
+    box-shadow: 0px -3px 7px 3px #b3b2b2;
+    transition: .7s;
+}
+.head{
+    font-size: 250%;
+    margin-top: 20%;
+}

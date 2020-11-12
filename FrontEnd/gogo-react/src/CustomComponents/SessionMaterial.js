@@ -25,7 +25,7 @@ export default class SessionMaterial extends Component {
   
     constructor(props) {
         super(props)
-    
+        this.deleteTask = this.deleteTask.bind(this)
         this.state = {
              SessionMaterial:[
                {
@@ -37,7 +37,7 @@ export default class SessionMaterial extends Component {
                   notes:"",
                   thumbnail:"",
                   quiz:"",
-                }]
+                },]
               }],
               data:{
                   name:"Machine Learning",
@@ -90,7 +90,14 @@ conclusion:'',
         newarray[props].lesson.push(newlesson)
 this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial))
     }
-    
+    deleteTask(lessonindex){
+      console.log(lessonindex)
+      let lesson = this.state.SessionMaterial
+      lesson.splice(lessonindex,1)
+      this.setState({
+        lesson
+      })
+    }
         
         addChapter(){
           const newarray = this.state.SessionMaterial;
@@ -110,6 +117,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial))
 
 
+        }
+        removeItem() {
+          const lesson = this.state.SessionMaterial;
+          lesson.splice(lesson.index, 1);
+          this.setState({ lesson:lesson });
         }
         
         changeChapterAttribute(props,index){
@@ -172,7 +184,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 <nav>
                     <ul className="d-flex">
                         <li style={{display:'flex',alignItems:'center'}}>
-        <h3>{this.state.data.name}</h3>
+        <h3 className="font-weight-bold">{this.state.data.name}</h3>
                         </li>
                         <li className="mb-2">
         <span style={{padding:'2px 5px',backgroundColor:'#CFEBFD',borderRadius:'5px', fontSize:'10px',marginBottom:'10px' }}>{this.state.data.type}</span>
@@ -269,7 +281,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </CardBody>
     </Card>
     <Card className="p-4 mb-3">
-                  <CardTitle>Trainer Profile</CardTitle>
+                  <CardTitle className="font-weight-bold">Trainer Profile</CardTitle>
                   <CardBody>
                   <nav>
                     <Row>
@@ -315,7 +327,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     <Card className="p-4 mb-3">
         <Row>
             <Colxx  >
-        <CardTitle>Session Material</CardTitle>
+        <CardTitle className="font-weight-bold">Session Material</CardTitle>
         </Colxx>
         <Colxx  xs="6" >
         {/* <FormGroup className="error-l-100">
@@ -371,16 +383,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={e=>this.setState({conclusion:e.target.value})}/>
               </Colxx>
           </Row>
-
-      {item.lesson.map((lessonitem,lessonindex)=>{
-        console.log(lessonitem)
-        return(
-          <>
-          <Row className="mt-4">
-          <Colxx  md="4">
-          {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
-          
-          <Editable
+                    <Editable
                 text={item.html}
                 placeholder="Write a Lesson name"
                 type="input"
@@ -397,6 +400,16 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                  <Button mode="filled" className="btn12" color="primary" style={{maxWidth:"200px"}} onClick={()=>this.addLesson(index)}>Add lesson</Button>
               <Button mode="filled" className="btn13" color="secondary" style={{maxWidth:"200px"}} className="ml-4 mt-auto" onClick={()=>this.addChapter()}>Add Chapter</Button>
               </Row>
+
+      {item.lesson.map((lessonitem,lessonindex)=>{
+        console.log(lessonitem)
+        return(
+          <div key={lessonindex}>
+          <Row className="mt-4">
+          <Colxx  md="4">
+          {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
+          
+
           </Colxx>
           
           <Colxx  md="8">
@@ -422,7 +435,9 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   <BiBroadcast id="lower-icons"/>
                   <p>live</p>
                 </Col>
-
+                <button onClick={(evt) => {
+                  evt.stopPropagation()
+                  this.deleteTask(lessonindex)}}>Delete</button>
             </Row>
              </Card>
             
@@ -440,7 +455,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           
           </Row>
           
-          </>
+          </div>
         )
       })}
 

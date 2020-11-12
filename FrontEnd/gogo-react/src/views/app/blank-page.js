@@ -42,7 +42,7 @@ const number = 43;
         </Colxx>
       </Row>
       <Row>
-        <Col md = "3" xs = "12">
+        <Col md = "3" xs = "10">
       <Card id="card121"> 
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
@@ -61,7 +61,7 @@ const number = 43;
         </CardBody>
       </Card>
       </Col>
-      <Col md = "3" xs = "12">
+      <Col md = "3" xs = "10">
       <Card id="card122">
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
@@ -75,17 +75,17 @@ const number = 43;
         </CardBody>
       </Card>
       </Col>
-      <Col md = "3" xs = "12">
+      <Col md = "3" xs = "10">
       <Card id="card123">
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
         <Row>
-          <Col md="7">
+          <Col md="7" xs="7">
             <FaDatabase id="users"/>
             <h1 id="number" >14GB</h1>
             <CardText id="small">Storage Used</CardText>
           </Col>
-          <Col md="5">
+          <Col md="5" xs="5">
           <CircularProgressbar
             value={data_percentage}
             text={`${data_percentage}%`}
@@ -99,16 +99,16 @@ const number = 43;
         </CardBody>
       </Card>
       </Col>
-      <Col md = "3" xs = "12">
+      <Col md = "3" xs = "10">
       <Card id="card124">
         <CardBody>
         <Row>
-          <Col md="7">
+          <Col md="7" xs="7">
             <FaWifi id="users"/>
             <h1 id="number" >10GB</h1>
             <CardText id="small">bandwidth used</CardText>
           </Col>
-          <Col md="5">
+          <Col md="5" xs="5">
           <CircularProgressbar
             value={bandwidth_percentage}
             text={`${bandwidth_percentage}%`}
@@ -123,9 +123,12 @@ const number = 43;
       </Card>
       </Col>
       </Row>
+      <Row>
+      <Col md="12" xs="10">
       <Card className="mt-4">
       <div className="position-absolute card-top-buttons">
         <Row>
+          
         <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button">
             <i className="simple-icon-refresh" />
@@ -158,6 +161,7 @@ const number = 43;
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
+        
         </Row>
       </div>
       <CardBody>
@@ -168,6 +172,8 @@ const number = 43;
         </div>
       </CardBody>
     </Card>
+    </Col>
+    </Row>
     </>
   );
 };

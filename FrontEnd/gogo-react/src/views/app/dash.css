@@ -4,11 +4,19 @@
     color: white;
     cursor: pointer;
 }
+#card121:hover{
+    box-shadow: 0px 3px 6px 5px #ccc;
+    transition: .7s;
+}
 #card122{
     background-color: #9088D4;
     border-radius: 15px;
     color: white;
     cursor: pointer;
+}
+#card122:hover{
+    box-shadow: 0px 3px 6px 5px #ccc;
+    transition: .7s;
 }
 #card123{
     background-color: #FF9A8C;
@@ -16,11 +24,19 @@
     color: white;
     cursor: pointer;
 }
+#card123:hover{
+    box-shadow: 0px 3px 6px 5px #ccc;
+    transition: .7s;
+}
 #card124{
     background-color: #EA86B6;
     border-radius: 15px;
     color: white;
     cursor: pointer;
+}
+#card124:hover{
+    box-shadow: 0px 3px 7px 5px #ccc;
+    transition: .7s;
 }
 #users{
     font-size: 50px;

@@ -126,7 +126,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
             >
               <CardImg top width="100%" src={img} alt="Theme1 img" className="emailimg" />
               <CardBody>
-                
+              <Button>Edit</Button>
               </CardBody>
             </Card>
           </div>
@@ -190,7 +190,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                 </Colxx>
               </Row>
               <CardBody>
-                
+              <Button>Edit</Button>
               </CardBody>
             </Card>
           </div>

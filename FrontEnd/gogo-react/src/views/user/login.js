@@ -185,11 +185,11 @@ const Login = ({ history, loading, error, loginUserAction }) => {
         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
          {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
          <img src={Google} className="logo"/> 
-<span>Register Using Google</span>
+          <span id="text">Continue with Google</span>
            </Button>
            <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
         <img src={Apple} className="logo2" />
-<span>Register Using Apple</span>
+          <span id="text">Continue with Apple</span>
            </Button>
            </div>      </Row>
           </div>

@@ -284,11 +284,11 @@ const Register = ({ history }) => {
          <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
          {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
          <img src={Google} className="logo"/> 
-<span>Register Using Google</span>
+<span>Continue with Google</span>
            </Button>
            <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
         <img src={Apple} className="logo2" />
-<span>Register Using Apple</span>
+<span>Continue with Apple</span>
            </Button>
            </div>      </Row>
             

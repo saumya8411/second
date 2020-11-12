@@ -1,16 +1,15 @@
 .heading{
-    margin-left: 13%;
+    margin-left: 3%;
     color: white;
+    text-align: center;
 }
 .heading2{
     display: flex;
-    margin-left: 60px;
-    justify-content: center;
+    font-size: 70%;
     color: white;
 }
 .icons{
-    margin-left: 5%;
-    font-size: 25px;
+    font-size: 100%;
 }
 #fb{
     color: #4867AA;
@@ -25,6 +24,29 @@
     margin-left: 0%;
 }
 .page-footer{
-    height: 40px;
+    margin-top: auto;
+    height: 40%;
     background-color: #30233B;
+}
+.Logo{
+    width: 120%;
+}
+.noti{
+    color: #8F9BB3;
+    display: inline-block;
+    font-size: 24px;
+    margin-left: 15px;
+    margin-bottom: 3px;
+}
+.chat{
+    color: #8F9BB3;
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 10%;
+    font-weight: bold;
+}
+@media screen and (max-width: 830px) {
+    .Logo{
+        width: 400%;
+    }
 }
