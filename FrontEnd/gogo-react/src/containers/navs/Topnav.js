@@ -207,7 +207,7 @@ const TopNav = ({
 
   const { messages } = intl;
   return (
-    <nav className="navbar fixed-top">
+    <nav className="navbar fixed-top navj">
       <div className="d-flex align-items-center navbar-left">
         <NavLink
           to="#"
