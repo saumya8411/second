@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input,CardText, Col} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText, Col} from 'reactstrap';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
@@ -7,13 +7,17 @@ import { Colxx, Separator } from '../components/common/CustomBootstrap';
 import Editable from './Editable';
 import './Customcss.css'
 import { Link } from 'react-router-dom';
-
+import { MDBInput } from "mdbreact";
 import {useCounter} from './useCounter'
 import Avatar from './avatarnew.png'
 import {FaPlayCircle} from 'react-icons/fa'
 import {RiAttachmentLine} from 'react-icons/ri'
 import {GrDocumentPdf} from 'react-icons/gr'
 import {BiBroadcast} from 'react-icons/bi'
+import {RiDeleteBin2Fill} from 'react-icons/ri'
+import {BsCaretDownFill} from 'react-icons/bs'
+import ScrollBar from 'react-perfect-scrollbar';
+import { Scrollbars } from 'react-custom-scrollbars';
 //import {ContentEditable} from 'react-contenteditable'
 
 
@@ -22,14 +26,14 @@ import {BiBroadcast} from 'react-icons/bi'
 
 
 export default class SessionMaterial extends Component {
-  
+
     constructor(props) {
         super(props)
         this.deleteTask = this.deleteTask.bind(this)
         this.state = {
              SessionMaterial:[
                {
-                name:"Artificial intelligence basics",
+                name:"Chapter 1",
                 lesson:[{
                   name:"xyz",
                   video:"",
@@ -58,7 +62,8 @@ export default class SessionMaterial extends Component {
               timeline:false,
 conclusion:'',
 
- html: "<b>Hello <i>World</i></b>"
+ html: "<b>Hello <i>World</i></b>",
+         
 
                           
               
@@ -91,6 +96,7 @@ conclusion:'',
 this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial))
     }
     deleteTask(lessonindex){
+      alert('Are you sure to delete this?')
       console.log(lessonindex)
       let lesson = this.state.SessionMaterial
       lesson.splice(lessonindex,1)
@@ -119,6 +125,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
 
         }
         removeItem() {
+          alert('Are you sure to delete this?')
           const lesson = this.state.SessionMaterial;
           lesson.splice(lesson.index, 1);
           this.setState({ lesson:lesson });
@@ -184,7 +191,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 <nav>
                     <ul className="d-flex">
                         <li style={{display:'flex',alignItems:'center'}}>
-        <h3 className="font-weight-bold">{this.state.data.name}</h3>
+        <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>{this.state.data.name}</h3>
                         </li>
                         <li className="mb-2">
         <span style={{padding:'2px 5px',backgroundColor:'#CFEBFD',borderRadius:'5px', fontSize:'10px',marginBottom:'10px' }}>{this.state.data.type}</span>
@@ -196,10 +203,10 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 <nav>
                     <ul className="d-flex">
                       
-                        <li>
+                        <li style={{fontSize:"1rem"}}>
         <span>{this.state.data.date}</span>
                         </li>
-                        <li className="marking">
+                        <li className="marking" style={{fontSize:"1rem"}}>
         <span>{this.state.data.time}</span>
                         </li>
                         
@@ -221,12 +228,12 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
               <Colxx xxs='12' md="4">
-                  <h3 className="font-weight-bold">Tagline</h3>
+                  <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>Tagline</h3>
                   {/* <p>Tagline is here</p> */}
                   <Editable style={{fontSize:'15px'}}
           text={this.state.data.tagline}
           placeholder="Write a good tagline"
-          type="input"
+          type="input" 
         >
           <Input
             type="text"
@@ -252,7 +259,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
               <Colxx xxs='12' md="4">
-                  <h3 className="font-weight-bold">Description</h3>
+                  <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>Description</h3>
                   {/* <p>Description is here</p> */}
                   <Editable style={{fontSize:'15px'}}
           text={this.state.data.description}
@@ -281,28 +288,25 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </CardBody>
     </Card>
     <Card className="p-4 mb-3">
-                  <CardTitle className="font-weight-bold">Trainer Profile</CardTitle>
+                  <CardTitle className="font-weight-bold" style={{fontSize:"1.5rem"}}>Trainer Profile</CardTitle>
                   <CardBody>
                   <nav>
                     <Row>
                       
-                        <Colxx md="2" sm="12" className="cardseparations text-center font-weight-bold">
-                             <h3>{this.state.data.Trainer.name}</h3>
+                        <Colxx md="2" xs="12" className="cardseparations text-center font-weight-bold">
+                             <h3 className="font-weight-bold" style={{fontSize:"1.3rem"}}>{this.state.data.Trainer.name}</h3>
                               <img src={Avatar} alt="..." id="avatar"/>
                               <p>Web developer, IBM, bengaluru</p>
                               <p>2017 to present</p>
                               <Button outline color="secondary" >Edit Profile</Button>
                         </Colxx>
-                        <Colxx md="10" sm="12" className="">
-                            <h5 className="ml-4">Skills</h5>
+                        <Colxx md="7" xs="12" className="">
+                            <h5 className="ml-4 font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Skills</h5>
                             <ul className="skillslist">
                                
                                {this.state.data.Trainer.skills.map((skill)=>{
                                  return(
-                                  <Card body className="design">
-                                    <CardTitle tag="h5">{skill}</CardTitle>
-                                    <CardText>Advanced with 3 Years Experience</CardText>
-                                </Card>
+                                 <p className="ml-4 mt-4">{skill}</p>
                                  
                                  )
                                })}
@@ -313,7 +317,23 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                                 <li>DEVOPS</li> */}
                             </ul>
                         </Colxx>
-
+                        <Colxx md="3" xs="12">
+                        <h5 className=" font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Experience</h5>
+                        <Scrollbars style={{ width: "100%", height: 300 }}>
+                          <div className="mt-4">
+                              <p className="text-center" style={{fontSize:"15px"}}>Web Developer, IBM, Bengaluru</p>
+                              <p className="text-center">from 2017 to present</p>
+                          </div>
+                          <div className="mt-4">
+                              <p className="text-center" style={{fontSize:"15px"}}>frontend Developer, Capgemini, Bengaluru</p>
+                              <p className="text-center">from 2015 to 2017</p>
+                          </div>
+                          <div className="mt-4">
+                              <p className="text-center" style={{fontSize:"15px"}}>Software Engineer, Infosys, Hyderabad</p>
+                              <p className="text-center">from 2012 to 2015</p>
+                          </div>
+                        </Scrollbars>
+                        </Colxx>
                         
                     </Row>
                 </nav>
@@ -326,10 +346,10 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
 
     <Card className="p-4 mb-3">
         <Row>
-            <Colxx  >
+            <Col md="4" >
         <CardTitle className="font-weight-bold">Session Material</CardTitle>
-        </Colxx>
-        <Colxx  xs="6" >
+        </Col></Row>
+        
         {/* <FormGroup className="error-l-100">
                       <Label>Multiple Chapters: </Label>
                       <Switch
@@ -338,136 +358,136 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   onChange={(secondary) => setMultiplechapters(secondary)}
                 />
                       </FormGroup> */}
-                    <Row>
-                      <Colxx  sm="4">
-                      <FormGroup className="error-l-100">
-                      <Label>Enable Timeline: </Label>
+                    
+                    <Row> <Col md="6">
+                      <FormGroup className="error-l-100 mr-auto ml-4">
+                      <Row><Label style={{fontSize:"1rem"}}>Enable Timeline: </Label>
                       <Switch
-                  className="custom-switch custom-switch-secondary custom-switch-small"
+                  className="custom-switch custom-switch-secondary custom-switch-small ml-4"
                   checked={this.state.timeline}
                   onChange={(secondary) => this.setState({timeline:secondary})}
-                />
-                      </FormGroup>
-                      </Colxx>  <Colxx xs="12" sm="8">  <Button outline color="secondary" className="mb-2">
-                    Preview
-                  </Button>
-                  </Colxx> </Row>
-        </Colxx>
-        </Row>
-        <Card className="p-4">
+                /> </Row>
+                      </FormGroup></Col>
+                      <Col md="6" > <Button outline color="secondary" className="mb-2 ml-auto butun">
+                Preview
+              </Button></Col></Row>
+                  
     
+        
+        <Card className="p-4">
+        <Button mode="filled" className="btn13" color="secondary"  onClick={()=>this.addChapter()}>Add Chapter</Button>
         <CardBody>
           {this.state.SessionMaterial.map((item,index)=>{
             return(
               <>
+              <h3 className="mt-4 text-center font-weight-bold">{item.name}</h3>
               <Row className="mt-3">
-              <Colxx  md="6">
-              <Editable
-                text={item.name}
-                placeholder="Write a chapter name"
-                type="input"
-              >
-                <Input
-                  type="text"
+              <Colxx  md="12">
+              <button onClick={(evt) => {
+                  evt.stopPropagation()
+                  this.deleteTask(index)}} className="delete"><RiDeleteBin2Fill/></button>
+                <MDBInput
                   name="name"
-                  placeholder="Write a chapter name"
+                  placeholder="Add Chapter Name"
                   value={item.name}
-                  onChange={e => this.changeChapterAttribute(e,index)}
-                />
-                 </Editable>
-            
-                  
-              </Colxx>
-              <Colxx md="6">
-                <Label>What Will Students Learn After this Chapter</Label>
-                  <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={e=>this.setState({conclusion:e.target.value})}/>
+                  onChange={e => this.changeChapterAttribute(e,index)} />
               </Colxx>
           </Row>
-                    <Editable
-                text={item.html}
-                placeholder="Write a Lesson name"
-                type="input"
-              >
+
+                
+               
+                 
+
+             
+
+      {item.lesson.map((lessonitem,lessonindex)=>{
+        console.log(lessonitem)
+        return(
+          
+          <div key={lessonindex}>
+            <div>
+            <Card  id="toggler" className="text-center mt-4" style={{ width:'100%', height:'40px',cursor:'pointer' }}>
+              <Row className="text-center m-0 mx-auto my-auto">Lesson <BsCaretDownFill className="float-right mt-2" style={{fontSize:'15px'}}/></Row>
+            </Card>
+            <UncontrolledCollapse toggler="#toggler">
+              <Card>
+                <CardBody>
                 <Input
                   type="text"
                   name="name"
                   placeholder="Write a Lesson name"
                   value={this.html}
-                  onChange={e => this.handleChange(e)}
+                  onChange={e => this.handleChange(e)} className="mt-4"
                 />
-                 </Editable>
-                 <Row>
-                 <Button mode="filled" className="btn12" color="primary" style={{maxWidth:"200px"}} onClick={()=>this.addLesson(index)}>Add lesson</Button>
-              <Button mode="filled" className="btn13" color="secondary" style={{maxWidth:"200px"}} className="ml-4 mt-auto" onClick={()=>this.addChapter()}>Add Chapter</Button>
-              </Row>
 
-      {item.lesson.map((lessonitem,lessonindex)=>{
-        console.log(lessonitem)
-        return(
-          <div key={lessonindex}>
           <Row className="mt-4">
-          <Colxx  md="4">
-          {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
+{/*           <Colxx  md="4">
+          <Input value="First Lesson" onChange={onLessonnameChange}/> 
           
 
-          </Colxx>
+          </Colxx> */}
           
-          <Colxx  md="8">
+          <Colxx  md="12">
               
              <Row className="mt-4 text-center">
              <Card body className="design">
                <CardTitle tag="h5">Get Started</CardTitle>
                <Row>
                  <Col md="3">
-                   <FaPlayCircle id="lower-icons"/>
+                <label class="custom-file-upload">
+                  <input type="file"/>
+                  <FaPlayCircle id="lower-icons"/>
+                </label>
                    <p>Add Video</p>
                  </Col>
                  <Col md="3">
+                 <label class="custom-file-upload">
+                 <input type="file"/>
                    <RiAttachmentLine id="lower-icons"/>
+                   </label>
                    <p>embeded</p>
            
                 </Col>
                 <Col md="3">
+                <label class="custom-file-upload">
+                <input type="file"/>
                   <GrDocumentPdf/>
+                  </label>
                   <p>pdf</p>
                 </Col>
                 <Col md="3">
+ 
                   <BiBroadcast id="lower-icons"/>
+                  
                   <p>live</p>
                 </Col>
-                <button onClick={(evt) => {
-                  evt.stopPropagation()
-                  this.deleteTask(lessonindex)}}>Delete</button>
+
             </Row>
              </Card>
-            
-            
-          
-
-          
-          
-
-          
-
-
+             
           </Row>
           </Colxx>
           
           </Row>
+                </CardBody>
+              </Card>
+            </UncontrolledCollapse>
+          </div>
+            
           
           </div>
         )
       })}
 
           
-
+<Button mode="filled" className="btn12 mb-4" color="primary" style={{maxWidth:"200px"}} onClick={()=>this.addLesson(index)}>Add lesson</Button>
           </>
            
             )
           })}
     
     </CardBody>
-    </Card>
+    </Card>{/* <Button className="mt-4 btn13">Next</Button> */}
     </Card>
   
          

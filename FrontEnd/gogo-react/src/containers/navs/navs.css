@@ -23,11 +23,7 @@
 .a{
     margin-left: 0%;
 }
-.page-footer{
-    margin-top: auto;
-    height: 40%;
-    background-color: #30233B;
-}
+
 .Logo{
     width: 160%;
 }
@@ -71,8 +67,11 @@
 .page-footer{
     border-top:1px solid rgb(190, 190, 190);
     /* height: 10%; */
-    margin-top: 0px;
+    position:absolute;
+    bottom:0;
     background-color: #30233B;
+    margin-top: 40%;
+
 }
 .name{
     font-size: 20px;
@@ -82,16 +81,22 @@
 }
 .copy{
     text-align: left;
-    margin-left: 14%;
+   /*  margin-left: 14%; */
     margin-top: 20px;
     font-size: 15px;
+    color: white;
+}
+.copy1{
+    text-align: left;
+  margin-left: 30px; 
+    margin-top: 20px;
+    font-size: 15px;
+    color: white;
 }
 .col1{
     color: white;
 }
-a{
-    color: white;
-}
+
 
 @media(max-width:830px){
     .page-footer{
@@ -101,6 +106,10 @@ a{
         background-color: #F8F8F8;
     }
     .copy{
+        color: #30233B;
+        text-align: center;
+    }
+    .copy1{
         color: #30233B;
         text-align: center;
     }

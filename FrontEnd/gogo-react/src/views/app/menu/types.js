@@ -548,12 +548,12 @@ const MenuTypes = ({
         </Card>
       </Col>
     </Row>
-    <Scrollbars style={{ width: '100%', height: 400 }}>
+    <Scrollbars style={{ width: '100%', height: 500 }}>
     <Card className="mt-4 line" md='12'  >
     <div className="thecard">
-        <Row className="ml-1">Emails <div id="dott"></div></Row>
-        <Row className="ml-1">Messages<div id="dott2"></div></Row>
-        <Row className="ml-1">Threads<div id="dott3"></div></Row>
+        <Row className="ml-4 mt-4"><p id="no">Emails</p> <div id="dott"></div></Row>
+        <Row className="ml-4"><p id="no">Messages</p><div id="dott2"></div></Row>
+        <Row className="ml-4"><p id="no">Threads</p><div id="dott3"></div></Row>
       </div>
       <div className="position-absolute card-top-buttons float-right">
         <Row>
@@ -643,32 +643,17 @@ const MenuTypes = ({
         </Card>
       </Col>
     </Row>
-    <Scrollbars style={{ width: '100%', height: 400 }}>
+    <Scrollbars style={{ width: '100%', height: 500 }}>
     <Card className="mt-4 line" md='12'>
     <div className="thecard">
-        <Row className="ml-1">Earnings<div id="dott4"></div></Row>
-        <Row className="ml-1">Courses<div id="dott5"></div></Row>
-        <Row className="ml-1">Rewards<div id="dott6"></div></Row>
+        <Row className="ml-4 mt-4"><p id="no">Earnings</p><div id="dott4"></div></Row>
+        <Row className="ml-4"><p id="no">Courses</p><div id="dott5"></div></Row>
+        <Row className="ml-4"><p id="no">Rewards</p><div id="dott6"></div></Row>
       </div>
       <div className="position-absolute card-top-buttons">
         <Row>
           
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button">
-            <i className="simple-icon-refresh" />
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Row className="ml-1">Earnings <div id="dot"></div></Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Courses<div id="dot2"></div></Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Rewards<div id="dot3"></div></Row>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
+
         <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button">
             <FaFilter className="mb-1"/>

@@ -125,12 +125,12 @@ const number = 43;
       </Row>
       <Row>
       <Col md="12" xs="12">
-      <Scrollbars style={{ width: '100%', height: 400 }}>
+      <Scrollbars style={{ width: '100%', height: 500 }}>
       <Card className="mt-4 ccc mb-4">
       <div className="thecard">
-        <Row className="ml-1">Sales <div id="dot"></div></Row>
-        <Row className="ml-1">Enrolled<div id="dot2"></div></Row>
-        <Row className="ml-1">Revenue<div id="dot3"></div></Row>
+        <Row className="ml-4 mt-4"><p id="no">Sales</p> <div id="dot"></div></Row>
+        <Row className="ml-4"><p id="no">Enrolled</p><div id="dot2"></div></Row>
+        <Row className="ml-4"><p id="no">Revenue</p><div id="dot3"></div></Row>
       </div>
       <div className="position-absolute card-top-buttons">
         <Row>

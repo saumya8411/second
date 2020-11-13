@@ -179,10 +179,29 @@ display: flex;
     font-size: 150%;
 }
 .btn12{
+    display: flex;
     margin-top:30px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    border-radius: 0%;
+}
+input[type="file"] {
+    display: none;
 }
 .btn13{
-    margin-top:80px;
+    display: inline-block;
+    margin-top:40px;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    border-radius: 0%;
+}
+@media(max-width: 830px){
+    .btn13{
+        width: 80%;
+    }
 }
 .colorchange:hover{
     color: white;
@@ -193,5 +212,22 @@ display: flex;
 
 }
 .butn{
+    border-radius: 0%;
+}
+.delete{
+    float: right;
+    margin-bottom: 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+.delete:hover{
+    box-shadow: 0px 0px 4px 2px rgb(158, 158, 158);
+    transition: .2s;
+}
+.butun{
+    display: flex;
+    margin-left: auto;
     border-radius: 0%;
 }

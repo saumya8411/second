@@ -33,6 +33,12 @@ name: 'Introduction to Arduino IDE',
 size: '300Mb',
 type: 'Video',
 uploaded: '27-10-2020'
+},
+{
+name: 'Projects on Arduino IDE',
+size: '30Mb',
+type: 'Zip',
+uploaded: '27-10-2020'
 }]
 
 function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
@@ -265,6 +271,7 @@ export const Library = () => {
 <TabPane tabId="5">
 <Table columns={cols} data={data} divided />
 </TabPane>
+
 
 </TabContent>
 
