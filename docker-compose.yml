@@ -1,0 +1,64 @@
+version: '3.8'
+
+services: 
+  db:
+    image: mysql:5.7
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=oyester_docker
+    # ports:
+    #   - 3306:3306
+    restart: on-failure
+    networks:
+      - mynet
+
+
+  backend-teacher-service:
+    build: ./backend
+    ports: 
+      - '5000:5000'
+    depends_on: 
+      - db
+    environment:  
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=oyester_docker
+      - DB_HOST=localhost
+      - DB=oyester_docker
+      - DB_PASSWORD=deepak
+      - DB_user=root
+      - PORT=5000
+      - JWT_KEY=deepak
+      - API_TRANSMAIL=wSsVR60jqR+jX60onjatLuo5y1UGDw+nFkR4jlr37yP8HfrF9sczn0SfA1LyGPAWGDQ4RjIQ9e98y0sGgzBbiowuylEECCiF9mqRe1U4J3x17qnvhDzIV2xVlxKBL4sMzgptkmBgFspu
+      - API_TEXTLOCAL=EsHudabvPzw-TMf3Nv4fDFZMXEz8dBcXWNQNJJiZhA
+      - HASH_TEXTLOCAL=14063fb012c1ac67cba033361db04780b2a066552328123556211e05b72eec97
+      - BOUNCE_MAIL=email@bounce.oyesters.in
+      - SENDERS_MAIL=oyesters_training@oyesters.in
+    restart: on-failure
+    links:
+      - db:mysql
+
+  # frontend-teacher-service:
+  #   build: ./frontend/gogo-react
+  #   ports: 
+  #     - '3000:3000'
+  #   restart: on-failure
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:4.7
+  #   depends_on: 
+  #     - mysql
+  #   ports: 
+  #     - "30002:80"
+  #   environment: 
+  #     - PMA_HOST=mysql-docker
+  #     - PMA_PORT=3306
+
+networks:
+  mynet:
+    
+
+

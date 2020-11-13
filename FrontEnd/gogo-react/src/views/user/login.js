@@ -61,7 +61,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
     if (!loading) {
       console.log(values)
 
-      axios.post("http://localhost:5000/users/login" , {
+      axios.post("http://backend-teacher-service/users/login" , {
         values
       })
       .then(response => {

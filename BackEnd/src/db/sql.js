@@ -6,11 +6,12 @@ let connection = mysql.createConnection({
     user     : process.env.DB_user,
     password : process.env.DB_PASSWORD,
     database : process.env.DB
-  });
+});
    
 connection.connect(err => {
     if(err){
         console.log(process.env.DB)
+        console.log(err)
         throw err;
     }
     console.log("MYSQL Connected")
