@@ -125,7 +125,7 @@ const number = 43;
       </Row>
       <Row>
       <Col md="12" xs="10">
-      <Card className="mt-4">
+      <Card className="mt-4 ccc mb-4">
       <div className="position-absolute card-top-buttons">
         <Row>
           

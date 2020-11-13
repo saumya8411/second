@@ -12,7 +12,7 @@ import {
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input,
+  Input, Row, Col
 } from 'reactstrap';
 
 import { NavLink } from 'react-router-dom';
@@ -207,6 +207,8 @@ const TopNav = ({
 
   const { messages } = intl;
   return (
+    <Row>
+      <Col xs="12">
     <nav className="navbar fixed-top navj">
       <div className="d-flex align-items-center navbar-left">
         <NavLink
@@ -323,6 +325,8 @@ const TopNav = ({
         </div>
       </div>
     </nav>
+    </Col>
+    </Row>
   );
 };
 

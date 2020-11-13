@@ -3,6 +3,7 @@
     border-radius: 15px;
     color: white;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 #card121:hover{
     box-shadow: 0px 3px 6px 5px #ccc;
@@ -13,6 +14,7 @@
     border-radius: 15px;
     color: white;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 #card122:hover{
     box-shadow: 0px 3px 6px 5px #ccc;
@@ -23,6 +25,7 @@
     border-radius: 15px;
     color: white;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 #card123:hover{
     box-shadow: 0px 3px 6px 5px #ccc;
@@ -33,6 +36,7 @@
     border-radius: 15px;
     color: white;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 #card124:hover{
     box-shadow: 0px 3px 7px 5px #ccc;
@@ -95,3 +99,9 @@
 #heading_dash{
     font-size: 1.5rem;
 }
+@media (max-width:830px){
+    .ccc{
+        width: 200%;
+    }
+}
+

@@ -47,7 +47,7 @@
 }
 @media screen and (max-width: 830px) {
     .Logo{
-        width: 400%;
+        width: 100px;
     }
     .navj{
         width:100%;
@@ -55,5 +55,11 @@
 
     .Logo{
         width: 100%;
+    }
+    .chat, .noti{
+        visibility: hidden;
+    }
+    .toggle{
+        margin-right:40%;
     }
 }
