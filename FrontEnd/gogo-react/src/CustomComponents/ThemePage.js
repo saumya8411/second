@@ -144,8 +144,9 @@ function Themepage() {
                     top
                     width="100%"
                     src={require('./bebinca-thumb.jpg')}
-                    alt="Theme1 img"
+                    alt="Theme1 img" className="mb-3"
                   />
+                  Default Theme
                   <CardBody>
                   <Button className="float-left butn" onClick={() => selectme('select')}>{select}</Button><Button className="float-right butn">Edit</Button>
                   </CardBody>
@@ -157,8 +158,9 @@ function Themepage() {
                     top
                     width="100%"
                     src={require('./bebinca-thumb.jpg')}
-                    alt="Theme1 img"
+                    alt="Theme1 img" className="mb-3"
                   />
+                  Blank Theme
                   <CardBody>
                   <Button className="float-left butn" onClick={() => selectme('select2')}>{select2}</Button><Button className="float-right butn">Edit</Button>
                   </CardBody>
