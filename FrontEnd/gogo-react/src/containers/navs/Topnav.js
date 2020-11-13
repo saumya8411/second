@@ -275,9 +275,7 @@ const TopNav = ({
             </DropdownMenu>
           </UncontrolledDropdown>
         </div> */}
-        <div className="position-relative d-none d-none d-lg-inline-block">
 
-        </div>
       </div>
       <NavLink className="navbar-logo" to={adminRoot}>
           <img src={require(`./s0.png`)} className="Logo"/>
