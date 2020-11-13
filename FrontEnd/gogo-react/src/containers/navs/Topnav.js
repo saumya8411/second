@@ -219,7 +219,7 @@ const TopNav = ({
             menuButtonClick(e, menuClickCount, containerClassnames)
           }
         >
-          <MenuIcon />
+          <MenuIcon  className="menuicon"/>
         </NavLink>
         <NavLink
           to="#"
@@ -233,7 +233,7 @@ const TopNav = ({
             <BsChatSquareDots className="chat"/>
             {/* <IoIosNotificationsOutline className="notification"/> */}
             <RiNotification4Line className="noti mr-4"/>
-            {isDarkSwitchActive && <TopnavDarkSwitch className="toggle ml-4" />}
+            
 {/*         <div className="search"> 
           <Input
             name="searchKeyword"
@@ -290,25 +290,14 @@ const TopNav = ({
           <TopnavNotifications /> */}
           
           
-           <button
-            className="header-icon btn btn-empty d-none d-sm-inline-block"
-            type="button"
-            id="fullScreenButton"
-            onClick={toggleFullScreen}
-          >
-            {isInFullScreen ? (
-              <i className="simple-icon-size-actual d-block" />
-            ) : (
-              <i className="simple-icon-size-fullscreen d-block" />
-            )}
-          </button> 
+          {isDarkSwitchActive && <TopnavDarkSwitch className="toggle ml-4" />}
         </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Sarah Kortney</span>
-              <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
+              <span className="name mr-1 mt-3 align-middle">Sarah Kortney</span>
+              <span className="img">
+                <img alt="Profile"  src="/assets/img/profiles/l-1.jpg" />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>

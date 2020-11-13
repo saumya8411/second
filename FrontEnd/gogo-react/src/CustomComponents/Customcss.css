@@ -192,3 +192,6 @@ display: flex;
     border-radius: 3px;
 
 }
+.butn{
+    border-radius: 0%;
+}

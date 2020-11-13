@@ -29,6 +29,22 @@ function Themepage() {
   const [activeFirstTab, setActiveFirstTab] = useState('1');
   const [theme, setTheme] = useState('1');
   const [contactustheme, setContactustheme] = useState('1');
+  let [select, setSelect] = useState('Select');
+  let [select2, setSelect2] = useState('Select');
+
+  let selectme = (e) => {
+      if(e == 'select'){
+        setSelect(select = 'Selected')
+        setSelect2(select = 'Select')
+      }
+      else if(e == 'select2'){
+        setSelect2(select2 = 'Selected')
+        setSelect(select = 'Select')
+      }
+      else{
+        setSelect(select = 'Select')
+      }
+  }
 
   return (
     <>
@@ -131,7 +147,7 @@ function Themepage() {
                     alt="Theme1 img"
                   />
                   <CardBody>
-                  <Input type="checkbox" />{' '} <CardText className="mt-1 font-weight-bold">Default Theme</CardText>
+                  <Button className="float-left butn" onClick={() => selectme('select')}>{select}</Button><Button className="float-right butn">Edit</Button>
                   </CardBody>
                 </Card>                <Card
                   className="p-4 ml-4"
@@ -144,7 +160,7 @@ function Themepage() {
                     alt="Theme1 img"
                   />
                   <CardBody>
-                  <Input type="checkbox" />{' '} <CardText className="mt-1 font-weight-bold">Blank Theme</CardText>
+                  <Button className="float-left butn" onClick={() => selectme('select2')}>{select2}</Button><Button className="float-right butn">Edit</Button>
                   </CardBody>
                 </Card>
                 </Row>

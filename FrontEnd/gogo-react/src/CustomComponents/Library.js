@@ -244,23 +244,7 @@ export const Library = () => {
                     >
                    <h6>Quiz</h6>
                     </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '6',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('6');
-                      }}
-                    >
-                   <h6>Doubts</h6>
-                    </NavLink>
-                  </NavItem>
-                 
+                  </NavItem> 
                 </Nav>
                 <div className="mb-4">
 
@@ -270,20 +254,18 @@ export const Library = () => {
                 
 </TabPane>
 <TabPane tabId="2">
-  videos
+<Table columns={cols} data={data} divided />
 </TabPane>
 <TabPane tabId="3">
-  recordings
+<Table columns={cols} data={data} divided />
 </TabPane>
 <TabPane tabId="4">
-  assignment
+<Table columns={cols} data={data} divided />
 </TabPane>
 <TabPane tabId="5">
-  quiz
+<Table columns={cols} data={data} divided />
 </TabPane>
-<TabPane tabId="6">
-  doubts
-</TabPane>
+
 </TabContent>
 
                 </div>

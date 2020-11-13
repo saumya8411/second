@@ -14,7 +14,7 @@ import { FaCode } from 'react-icons/fa';
 import { FaDatabase } from 'react-icons/fa';
 import { FaWifi } from 'react-icons/fa';
 import { FaFilter } from 'react-icons/fa';
-
+import { Scrollbars } from 'react-custom-scrollbars';
 import { LineChart } from '../../components/charts';
 
 import { lineChartData } from '../../data/charts';
@@ -42,7 +42,7 @@ const number = 43;
         </Colxx>
       </Row>
       <Row>
-        <Col md = "3" xs = "10">
+        <Col md = "3" xs = "12">
       <Card id="card121"> 
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
@@ -61,7 +61,7 @@ const number = 43;
         </CardBody>
       </Card>
       </Col>
-      <Col md = "3" xs = "10">
+      <Col md = "3" xs = "12">
       <Card id="card122">
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
@@ -75,7 +75,7 @@ const number = 43;
         </CardBody>
       </Card>
       </Col>
-      <Col md = "3" xs = "10">
+      <Col md = "3" xs = "12">
       <Card id="card123">
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
         <CardBody>
@@ -99,7 +99,7 @@ const number = 43;
         </CardBody>
       </Card>
       </Col>
-      <Col md = "3" xs = "10">
+      <Col md = "3" xs = "12">
       <Card id="card124">
         <CardBody>
         <Row>
@@ -124,28 +124,24 @@ const number = 43;
       </Col>
       </Row>
       <Row>
-      <Col md="12" xs="10">
+      <Col md="12" xs="12">
+      <Scrollbars style={{ width: '100%', height: 400 }}>
       <Card className="mt-4 ccc mb-4">
+      <div className="thecard">
+        <Row className="ml-1">Sales <div id="dot"></div></Row>
+        <Row className="ml-1">Enrolled<div id="dot2"></div></Row>
+        <Row className="ml-1">Revenue<div id="dot3"></div></Row>
+      </div>
       <div className="position-absolute card-top-buttons">
         <Row>
           
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button">
-            <i className="simple-icon-refresh" />
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Row className="ml-1">Sales <div id="dot"></div></Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Enrolled<div id="dot2"></div></Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Revenue<div id="dot3"></div></Row>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-        <UncontrolledDropdown>
+
+
+
+
+
+
+ 
           <DropdownToggle color="" className="btn btn-header-light icon-button">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
@@ -160,7 +156,7 @@ const number = 43;
             <Row className="ml-1">Last three months</Row>
             </DropdownItem>
           </DropdownMenu>
-        </UncontrolledDropdown>
+
         
         </Row>
       </div>
@@ -171,7 +167,7 @@ const number = 43;
           <LineChart shadow data={lineChartData} />
         </div>
       </CardBody>
-    </Card>
+    </Card></Scrollbars>
     </Col>
     </Row>
     </>

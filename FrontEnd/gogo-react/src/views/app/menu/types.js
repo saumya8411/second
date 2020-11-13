@@ -434,7 +434,7 @@ const MenuTypes = ({
           </Col>
           <Col md="6" xs="6">
             <CardText className="font-weight-bold head text-light">13</CardText>
-            <CardText className="font-weight-bold para text-light">Students</CardText>
+            <CardText className="font-weight-bold para text-light">Total Students Enrolled</CardText>
           </Col>
           </Row>
         </Card>
@@ -447,7 +447,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6">
         <CardText className="font-weight-bold head text-light">23</CardText>
-            <CardText className="font-weight-bold para text-light">Courses</CardText>
+            <CardText className="font-weight-bold para text-light">Total Courses Created</CardText>
         </Col>
         </Row>
         </Card>
@@ -460,7 +460,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6">
         <CardText className="font-weight-bold head text-light">12</CardText>
-            <CardText className="font-weight-bold para text-light">Live Lectures</CardText>
+            <CardText className="font-weight-bold para text-light">Total Live Lectures</CardText>
         </Col>
         </Row>
         </Card>
@@ -474,7 +474,7 @@ const MenuTypes = ({
           </Col>
           <Col md="6" xs="6">
           <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Library Items</CardText>
+            <CardText className="font-weight-bold para text-light">Total Library Items</CardText>
           </Col>
           </Row>
           
@@ -503,7 +503,7 @@ const MenuTypes = ({
           </Col>
           <Col md="6" xs="6">
             <CardText className="font-weight-bold head text-light">76</CardText>
-            <CardText className="font-weight-bold para text-light">Email Sent</CardText>
+            <CardText className="font-weight-bold para text-light">Total Email Send</CardText>
           </Col>
           </Row>
         </Card>
@@ -516,7 +516,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6"> 
         <CardText className="font-weight-bold head text-light">43</CardText>
-            <CardText className="font-weight-bold para text-light">Messeges Sent</CardText>
+            <CardText className="font-weight-bold para text-light">Total Text Message Send</CardText>
         </Col>
         </Row>
         </Card>
@@ -529,7 +529,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6" className="mb-3">
         <CardText className="font-weight-bold head text-light">33</CardText>
-          <CardText className="font-weight-bold para text-light">Threads</CardText>
+          <CardText className="font-weight-bold para text-light">Total Whattsapp Message Send</CardText>
         </Col>
         </Row>
         </Card>
@@ -542,32 +542,22 @@ const MenuTypes = ({
           </Col>
           <Col md="6" xs="6" className="mb-3">
           <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Spendings</CardText>
+            <CardText className="font-weight-bold para text-light">Total Spendings</CardText>
           </Col>
           </Row>
         </Card>
       </Col>
     </Row>
+    <Scrollbars style={{ width: '100%', height: 400 }}>
     <Card className="mt-4 line" md='12'  >
-      <div className="position-relative card-top-buttons">
+    <div className="thecard">
+        <Row className="ml-1">Emails <div id="dott"></div></Row>
+        <Row className="ml-1">Messages<div id="dott2"></div></Row>
+        <Row className="ml-1">Threads<div id="dott3"></div></Row>
+      </div>
+      <div className="position-absolute card-top-buttons float-right">
         <Row>
           
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button">
-            <i className="simple-icon-refresh" />
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Row className="ml-1">Emails <div id="dot"></div></Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Messages<div id="dot2"></div></Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Threads<div id="dot3"></div></Row>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
         <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button">
             <FaFilter className="mb-1"/>
@@ -595,7 +585,8 @@ const MenuTypes = ({
           <LineChart shadow data={lineChartData} />
         </div>
       </CardBody>
-    </Card>
+      
+    </Card></Scrollbars>
 </TabPane>
 <TabPane tabId="4">
 <Row>
@@ -607,7 +598,7 @@ const MenuTypes = ({
           </Col>
           <Col md="6" xs="6">
             <CardText className="font-weight-bold head text-light">42</CardText>
-            <CardText className="font-weight-bold para text-light">Courses</CardText>
+            <CardText className="font-weight-bold para text-light">Total Courses Created</CardText>
           </Col>
           </Row>
         </Card>
@@ -620,7 +611,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6"> 
         <CardText className="font-weight-bold head text-light">22</CardText>
-            <CardText className="font-weight-bold para text-light">Reward Given</CardText>
+            <CardText className="font-weight-bold para text-light">Total Rewards Given</CardText>
         </Col>
         </Row>
         </Card>
@@ -633,7 +624,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6" className="mb-3">
         <CardText className="font-weight-bold head text-light">31</CardText>
-          <CardText className="font-weight-bold para text-light">Total Payments</CardText>
+          <CardText className="font-weight-bold para text-light">Total Payments Done</CardText>
         </Col>
         </Row>
         </Card>
@@ -652,8 +643,14 @@ const MenuTypes = ({
         </Card>
       </Col>
     </Row>
+    <Scrollbars style={{ width: '100%', height: 400 }}>
     <Card className="mt-4 line" md='12'>
-      <div className="position-relative card-top-buttons">
+    <div className="thecard">
+        <Row className="ml-1">Earnings<div id="dott4"></div></Row>
+        <Row className="ml-1">Courses<div id="dott5"></div></Row>
+        <Row className="ml-1">Rewards<div id="dott6"></div></Row>
+      </div>
+      <div className="position-absolute card-top-buttons">
         <Row>
           
         <UncontrolledDropdown>
@@ -700,6 +697,7 @@ const MenuTypes = ({
         </div>
       </CardBody>
     </Card>
+    </Scrollbars>
 </TabPane>
 <TabPane tabId="5">
   quiz
