@@ -1,0 +1,80 @@
+#myicon{
+    font-size: 470%;
+}
+#crd{
+    height: 150px;
+}
+#crd:hover{
+    
+    cursor: pointer;
+    box-shadow: 0px -3px 7px 3px #b3b2b2;
+    transition: .7s;
+}
+.head{
+    font-size: 250%;
+    margin-top: 20%;
+}
+@media (max-width: 820px){
+    .line{
+        width: 200%;
+    }
+}
+#dott{
+    width: 8px;
+    height: 8px;
+    background-color: #6FB327;
+    margin-top: 7px;
+    margin-left: 49%;
+    border: none;
+    border-radius: 50%;
+}
+
+#dott2{
+    width: 8px;
+    height: 8px;
+    background-color: #E55039;
+    margin-top: 7px;
+    margin-left: 27%;
+    border: none;
+    border-radius: 50%;
+}
+#dott3{
+    width: 8px;
+    height: 8px;
+    background-color: #F6B93B;
+    margin-top: 10px;
+    margin-left: 37%;
+    border: none;
+    border-radius: 50%;
+}
+.thecard{
+    width:10%;
+}
+#dott4{
+    width: 8px;
+    height: 8px;
+    background-color: #6FB327;
+    margin-top: 12px;
+    margin-left: 10%;
+    border: none;
+    border-radius: 50%;
+}
+
+#dott5{
+    width: 8px;
+    height: 8px;
+    background-color: #E55039;
+    margin-top: 10px;
+    margin-left: 14%;
+    border: none;
+    border-radius: 50%;
+}
+#dott6{
+    width: 8px;
+    height: 8px;
+    background-color: #F6B93B;
+    margin-top: 10px;
+    margin-left: 9%;
+    border: none;
+    border-radius: 50%;
+}

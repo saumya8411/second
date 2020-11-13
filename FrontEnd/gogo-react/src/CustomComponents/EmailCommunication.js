@@ -54,13 +54,13 @@ export class EmailCommunication extends Component {
   render() {
     return (
       <div>
-        <h1 className="mb-4 heading">Course Alert</h1>
+        <h1 className="mb-4 headingCA">Course Alert</h1>
 
         {this.state.courses.map((item, index) => {
           return (
             <>
               <Row key={item.id} className="mb-3 ml-4">
-                <Colxx xxs="3">{item.name}</Colxx>
+                <Colxx xxs="3" className="ml-4">{item.name}</Colxx>
                 <Colxx xxs="3">
                   <FormGroup className="error-l-100">
                     <Switch
@@ -94,12 +94,9 @@ export class EmailCommunication extends Component {
                         />
                         <CardBody>
                           <Button>
-                            <a
-                              href="http://localhost:3333/editnewsletter/1"
-                              target="_blank"
-                            >
+                            
                               Edit
-                            </a>
+
                           </Button>
                         </CardBody>
                       </Card>

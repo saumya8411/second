@@ -2,8 +2,8 @@
     font-size: 20px;
 }
 .registerug{
-    font-size: 15px;
-    width: 50%;
+    width: 40%;
+    height: 50px;
 }
 .apple{
     font-size: 20px;
@@ -21,3 +21,12 @@
     margin-right: 6%;
     margin-bottom: 5px;
 }
+@media screen and (max-width: 820px) {
+    #text{
+        font-size: 90%;
+    }
+    .registerug{
+        width:70%;
+    }
+  }
+

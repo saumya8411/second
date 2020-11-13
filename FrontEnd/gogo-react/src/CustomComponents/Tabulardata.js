@@ -1,4 +1,3 @@
-
 import React,{useState} from 'react';
 import { Card, CardBody, CardTitle,Button } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
@@ -37,14 +36,26 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
       useSortBy,
       usePagination
     );
-    const [name, setName] = useState("Launch")
-    const change = (text) => setName(text);
+    let [name, setName] = useState("Launch")
+    
+    /* let change = (e,props) => {
+
+      if(e == props){
+        setName(name = "Launched")
+      }
+    } */
+
   // console.log(getTableBodyProps,"gettable------body----props")
   // console.log(getTableProps,"gettable------props")
   // console.log(prepareRow,"prepare------row")
   // console.log(page,"----------------page")
-  const clickHandlerTable = (props) =>{
-    console.log(props)
+  let clickHandlerTable = (e,p) =>{
+    page.map(pa => {if(e == pa.id){
+          setName(name = 'Launched')
+    }else{
+      setName(name = 'Launch')
+    }}
+      )
   }
   //const [name , ChangeName] = useCounter()
   const info = {
@@ -106,7 +117,7 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
   state: {
   uniquesessionid:row.original.id 
   }
-}}
+}} id="link"
 >{cell.render('Cell')}</Link>
 
 ):cell.render('Cell')}
@@ -120,7 +131,7 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
                   ))}
                   <td >
                     <div style={{display:"flex",alignItems:"center"}}>
-                  <Button color="secondary" onClick={()=>{clickHandlerTable(row.id); change("Launched");}} className="mr-3" style={{fontSize:'1.2rem'}}>
+                  <Button color="secondary" onClick={()=>{clickHandlerTable(row.id , row.title); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1.2rem'}}>
                    {name}
                   </Button>
                   <PopoverItem id={row.id}/>

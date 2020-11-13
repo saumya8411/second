@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input, Col} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row ,FormGroup,Label, Input,CardText, Col} from 'reactstrap';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
@@ -8,10 +8,24 @@ import Editable from './Editable';
 import './Customcss.css'
 import { Link } from 'react-router-dom';
 
+import {useCounter} from './useCounter'
+import Avatar from './avatarnew.png'
+import {FaPlayCircle} from 'react-icons/fa'
+import {RiAttachmentLine} from 'react-icons/ri'
+import {GrDocumentPdf} from 'react-icons/gr'
+import {BiBroadcast} from 'react-icons/bi'
+//import {ContentEditable} from 'react-contenteditable'
+
+
+
+
+
+
 export default class SessionMaterial extends Component {
+  
     constructor(props) {
         super(props)
-    
+        this.deleteTask = this.deleteTask.bind(this)
         this.state = {
              SessionMaterial:[
                {
@@ -23,7 +37,7 @@ export default class SessionMaterial extends Component {
                   notes:"",
                   thumbnail:"",
                   quiz:"",
-                }]
+                },]
               }],
               data:{
                   name:"Machine Learning",
@@ -34,14 +48,22 @@ export default class SessionMaterial extends Component {
                   description:"Custom Description this is demo data",
                   Trainer:{
                       name:'Vedant',
-                    skills:["HTML","CSS","JAVASCRIPT","ANGULAR","DJANGO"]
+                    skills:["HTML", "CSS","JAVASCRIPT","ANGULAR","DJANGO",'MYSQL','BOOTSTRAP']
+                    
                     },
+
                 
                   
               },
               timeline:false,
-conclusion:''
-        };
+conclusion:'',
+
+ html: "<b>Hello <i>World</i></b>"
+
+                          
+              
+        }
+
 
         this.changeChapterAttribute = this.changeChapterAttribute.bind(this);
         this.changeLessonattribute = this.changeLessonattribute.bind(this);
@@ -68,6 +90,14 @@ conclusion:''
         newarray[props].lesson.push(newlesson)
 this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial))
     }
+    deleteTask(lessonindex){
+      console.log(lessonindex)
+      let lesson = this.state.SessionMaterial
+      lesson.splice(lessonindex,1)
+      this.setState({
+        lesson
+      })
+    }
         
         addChapter(){
           const newarray = this.state.SessionMaterial;
@@ -87,6 +117,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial))
 
 
+        }
+        removeItem() {
+          const lesson = this.state.SessionMaterial;
+          lesson.splice(lesson.index, 1);
+          this.setState({ lesson:lesson });
         }
         
         changeChapterAttribute(props,index){
@@ -112,6 +147,13 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           this.setState({data:newarray},console.log(this.state.data))
             
         }
+        handleChange(props){
+          const newarray = this.state.data;
+          const named = props.target.name
+        console.log(newarray,newarray[named],named)  
+          newarray[props.target.html] = props.target.value
+          this.setState({data:newarray},console.log(this.state.data))
+        }
 
         fileUploadButton = (index,lessonindex,id) => {
           document.getElementById('fileButton').click();
@@ -122,7 +164,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           //     }
           console.log(index,document.getElementById(id).value,document.getElementById(id).name)
           }
-  
+         
+ 
+
+        
+        
 
     render() {
         return (
@@ -138,10 +184,10 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 <nav>
                     <ul className="d-flex">
                         <li style={{display:'flex',alignItems:'center'}}>
-        <h3>{this.state.data.name}</h3>
+        <h3 className="font-weight-bold">{this.state.data.name}</h3>
                         </li>
-                        <li className="marking">
-        <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>{this.state.data.type}</span>
+                        <li className="mb-2">
+        <span style={{padding:'2px 5px',backgroundColor:'#CFEBFD',borderRadius:'5px', fontSize:'10px',marginBottom:'10px' }}>{this.state.data.type}</span>
                         </li>
                     </ul>
                 </nav>
@@ -162,7 +208,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </Row>
     </Colxx>
     <Colxx md="3" sm="12">
-      <Button outline color="secondary" style={{fontSize:'1.3rem'}}>
+      <Button outline color="secondary" style={{borderRadius:"3px", marginTop:"15px", fontSize:"14px"}}>
         Launch
       </Button>
     </Colxx>
@@ -175,9 +221,9 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
               <Colxx xxs='12' md="4">
-                  <h3>Tagline</h3>
+                  <h3 className="font-weight-bold">Tagline</h3>
                   {/* <p>Tagline is here</p> */}
-                  <Editable
+                  <Editable style={{fontSize:'15px'}}
           text={this.state.data.tagline}
           placeholder="Write a good tagline"
           type="input"
@@ -206,9 +252,9 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
               <Colxx xxs='12' md="4">
-                  <h3>Description</h3>
+                  <h3 className="font-weight-bold">Description</h3>
                   {/* <p>Description is here</p> */}
-                  <Editable
+                  <Editable style={{fontSize:'15px'}}
           text={this.state.data.description}
           placeholder="Write a good description"
           type="input"
@@ -235,21 +281,29 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </CardBody>
     </Card>
     <Card className="p-4 mb-3">
-                  <CardTitle>Trainer Profile</CardTitle>
+                  <CardTitle className="font-weight-bold">Trainer Profile</CardTitle>
                   <CardBody>
                   <nav>
                     <Row>
                       
-                        <Colxx md="4" sm="12" className="cardseparations">
-                             <h5>{this.state.data.Trainer.name}</h5>
+                        <Colxx md="2" sm="12" className="cardseparations text-center font-weight-bold">
+                             <h3>{this.state.data.Trainer.name}</h3>
+                              <img src={Avatar} alt="..." id="avatar"/>
+                              <p>Web developer, IBM, bengaluru</p>
+                              <p>2017 to present</p>
+                              <Button outline color="secondary" >Edit Profile</Button>
                         </Colxx>
-                        <Colxx md="4" sm="12" className="marking cardseparations">
-                            <h5>Skils</h5>
+                        <Colxx md="10" sm="12" className="">
+                            <h5 className="ml-4">Skills</h5>
                             <ul className="skillslist">
                                
-                               {this.state.data.Trainer.skills.map(skill=>{
+                               {this.state.data.Trainer.skills.map((skill)=>{
                                  return(
-                                 <li>{skill}</li>
+                                  <Card body className="design">
+                                    <CardTitle tag="h5">{skill}</CardTitle>
+                                    <CardText>Advanced with 3 Years Experience</CardText>
+                                </Card>
+                                 
                                  )
                                })}
                                 {/* <li>HTML</li>
@@ -259,10 +313,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                                 <li>DEVOPS</li> */}
                             </ul>
                         </Colxx>
-                        <Colxx md="4" sm="12" className="marking cardseparations">
-                        <Button outline color="secondary" style={{width:'max-content',height:'min-content',fontSize:'1.1rem'}}>Edit Profile</Button>
-    
-                        </Colxx>
+
                         
                     </Row>
                 </nav>
@@ -276,7 +327,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     <Card className="p-4 mb-3">
         <Row>
             <Colxx  >
-        <CardTitle>Session Material</CardTitle>
+        <CardTitle className="font-weight-bold">Session Material</CardTitle>
         </Colxx>
         <Colxx  xs="6" >
         {/* <FormGroup className="error-l-100">
@@ -332,82 +383,89 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   <Input placeholde0r="What Will Students Learn After this Chapter" type="textarea" name="conclusion" onChange={e=>this.setState({conclusion:e.target.value})}/>
               </Colxx>
           </Row>
-          <Card className="p-3 mt-4">
-            <CardBody>
+                    <Editable
+                text={item.html}
+                placeholder="Write a Lesson name"
+                type="input"
+              >
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Write a Lesson name"
+                  value={this.html}
+                  onChange={e => this.handleChange(e)}
+                />
+                 </Editable>
+                 <Row>
+                 <Button mode="filled" className="btn12" color="primary" style={{maxWidth:"200px"}} onClick={()=>this.addLesson(index)}>Add lesson</Button>
+              <Button mode="filled" className="btn13" color="secondary" style={{maxWidth:"200px"}} className="ml-4 mt-auto" onClick={()=>this.addChapter()}>Add Chapter</Button>
+              </Row>
+
       {item.lesson.map((lessonitem,lessonindex)=>{
         console.log(lessonitem)
         return(
-          <>
+          <div key={lessonindex}>
           <Row className="mt-4">
-          <Colxx  md="6">
+          <Colxx  md="4">
           {/* <Input value="First Lesson" onChange={onLessonnameChange}/> */}
           
-          <Editable
-                text={lessonitem.name}
-                placeholder="Write a lesson name"
-                type="input"
-              >
-                {/* <input
-                  type="text"
-                  name="task"
-                  placeholder="Write a task name"
-                  value={conclusion}
-                  onChange={e => setConclusion(e.target.value)}
-                /> */}
-                <Input
-                  type="text"
-                  name="lesson"
-                  placeholder="Write a Lesson name"
-                  value={lessonitem.name}
-                  onChange={e => this.changeLessonattribute(e,index,lessonindex)}
-                />
-               
-              </Editable>
-                
+
           </Colxx>
-                
-          <Colxx  md="6">
+          
+          <Colxx  md="8">
               
              <Row className="mt-4 text-center">
-               
-            <Colxx  sm="6" lg="3" className="iconcolumn" ><div className={`glyph-icon ${iconsmind[28].icons[8]} sessionlookicon mt-4`} />
-            <Input id="fileButton" type="file" hidden name="video"/>
-            <div className="class-name" name="video" onClick={()=>this.fileUploadButton(index,lessonindex,"fileButton")}>Video</div>
-            </Colxx>
-          <Colxx  sm="6" lg="3" className="iconcolumn mt-4">
-          <div className={`glyph-icon ${simplelineicons[151]} mr-2 sessionlookicon`} />
-          <div className="class-name" >Embedded</div>
+             <Card body className="design">
+               <CardTitle tag="h5">Get Started</CardTitle>
+               <Row>
+                 <Col md="3">
+                   <FaPlayCircle id="lower-icons"/>
+                   <p>Add Video</p>
+                 </Col>
+                 <Col md="3">
+                   <RiAttachmentLine id="lower-icons"/>
+                   <p>embeded</p>
+           
+                </Col>
+                <Col md="3">
+                  <GrDocumentPdf/>
+                  <p>pdf</p>
+                </Col>
+                <Col md="3">
+                  <BiBroadcast id="lower-icons"/>
+                  <p>live</p>
+                </Col>
+                <button onClick={(evt) => {
+                  evt.stopPropagation()
+                  this.deleteTask(lessonindex)}}>Delete</button>
+            </Row>
+             </Card>
+            
+            
+          
+
           
           
-          </Colxx>
-          <Colxx  sm="6" lg="3" className="iconcolumn mt-4">
+
           
-          <div className={`glyph-icon ${simplelineicons[157]} mr-2 sessionlookicon`} />
-          <div className="class-name">PDF</div>
-          
-          </Colxx>
-          <Colxx  sm="6" lg="3" >
-            <div className="iconcolumn mt-4">
-            <div className={`glyph-icon ${iconsmind[28].icons[7]} sessionlookicon`} />
-            <div className="class-name">Live</div>
-            </div>
-            </Colxx>
+
+
           </Row>
           </Colxx>
           
           </Row>
           
-          </>
+          </div>
         )
       })}
-          </CardBody>
-          <Button mode="filled" color="primary" style={{maxWidth:"200px"}} onClick={()=>this.addLesson(index)}>Add lesson</Button>
-          </Card>
+
+          
+
           </>
            
             )
           })}
-    <Button mode="filled" color="secondary" style={{maxWidth:"200px"}} className="mt-4" onClick={()=>this.addChapter()}>Add Chapter</Button>
+    
     </CardBody>
     </Card>
     </Card>

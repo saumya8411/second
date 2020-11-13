@@ -1,0 +1,101 @@
+#card121{
+    background-color: #BC6FF1;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#card121:hover{
+    box-shadow: 0px 3px 6px 5px #ccc;
+    transition: .7s;
+}
+#card122{
+    background-color: #9088D4;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#card122:hover{
+    box-shadow: 0px 3px 6px 5px #ccc;
+    transition: .7s;
+}
+#card123{
+    background-color: #FF9A8C;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#card123:hover{
+    box-shadow: 0px 3px 6px 5px #ccc;
+    transition: .7s;
+}
+#card124{
+    background-color: #EA86B6;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#card124:hover{
+    box-shadow: 0px 3px 7px 5px #ccc;
+    transition: .7s;
+}
+#users{
+    font-size: 50px;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+#number{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+#small{
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 2px;
+}
+#dot{
+    width: 8px;
+    height: 8px;
+    background-color: #6FB327;
+    margin-top: 7px;
+    margin-left: 44%;
+    border: none;
+    border-radius: 50%;
+}
+
+#dot2{
+    width: 8px;
+    height: 8px;
+    background-color: #E55039;
+    margin-top: 7px;
+    margin-left: 27%;
+    border: none;
+    border-radius: 50%;
+}
+#dot3{
+    width: 8px;
+    height: 8px;
+    background-color: #F6B93B;
+    margin-top: 10px;
+    margin-left: 23%;
+    border: none;
+    border-radius: 50%;
+}
+#heading_dash{
+    font-size: 1.5rem;
+}
+@media (max-width:830px){
+    .ccc{
+        width: 200%;
+    }
+}
+.thecard{
+    width:10%;
+}

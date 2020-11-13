@@ -13,7 +13,7 @@ import {
   Label,
   FormGroup,
   TabPane,
-  CardImg,
+  CardImg,CardText
 } from 'reactstrap';
 import { Colxx } from '../components/common/CustomBootstrap';
 import Switch from 'rc-switch';
@@ -29,10 +29,26 @@ function Themepage() {
   const [activeFirstTab, setActiveFirstTab] = useState('1');
   const [theme, setTheme] = useState('1');
   const [contactustheme, setContactustheme] = useState('1');
+  let [select, setSelect] = useState('Select');
+  let [select2, setSelect2] = useState('Select');
+
+  let selectme = (e) => {
+      if(e == 'select'){
+        setSelect(select = 'Selected')
+        setSelect2(select = 'Select')
+      }
+      else if(e == 'select2'){
+        setSelect2(select2 = 'Selected')
+        setSelect(select = 'Select')
+      }
+      else{
+        setSelect(select = 'Select')
+      }
+  }
 
   return (
     <>
-      <h1>Themes</h1>
+      <h1 id="themepage">Themes</h1>
       <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink
@@ -84,7 +100,7 @@ function Themepage() {
       <TabContent activeTab={activeFirstTab}>
         <TabPane tabId="1">
           <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
-            <h3>Default Theme</h3>
+            <h3 id="default">Themes</h3>
             {/* <Colxx xs="12" sm="6">
     <div
       className="d-flex justify-content-around"
@@ -109,7 +125,7 @@ function Themepage() {
                 value="1"
                 onChange={(e) => setTheme(e.target.value)}
               />
-              <div className="front-end box">
+              <div className="">
                 {/* <Card
                   className="p-4"
                   style={{ minWidth: '270px', minHeight: '200px' }}
@@ -119,34 +135,45 @@ function Themepage() {
                     <CardTitle>DefaultTheme</CardTitle>
                   </CardBody>
                 </Card> */}
-
+                <Row>
                 <Card
-                  className="p-4 "
+                  className="p-4 ml-4"
                   style={{ minWidth: '270px', minHeight: '200px' }}
                 >
                   <CardImg
                     top
                     width="100%"
-                    src="/assets/img/products/bebinca-thumb.jpg"
-                    alt="Theme1 img"
+                    src={require('./bebinca-thumb.jpg')}
+                    alt="Theme1 img" className="mb-3"
                   />
+                  Default Theme
                   <CardBody>
-                    <CardTitle>Default Theme</CardTitle>
-                    <Button>
-                      <a href="http://localhost:3333/edit/1" target="_blank">
-                        Edit
-                      </a>
-                    </Button>
+                  <Button className="float-left butn" onClick={() => selectme('select')}>{select}</Button><Button className="float-right butn">Edit</Button>
+                  </CardBody>
+                </Card>                <Card
+                  className="p-4 ml-4"
+                  style={{ minWidth: '270px', minHeight: '200px' }}
+                >
+                  <CardImg
+                    top
+                    width="100%"
+                    src={require('./bebinca-thumb.jpg')}
+                    alt="Theme1 img" className="mb-3"
+                  />
+                  Blank Theme
+                  <CardBody>
+                  <Button className="float-left butn" onClick={() => selectme('select2')}>{select2}</Button><Button className="float-right butn">Edit</Button>
                   </CardBody>
                 </Card>
+                </Row>
               </div>
             </label>
           </Row>
 
-          <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
+          {/* <Row className="mt-3 mb-2" style={{ marginLeft: '15px' }}>
             <Colxx xs="12" sm="6">
               <h3>Blank Theme</h3>
-            </Colxx>
+            </Colxx> */}
             {/* <Colxx xs="12" sm="6">
     <div
       className="d-flex justify-content-around"
@@ -161,7 +188,7 @@ function Themepage() {
       </FormGroup>
     </div>
   </Colxx> */}
-          </Row>
+          {/* </Row> */}
           <Row style={{ marginLeft: '15px' }} className="mt-1">
             <Colxx xs="12" sm="6">
               <label>
@@ -171,7 +198,7 @@ function Themepage() {
                   value="2"
                   onChange={(e) => setTheme(e.target.value)}
                 />
-                <div className="front-end box">
+                {/* <div className="front-end box">
                   <Card
                     className="p-4"
                     style={{ minWidth: '270px', minHeight: '200px' }}
@@ -181,7 +208,7 @@ function Themepage() {
                       <CardTitle>Blank Theme</CardTitle>
                     </CardBody>
                   </Card>
-                </div>
+                </div> */}
               </label>
             </Colxx>
           </Row>

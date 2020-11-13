@@ -66,7 +66,7 @@ const produtcs = [
   
   {
     id: 4,
-    title: 'Poe',
+    title: 'Poe1',
     img: '/assets/img/products/marble-cake-thumb.jpg',
     type: 'Recorded',
     date: '19-Nov-2020',
@@ -77,5 +77,6 @@ const produtcs = [
     registrations:40
   },
 ];
+
 
 export default produtcs;

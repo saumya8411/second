@@ -3,15 +3,17 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
+import {BsChatSquareDots} from 'react-icons/bs'
+import {RiNotification4Line} from 'react-icons/ri'
+import './navs.css'
 
 import {
   UncontrolledDropdown,
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input,
+  Input, Row, Col
 } from 'reactstrap';
-import img from './s0.png'
 
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -110,6 +112,7 @@ const TopNav = ({
     e.stopPropagation();
   };
 
+
   const handleDocumentClickSearch = (e) => {
     let isSearchClick = false;
     if (
@@ -204,58 +207,99 @@ const TopNav = ({
 
   const { messages } = intl;
   return (
-    <nav className="navbar fixed-top">
+    <Row>
+      <Col xs="12">
+    <nav className="navbar fixed-top navj">
       <div className="d-flex align-items-center navbar-left">
         <NavLink
           to="#"
           location={{}}
-          className="menu-button d-none d-lg-block d-sm-none d-xxl-none"
+          className="menu-button d-none d-md-block"
           onClick={(e) =>
             menuButtonClick(e, menuClickCount, containerClassnames)
           }
         >
-          <MobileMenuIcon />
+          <MenuIcon  className="menuicon"/>
         </NavLink>
-
         <NavLink
           to="#"
           location={{}}
-          className="menu-button-mobile d-xs-block d-sm-block d-lg-none"
+          className="menu-button-mobile d-xs-block d-sm-block d-md-none"
           onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
         >
           <MobileMenuIcon />
         </NavLink>
-        <div className="ml-3">        
-        {/* <span className="d-none d-xs-block" >
-        Oyster Trainings
-        </span> */}
-        <span className="logo-mobile d-block" style={{width:'160px',height:'50px'}}>
-         <img src={img} style={{width:'100%',height:'100%'}}/>
+          
+            <BsChatSquareDots className="chat"/>
+            {/* <IoIosNotificationsOutline className="notification"/> */}
+            <RiNotification4Line className="noti mr-4"/>
+            
+{/*         <div className="search"> 
+          <Input
+            name="searchKeyword"
+            id="searchKeyword"
+            placeholder={messages['menu.search']}
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            onKeyPress={(e) => handleSearchInputKeyPress(e)}
+          />
+          <span
+            className="search-icon"
+            onClick={(e) => handleSearchIconClick(e)}
+          >
+            <i className="simple-icon-magnifier" />
           </span>
-        </div>
-      
-       
+        </div> */}
+
+{/*         <div className="d-inline-block">
+          <UncontrolledDropdown className="ml-2">
+            <DropdownToggle
+              caret
+              color="light"
+              size="sm"
+              className="language-button"
+            >
+              <span className="name">{locale.toUpperCase()}</span>
+            </DropdownToggle>
+            <DropdownMenu className="mt-3" right>
+              {localeOptions.map((l) => {
+                return (
+                  <DropdownItem
+                    onClick={() => handleChangeLocale(l.id, l.direction)}
+                    key={l.id}
+                  >
+                    {l.name}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div> */}
+
       </div>
+      <NavLink className="navbar-logo" to={adminRoot}>
+          <img src={require(`./s0.png`)} className="Logo"/>
+      </NavLink>
 
       <div className="navbar-right">
-    <div className="d-inline-block">
-    <p className="name mr-1">Enable dark mode</p>
-        {isDarkSwitchActive && <TopnavDarkSwitch />}
+        
+        <div className="header-icons d-inline-block align-middle">
+{/*           <TopnavEasyAccess />
+          <TopnavNotifications /> */}
+          
+          
+          {isDarkSwitchActive && <TopnavDarkSwitch className="toggle ml-4" />}
         </div>
-         <div className="header-icons d-inline-block align-middle">
-         
-          <TopnavNotifications />
-         </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Sarah Kortney</span>
-              <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
+              <span className="name mr-1 mt-3 align-middle">Sarah Kortney</span>
+              <span className="img">
+                <img alt="Profile"  src="/assets/img/profiles/l-1.jpg" />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>
-              <DropdownItem>Account</DropdownItem>
+              <DropdownItem >Account</DropdownItem>
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
@@ -268,6 +312,8 @@ const TopNav = ({
         </div>
       </div>
     </nav>
+    </Col>
+    </Row>
   );
 };
 
