@@ -12,10 +12,12 @@ import {useCounter} from './useCounter'
 import Avatar from './avatarnew.png'
 import {FaPlayCircle} from 'react-icons/fa'
 import {RiAttachmentLine} from 'react-icons/ri'
-import {GrDocumentPdf} from 'react-icons/gr'
-import {BiBroadcast} from 'react-icons/bi'
+import {BsQuestionDiamond} from 'react-icons/bs'
+import {FaRegNewspaper} from 'react-icons/fa'
 import {RiDeleteBin2Fill} from 'react-icons/ri'
 import {BsCaretDownFill} from 'react-icons/bs'
+import {FiUpload} from 'react-icons/fi'
+import {VscLibrary} from 'react-icons/vsc'
 import ScrollBar from 'react-perfect-scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars';
 //import {ContentEditable} from 'react-contenteditable'
@@ -31,10 +33,16 @@ export default class SessionMaterial extends Component {
         super(props)
         this.deleteTask = this.deleteTask.bind(this)
         this.state = {
+          showMessage: false,
+          showMessage2: false,
+          showMessage3: false,
+          showMessage4: false,
+              /* textv : '', */
              SessionMaterial:[
                {
                 name:"Chapter 1",
                 lesson:[{
+                  id:'theid',
                   name:"xyz",
                   video:"",
                   assignment:"",
@@ -55,15 +63,12 @@ export default class SessionMaterial extends Component {
                     skills:["HTML", "CSS","JAVASCRIPT","ANGULAR","DJANGO",'MYSQL','BOOTSTRAP']
                     
                     },
-
-                
-                  
               },
               timeline:false,
 conclusion:'',
 
  html: "<b>Hello <i>World</i></b>",
-         
+        
 
                           
               
@@ -80,11 +85,37 @@ conclusion:'',
         this.fileUploadButton = this.fileUploadButton.bind(this);
 
     }
-    
+   
+    onButtonClickHandler = () => {
+      this.setState({showMessage: true});
+      this.setState({showMessage2: false})
+      this.setState({showMessage3: false})
+      this.setState({showMessage4: false})
+     };
+     onButtonClickHandler2 = () =>{
+      this.setState({showMessage2: true})
+      this.setState({showMessage: false})
+      this.setState({showMessage3: false})
+      this.setState({showMessage4: false})
+     }
+     onButtonClickHandler3 = () =>{
+      this.setState({showMessage3: true})
+      this.setState({showMessage2: false})
+      this.setState({showMessage: false})
+      this.setState({showMessage4: false})
+     }
+     onButtonClickHandler4 = () =>{
+      this.setState({showMessage4: true})
+      this.setState({showMessage2: false})
+      this.setState({showMessage: false})
+      this.setState({showMessage3: false})
+     }
+
     addLesson(props){
         const newarray = this.state.SessionMaterial;
         const lessonlength = newarray[props].lesson.length
         const newlesson = {
+          id:`hello${lessonlength+1}`,
           name:`lesson ${lessonlength+1}`,
                   video:"",
                   assignment:"",
@@ -130,6 +161,13 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           lesson.splice(lesson.index, 1);
           this.setState({ lesson:lesson });
         }
+        handleRemoveClick(index) {
+          alert('Are you sure to delete this?')
+          let lesson = this.state.SessionMaterial
+          let list = lesson[index].lesson
+          list.splice(list[index], 1);
+          this.setState({list});
+        };
         
         changeChapterAttribute(props,index){
           const newarray = this.state.SessionMaterial;
@@ -381,6 +419,16 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
             return(
               <>
               <h3 className="mt-4 text-center font-weight-bold">{item.name}</h3>
+              <FormGroup row>
+              <Col sm={1}></Col>
+                <Label for="exampleText d-flex justify-content-center" sm={10}>What you will learn after this course?</Label>
+                <Col sm={1}></Col>
+                <Col sm={1}></Col>
+                <Col sm={10}>
+                  <Input type="textarea" name="text" id="exampleText" />
+                </Col>
+                <Col sm={1}></Col>
+              </FormGroup>
               <Row className="mt-3">
               <Colxx  md="12">
               <button onClick={(evt) => {
@@ -405,18 +453,20 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
         return(
           
           <div key={lessonindex}>
-            <div>
+            <div>                <button onClick={(e) => {e.stopPropagation() 
+                  this.handleRemoveClick(lessonindex)}} className="d-flex mt-4 ml-auto delete2 text-center">Delete Lesson</button>
             <Card  id="toggler" className="text-center mt-4" style={{ width:'100%', height:'40px',cursor:'pointer' }}>
-              <Row className="text-center m-0 mx-auto my-auto">Lesson <BsCaretDownFill className="float-right mt-2" style={{fontSize:'15px'}}/></Row>
+              <Row className="text-center m-0 mx-auto my-auto">{lessonitem.name} <BsCaretDownFill className="float-right mt-2" style={{fontSize:'15px'}}/></Row>
             </Card>
             <UncontrolledCollapse toggler="#toggler">
               <Card>
+
                 <CardBody>
                 <Input
                   type="text"
                   name="name"
                   placeholder="Write a Lesson name"
-                  value={this.html}
+                  value=""
                   onChange={e => this.handleChange(e)} className="mt-4"
                 />
 
@@ -430,42 +480,60 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           <Colxx  md="12">
               
              <Row className="mt-4 text-center">
-             <Card body className="design">
-               <CardTitle tag="h5">Get Started</CardTitle>
-               <Row>
+             <div className="design">
+               <h5 tag="h5">Get Started</h5>
+               <Row className="row-ico">
                  <Col md="3">
-                <label class="custom-file-upload">
-                  <input type="file"/>
-                  <FaPlayCircle id="lower-icons"/>
-                </label>
-                   <p>Add Video</p>
+                
+                  
+                  <button className="card2 text-center mt-2" id="video"  onClick={this.onButtonClickHandler} ><FaPlayCircle id="lower-icons"/><br/><p className="mt-2">Video</p></button>
+                
+                   
                  </Col>
                  <Col md="3">
-                 <label class="custom-file-upload">
-                 <input type="file"/>
-                   <RiAttachmentLine id="lower-icons"/>
-                   </label>
-                   <p>embeded</p>
+                 
+                   <button className="card2 mt-2" onClick={this.onButtonClickHandler2}><RiAttachmentLine id="lower-icons"/><p className="mt-2">Assignment</p></button>
+
+                   
            
                 </Col>
                 <Col md="3">
-                <label class="custom-file-upload">
-                <input type="file"/>
-                  <GrDocumentPdf/>
-                  </label>
-                  <p>pdf</p>
+                
+                  <button className="card2 mt-2" onClick={this.onButtonClickHandler3}><BsQuestionDiamond id="lower-icons"/><p className="mt-2">Quiz</p></button>
+                  
+                  
                 </Col>
                 <Col md="3">
  
-                  <BiBroadcast id="lower-icons"/>
+                  <button className="card2 mt-2" onClick={this.onButtonClickHandler4}><FaRegNewspaper id="lower-icons"/><p className="mt-2">Handouts</p></button>
                   
-                  <p>live</p>
                 </Col>
-
+                
             </Row>
-             </Card>
-             
+             </div>
+
+             {this.state.showMessage && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>Videos must be in the .mp4, .ogg or .mkv file.</p>}
+             {this.state.showMessage2 && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>The Attachment must be in .pdf or .word format.</p>}
+             {this.state.showMessage3 && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>The Attachment must be in .pdf format.</p>}
+             {this.state.showMessage4 && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>The Attachment must be in .word format and scanned clearly.</p>}
+
+
           </Row>
+          <Row className="text-center">
+             <label className="input-label-1">
+                <input type="file"/>
+                <FiUpload/>
+                <p id="ufd">Upload from device</p>
+            </label>
+            <label className="input-label-2">
+                <input type="file"/>
+                <VscLibrary/>
+                <p id="ufl">Upload from Library</p>
+            </label>
+            </Row>
+            
+
+            
           </Colxx>
           
           </Row>

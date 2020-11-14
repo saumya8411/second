@@ -171,12 +171,13 @@ display: flex;
     cursor: pointer;
     width: 100%;
 }
-.design:hover{
-    box-shadow: 5px 3px 5px  #888888;
-    transition: .5s;
-}
+
 #lower-icons{
-    font-size: 150%;
+    margin-right: auto;    
+    font-size: 300%;
+    text-align: center;
+    margin-top: 10px;
+    color: white;
 }
 .btn12{
     display: flex;
@@ -222,6 +223,15 @@ input[type="file"] {
     border: none;
     border-radius: 3px;
 }
+.delete2{
+    float: right;
+    margin-bottom: 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    height:30px;
+}
 .delete:hover{
     box-shadow: 0px 0px 4px 2px rgb(158, 158, 158);
     transition: .2s;
@@ -230,4 +240,35 @@ input[type="file"] {
     display: flex;
     margin-left: auto;
     border-radius: 0%;
+}
+.card2{
+    width: 120px;
+    height: 110px;
+    border-radius: 0%;
+    background-color:#4EB5F1;
+    border: none;
+    color: white;
+}
+.card2:focus{
+    border:5px solid #fdd835;
+}
+.row-ico{
+    margin-left: 20%;
+    margin-right:20%;
+}
+.card2:hover{
+    background-color: #3cacec;
+    transition: .3s;
+}
+.input-label-1{
+    margin-top: 10px;
+    margin-left:auto;
+    font-size: 25px;
+    margin-right: 40px;
+}
+.input-label-2{
+    margin-top: 10px;
+    margin-right:auto;
+    margin-left: 40px;
+    font-size: 25px;
 }
