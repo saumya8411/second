@@ -71,9 +71,10 @@ const validation = Yup.object().shape({
   customer_password: Yup.string()
   .min(8, "min 8 characters")
   .max(100, "please enter correct password")
-  .required("Name is required"),
+  .required("Password is required"),
   customer_password_confirm: Yup.string()
   .oneOf([Yup.ref('customer_password'), null], 'Passwords must match')
+  .required("Please Confirm password"),
  // institutename: Yup.string()
   //  .min(2, "please enter correct insitute")
   //  .max(50, "please enter correct institute")
@@ -225,7 +226,7 @@ const Register = ({ history }) => {
                   </FormGroup>
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      institute Name
+                      Institute Name
                     </Label> 
                     <Field
                       className="form-control"

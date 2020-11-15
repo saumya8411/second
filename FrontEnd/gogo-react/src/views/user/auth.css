@@ -29,4 +29,9 @@
         width:70%;
     }
   }
+  #reset{
+      display: flex;
+      margin-left: auto;
+      justify-content: flex-end;
+  }
 

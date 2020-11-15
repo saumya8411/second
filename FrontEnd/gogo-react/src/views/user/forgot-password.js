@@ -7,7 +7,8 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { forgotPassword } from '../../redux/actions';
 import { NotificationManager } from '../../components/common/react-notifications';
-
+import './auth.css'
+import Logo from './logo.png'
 const validateEmail = (value) => {
   let error;
   if (!value) {
@@ -63,7 +64,7 @@ const ForgotPassword = ({
       <Colxx xxs="12" md="10" className="mx-auto my-auto">
         <Card className="auth-card">
           <div className="position-relative image-side ">
-            <p className="text-white h2">MAGIC IS IN THE DETAILS</p>
+            <p className="text-white h2"> Ed - tech startup </p>
             <p className="white mb-0">
               Please use your e-mail to reset your password. <br />
               If you are not a member, please{' '}
@@ -75,7 +76,8 @@ const ForgotPassword = ({
           </div>
           <div className="form-side">
             <NavLink to="/" className="white">
-              <span className="logo-single" />
+             {/*  <span className="logo-single" /> */}
+             <img src={Logo} className="image"  alt="1111"/>
             </NavLink>
             <CardTitle className="mb-4">
               <IntlMessages id="user.forgot-password" />
@@ -86,7 +88,7 @@ const ForgotPassword = ({
                 <Form className="av-tooltip tooltip-label-bottom">
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      <IntlMessages id="user.email" />
+                      Email
                     </Label>
                     <Field
                       className="form-control"
@@ -101,15 +103,15 @@ const ForgotPassword = ({
                   </FormGroup>
 
                   <div className="d-flex justify-content-between align-items-center">
-                    <NavLink to="/user/forgot-password">
+{/*                     <NavLink to="/user/forgot-password">
                       <IntlMessages id="user.forgot-password-question" />
-                    </NavLink>
+                    </NavLink> */}
                     <Button
                       color="primary"
                       className={`btn-shadow btn-multiple-state ${
                         loading ? 'show-spinner' : ''
                       }`}
-                      size="lg"
+                      size="lg" id="reset"
                     >
                       <span className="spinner d-inline-block">
                         <span className="bounce1" />
