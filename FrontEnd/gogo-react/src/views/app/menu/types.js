@@ -271,9 +271,7 @@ const MenuTypes = ({
     <>
       <Row>
         <Colxx xxs="12">
-          <h1 style={{fontSize:"1.5rem"}}>Stats</h1>
 
-          <Separator className="mb-5" />
         </Colxx>
       </Row>
 {/*       <Row>
@@ -415,7 +413,7 @@ const MenuTypes = ({
 
                 <TabContent activeTab={activeFirstTab}>
 <TabPane tabId="1">
-<Card className="h-100">
+<Card className="h-120 mt-4 ">
 <Scrollbars style={{ width: '100%', height: 400 }}>
       <CardBody>
 
@@ -423,11 +421,12 @@ const MenuTypes = ({
       </CardBody>
       </Scrollbars>
     </Card>
+    <br/>
 </TabPane>
 <TabPane tabId="2">
     <Row>
       <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ec407a"}}>
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#F4A261"}}>
           <Row>
           <Col md="6" xs="6">
           <FaUsers id="myicon" className="text-light"/>
@@ -453,7 +452,7 @@ const MenuTypes = ({
         </Card>
       </Col>
       <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#64b5f6"}}>
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#E9C46A"}}>
         <Row>
         <Col md="6" xs="6">
         <BiBroadcast id="myicon" className="text-light"/>
@@ -466,7 +465,7 @@ const MenuTypes = ({
         </Card>
       </Col>
       <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#4db6ac"}}>
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#457B9D"}}>
         
         <Row>
           <Col md="6" xs="6">
@@ -550,16 +549,17 @@ const MenuTypes = ({
     </Row>
     <Scrollbars style={{ width: '100%', height: 500 }}>
     <Card className="mt-4 line" md='12'  >
-    <div className="thecard">
-        <Row className="ml-4 mt-4"><p id="no">Emails</p> <div id="dott"></div></Row>
-        <Row className="ml-4"><p id="no">Messages</p><div id="dott2"></div></Row>
-        <Row className="ml-4"><p id="no">Threads</p><div id="dott3"></div></Row>
+    <CardTitle>
+      <Row className="ml-4 mt-4">
+      
+      <div className="thecard">
+        <span id="dott"></span><small className="ml-2">Text Messages</small> 
+        <span id="dott2"></span><small id="no" className="ml-2" >Whattsapp</small>
+        <span id="dott3"></span> <small id="no">Spendings</small>
       </div>
-      <div className="position-absolute card-top-buttons float-right">
-        <Row>
-          
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button">
+
+      <div className="position-absolute card-top-buttons">
+          <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
           <DropdownMenu right>
@@ -573,14 +573,13 @@ const MenuTypes = ({
             <Row className="ml-1">Last three months</Row>
             </DropdownItem>
           </DropdownMenu>
-        </UncontrolledDropdown>
-        
+
+          </div>
         </Row>
-      </div>
+        </CardTitle>
       <CardBody  >
 
-        <CardTitle>
-        </CardTitle>
+      
         <div className="dashboard-line-chart">
           <LineChart shadow data={lineChartData} />
         </div>
@@ -591,7 +590,7 @@ const MenuTypes = ({
 <TabPane tabId="4">
 <Row>
       <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ec407a"}}>
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#FFBF69"}}>
           <Row>
           <Col md="6" xs="6">
           <FaBookOpen id="myicon" className="text-light"/>
@@ -604,7 +603,7 @@ const MenuTypes = ({
         </Card>
       </Col>
       <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ab47bc"}}>
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#E76F51"}}>
           <Row>
         <Col md="6" xs="6">
           <FaHandHoldingUsd id="myicon" className="text-light"/>
@@ -617,7 +616,7 @@ const MenuTypes = ({
         </Card>
       </Col>
       <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#64b5f6"}}>
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#457B9D"}}>
         <Row>
         <Col md="6" xs="6">
         <RiMoneyDollarCircleFill id="myicon" className="text-light"/>
@@ -645,17 +644,17 @@ const MenuTypes = ({
     </Row>
     <Scrollbars style={{ width: '100%', height: 500 }}>
     <Card className="mt-4 line" md='12'>
-    <div className="thecard">
-        <Row className="ml-4 mt-4"><p id="no">Earnings</p><div id="dott4"></div></Row>
-        <Row className="ml-4"><p id="no">Courses</p><div id="dott5"></div></Row>
-        <Row className="ml-4"><p id="no">Rewards</p><div id="dott6"></div></Row>
+    <CardTitle>
+      <Row className="ml-4 mt-4">
+      
+      <div className="thecard">
+        <span id="dott"></span><small className="ml-2">Earning</small> 
+        <span id="dott2"></span><small id="no" className="ml-2" >Courses</small>
+        <span id="dott3"></span> <small id="no">Rewards</small>
       </div>
-      <div className="position-absolute card-top-buttons">
-        <Row>
-          
 
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button">
+      <div className="position-absolute card-top-buttons">
+          <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
           <DropdownMenu right>
@@ -669,10 +668,10 @@ const MenuTypes = ({
             <Row className="ml-1">Last three months</Row>
             </DropdownItem>
           </DropdownMenu>
-        </UncontrolledDropdown>
-        
+
+          </div>
         </Row>
-      </div>
+        </CardTitle>
       <CardBody >
 
         <CardTitle>

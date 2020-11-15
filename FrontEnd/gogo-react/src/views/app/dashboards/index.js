@@ -20,7 +20,7 @@ const EcommerceDefault = React.lazy(() =>
 const Dashboards = ({ match }) => (
   <>
   {console.log(match)}
-<h1 id="heading">Sessions</h1>
+
   <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />

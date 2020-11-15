@@ -7,7 +7,7 @@
 #crd:hover{
     
     cursor: pointer;
-    box-shadow: 0px -3px 7px 3px #b3b2b2;
+    box-shadow: 0px 2px 7px 3px #5f5f5f;
     transition: .7s;
 }
 .head{
@@ -23,8 +23,8 @@
     width: 8px;
     height: 8px;
     background-color: #6FB327;
-    margin-bottom: 2px;
-    margin-left: 27%;
+   margin-left: 10px;
+    display: inline-block;
     border: none;
     border-radius: 50%;
 }
@@ -32,30 +32,30 @@
 #dott2{
     width: 8px;
     height: 8px;
-    background-color: #E55039;
-    margin-bottom: 5px;
-    margin-left: 9%;
+    background-color: #FF9F1D;
+   margin-left: 10px;
+    display: inline-block;
     border: none;
     border-radius: 50%;
 }
 #dott3{
     width: 8px;
     height: 8px;
-    background-color: #F6B93B;
-    margin-bottom: 6px;
-    margin-left: 18%;
+    background-color: #2EC4B6;
+   margin-left: 10px;
+    display: inline-block;
     border: none;
     border-radius: 50%;
 }
 .thecard{
-    width:10%;
+    width:50%;
 }
 #dott4{
     width: 8px;
     height: 8px;
-    background-color: #6FB327;
-
-    margin-left: 10%;
+    background-color: #FF9F1D;
+   margin-left: 10px;
+    display: inline-block;
     border: none;
     border-radius: 50%;
 }
@@ -63,16 +63,18 @@
 #dott5{
     width: 8px;
     height: 8px;
-    background-color: #E55039;
-    margin-left: 14%;
+    background-color: #6FB327;
+   margin-left: 10px;
+    display: inline-block;
     border: none;
     border-radius: 50%;
 }
 #dott6{
     width: 8px;
     height: 8px;
-    background-color: #F6B93B;
-    margin-left: 9%;
+    background-color: #2EC4B6;
+   margin-left: 10px;
+    display: inline-block;
     border: none;
     border-radius: 50%;
 }

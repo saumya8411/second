@@ -5,8 +5,9 @@ import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
 import {BsChatSquareDots} from 'react-icons/bs'
 import {RiNotification4Line} from 'react-icons/ri'
+import {MdChat} from 'react-icons/md'
 import './navs.css'
-
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   UncontrolledDropdown,
   DropdownItem,
@@ -224,15 +225,15 @@ const TopNav = ({
         <NavLink
           to="#"
           location={{}}
-          className="menu-button-mobile d-xs-block d-sm-block d-md-none"
+          className="menu-button-mobile d-xs-block d-sm-block d-md-none mr-4"
           onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
         >
           <MobileMenuIcon />
         </NavLink>
           
-            <BsChatSquareDots className="chat"/>
-            {/* <IoIosNotificationsOutline className="notification"/> */}
-            <RiNotification4Line className="noti mr-4"/>
+        <NavLink className="navbar-logo" id="logolink" to={adminRoot}>
+          {<img src={require(`./logo.png`)} className="Logo"/>}
+        </NavLink>
             
 {/*         <div className="search"> 
           <Input
@@ -275,25 +276,48 @@ const TopNav = ({
             </DropdownMenu>
           </UncontrolledDropdown>
         </div> */}
-
+ <TopnavDarkSwitch className="toggle ml-4 dark" />
+          Night Mode
       </div>
-      <NavLink className="navbar-logo" to={adminRoot}>
-          <img src={require(`./s0.png`)} className="Logo"/>
-      </NavLink>
+
 
       <div className="navbar-right">
-        
+         {/* <MdChat className="chat"/> */}<i className=" text-muted mt-3" />
+         
+           <TopnavNotifications className="noti mr-4"/>
+            {/* <IoIosNotificationsOutline className="notification"/> */}
+            {/* <RiNotification4Line /> */}
         <div className="header-icons d-inline-block align-middle">
 {/*           <TopnavEasyAccess />
           <TopnavNotifications /> */}
           
-          
-          {isDarkSwitchActive && <TopnavDarkSwitch className="toggle ml-4" />}
+          <UncontrolledDropdown className="ml-auto">
+          <DropdownToggle
+            className="header-icon notificationButton"
+            color="empty"
+          >
+            <i className="simple-icon-speech" />
+            <span className="count">2</span>
+          </DropdownToggle>
+          <DropdownMenu
+            className="position-absolute mt-3 scroll"
+            right
+            id="notificationDropdown"
+          >
+            <PerfectScrollbar
+              options={{ suppressScrollX: true, wheelPropagation: false }}
+            >
+              {/* {notifications.map((notification, index) => {
+                return <NotificationItem key={index} {...notification} />;
+              })} */}
+            </PerfectScrollbar>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+
         </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1 mt-3 align-middle">Sarah Kortney</span>
               <span className="img">
                 <img alt="Profile"  src="/assets/img/profiles/l-1.jpg" />
               </span>

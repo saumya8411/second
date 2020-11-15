@@ -25,12 +25,12 @@
 }
 
 .Logo{
-    width: 160%;
+    width: 150%;
 }
 .noti{
     color: #8F9BB3;
     display: inline-block;
-    font-size: 29px;
+    font-size: 35px;
     margin-left: 15px;
     margin-bottom: 3px;
     cursor: pointer;
@@ -53,7 +53,7 @@
     }
 
     .navj{
-        width:100%;
+        height:20px;
     }
 
     .chat, .noti{
@@ -63,6 +63,9 @@
     .toggle{
         margin-right:40%;
     }
+}
+.navj{
+    height: 13%;
 }
 .page-footer{
     border-top:1px solid rgb(190, 190, 190);
@@ -113,4 +116,12 @@
         color: #30233B;
         text-align: center;
     }
+
+}
+#logolink{
+    margin-right: auto;
+    
+}
+.count{
+    font-size: 10px;
 }

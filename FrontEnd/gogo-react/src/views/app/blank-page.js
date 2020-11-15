@@ -37,8 +37,7 @@ const number = 43;
     <>
       <Row> 
         <Colxx xxs="12">
-          <h1 id="heading_dash">Dashboard</h1>
-          <Separator className="mb-5" />
+
         </Colxx>
       </Row>
       <Row>
@@ -127,22 +126,17 @@ const number = 43;
       <Col md="12" xs="12">
       <Scrollbars style={{ width: '100%', height: 500 }}>
       <Card className="mt-4 ccc mb-4">
+      <CardTitle>
+      <Row className="ml-4 mt-4">
+      
       <div className="thecard">
-        <Row className="ml-4 mt-4"><p id="no">Sales</p> <div id="dot"></div></Row>
-        <Row className="ml-4"><p id="no">Enrolled</p><div id="dot2"></div></Row>
-        <Row className="ml-4"><p id="no">Revenue</p><div id="dot3"></div></Row>
+        <span id="dot"></span><small className="ml-2">Sales</small> 
+        <span id="dot2"></span><small id="no" className="ml-2" >Enrolled</small>
+        <span id="dot3"></span> <small id="no">Revenue</small>
       </div>
+
       <div className="position-absolute card-top-buttons">
-        <Row>
-          
-
-
-
-
-
-
- 
-          <DropdownToggle color="" className="btn btn-header-light icon-button">
+          <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
           <DropdownMenu right>
@@ -157,12 +151,12 @@ const number = 43;
             </DropdownItem>
           </DropdownMenu>
 
-        
+          </div>
         </Row>
-      </div>
-      <CardBody>
-        <CardTitle>
         </CardTitle>
+      <CardBody>
+        
+        
         <div className="dashboard-line-chart">
           <LineChart shadow data={lineChartData} />
         </div>

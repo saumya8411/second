@@ -38,7 +38,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   
   return (
     <>
-    <h1 id="heading_Comm">Communication</h1>
+
                 <Nav tabs className="card-header-tabs mb-3 mt-3">
                   <NavItem>
                     <NavLink

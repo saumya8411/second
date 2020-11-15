@@ -174,7 +174,7 @@ export const Library = () => {
 //backend team find a way to sort or filter data via this feature and show in tabs
   return (
     <>
-    <h1 id="libraryh">Library</h1>
+<br/>
        <Nav tabs className="card-header-tabs mb-3">
                   <NavItem>
                     <NavLink

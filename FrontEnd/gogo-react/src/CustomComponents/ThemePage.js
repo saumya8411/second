@@ -48,7 +48,7 @@ function Themepage() {
 
   return (
     <>
-      <h1 id="themepage">Themes</h1>
+
       <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink
