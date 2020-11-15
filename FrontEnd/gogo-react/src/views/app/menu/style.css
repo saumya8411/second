@@ -3,6 +3,7 @@
 }
 #crd{
     height: 150px;
+    border-radius: 0%;
 }
 #crd:hover{
     
@@ -80,4 +81,10 @@
 }
 #no{
     line-height: 5px;
+}
+.line{
+    width: 97%;
+}
+Card{
+    border-radius: 0%;
 }

@@ -191,7 +191,7 @@ input[type="file"] {
     display: none;
 }
 .btn13{
-    display: inline-block;
+    display: flex;
     margin-top:40px;
     width: 20%;
     margin-left: auto;

@@ -32,7 +32,7 @@
     transition: .7s;
 }
 #card124{
-    background-color: 	#1E90FF;
+    background-color: #1E90FF;
     border-radius: 0%;
     color: white;
     cursor: pointer;
@@ -98,4 +98,7 @@
 }
 .thecard{
     width:50%;
+}
+.ccc{
+    width: 97%;
 }

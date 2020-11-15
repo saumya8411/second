@@ -2,6 +2,7 @@
   background: $foreground-color;
   height: $navbar-height;
   padding:  0;
+  margin-bottom: 20px;
   @include depth(1);
 
   #notificationDropdown {
@@ -54,9 +55,7 @@
       width: 20px;
     }
   }
-.toggle-dark{
-  margin-top:5px;
-}
+
   .menu-button {
     color: $secondary-color;
     width: $main-menu-width;
@@ -102,7 +101,9 @@
     flex-basis: 30%;
     text-align: right;
 
-
+    .rc-switch {
+      margin-top: -2px;
+    }
 
     .user {
       margin-right: $main-margin;
@@ -122,12 +123,12 @@
   }
 
   .navbar-logo {
-    width: 110px;
+    width: 90px;
     height: 35px;
-   
+
     left: 0;
     right: 0;
-    
+
 
     .logo {
       width: 100%;

@@ -413,7 +413,7 @@ const MenuTypes = ({
 
                 <TabContent activeTab={activeFirstTab}>
 <TabPane tabId="1">
-<Card className="h-120 mt-4 ">
+<Card className="h-120">
 <Scrollbars style={{ width: '100%', height: 400 }}>
       <CardBody>
 
@@ -482,7 +482,7 @@ const MenuTypes = ({
     </Row>
     <Row>
       <Col md="12" xs="12">
-    <Card className="h-100 mt-4 ">
+    <Card className="h-100  ">
     <Scrollbars style={{ width: '100%', height: 400 }}>
       <CardBody>
         <Table columns={cols2} data={my_table_courses} /> 
@@ -643,7 +643,7 @@ const MenuTypes = ({
       </Col>
     </Row>
     <Scrollbars style={{ width: '100%', height: 500 }}>
-    <Card className="mt-4 line" md='12'>
+    <Card className=" line" md='12'>
     <CardTitle>
       <Row className="ml-4 mt-4">
       

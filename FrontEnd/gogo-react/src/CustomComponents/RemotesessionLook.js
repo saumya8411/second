@@ -77,10 +77,10 @@ console.log(newarray[index],newarray[index][named],named,)
             <nav>
                 <ul className="d-flex">
                     <li style={{display:'flex',alignItems:'center'}}>
-    <h3>{data.title}</h3>
+  {/*   <h1 className="font-weight-bold">{data.title}</h1> */}
                     </li>
                     <li className="marking">
-    <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>{data.type}</span>
+    {/* <span style={{padding:'5px 10px',backgroundColor:'#CFEBFD',borderRadius:'12px'}}>{data.type}</span> */}
                     </li>
                 </ul>
             </nav>

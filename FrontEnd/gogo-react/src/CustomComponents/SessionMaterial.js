@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText, Col} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
@@ -184,6 +184,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial))
             
         }
+
         changepageattribute(props){
           const newarray = this.state.data;
           const named = props.target.name
@@ -217,7 +218,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
 
     render() {
         return (
-          <section>
+          <section style={{marginLeft:"7%", marginRight:'7%'}}>
         <Link to="/app/dashboard/default">              
         <div className={`glyph-icon ${iconsmind[2].icons[42]} sessionlookicon`} style={{fontSize:'3rem'}} />
         </Link>
@@ -325,7 +326,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </Row>
     </CardBody>
     </Card>
-    <Card className="p-4 mb-3">
+    <Card className="pl-4 mb-3">
                   <CardTitle className="font-weight-bold" style={{fontSize:"1.5rem"}}>Trainer Profile</CardTitle>
                   <CardBody>
                   <nav>
@@ -339,8 +340,9 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                               <Button outline color="secondary" >Edit Profile</Button>
                         </Colxx>
                         <Colxx md="7" xs="12" className="">
-                            <h5 className="ml-4 font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Skills</h5>
-                            <ul className="skillslist">
+                            <h5 className="ml-4 font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Career Summary</h5>
+                            <p className="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            {/* <ul className="skillslist">
                                
                                {this.state.data.Trainer.skills.map((skill)=>{
                                  return(
@@ -348,12 +350,12 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                                  
                                  )
                                })}
-                                {/* <li>HTML</li>
+                                 <li>HTML</li>
                                 <li>CSS</li>
                                 <li>JAVASCRIPT</li>
                                 <li>ANGULAR</li>
-                                <li>DEVOPS</li> */}
-                            </ul>
+                                <li>DEVOPS</li> 
+                            </ul> */}
                         </Colxx>
                         <Colxx md="3" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Experience</h5>
@@ -413,33 +415,36 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     
         
         <Card className="p-4">
-        <Button mode="filled" className="btn13" color="secondary"  onClick={()=>this.addChapter()}>Add Chapter</Button>
+        
         <CardBody>
           {this.state.SessionMaterial.map((item,index)=>{
             return(
               <>
-              <h3 className="mt-4 text-center font-weight-bold">{item.name}</h3>
-              <FormGroup row>
-              <Col sm={1}></Col>
+              {/* <h3 className="mt-4 text-center font-weight-bold">{item.name}</h3> */}
+              <Card  id="toggle2" className="text-center mt-4" style={{cursor:'pointer'}} ><Row className=" m-0 text-center mx-auto my-auto">{item.name} <BsCaretDownFill className="float-right mt-2" style={{fontSize:'15px'}}/></Row></Card>
+              <UncontrolledCollapse toggler="#toggle2">
+    
+        <Card>
+          <CardBody>
+              <Row>
+                <Col md="6">
+              <FormGroup >
                 <Label for="exampleText d-flex justify-content-center" sm={10}>What you will learn after this course?</Label>
-                <Col sm={1}></Col>
-                <Col sm={1}></Col>
-                <Col sm={10}>
+                
                   <Input type="textarea" name="text" id="exampleText" />
-                </Col>
-                <Col sm={1}></Col>
               </FormGroup>
-              <Row className="mt-3">
-              <Colxx  md="12">
+              </Col>
+              <Col  md="6">
               <button onClick={(evt) => {
                   evt.stopPropagation()
-                  this.deleteTask(index)}} className="delete"><RiDeleteBin2Fill/></button>
+                  this.deleteTask(index)}} className="delete">Delete Chapter</button>
                 <MDBInput
                   name="name"
                   placeholder="Add Chapter Name"
                   value={item.name}
                   onChange={e => this.changeChapterAttribute(e,index)} />
-              </Colxx>
+              </Col>
+
           </Row>
 
                 
@@ -549,11 +554,16 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
 
           
 <Button mode="filled" className="btn12 mb-4" color="primary" style={{maxWidth:"200px"}} onClick={()=>this.addLesson(index)}>Add lesson</Button>
+          
+</CardBody>
+        </Card>
+
+      </UncontrolledCollapse>
           </>
            
             )
           })}
-    
+    <Button mode="filled" className="btn13 " color="secondary"  onClick={()=>this.addChapter()}>Add Chapter </Button>
     </CardBody>
     </Card>{/* <Button className="mt-4 btn13">Next</Button> */}
     </Card>
