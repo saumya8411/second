@@ -222,6 +222,7 @@ const TopNav = ({
         >
           <MenuIcon  className="menuicon"/>
         </NavLink>
+        
         <NavLink
           to="#"
           location={{}}
@@ -230,10 +231,10 @@ const TopNav = ({
         >
           <MobileMenuIcon />
         </NavLink>
-          
         <NavLink className="navbar-logo" id="logolink" to={adminRoot}>
           {<img src={require(`./logo.png`)} className="Logo"/>}
         </NavLink>
+        
             
 {/*         <div className="search"> 
           <Input
@@ -276,12 +277,15 @@ const TopNav = ({
             </DropdownMenu>
           </UncontrolledDropdown>
         </div> */}
- <TopnavDarkSwitch className="toggle ml-4 dark" />
-          Night Mode
+      
+      
       </div>
-
-
-      <div className="navbar-right">
+      { isDarkSwitchActive && <TopnavDarkSwitch className="toggle-dark d-inline-block ml-auto" />}<span id="nm" >Night Mode</span>
+       
+      <div className="navbar-right"> 
+      
+       
+    {/*  { isDarkSwitchActive && <TopnavDarkSwitch className="toggle-dark d-inline-block" />}   */}
          {/* <MdChat className="chat"/> */}<i className=" text-muted mt-3" />
          
            <TopnavNotifications className="noti mr-4"/>
@@ -315,6 +319,7 @@ const TopNav = ({
         </UncontrolledDropdown>
 
         </div>
+        
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
@@ -333,6 +338,7 @@ const TopNav = ({
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
+          
         </div>
       </div>
     </nav>

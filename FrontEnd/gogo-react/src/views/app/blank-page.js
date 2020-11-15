@@ -89,8 +89,8 @@ const number = 43;
             value={data_percentage}
             text={`${data_percentage}%`}
             styles={buildStyles({
-              textColor: "#46b5d1",
-              pathColor: "#0e918c"
+              textColor: "red",
+              pathColor: "#228B22"
             })}
           />
           </Col>
@@ -113,7 +113,7 @@ const number = 43;
             text={`${bandwidth_percentage}%`}
             styles={buildStyles({
               textColor: "#46b5d1",
-              pathColor: "#151965"
+              pathColor: "#E4495A"
             })}
           />
           </Col>

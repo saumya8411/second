@@ -25,7 +25,7 @@
 }
 
 .Logo{
-    width: 150%;
+    width: 100%;
 }
 .noti{
     color: #8F9BB3;
@@ -52,8 +52,8 @@
         margin-right: 100px;
     }
 
-    .navj{
-        height:20px;
+    .navbar{
+        height:20%;
     }
 
     .chat, .noti{
@@ -63,9 +63,12 @@
     .toggle{
         margin-right:40%;
     }
+    #nm{
+        display: none;
+    }
 }
-.navj{
-    height: 13%;
+.navbar{
+    height: 12%;
 }
 .page-footer{
     border-top:1px solid rgb(190, 190, 190);
@@ -124,4 +127,11 @@
 }
 .count{
     font-size: 10px;
+}
+.toggle-dark{
+   margin-top: auto;
+   margin-bottom: auto;
+}
+.sidebar{
+    height: 100%;
 }
