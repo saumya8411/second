@@ -14,6 +14,7 @@ const NotificationItem = ({ img, title, date }) => {
           src={img}
           alt={title}
           className="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"
+          style={{width:'25px'}}
         />
       </NavLink>
       <div className="pl-3 pr-2">

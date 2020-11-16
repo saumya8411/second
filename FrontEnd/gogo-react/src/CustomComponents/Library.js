@@ -146,26 +146,26 @@ export const Library = () => {
       {
         Header: 'Name',
         accessor: 'name',
-        cellClass: 'list-item-heading w-40',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'list-item-heading w-40 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
       {
         Header: 'Uploaded At',
         accessor: 'uploaded',
-        cellClass: 'text-muted  w-20',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'text-muted  w-20 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
       {
         Header: 'Type',
         accessor: 'type',
-        cellClass: 'text-muted  w-20',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'text-muted  w-20 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
       {
         Header: 'Size',
         accessor: 'size',
-        cellClass: 'text-muted  w-20 ',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'text-muted  w-20 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
     ],
     []
@@ -269,7 +269,7 @@ export const Library = () => {
                 
 </TabPane>
 <TabPane tabId="2">
-<Table columns={cols} data={data} divided />
+<Table columns={cols} data={data} divided style={{fontSize:'16px'}} />
 </TabPane>
 <TabPane tabId="3">
 <Table columns={cols} data={data} divided />
