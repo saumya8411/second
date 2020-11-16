@@ -279,9 +279,9 @@ const TopNav = ({
 
       </div>
 
-      <TopnavDarkSwitch className="toggle ml-4 dark" />
-         <span> Night Mode</span>
+      
       <div className="navbar-right">
+
          {/* <MdChat className="chat"/> */}<i className=" text-muted mt-3" />
          
            <TopnavNotifications className="noti mr-4"/>
@@ -327,6 +327,8 @@ const TopNav = ({
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
+              <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark" />
+         <span> Night Mode</span></DropdownItem>
               <DropdownItem divider />
               <DropdownItem onClick={() => handleLogout()}>
                 Sign out

@@ -249,6 +249,12 @@ const calculateDate = (endDateRange,startDateRange) => {
                     </div>
                   ) : null}
                 </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" />{' '}
+                    Enable Registration for this Session
+                  </Label>
+                </FormGroup>
                 {/* <FormGroup className="error-l-100">
                   <Label>Correspondance </Label>
                   <FormikReactSelect
