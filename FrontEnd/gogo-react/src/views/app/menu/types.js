@@ -657,7 +657,7 @@ const MenuTypes = ({
       </Col>
     </Row>
     <Scrollbars style={{ width: '100%', height: 500 }}>
-    <Card className="mt-4 line" md='12'  >
+    <Card className="mt-4 line" md='12' id="l1" >
     <CardTitle>
       <Row className="ml-4 mt-4">
       
@@ -763,7 +763,7 @@ const MenuTypes = ({
       </Col>
     </Row>
     <Scrollbars style={{ width: '100%', height: 500 }}>
-    <Card className=" line" md='12'>
+    <Card className=" line" md='12' id="l1">
     <CardTitle>
       <Row className="ml-4 mt-4">
       

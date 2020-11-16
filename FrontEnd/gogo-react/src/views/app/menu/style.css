@@ -16,7 +16,7 @@
     margin-top: 20%;
 }
 @media (max-width: 820px){
-    .line{
+    #l1{
         width: 200%;
     }
 }

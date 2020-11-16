@@ -36,7 +36,7 @@ const number = 43;
   return (
     <>
       <Row> 
-        <Colxx xxs="12">
+        <Colxx xs="12">
           <FormGroup className="mb-4 d-flex float-right" id="search">
             <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
             <Button id="searchbutton" className="d-flex ml-2">Search</Button>
@@ -128,7 +128,7 @@ const number = 43;
       <Row>
       <Col md="12" xs="12">
       <Scrollbars style={{ width: '100%', height: 500 }}>
-      <Card className="mt-4 ccc mb-4">
+      <Card className="mt-4 ccc mb-4" id="cb">
       <CardTitle>
       <Row className="ml-4 mt-4">
       
@@ -157,7 +157,7 @@ const number = 43;
           </div>
         </Row>
         </CardTitle>
-      <CardBody>
+      <CardBody > 
         
         
         <div className="dashboard-line-chart">
