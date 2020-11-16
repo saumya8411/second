@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row,Card,CardImg,CardBody,CardTitle,CardSubtitle,CardText,Button,Col,  UncontrolledDropdown,
+import { Row,Card,CardImg,CardBody,CardTitle,CardSubtitle,CardText,Button,Col,  UncontrolledDropdown,FormGroup,Input,
   DropdownItem,
   DropdownToggle,
   DropdownMenu, } from 'reactstrap';
@@ -37,7 +37,10 @@ const number = 43;
     <>
       <Row> 
         <Colxx xxs="12">
-
+          <FormGroup className="mb-4 d-flex float-right" id="search">
+            <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
+            <Button id="searchbutton" className="d-flex ml-2">Search</Button>
+          </FormGroup>
         </Colxx>
       </Row>
       <Row>

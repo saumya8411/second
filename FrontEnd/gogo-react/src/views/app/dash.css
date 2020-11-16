@@ -102,3 +102,11 @@
 .ccc{
     width: 97%;
 }
+#search{
+    width: 25%;
+    border: none;
+    background-color: #F8F8F8;
+}
+#searchbutton{
+    border-radius: 0%;
+}

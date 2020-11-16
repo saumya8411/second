@@ -88,3 +88,9 @@
 Card{
     border-radius: 0%;
 }
+#search{
+    width: 25%;
+}
+#searchbutton{
+    border-radius: 0%;
+}

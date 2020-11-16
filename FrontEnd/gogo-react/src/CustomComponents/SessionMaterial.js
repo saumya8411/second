@@ -58,6 +58,7 @@ export default class SessionMaterial extends Component {
                   time:'12:30',
                   tagline:'Machine Learning is future',
                   description:"Custom Description this is demo data",
+                  seo:"Node.js, ReactJs, ExpressJs,  MongoDB",
                   Trainer:{
                       name:'Vedant',
                     skills:["HTML", "CSS","JAVASCRIPT","ANGULAR","DJANGO",'MYSQL','BOOTSTRAP']
@@ -297,6 +298,32 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 <Row>
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
+              <Colxx xxs='12' md="4">
+                  <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>SEO</h3>
+                  {/* <p>Description is here</p> */}
+                  <Editable style={{fontSize:'15px'}}
+          text={this.state.data.seo}
+          placeholder="SEO"
+          type="input"
+        >
+          <Input
+            type="text"
+            name="seo"
+            placeholder="SEO"
+            value={this.state.data.seo}
+            onChange={e => this.changepageattribute(e)}
+          />
+          {/* <Input 
+           name="task"
+           placeholder="Write a task name"
+        //    value={chapername}
+          onChange={onChapternameChange}/> */}
+        </Editable>
+      
+              </Colxx>
+              
+    </Row>   
+    <Row style={{marginBottom:'20px'}}>
               <Colxx xxs='12' md="4">
                   <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>Description</h3>
                   {/* <p>Description is here</p> */}

@@ -249,7 +249,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                     </div>
                   ) : null}
                 </FormGroup>
-                <FormGroup className="error-l-100">
+                {/* <FormGroup className="error-l-100">
                   <Label>Correspondance </Label>
                   <FormikReactSelect
                     name="correspondance"
@@ -265,7 +265,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                       {errors.correspondance}
                     </div>
                   ) : null}
-                </FormGroup>
+                </FormGroup> */}
                 <Button color="primary" type="submit">
                   Submit
                 </Button>

@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import { Row, Card, CardBody, Button,NavItem,Nav,TabContent,TabPane } from 'reactstrap';
+import { Row, Card, CardBody, Button,NavItem,Nav,TabContent,TabPane,FormGroup,Input } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
 import products from '../data/products';
 import { Colxx } from '../components/common/CustomBootstrap';
 import PopoverItem from '../components/common/PopoverItem';
 import { NavLink } from 'react-router-dom';
-
+import './Customcss.css'
 import DatatablePagination from '../components/DatatablePagination';
 const data = [
  {
@@ -175,6 +175,11 @@ export const Library = () => {
   return (
     <>
 <br/>
+{/* <Row>
+        <Colxx xxs="12">
+          
+        </Colxx>
+      </Row> */}
        <Nav tabs className="card-header-tabs mb-3">
                   <NavItem>
                     <NavLink
@@ -251,6 +256,10 @@ export const Library = () => {
                    <h6>Quiz</h6>
                     </NavLink>
                   </NavItem> 
+                  <FormGroup className="mb-4 ml-auto d-flex float-right" id="search">
+                    <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
+                    <Button id="searchbutton" className="d-flex ml-2">Search</Button>
+                  </FormGroup>
                 </Nav>
                 <div className="mb-4">
 

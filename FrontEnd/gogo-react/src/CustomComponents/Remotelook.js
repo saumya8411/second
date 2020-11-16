@@ -150,22 +150,23 @@ console.log(data,produtcs)
                   <CardBody>
                   <nav>
                     <Row>
+                        {/* <Colxx md="1"></Colxx> */}
                       
-                        <Colxx md="2" xs="12" className="cardseparations text-center font-weight-bold">
+                        <Colxx md="3" xs="12" className="cardseparations text-center font-weight-bold">
                              <h3 className="font-weight-bold" style={{fontSize:"1.1rem"}}>Vedant</h3>
                               <img src={Avatar} alt="..." id="avatar"/>
                               <p>Web developer, IBM, bengaluru</p>
                               <p>2017 to present</p>
                               <Button outline color="secondary" >Edit Profile</Button>
                         </Colxx>
-                        <Colxx md="7" xs="12" className="">
+                        <Colxx md="5" xs="12" className="">
                             <h5 className=" font-weight-bold text-center" style={{fontSize:"1.1rem"}}>Career summary</h5>
                             
                                
                             <p className="text-center" style={{fontSize:'15px'}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
                         </Colxx>
-                        <Colxx md="3" xs="12">
+                        <Colxx md="4" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.1rem"}}>Experience</h5>
                         <Scrollbars style={{ width: "100%", height: 300 }}>
                           <div className="mt-4">

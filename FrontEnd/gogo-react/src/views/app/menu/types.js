@@ -1,7 +1,7 @@
 import React ,{useState} from 'react';
 import { connect } from 'react-redux';
 import { useTable, usePagination, useSortBy } from 'react-table';
-import { Row, Button ,NavItem,Nav,TabContent,TabPane,NavLink,Table,CardTitle,CardBody,Card,Badge,Col,CardText,UncontrolledDropdown,
+import { Row, Button ,NavItem,Nav,TabContent,TabPane,NavLink,Table,CardTitle,CardBody,Card,Badge,Col,CardText,UncontrolledDropdown,Label,FormGroup,Input,
   DropdownItem,
   DropdownToggle,
   DropdownMenu, } from 'reactstrap';
@@ -23,8 +23,8 @@ import { FaBookOpen } from 'react-icons/fa';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { AiFillBank } from 'react-icons/ai';
 import { FaHandHoldingUsd } from 'react-icons/fa';
-
-
+import Communication_table from '../../../data/Communication_table'
+import Monitization_table from '../../../data/Monitization_table'
 import { BiBroadcast } from 'react-icons/bi';
 import { BiMessageRoundedDots } from 'react-icons/bi';
 import { BiTime } from 'react-icons/bi';
@@ -102,14 +102,14 @@ const MenuTypes = ({
     {
       Header: 'Revenue',
       accessor: 'sb',
-      cellClass: 'text-muted w-25',
+      cellClass: 'text-muted w-20',
       Cell: (props) => <>{props.value}</>,
       sortType: 'basic',
     },
     {
-      Header: 'Library consumed',
+      Header: 'Library space consumed',
       accessor: 're',
-      cellClass: 'text-muted w-25',
+      cellClass: 'text-muted w-30',
       Cell: (props) => <>{props.value}</>,
       sortType: 'basic',
     },
@@ -123,6 +123,109 @@ const MenuTypes = ({
   
   ]
 
+  const cols3 = [
+    {
+      Header: 'Send to',
+      accessor: 'Send_to',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Date',
+      accessor: 'date',
+      cellClass: 'color',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Time',
+      accessor: 'time',
+      cellClass: 'text-muted ',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'message_id',
+      accessor: 'message_id',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Opened',
+      accessor: 'opened',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+  ]
+  const cols4 = [
+    {
+      Header: 'Payment ID',
+      accessor: 'payment_id',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Razor Pay ID',
+      accessor: 'razor_pay_id',
+      cellClass: 'color',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Order ID',
+      accessor: 'order_id',
+      cellClass: 'text-muted ',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Amount',
+      accessor: 'amount',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Email',
+      accessor: 'email',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Contact',
+      accessor: 'contact',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Date',
+      accessor: 'date',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },    {
+      Header: 'Time',
+      accessor: 'time',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Status',
+      accessor: 'status',
+      cellClass: 'text-muted',
+      Cell: (props) => <>{props.value}</>,
+      sortType: 'basic',
+    },
+  ]
+
+
   const cols = [
       {
         Header: 'Name',
@@ -132,16 +235,30 @@ const MenuTypes = ({
         sortType: 'basic',
       },
       {
-        Header: 'Status',
-        accessor: 'status',
-        cellClass: 'color',
+        Header: 'Contact No.',
+        accessor: 'ph',
+        cellClass: 'text-muted ',
+        Cell: (props) => <>{props.value}</>,
+        sortType: 'basic',
+      },
+      {
+        Header: 'Email',
+        accessor: 'email',
+        cellClass: 'text-muted w-15',
+        Cell: (props) => <>{props.value}</>,
+        sortType: 'basic',
+      },
+      {
+        Header: 'Total Courses',
+        accessor: 'NOC',
+        cellClass: 'text-muted w-20 ',
         Cell: (props) => <>{props.value}</>,
         sortType: 'basic',
       },
       {
         Header: 'Fee Paid',
         accessor: 'fee',
-        cellClass: 'text-muted w-20',
+        cellClass: 'text-muted w-15',
         Cell: (props) => <>{props.value}</>,
         sortType: 'basic',
       },
@@ -160,23 +277,9 @@ const MenuTypes = ({
         sortType: 'basic',
       },
       {
-        Header: 'Total Courses',
-        accessor: 'NOC',
-        cellClass: 'text-muted w-30',
-        Cell: (props) => <>{props.value}</>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Contact No.',
-        accessor: 'ph',
-        cellClass: 'text-muted w-30',
-        Cell: (props) => <>{props.value}</>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Email',
-        accessor: 'email',
-        cellClass: 'text-muted w-15',
+        Header: 'Status',
+        accessor: 'status',
+        cellClass: 'color w-10',
         Cell: (props) => <>{props.value}</>,
         sortType: 'basic',
       },
@@ -206,6 +309,7 @@ const MenuTypes = ({
     
       return (
         <>
+        
           <table {...getTableProps()} className="r-table table">
             <thead>
               {headerGroups.map((headerGroup) => (
@@ -269,6 +373,7 @@ const MenuTypes = ({
   const [activeFirstTab, setActiveFirstTab] = useState('1');
   return (
     <>
+        
       <Row>
         <Colxx xxs="12">
 
@@ -315,7 +420,7 @@ const MenuTypes = ({
                         setActiveFirstTab('1');
                       }}
                     >
-                   <h6>General</h6>
+                   <h6>Students</h6>
                     </NavLink>
                   </NavItem>
                   <NavItem>
@@ -408,12 +513,16 @@ const MenuTypes = ({
                    <h6>Link Tracking</h6>
                     </NavLink>
                   </NavItem>
+                  <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
+                    <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
+                    <Button id="searchbutton" className="d-flex ml-2">Search</Button>
+                  </FormGroup>
                 </Nav>
                 <div className="mb-4">
 
                 <TabContent activeTab={activeFirstTab}>
 <TabPane tabId="1">
-<Card className="h-120">
+<Card className="h-120 ">
 <Scrollbars style={{ width: '100%', height: 400 }}>
       <CardBody>
 
@@ -586,6 +695,17 @@ const MenuTypes = ({
       </CardBody>
       
     </Card></Scrollbars>
+    <Row>
+      <Col md="12" xs="12">
+    <Card className="h-100  ">
+    <Scrollbars style={{ width: '100%', height: 400 }}>
+      <CardBody>
+        <Table columns={cols3} data={Communication_table} /> 
+      </CardBody>
+      </Scrollbars>
+    </Card>
+    </Col>
+    </Row>
 </TabPane>
 <TabPane tabId="4">
 <Row>
@@ -623,7 +743,7 @@ const MenuTypes = ({
         </Col>
         <Col md="6" xs="6" className="mb-3">
         <CardText className="font-weight-bold head text-light">31</CardText>
-          <CardText className="font-weight-bold para text-light">Total Payments Done</CardText>
+          <CardText className="font-weight-bold para text-light">Number of payments</CardText>
         </Col>
         </Row>
         </Card>
@@ -636,7 +756,7 @@ const MenuTypes = ({
           </Col>
           <Col md="6" xs="6" className="mb-3">
           <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Total Earnings</CardText>
+            <CardText className="font-weight-bold para text-light">Payment volume</CardText>
           </Col>
           </Row>
         </Card>
@@ -682,6 +802,17 @@ const MenuTypes = ({
       </CardBody>
     </Card>
     </Scrollbars>
+    <Row>
+      <Col md="12" xs="12">
+    <Card className="h-120  ">
+    <Scrollbars style={{ width: '100%', height: 400 }}>
+      <CardBody style={{width:'120%'}}>
+        <Table columns={cols4} data={Monitization_table} /> 
+      </CardBody>
+      </Scrollbars>
+    </Card>
+    </Col>
+    </Row>
 </TabPane>
 <TabPane tabId="5">
   quiz

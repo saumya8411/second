@@ -85,6 +85,10 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                  <h6>  Whatsapp</h6>
                     </NavLink>
                   </NavItem>
+                  <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
+                    <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
+                    <Button id="searchbutton" className="d-flex ml-2">Search</Button>
+                  </FormGroup>
                 </Nav>
               <TabContent activeTab={activeFirstTab}>
                 <TabPane tabId="1">

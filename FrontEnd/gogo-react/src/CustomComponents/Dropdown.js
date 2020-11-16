@@ -123,7 +123,7 @@ const CustomSelect = ({intl}) =>{
         <div style={{display:'flex',alignItems:'center'}}>
         <Input type="text"
                   name="keyword"
-                  id="search"
+                  id="search1"
                   placeholder="Search"
                   onKeyPress={(e) => onSearchKey(e)}/>
                   <Button className="searchme">Search</Button>
