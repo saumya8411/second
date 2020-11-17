@@ -5,30 +5,26 @@ services:
     image: mysql:5.7
     environment: 
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=oyester_docker
-    # ports:
-    #   - 3306:3306
-    restart: on-failure
     networks:
       - mynet
-
 
   backend-teacher-service:
     build: ./backend
     ports: 
-      - '5000:5000'
+      - "5000:5000"
     depends_on: 
       - db
+    links:
+      - db:mysql
     environment:  
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=root
       - MYSQL_PASSWORD=password
       - MYSQL_DATABASE=oyester_docker
-      - DB_HOST=localhost
+      - DB_HOST=db
       - DB=oyester_docker
-      - DB_PASSWORD=deepak
+      - DB_PASSWORD=password
       - DB_user=root
       - PORT=5000
       - JWT_KEY=deepak
@@ -38,24 +34,19 @@ services:
       - BOUNCE_MAIL=email@bounce.oyesters.in
       - SENDERS_MAIL=oyesters_training@oyesters.in
     restart: on-failure
-    links:
-      - db:mysql
+    networks:
+      - mynet
 
-  # frontend-teacher-service:
-  #   build: ./frontend/gogo-react
-  #   ports: 
-  #     - '3000:3000'
-  #   restart: on-failure
-
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:4.7
-  #   depends_on: 
-  #     - mysql
-  #   ports: 
-  #     - "30002:80"
-  #   environment: 
-  #     - PMA_HOST=mysql-docker
-  #     - PMA_PORT=3306
+  
+  frontend-teacher-service:
+    build: ./frontend/gogo-react
+    depends_on: 
+      - backend-teacher-service
+    networks:
+      - mynet
+    ports: 
+      - '3000:3000'
+    restart: on-failure
 
 networks:
   mynet:

@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const auth = require('../../middleware/deepakAuth')
 
 //Connecting to database
-const connection = require('../../db/sql')
+const connection = require('../../db/sql');
 
 // To fetch all the data related to that customer
 //i.e. all material 
@@ -240,5 +240,6 @@ router.get('/download/:id',auth , async (req,res) => {
     }
 })
 
+// connection.end();
 
 module.exports = router 
