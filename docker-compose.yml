@@ -33,12 +33,13 @@ services:
       - HASH_TEXTLOCAL=14063fb012c1ac67cba033361db04780b2a066552328123556211e05b72eec97
       - BOUNCE_MAIL=email@bounce.oyesters.in
       - SENDERS_MAIL=oyesters_training@oyesters.in
-    restart: on-failure
+    restart: always
     networks:
       - mynet
 
   
   frontend-teacher-service:
+    tty: true
     build: ./frontend/gogo-react
     depends_on: 
       - backend-teacher-service
@@ -46,7 +47,7 @@ services:
       - mynet
     ports: 
       - '3000:3000'
-    restart: on-failure
+    restart: always
 
 networks:
   mynet:
