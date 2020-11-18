@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,CardTitle,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,ModalBody,CardTitle,ModalHeader, ModalFooter,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
@@ -20,6 +20,7 @@ import {FiUpload} from 'react-icons/fi'
 import {VscLibrary} from 'react-icons/vsc'
 import ScrollBar from 'react-perfect-scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars';
+import Make_modal from './Make_modal'
 //import {ContentEditable} from 'react-contenteditable'
 
 
@@ -37,6 +38,9 @@ export default class SessionMaterial extends Component {
           showMessage2: false,
           showMessage3: false,
           showMessage4: false,
+            my_lesson:[{
+              lname:'NodeJS'
+            }],
               /* textv : '', */
              SessionMaterial:[
                {
@@ -70,7 +74,7 @@ conclusion:'',
 
  html: "<b>Hello <i>World</i></b>",
         
-
+modal : false
                           
               
         }
@@ -156,6 +160,9 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
 
 
         }
+        toggle(){
+          this.setState({modal:true});
+        }
         removeItem() {
           alert('Are you sure to delete this?')
           const lesson = this.state.SessionMaterial;
@@ -195,11 +202,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
             
         }
         handleChange(props){
-          const newarray = this.state.data;
+          const newarray = this.state.my_lesson;
           const named = props.target.name
         console.log(newarray,newarray[named],named)  
           newarray[props.target.html] = props.target.value
-          this.setState({data:newarray},console.log(this.state.data))
+          this.setState({my_lesson:newarray},console.log(this.state.my_lesson))
         }
 
         fileUploadButton = (index,lessonindex,id) => {
@@ -211,8 +218,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           //     }
           console.log(index,document.getElementById(id).value,document.getElementById(id).name)
           }
-         
- 
+
 
         
         
@@ -247,7 +253,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
         <span>{this.state.data.date}</span>
                         </li>
                         <li className="marking" style={{fontSize:"1rem"}}>
-        <span>{this.state.data.time}</span>
+        <span>{this.state.data.time} PM</span>
                         </li>
                         
                     </ul>
@@ -264,6 +270,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </Card>
     <Card className="p-4 mb-3">
               <CardBody>
+                <Make_modal/>
               <Row>
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
@@ -299,7 +306,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
          <Colxx sm="12">
          <Row style={{marginBottom:'20px'}}>
               <Colxx xxs='12' md="4">
-                  <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>SEO</h3>
+                  <h3 className="font-weight-bold" style={{fontSize:"1.5rem"}}>SEO Tags</h3>
                   {/* <p>Description is here</p> */}
                   <Editable style={{fontSize:'15px'}}
           text={this.state.data.seo}
@@ -366,7 +373,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                               <p>2017 to present</p>
                               <Button outline color="secondary" >Edit Profile</Button>
                         </Colxx>
-                        <Colxx md="7" xs="12" className="">
+                        <Colxx md="5" xs="12" className="">
                             <h5 className="ml-4 font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Career Summary</h5>
                             <p className="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                             {/* <ul className="skillslist">
@@ -384,7 +391,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                                 <li>DEVOPS</li> 
                             </ul> */}
                         </Colxx>
-                        <Colxx md="3" xs="12">
+                        <Colxx md="5" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Experience</h5>
                         <Scrollbars style={{ width: "100%", height: 300 }}>
                           <div className="mt-4">
@@ -499,7 +506,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   name="name"
                   placeholder="Write a Lesson name"
                   value=""
-                  onChange={e => this.handleChange(e)} className="mt-4"
+                  /* onChange={e => this.changeLessonattribute(e, lessonindex)} */ className="mt-4"
                 />
 
           <Row className="mt-4">
@@ -543,17 +550,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 
             </Row>
              </div>
-
-             {this.state.showMessage && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>Videos must be in the .mp4, .ogg or .mkv file.</p>}
-             {this.state.showMessage2 && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>The Attachment must be in .pdf or .word format.</p>}
-             {this.state.showMessage3 && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>The Attachment must be in .pdf format.</p>}
-             {this.state.showMessage4 && <p className="mx-auto mt-4" style={{fontSize:'15px'}}>The Attachment must be in .word format and scanned clearly.</p>}
-
-
-          </Row>
-          <Row className="text-center">
+      </Row>
+      {this.state.showMessage && <><p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>Videos must be in the .mp4, .ogg or .mkv file.</p>           
+      <Row className="text-center">
              <label className="input-label-1">
-                <input type="file"/>
+                <input type="file" accept=".mp4,.ogg,.mkv,.mov"/>
                 <FiUpload/>
                 <p id="ufd">Upload from device</p>
             </label>
@@ -562,7 +563,47 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 <VscLibrary/>
                 <p id="ufl">Upload from Library</p>
             </label>
-            </Row>
+            </Row></>}
+             {this.state.showMessage2 && <> <p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .pdf or .word format.</p>
+                   <Row className="text-center">
+                   <label className="input-label-1">
+                      <input type="file" accept=".pdf,.word"/>
+                      <FiUpload/>
+                      <p id="ufd">Upload from device</p>
+                  </label>
+                  <label className="input-label-2">
+                      <input type="file"/>
+                      <VscLibrary/>
+                      <p id="ufl">Upload from Library</p>
+                  </label>
+                  </Row></>}
+             {this.state.showMessage3 && <><p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .pdf format.</p>
+                   <Row className="text-center">
+                   <label className="input-label-1">
+                      <input type="file" accept=".pdf,.word"/>
+                      <FiUpload/>
+                      <p id="ufd">Upload from device</p>
+                  </label>
+                  <label className="input-label-2">
+                      <input type="file"/>
+                      <VscLibrary/>
+                      <p id="ufl">Upload from Library</p>
+                  </label>
+                  </Row></>}
+             {this.state.showMessage4 && <> <p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .word format and scanned clearly.</p>
+                   <Row className="text-center">
+                   <label className="input-label-1">
+                      <input type="file" accept=".pdf,.word"/>
+                      <FiUpload/>
+                      <p id="ufd">Upload from device</p>
+                  </label>
+                  <label className="input-label-2">
+                      <input type="file"/>
+                      <VscLibrary/>
+                      <p id="ufl">Upload from Library</p>
+                  </label>
+                  </Row></>}
+
             
 
             

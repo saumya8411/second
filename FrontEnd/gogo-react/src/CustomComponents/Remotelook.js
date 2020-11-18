@@ -118,9 +118,9 @@ console.log(data,produtcs)
                 <ModalHeader toggle={toggle}>Edit Details</ModalHeader>
                 <ModalBody>
                     <Label for="exampleText">Tagline</Label>
-                    <Input type="textarea" name="text" id="exampleText" />
+                    <Input type="textarea" name="text" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." id="exampleText" />
                     <Label for="exampleText2" className="mt-4">Description</Label>
-                    <Input type="textarea" name="text" id="exampleText2" />
+                    <Input type="textarea" name="text" value={data.description} id="exampleText2" />
                 </ModalBody>
                 <ModalFooter>
                 <Button color="primary" onClick={toggle} style={{borderRadius:'0px',fontSize:'15px'}}>Submit</Button>{' '}

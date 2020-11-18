@@ -50,12 +50,12 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
   // console.log(prepareRow,"prepare------row")
   // console.log(page,"----------------page")
   let clickHandlerTable = (e,p) =>{
-    page.map(pa => {if(e == pa.id){
+    if(e == page.original.id){
           setName(name = 'Launched')
     }else{
       setName(name = 'Launch')
-    }}
-      )
+    }
+      
   }
   //const [name , ChangeName] = useCounter()
   const info = {
@@ -131,7 +131,7 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
                   ))}
                   <td >
                     <div style={{display:"flex",alignItems:"center"}}>
-                  <Button color="secondary" onClick={()=>{clickHandlerTable(row.id , row.title); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1.2rem'}}>
+                  <Button color="secondary" onClick={()=>{clickHandlerTable(row.id); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1.2rem'}}>
                    {name}
                   </Button>
                   <PopoverItem id={row.id}/>

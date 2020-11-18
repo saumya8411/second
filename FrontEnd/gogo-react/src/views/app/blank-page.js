@@ -21,6 +21,7 @@ import { lineChartData } from '../../data/charts';
 
 
 import { CircularProgressbar ,buildStyles} from 'react-circular-progressbar';
+import EnhancedTable from '../../CustomComponents/EnhancedTable';
 
 
 
@@ -108,7 +109,7 @@ const number = 43;
           <Col md="7" xs="7">
             <FaWifi id="users"/>
             <h1 id="number" >10GB</h1>
-            <CardText id="small">bandwidth used</CardText>
+            <CardText id="small">Bandwidth used</CardText>
           </Col>
           <Col md="5" xs="5">
           <CircularProgressbar
@@ -167,6 +168,7 @@ const number = 43;
     </Card></Scrollbars>
     </Col>
     </Row>
+     {/* <EnhancedTable/>  */}
     </>
   );
 };

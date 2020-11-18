@@ -52,9 +52,7 @@
         margin-right: 100px;
     }
 
-    .navbar{
-        height:5%;
-    }
+
 
     .chat, .noti{
         font-size: 20px;
@@ -65,7 +63,7 @@
     }
 }
 .navbar{
-    height: 12%;
+    height: 100px;
 }
 .page-footer{
     border-top:1px solid rgb(190, 190, 190);
@@ -115,6 +113,9 @@
     .copy1{
         color: #30233B;
         text-align: center;
+    }
+    .navbar{
+        height:70px;
     }
 
 }

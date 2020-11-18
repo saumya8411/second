@@ -230,57 +230,59 @@ const MenuTypes = ({
       {
         Header: 'Name',
         accessor: 'title',
-        cellClass: 'text-muted w-15',
+        cellClass: 'text-muted w-10',
         Cell: (props) => <p>{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Contact No.',
         accessor: 'ph',
-        cellClass: 'text-muted ',
+        cellClass: 'text-muted',
         Cell: (props) => <p>{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Email',
         accessor: 'email',
-        cellClass: 'text-muted w-15',
+        cellClass: 'text-muted w-10',
         Cell: (props) => <p>{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Total Courses',
         accessor: 'NOC',
-        cellClass: 'text-muted w-20 ',
-        Cell: (props) => <p>{props.value}</p>,
+        cellClass: 'text-muted w-15 ',
+        Cell: (props) => <p className="text-center">{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Fee Paid',
         accessor: 'fee',
-        cellClass: 'text-muted w-15',
-        Cell: (props) => <p>{props.value}</p>,
+        cellClass: 'text-muted w-10',
+        Cell: (props) => <p className="text-center">{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Refareals',
         accessor: 'sb',
-        cellClass: 'text-muted w-15',
-        Cell: (props) => <p>{props.value}</p>,
+        cellClass: 'text-muted w-10',
+        Cell: (props) => <p className="text-center">{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Reward Earned',
         accessor: 're',
-        cellClass: 'text-muted w-30',
-        Cell: (props) => <p>{props.value}</p>,
+        cellClass: 'text-muted w-20',
+        Cell: (props) => <p className="ml-4">{props.value}</p>,
         sortType: 'basic',
       },
       {
         Header: 'Status',
         accessor: 'status',
         cellClass: 'color w-10',
-        Cell: (props) => <p>{props.value}</p>,
+      Cell: (props) => {if(props.value == 'Registered'){ return <Badge  style={{fontSize:'10px', borderRadius:'10px'}}>{props.value}</Badge> }
+      else{ return <Badge color="warning" style={{fontSize:'10px', borderRadius:'10px'}}>{props.value}</Badge>
+    } },
         sortType: 'basic',
       },
     ]
@@ -371,6 +373,21 @@ const MenuTypes = ({
       );
     }
   const [activeFirstTab, setActiveFirstTab] = useState('1');
+  const [tab, settab] = useState('8')
+
+  const gettab = (prop) =>{
+    console.log(prop)
+    if(prop === '8'){
+      settab({tab : 8}) 
+    }
+    else if(prop === '9') {
+      settab({tab : 9}) 
+    }
+    else if(prop == '10'){
+      settab({tab : 10}) 
+    }
+  } 
+
   return (
     <>
         
@@ -700,7 +717,30 @@ const MenuTypes = ({
     <Card className="h-100  ">
     <Scrollbars style={{ width: '100%', height: 400 }}>
       <CardBody>
-        <Table columns={cols3} data={Communication_table} /> 
+
+      {/* <Nav tabs className="card-header-tabs mb-3">
+       
+                    <NavLink
+                      onFocus={() => {
+                        gettab('8');
+                      }}
+                    >
+                 <h6>Whatsapp Message</h6>
+                    </NavLink><NavLink
+                      onFocus={() => {
+                        gettab('9');
+                      }}
+                    >
+                 <h6>Text Messages</h6>
+                    </NavLink><NavLink
+                      onFocus={() => {
+                        gettab('10');
+                      }}
+                    >
+                 <h6>Emails</h6>
+                    </NavLink>
+                    </Nav> */}
+                  <Table columns={cols3} data={Communication_table}/>
       </CardBody>
       </Scrollbars>
     </Card>
