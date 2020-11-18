@@ -148,7 +148,7 @@ router.post('/search' ,auth, async (req,res) => {
         const searchInput = req.body.searchInput;
         console.log(searchInput);
         
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_NAME LIKE '%${searchInput}%'  `;
+        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_NAME LIKE '%${searchInput}% AND CUSTOMER_ID = ${req.user.customer_id}  `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;

@@ -64,7 +64,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
     if (!loading) {
       console.log(values)
 
-      axios.post("http://localhost:5000/users/login" , {
+      axios.post("http://lms.oyesters.in:5000/users/login" , {
         values
       })
       .then(response => {

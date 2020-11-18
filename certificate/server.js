@@ -2,9 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
-const url = "mongodb://localhost/db";
-// const url =
-//   "mongodb+srv://admin:rUfn8zyboxYjpzYY@cluster0.gynnv.mongodb.net/sampledb?retryWrites=true&w=majority";
+// const url = "mongodb://localhost/db";
+const url ="mongodb+srv://admin:rUfn8zyboxYjpzYY@cluster0.gynnv.mongodb.net/sampledb?retryWrites=true&w=majority";
 mongoose.connect(url, { useNewUrlParser: true });
 
 // app.set("view engine", "ejs");

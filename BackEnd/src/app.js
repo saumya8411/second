@@ -10,7 +10,7 @@ const cors = require('cors');
 const userRouter = require('./loginSignup/customer/customer')
 // const userRouter = require('./routers/deepakUser')
 const sessionRouter = require('./routers/session')
-const libraryRouter = require('./library/routes/index')
+const libraryRouter = require('./library/routes/index');
 
 const app = express()
 
