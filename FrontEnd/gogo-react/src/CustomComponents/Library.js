@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
-import { Row, Card, CardBody, Button,NavItem,Nav,TabContent,TabPane } from 'reactstrap';
+import { Row, Card, CardBody, Button,NavItem,Nav,TabContent,TabPane,FormGroup,Input } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
 import products from '../data/products';
 import { Colxx } from '../components/common/CustomBootstrap';
 import PopoverItem from '../components/common/PopoverItem';
 import { NavLink } from 'react-router-dom';
-
+import './Customcss.css'
 import DatatablePagination from '../components/DatatablePagination';
 const data = [
  {
@@ -32,6 +32,12 @@ uploaded: '28-10-2020'
 name: 'Introduction to Arduino IDE',
 size: '300Mb',
 type: 'Video',
+uploaded: '27-10-2020'
+},
+{
+name: 'Projects on Arduino IDE',
+size: '30Mb',
+type: 'Zip',
 uploaded: '27-10-2020'
 }]
 
@@ -60,7 +66,7 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
 
   return (
     <>
-    
+      
       <table
         style={{ maxWidth: '1100px',margin:'0 auto' }}
         {...getTableProps()}
@@ -96,9 +102,9 @@ function Table({ columns, data, divided = false, defaultPageSize = 6 }) {
           {page.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} >
                 {row.cells.map((cell, cellIndex) => (
-                  <td
+                  <td style={{fontSize:"1.3rem"}}
                     key={`td_${cellIndex}`}
                     {...cell.getCellProps({
                       className: cell.column.cellClass,
@@ -140,26 +146,26 @@ export const Library = () => {
       {
         Header: 'Name',
         accessor: 'name',
-        cellClass: 'list-item-heading w-40',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'list-item-heading w-40 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
       {
         Header: 'Uploaded At',
         accessor: 'uploaded',
-        cellClass: 'text-muted  w-20',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'text-muted  w-20 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
       {
         Header: 'Type',
         accessor: 'type',
-        cellClass: 'text-muted  w-20',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'text-muted  w-20 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
       {
         Header: 'Size',
         accessor: 'size',
-        cellClass: 'text-muted  w-20 ',
-        Cell: (props) => <>{props.value}</>,
+        cellClass: 'text-muted  w-20 n',
+        Cell: (props) => <p>{props.value}</p>,
       },
     ],
     []
@@ -168,6 +174,12 @@ export const Library = () => {
 //backend team find a way to sort or filter data via this feature and show in tabs
   return (
     <>
+<br/>
+{/* <Row>
+        <Colxx xxs="12">
+          
+        </Colxx>
+      </Row> */}
        <Nav tabs className="card-header-tabs mb-3">
                   <NavItem>
                     <NavLink
@@ -243,23 +255,11 @@ export const Library = () => {
                     >
                    <h6>Quiz</h6>
                     </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '6',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('6');
-                      }}
-                    >
-                   <h6>Doubts</h6>
-                    </NavLink>
-                  </NavItem>
-                 
+                  </NavItem> 
+                  <FormGroup className="mb-4 ml-auto d-flex float-right" id="search">
+                    <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
+                    <Button id="searchbutton" className="d-flex ml-2">Search</Button>
+                  </FormGroup>
                 </Nav>
                 <div className="mb-4">
 
@@ -269,20 +269,19 @@ export const Library = () => {
                 
 </TabPane>
 <TabPane tabId="2">
-  videos
+<Table columns={cols} data={data} divided style={{fontSize:'16px'}} />
 </TabPane>
 <TabPane tabId="3">
-  recordings
+<Table columns={cols} data={data} divided />
 </TabPane>
 <TabPane tabId="4">
-  assignment
+<Table columns={cols} data={data} divided />
 </TabPane>
 <TabPane tabId="5">
-  quiz
+<Table columns={cols} data={data} divided />
 </TabPane>
-<TabPane tabId="6">
-  doubts
-</TabPane>
+
+
 </TabContent>
 
                 </div>

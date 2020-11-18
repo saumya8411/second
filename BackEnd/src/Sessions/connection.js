@@ -1,8 +1,8 @@
 const sequelize = require("sequelize");
 
-const db = new sequelize("oyester1", "root", "", {
+const db = new sequelize(process.env.DB, process.env.DB_user, process.env.DB_PASSWORD, {
   dialect: "mysql",
-  host: "localhost",
+  host: process.env.DB_HOST,
 });
 
 db.authenticate()

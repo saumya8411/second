@@ -3,15 +3,18 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
 import { injectIntl } from 'react-intl';
-
+import {BsChatSquareDots} from 'react-icons/bs'
+import {RiNotification4Line} from 'react-icons/ri'
+import {MdChat} from 'react-icons/md'
+import './navs.css'
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   UncontrolledDropdown,
   DropdownItem,
   DropdownToggle,
   DropdownMenu,
-  Input,
+  Input, Row, Col
 } from 'reactstrap';
-import img from './s0.png'
 
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -110,6 +113,7 @@ const TopNav = ({
     e.stopPropagation();
   };
 
+
   const handleDocumentClickSearch = (e) => {
     let isSearchClick = false;
     if (
@@ -204,61 +208,127 @@ const TopNav = ({
 
   const { messages } = intl;
   return (
-    <nav className="navbar fixed-top">
+    <Row>
+      <Col xs="12">
+    <nav className="navbar fixed-top navj">
       <div className="d-flex align-items-center navbar-left">
         <NavLink
           to="#"
           location={{}}
-          className="menu-button d-none d-lg-block d-sm-none d-xxl-none"
+          className="menu-button d-none d-md-block"
           onClick={(e) =>
             menuButtonClick(e, menuClickCount, containerClassnames)
           }
         >
-          <MobileMenuIcon />
+          <MenuIcon  className="menuicon"/>
         </NavLink>
-
         <NavLink
           to="#"
           location={{}}
-          className="menu-button-mobile d-xs-block d-sm-block d-lg-none"
+          className="menu-button-mobile d-xs-block d-sm-block d-md-none mr-4"
           onClick={(e) => mobileMenuButtonClick(e, containerClassnames)}
         >
           <MobileMenuIcon />
         </NavLink>
-        <div className="ml-3">        
-        {/* <span className="d-none d-xs-block" >
-        Oyster Trainings
-        </span> */}
-        <span className="logo-mobile d-block" style={{width:'160px',height:'50px'}}>
-         <img src={img} style={{width:'100%',height:'100%'}}/>
+          
+        <NavLink className="navbar-logo" id="logolink" to={adminRoot}>
+          {<img src={require(`./logo.png`)} className="Logo"/>}
+        </NavLink>
+            
+{/*         <div className="search"> 
+          <Input
+            name="searchKeyword"
+            id="searchKeyword"
+            placeholder={messages['menu.search']}
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            onKeyPress={(e) => handleSearchInputKeyPress(e)}
+          />
+          <span
+            className="search-icon"
+            onClick={(e) => handleSearchIconClick(e)}
+          >
+            <i className="simple-icon-magnifier" />
           </span>
-        </div>
-      
-       
+        </div> */}
+
+{/*         <div className="d-inline-block">
+          <UncontrolledDropdown className="ml-2">
+            <DropdownToggle
+              caret
+              color="light"
+              size="sm"
+              className="language-button"
+            >
+              <span className="name">{locale.toUpperCase()}</span>
+            </DropdownToggle>
+            <DropdownMenu className="mt-3" right>
+              {localeOptions.map((l) => {
+                return (
+                  <DropdownItem
+                    onClick={() => handleChangeLocale(l.id, l.direction)}
+                    key={l.id}
+                  >
+                    {l.name}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div> */}
+
       </div>
 
+      
       <div className="navbar-right">
-    <div className="d-inline-block">
-    <p className="name mr-1">Enable dark mode</p>
-        {isDarkSwitchActive && <TopnavDarkSwitch />}
-        </div>
-         <div className="header-icons d-inline-block align-middle">
+
+         {/* <MdChat className="chat"/> */}<i className=" text-muted mt-3" />
          
-          <TopnavNotifications />
-         </div>
+           <TopnavNotifications className="noti mr-4"/>
+            {/* <IoIosNotificationsOutline className="notification"/> */}
+            {/* <RiNotification4Line /> */}
+        <div className="header-icons d-inline-block align-middle">
+{/*           <TopnavEasyAccess />
+          <TopnavNotifications /> */}
+          
+          <UncontrolledDropdown className="ml-auto">
+          <DropdownToggle
+            className="header-icon notificationButton"
+            color="empty"
+          >
+            <i className="simple-icon-speech" />
+            <span className="count">2</span>
+          </DropdownToggle>
+          <DropdownMenu
+            className="position-absolute mt-3 scroll"
+            right
+            id="notificationDropdown"
+          >
+            <PerfectScrollbar
+              options={{ suppressScrollX: true, wheelPropagation: false }}
+            >
+              {/* {notifications.map((notification, index) => {
+                return <NotificationItem key={index} {...notification} />;
+              })} */}
+            </PerfectScrollbar>
+          </DropdownMenu>
+        </UncontrolledDropdown>
+
+        </div>
         <div className="user d-inline-block">
           <UncontrolledDropdown className="dropdown-menu-right">
             <DropdownToggle className="p-0" color="empty">
-              <span className="name mr-1">Sarah Kortney</span>
-              <span>
-                <img alt="Profile" src="/assets/img/profiles/l-1.jpg" />
+              <span className="img">
+                <img alt="Profile"  src="/assets/img/profiles/l-1.jpg" />
               </span>
             </DropdownToggle>
             <DropdownMenu className="mt-3" right>
-              <DropdownItem>Account</DropdownItem>
+              <DropdownItem >Account</DropdownItem>
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
+              <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark" />
+         <span> Night Mode</span></DropdownItem>
               <DropdownItem divider />
               <DropdownItem onClick={() => handleLogout()}>
                 Sign out
@@ -268,6 +338,8 @@ const TopNav = ({
         </div>
       </div>
     </nav>
+    </Col>
+    </Row>
   );
 };
 

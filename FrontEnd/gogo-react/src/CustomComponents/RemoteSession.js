@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import Switch from 'rc-switch';
 import 'rc-switch/assets/index.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
 
 import DatePicker from 'react-datepicker';
 
@@ -27,14 +26,14 @@ session_fee:Yup.number().required("Fees is required"),
     
      });
      const course = [
-       {value : 'option1', label: 'Option1'},
+       {value : 'Option1', label: 'Option1'},
        {value : 'Option2', label: 'Option2'},
        {value : 'Option3', label: 'Option3'},
        {value : 'Option4', label: 'Option4'},
        {value : 'Option5', label: 'Option5'}
      ]
      const dur = [
-      {value : 1, label: 'Option1'},
+      {value : 'Option1', label: 'Option1'},
       {value : 'Option2', label: 'Option2'},
       {value : 'Option3', label: 'Option3'},
       {value : 'Option4', label: 'Option4'},
@@ -81,17 +80,6 @@ const calculateDate = (endDateRange,startDateRange) => {
         //  reactSelect: values.reactSelect.map((t) => t.value),
           
         };
-
-        axios.post('http://localhost:5000/sessions/createLiveSession', {
-          values
-        })
-        .then(response => {
-          console.log(response);
-        })
-        .catch(err => console.log(err))
-        
-
-
         setTimeout(() => {
           console.log(JSON.stringify(payload, null, 2));
           setSubmitting(false);
@@ -247,7 +235,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                 <FormGroup className="error-l-100">
                   <Label>Associated with any Course </Label>
                   <FormikReactSelect
-                    name="session_correspondance_id"
+                    name="session_correspondance"
                     id="session_associated_course"
                     value={values.session_associated_course}
                     
@@ -261,7 +249,13 @@ const calculateDate = (endDateRange,startDateRange) => {
                     </div>
                   ) : null}
                 </FormGroup>
-                <FormGroup className="error-l-100">
+                <FormGroup check>
+                  <Label check>
+                    <Input type="checkbox" />{' '}
+                    Enable Registration for this Session
+                  </Label>
+                </FormGroup>
+                {/* <FormGroup className="error-l-100">
                   <Label>Correspondance </Label>
                   <FormikReactSelect
                     name="correspondance"
@@ -277,7 +271,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                       {errors.correspondance}
                     </div>
                   ) : null}
-                </FormGroup>
+                </FormGroup> */}
                 <Button color="primary" type="submit">
                   Submit
                 </Button>

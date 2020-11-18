@@ -7,7 +7,7 @@ import { Colxx } from '../../components/common/CustomBootstrap';
 import IntlMessages from '../../helpers/IntlMessages';
 import { resetPassword } from '../../redux/actions';
 import { NotificationManager } from '../../components/common/react-notifications';
-
+import Logo from './logo.png'
 const validateNewPassword = (values) => {
   const { newPassword, newPasswordAgain } = values;
   const errors = {};
@@ -92,7 +92,7 @@ const ResetPassword = ({
           </div>
           <div className="form-side">
             <NavLink to="/" className="white">
-              <span className="logo-single" />
+            <img src={Logo} className="image"  alt="1111"/>
             </NavLink>
             <CardTitle className="mb-4">
               <IntlMessages id="user.reset-password" />

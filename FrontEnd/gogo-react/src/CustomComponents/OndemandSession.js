@@ -143,12 +143,7 @@ const OndemandSession = (props) =>{
                     </div>
                   ) : null}
                 </FormGroup>
-                <FormGroup check>
-                  <Label check>
-                    <Input type="checkbox" />{' '}
-                    Enable Registration for this Session
-                  </Label>
-                </FormGroup>
+
                
                 <Button color="primary" type="submit">
                   Submit

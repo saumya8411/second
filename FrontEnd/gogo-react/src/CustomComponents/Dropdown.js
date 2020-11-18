@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row,Button,Input,Modal } from 'reactstrap';
+import { Row,Button,Input,Modal,InputGroupAddon,InputGroup } from 'reactstrap';
 import Select from 'react-select';
 import CustomSelectInput from '../components/common/CustomSelectInput';
 import { Colxx } from '../components/common/CustomBootstrap';
@@ -121,16 +121,12 @@ const CustomSelect = ({intl}) =>{
         <Row>
           <Colxx xs="12" md="3" className="mt-4">
         <div style={{display:'flex',alignItems:'center'}}>
-        <div className="search-sm d-inline-block float-md-left mr-1 mb-1 align-top">
-                <input 
-                style={{minHeight:"38px",position:'relative'}}
-                  type="text"
+        <Input type="text"
                   name="keyword"
-                  id="search"
-                  placeholder={['menu.search']}
-                  onKeyPress={(e) => onSearchKey(e)}
-                />
-              </div>
+                  id="search1"
+                  placeholder="Search"
+                  onKeyPress={(e) => onSearchKey(e)}/>
+                  <Button className="searchme">Search</Button>
         </div>
         </Colxx>
       <Colxx xs="12" md="3" className="mb-4">
@@ -158,7 +154,7 @@ const CustomSelect = ({intl}) =>{
         />
 </Colxx>
 <Colxx xs="12" md="3" >
-<Button color="primary" className="mb-2 p-3 mt-4 create" onClick={() => setModalLarge(true)}>
+<Button color="primary" className=" create" onClick={() => setModalLarge(true)}>
                 Create Session
               </Button>
               <Modal  
@@ -169,7 +165,8 @@ const CustomSelect = ({intl}) =>{
                   <SessionInput/>
                 </Modal>
 </Colxx>
-</Row>        </>
+</Row>        
+</>
     )
 }
 

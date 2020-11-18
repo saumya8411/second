@@ -5,7 +5,8 @@ const User = db.define("customer_table", {
   customer_id : {
   		type: DataTypes.INTEGER(255),
       allowNull: false,
-      autoIncrement:true
+      autoIncrement:true,
+      primaryKey:true
   },
   customer_first_name:{
   		type: DataTypes.STRING ,
@@ -17,8 +18,7 @@ const User = db.define("customer_table", {
   },
   customer_email:{
   		type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey:true
+      allowNull: false
   },
   customer_password:{
   		type: DataTypes.STRING ,
@@ -87,6 +87,6 @@ const User = db.define("customer_table", {
 
 });
 
-db.sync({alter:true});
+db.sync();
 
 module.exports = { db, User };

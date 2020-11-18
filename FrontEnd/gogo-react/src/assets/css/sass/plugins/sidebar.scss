@@ -3,9 +3,9 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  padding-top: $navbar-height;
+  padding-top:6%;
   z-index: 4;
-  height: calc(100% - #{$navbar-height});
+  height: 100%;
   transition: border-radius $menu-collapse-time;
 
   .scrollbar-container {
@@ -15,7 +15,7 @@
 
   .main-menu {
     width: $main-menu-width;
-    height: calc(100% - #{$navbar-height});
+    height: 90%;
     background: $foreground-color;
     z-index: 3;
     position: fixed;

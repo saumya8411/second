@@ -62,7 +62,7 @@ const auth = require('../middleware/deepakAuth');
 
                   const session = await Session.create({
                     // customer_id:req.user.customer_id,
-                    session_id:'1',
+                    // session_id:'2',
                     customer_id:'10',
                     session_type:"Live Session",
                     session_name,

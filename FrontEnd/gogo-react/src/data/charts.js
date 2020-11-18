@@ -6,7 +6,7 @@ export const lineChartData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      label: '',
+      label: 'Sales',
       data: [54, 63, 60, 65, 60, 68, 60],
       borderColor: colors.themeColor1,
       pointBackgroundColor: colors.foregroundColor,
@@ -14,11 +14,42 @@ export const lineChartData = {
       pointHoverBackgroundColor: colors.themeColor1,
       pointHoverBorderColor: colors.foregroundColor,
       pointRadius: 6,
+      pointHitRadius:0,
+      lineTension: 0,
+      pointBorderWidth: 2,
+      pointHoverRadius: 8,
+      fill: false,
+    },
+    {
+      label: 'Enrollments',
+      data: [58, 67, 50, 53, 57, 56, 67],
+      borderColor: "#FF9F1C",
+      pointBackgroundColor: colors.foregroundColor,
+      pointBorderColor: "#FF9F1C",
+      pointHoverBackgroundColor: "#FF9F1C",
+      pointHoverBorderColor: colors.foregroundColor,
+      pointRadius: 6,
+      lineTension: 0,
+      pointBorderWidth: 2,
+      pointHoverRadius: 8,
+      fill: false,
+    },
+    {
+      label: 'Revenue',
+      data: [60, 53, 55, 65, 62, 69, 55],
+      borderColor: "#2EC4B6",
+      pointBackgroundColor: colors.foregroundColor,
+      pointBorderColor: "#2EC4B6",
+      pointHoverBackgroundColor: "#2EC4B6",
+      pointHoverBorderColor: colors.foregroundColor,
+      pointRadius: 6,
+      lineTension: 0,
       pointBorderWidth: 2,
       pointHoverRadius: 8,
       fill: false,
     },
   ],
+
 };
 
 export const polarAreaChartData = {

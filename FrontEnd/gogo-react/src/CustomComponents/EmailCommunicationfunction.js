@@ -38,7 +38,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
   
   return (
     <>
-    <h1>Communication</h1>
+
                 <Nav tabs className="card-header-tabs mb-3 mt-3">
                   <NavItem>
                     <NavLink
@@ -85,13 +85,17 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                  <h6>  Whatsapp</h6>
                     </NavLink>
                   </NavItem>
+                  <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
+                    <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
+                    <Button id="searchbutton" className="d-flex ml-2">Search</Button>
+                  </FormGroup>
                 </Nav>
               <TabContent activeTab={activeFirstTab}>
                 <TabPane tabId="1">
                 
 <Row className="mb-3">
   <Colxx xs="12" sm="6">
-    <h1 className="heading">Mail On Signup</h1>
+    <h1 id="headingMoS">Mail On Signup</h1>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -126,7 +130,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
             >
               <CardImg top width="100%" src={img} alt="Theme1 img" className="emailimg" />
               <CardBody>
-                
+              <Button>Edit</Button>
               </CardBody>
             </Card>
           </div>
@@ -150,7 +154,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
 
 <Row className="mb-3 mt-4">
   <Colxx xs="12" sm="6">
-    <h1 className="heading">Purchase Email</h1>
+    <h1 id="headingPE">Purchase Email</h1>
   </Colxx>
   <Colxx xs="12" sm="6">
     <div
@@ -190,7 +194,7 @@ const [activeFirstTab, setActiveFirstTab] = useState('1');
                 </Colxx>
               </Row>
               <CardBody>
-                
+              <Button>Edit</Button>
               </CardBody>
             </Card>
           </div>

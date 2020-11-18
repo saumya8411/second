@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import './index.css'
 // import { ProtectedRoute, UserRole } from '../../../helpers/authHelper';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
 
@@ -19,7 +20,7 @@ const EcommerceDefault = React.lazy(() =>
 const Dashboards = ({ match }) => (
   <>
   {console.log(match)}
-<h1>Sessions</h1>
+
   <Suspense fallback={<div className="loading" />}>
     <Switch>
       <Redirect exact from={`${match.url}/`} to={`${match.url}/default`} />

@@ -71,9 +71,10 @@ const validation = Yup.object().shape({
   customer_password: Yup.string()
   .min(8, "min 8 characters")
   .max(100, "please enter correct password")
-  .required("Name is required"),
+  .required("Password is required"),
   customer_password_confirm: Yup.string()
   .oneOf([Yup.ref('customer_password'), null], 'Passwords must match')
+  .required("Please Confirm password"),
  // institutename: Yup.string()
   //  .min(2, "please enter correct insitute")
   //  .max(50, "please enter correct institute")
@@ -87,13 +88,13 @@ const Register = ({ history }) => {
   const onSubmit = (values) => {
     console.log(values);
 
-   axios.post('http://localhost:5000/users' , {
-     values
-   })
-   .then(response => {
-     console.log(response)
-   })
-   .catch(err => console.log(err))
+   // axios.post('http://localhost:5000/users' , {
+   //   values
+  //  })
+  //  .then(response => {
+  //    console.log(response)
+  //  })
+  //  .catch(err => console.log(err))
 
     history.push("../app/blankpage")
   };
@@ -225,7 +226,7 @@ const Register = ({ history }) => {
                   </FormGroup>
                   <FormGroup className="form-group has-float-label">
                     <Label>
-                      institute Name
+                      Institute Name
                     </Label> 
                     <Field
                       className="form-control"
@@ -284,11 +285,11 @@ const Register = ({ history }) => {
          <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
          {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
          <img src={Google} className="logo"/> 
-<span>Register Using Google</span>
+<span>Continue with Google</span>
            </Button>
            <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
         <img src={Apple} className="logo2" />
-<span>Register Using Apple</span>
+<span>Continue with Apple</span>
            </Button>
            </div>      </Row>
             
