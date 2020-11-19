@@ -525,26 +525,26 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                  <Col md="3">
                 
                   
-                  <button className="card2 text-center mt-2" id="video"  onClick={this.onButtonClickHandler} ><FaPlayCircle id="lower-icons"/><br/><p className="mt-2">Video</p></button>
+                  <button className="card2 text-center mt-2" id="video" style={{background: 'none'}}  onClick={this.onButtonClickHandler} ><FaPlayCircle id="lower-icons" /><br/><p className="mt-2 text-dark" style={{fontSize:'12px'}}>Video</p></button>
                 
                    
                  </Col>
                  <Col md="3">
                  
-                   <button className="card2 mt-2" onClick={this.onButtonClickHandler2}><RiAttachmentLine id="lower-icons"/><p className="mt-2">Assignment</p></button>
+                   <button className="card2 mt-2" style={{background: 'none'}} onClick={this.onButtonClickHandler2}><RiAttachmentLine id="lower-icons"/><p className="mt-2 text-dark" style={{fontSize:'12px'}}>Assignment</p></button>
 
                    
            
                 </Col>
                 <Col md="3">
                 
-                  <button className="card2 mt-2" onClick={this.onButtonClickHandler3}><BsQuestionDiamond id="lower-icons"/><p className="mt-2">Quiz</p></button>
+                  <button className="card2 mt-2" style={{background: 'none'}} onClick={this.onButtonClickHandler3}><BsQuestionDiamond id="lower-icons"/><p className="mt-2 text-dark" style={{fontSize:'12px'}}>Quiz</p></button>
                   
                   
                 </Col>
                 <Col md="3">
  
-                  <button className="card2 mt-2" onClick={this.onButtonClickHandler4}><FaRegNewspaper id="lower-icons"/><p className="mt-2">Handouts</p></button>
+                  <button className="card2 mt-2" style={{background: 'none'}} onClick={this.onButtonClickHandler4}><FaRegNewspaper id="lower-icons"/><p className="mt-2 text-dark" style={{fontSize:'12px'}}>Handouts</p></button>
                   
                 </Col>
                 

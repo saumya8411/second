@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { adminRoot } from '../constants/defaultValues';
 import Counter from './useCounter'
 import useCounter from './useCounter';
+import produtcs from '../data/products';
 
 function Table({ columns, data, divided = false, defaultPageSize = data.length }) {
     const {
@@ -49,13 +50,18 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
   // console.log(getTableProps,"gettable------props")
   // console.log(prepareRow,"prepare------row")
   // console.log(page,"----------------page")
-  let clickHandlerTable = (e,p) =>{
-    if(e == page.original.id){
-          setName(name = 'Launched')
-    }else{
-      setName(name = 'Launch')
-    }
+  let clickHandlerTable = (e) =>{
+    for(let i = 0 ; i< produtcs.length ;i++){
+    if(e == page[i].cells[0].row.id ){
+      page[i].cells[0].row.original.launched = !page[i].cells[0].row.original.launched
+      setName( page[i].cells[0].row.original.launched ? 'Launched' : 'Launch')
       
+
+    }else{
+    
+    }
+    console.log(e, page)
+  }
   }
   //const [name , ChangeName] = useCounter()
   const info = {
@@ -129,17 +135,20 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
                     </td>
                     
                   ))}
+                 { console.log(page[0].cells[0].row.original.id)}
                   <td >
                     <div style={{display:"flex",alignItems:"center"}}>
-                  <Button color="secondary" onClick={()=>{clickHandlerTable(row.id); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1.2rem'}}>
-                   {name}
-                  </Button>
+                  { row.original.launched ? <Button color="secondary" className="text-center" onClick={()=>{clickHandlerTable(row.id); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1rem',marginRight:'10px', width:'110px'}}>
+                   {/* row.original.launched ?  */}{/* 'Launched' */} {/* : 'Launch' */} Launched
+                  </Button> : <Button color="secondary" className="text-center" onClick={()=>{clickHandlerTable(row.id); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1rem',marginRight:'10px', width:'110px'}}>
+                   {/* row.original.launched ?  */}{/* 'Launched' */} {/* : 'Launch' */} Launch
+                  </Button>}
                   <PopoverItem id={row.id}/>
                   </div>
                 </td>
                 </tr>
               );
-            })}
+            })} 
           </tbody>
         </table>
   

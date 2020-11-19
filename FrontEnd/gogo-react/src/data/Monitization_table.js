@@ -11,7 +11,7 @@ const Monitization_table = [
       contact: 22122122,
       date: '22-August-2020',
       time: '3:15 PM',
-      status: 'Completed',
+      status: 'Incompleted',
       email:'ddf@hotmail.com',
       class:'text-muted w-10 danger badge-sm'
     },

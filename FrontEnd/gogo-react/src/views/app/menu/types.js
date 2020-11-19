@@ -33,6 +33,8 @@ import { MdLocalLibrary } from 'react-icons/md';
 import './style.css'
 import { Scrollbars } from 'react-custom-scrollbars';
 import my_table_courses from '../../../data/my_table_courses';
+import Communication_table2 from '../../../data/Communication_table2';
+import Communication_table3 from '../../../data/Communication_table3';
 
 const MenuTypes = ({
   match,
@@ -156,7 +158,81 @@ const MenuTypes = ({
       Header: 'Opened',
       accessor: 'opened',
       cellClass: 'text-muted',
+      Cell: (props) => { if(props.value === 'Yes'){ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green',marginLeft:'20px'}}>{props.value}</Badge>} else{ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red',marginLeft:'20px'}}>{props.value}</Badge>}},
+      sortType: 'basic',
+    },
+  ]
+  const cols8 = [
+    {
+      Header: 'Send to',
+      accessor: 'Send_to',
+      cellClass: 'text-muted',
       Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Date',
+      accessor: 'date',
+      cellClass: 'color',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Time',
+      accessor: 'time',
+      cellClass: 'text-muted ',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'message_id',
+      accessor: 'message_id',
+      cellClass: 'text-muted',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Opened',
+      accessor: 'opened',
+      cellClass: 'text-muted',
+      Cell: (props) => { if(props.value === 'Yes'){ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green',marginLeft:'20px'}}>{props.value}</Badge>} else{ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red',marginLeft:'20px'}}>{props.value}</Badge>}},
+      sortType: 'basic',
+    },
+  ]
+  const cols9 = [
+    {
+      Header: 'Send to',
+      accessor: 'Send_to',
+      cellClass: 'text-muted',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Date',
+      accessor: 'date',
+      cellClass: 'color',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Time',
+      accessor: 'time',
+      cellClass: 'text-muted ',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'message_id',
+      accessor: 'message_id',
+      cellClass: 'text-muted',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Opened',
+      accessor: 'opened',
+      cellClass: 'text-muted',
+      Cell: (props) => { if(props.value === 'Yes'){ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green',marginLeft:'20px'}}>{props.value}</Badge>} else{ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red',marginLeft:'20px'}}>{props.value}</Badge>}},
       sortType: 'basic',
     },
   ]
@@ -190,6 +266,30 @@ const MenuTypes = ({
       sortType: 'basic',
     },
     {
+      Header: 'Date',
+      accessor: 'date',
+      cellClass: 'text-muted',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },   
+    {
+      Header: 'Time',
+      accessor: 'time',
+      cellClass: 'text-muted',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    }, 
+    {
+      Header: 'Status',
+      accessor: 'status',
+      cellClass: 'text-muted',
+      Cell: (props) => {if(props.value == 'Incompleted'){ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red'}}>{props.value}</Badge> }
+      else{ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green'}}>{props.value}</Badge>
+    } },
+      sortType: 'basic',
+    },
+
+    {
       Header: 'Email',
       accessor: 'email',
       cellClass: 'text-muted',
@@ -199,26 +299,6 @@ const MenuTypes = ({
     {
       Header: 'Contact',
       accessor: 'contact',
-      cellClass: 'text-muted',
-      Cell: (props) => <p>{props.value}</p>,
-      sortType: 'basic',
-    },
-    {
-      Header: 'Date',
-      accessor: 'date',
-      cellClass: 'text-muted',
-      Cell: (props) => <p>{props.value}</p>,
-      sortType: 'basic',
-    },    {
-      Header: 'Time',
-      accessor: 'time',
-      cellClass: 'text-muted',
-      Cell: (props) => <p>{props.value}</p>,
-      sortType: 'basic',
-    },
-    {
-      Header: 'Status',
-      accessor: 'status',
       cellClass: 'text-muted',
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
@@ -280,8 +360,8 @@ const MenuTypes = ({
         Header: 'Status',
         accessor: 'status',
         cellClass: 'color w-10',
-      Cell: (props) => {if(props.value == 'Registered'){ return <Badge  style={{fontSize:'10px', borderRadius:'10px'}}>{props.value}</Badge> }
-      else{ return <Badge color="warning" style={{fontSize:'10px', borderRadius:'10px'}}>{props.value}</Badge>
+      Cell: (props) => {if(props.value == 'Registered'){ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red'}}>{props.value}</Badge> }
+      else{ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green'}}>{props.value}</Badge>
     } },
         sortType: 'basic',
       },
@@ -373,20 +453,9 @@ const MenuTypes = ({
       );
     }
   const [activeFirstTab, setActiveFirstTab] = useState('1');
-  const [tab, settab] = useState('8')
+  const [activeFirstTab1, setActiveFirstTab1] = useState('8');
+  /* const [tab, settab] = useState('8') */
 
-  const gettab = (prop) =>{
-    console.log(prop)
-    if(prop === '8'){
-      settab({tab : 8}) 
-    }
-    else if(prop === '9') {
-      settab({tab : 9}) 
-    }
-    else if(prop == '10'){
-      settab({tab : 10}) 
-    }
-  } 
 
   return (
     <>
@@ -718,29 +787,59 @@ const MenuTypes = ({
     <Scrollbars style={{ width: '100%', height: 400 }}>
       <CardBody>
 
-      {/* <Nav tabs className="card-header-tabs mb-3">
+       <Nav tabs className="card-header-tabs mb-3">
        
+       <NavItem>
                     <NavLink
-                      onFocus={() => {
-                        gettab('8');
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab1 === '8',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab1('8');
                       }}
                     >
-                 <h6>Whatsapp Message</h6>
-                    </NavLink><NavLink
-                      onFocus={() => {
-                        gettab('9');
-                      }}
-                    >
-                 <h6>Text Messages</h6>
-                    </NavLink><NavLink
-                      onFocus={() => {
-                        gettab('10');
-                      }}
-                    >
-                 <h6>Emails</h6>
+                   <h6>Affiliate</h6>
                     </NavLink>
-                    </Nav> */}
-                  <Table columns={cols3} data={Communication_table}/>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab1 === '9',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab1('9');
+                      }}
+                    >
+                   <h6>Blogs</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab1 === '10',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab1('10');
+                      }}
+                    >
+                   <h6>Link Tracking</h6>
+                    </NavLink>
+                  </NavItem>
+                    </Nav> 
+                    <TabContent activeTab={activeFirstTab1}>
+                    <TabPane tabId="8"><Table columns={cols3} data={Communication_table}/></TabPane>
+                    <TabPane tabId="9"><Table columns={cols8} data={Communication_table2}/></TabPane>
+                    <TabPane tabId="10"><Table columns={cols9} data={Communication_table3}/></TabPane>
+                    </TabContent>
       </CardBody>
       </Scrollbars>
     </Card>

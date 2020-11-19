@@ -174,10 +174,10 @@ display: flex;
 
 #lower-icons{
     margin-right: auto;    
-    font-size: 300%;
+    font-size: 200%;
     text-align: center;
     margin-top: 10px;
-    color: white;
+    color: rgb(58, 58, 58);
 }
 .btn12{
     display: flex;
@@ -214,6 +214,7 @@ input[type="file"] {
 }
 .butn{
     border-radius: 0%;
+    width: 100px;
 }
 .delete{
     float: right;
@@ -242,8 +243,8 @@ input[type="file"] {
     border-radius: 0%;
 }
 .card2{
-    width: 120px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     border-radius: 0%;
     background-color:#4EB5F1;
     border: none;
@@ -279,4 +280,29 @@ input[type="file"] {
 }
 #searchbutton{
     border-radius: 0%;
+}
+.card1{
+    width: 80%;
+    /* align-items: center; */
+    margin-left: auto;
+    margin-right: auto;
+}
+#para1{
+    font-size: 20px;
+    margin-right: auto;
+    text-align: inherit;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+#custom-switch{
+    margin-right: 30%;
+    margin-top: 10px;
+}
+.fi1{
+    margin-top: 2px;
+}
+.thediv{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }

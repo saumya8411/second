@@ -33,7 +33,7 @@ console.log(data,produtcs)
           buttonLabel,
           className
         } = props;
-        
+/*         const [desc,setDesc] = useState('Hello I am desc') */
         const [modal, setModal] = useState(false)
       
         const toggle = () => setModal(!modal);
@@ -46,6 +46,10 @@ console.log(data,produtcs)
                 });
             }
         }
+/*         const change = (e) => {
+            setDesc({desc : e.target.value})
+            
+        } */
       //  const summary : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
 
     return(
@@ -118,9 +122,9 @@ console.log(data,produtcs)
                 <ModalHeader toggle={toggle}>Edit Details</ModalHeader>
                 <ModalBody>
                     <Label for="exampleText">Tagline</Label>
-                    <Input type="textarea" name="text" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." id="exampleText" />
+                    <Input type="textarea"  /* value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." */ id="exampleText" />
                     <Label for="exampleText2" className="mt-4">Description</Label>
-                    <Input type="textarea" name="text" value={data.description} id="exampleText2" />
+                    <Input type="textarea"  /* value={desc} onChange={(e) => change(e)} */  id="exampleText2" />
                 </ModalBody>
                 <ModalFooter>
                 <Button color="primary" onClick={toggle} style={{borderRadius:'0px',fontSize:'15px'}}>Submit</Button>{' '}
@@ -137,7 +141,7 @@ console.log(data,produtcs)
           
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Description</h3>
-            <p>{data.description}</p>
+            <p>Hello I am from desc</p>
           </Colxx>
           
 
@@ -202,7 +206,7 @@ console.log(data,produtcs)
                 <Row className="text-center">
                     
                     <label className="input-label-1">
-                        <input type="file"/>
+                        <input type="file" accept=".pdf,.word"/>
                         <FiUpload/>
                         <p id="ufd">Upload from device</p>
                     </label>

@@ -51,6 +51,13 @@
         width:400%;
         margin-right: 100px;
     }
+    img#mob{
+        display: inline-block;
+     }
+ 
+    #com{
+        display: none;
+    }
 
 
 
@@ -118,8 +125,13 @@
         height:70px;
     }
 
+
 }
 
 .count{
     font-size: 10px;
 }
+#mob{
+   display: none;
+}
+/* #com{display: inline;} */

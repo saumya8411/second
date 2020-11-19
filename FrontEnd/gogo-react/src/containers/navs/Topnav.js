@@ -57,6 +57,7 @@ const TopNav = ({
 }) => {
   const [isInFullScreen, setIsInFullScreen] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [status, setstatus] = useState(true)
 
   const search = () => {
     history.push(`${searchPath}?key=${searchKeyword}`);
@@ -74,6 +75,9 @@ const TopNav = ({
       }, 500);
     }
   };
+  const change = () => {
+    setstatus(!status)
+  }
 
   const isInFullScreenFn = () => {
     return (
@@ -232,7 +236,9 @@ const TopNav = ({
         </NavLink>
           
         <NavLink className="navbar-logo" id="logolink" to={adminRoot}>
-          {<img src={require(`./logo.png`)} className="Logo"/>}
+  
+          { !status ? <img src={require(`./white.png`)} className="Logo"/> : <img src={require(`./black.png`)} className="Logo"/>}
+          {console.log(status)}
         </NavLink>
             
 {/*         <div className="search"> 
@@ -282,9 +288,9 @@ const TopNav = ({
       
       <div className="navbar-right">
 
-         {/* <MdChat className="chat"/> */}<i className=" text-muted mt-3" />
+         {/* <MdChat className="chat"/> */}<i className=" text-muted mt-3"/>
          
-           <TopnavNotifications className="noti mr-4"/>
+           <TopnavNotifications className="noti mr-4"  style={{fontSize:'25px'}}/>
             {/* <IoIosNotificationsOutline className="notification"/> */}
             {/* <RiNotification4Line /> */}
         <div className="header-icons d-inline-block align-middle">
@@ -296,7 +302,7 @@ const TopNav = ({
             className="header-icon notificationButton"
             color="empty"
           >
-            <i className="simple-icon-speech" />
+            <i className="simple-icon-speech" style={{fontSize:'20px'}} />
             <span className="count">2</span>
           </DropdownToggle>
           <DropdownMenu
@@ -327,7 +333,7 @@ const TopNav = ({
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
-              <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark" />
+              <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark" onClick={change} />
          <span> Night Mode</span></DropdownItem>
               <DropdownItem divider />
               <DropdownItem onClick={() => handleLogout()}>
