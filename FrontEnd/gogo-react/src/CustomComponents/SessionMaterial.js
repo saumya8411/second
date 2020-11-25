@@ -232,7 +232,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           <Card className="p-4 mb-3">
               <CardBody>
                 <Row>
-         <Colxx md="9" sm="12">
+         <Colxx md="7" sm="12">
                     <Row>
                 <nav>
                     <ul className="d-flex">
@@ -260,10 +260,20 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                 </nav>
     </Row>
     </Colxx>
-    <Colxx md="3" sm="12">
-      <Button outline color="secondary" style={{borderRadius:"3px", marginTop:"15px", fontSize:"14px"}}>
+    <Colxx md="5" sm="12">
+      <Row>
+    <Button outline color="secondary" className="mr-3 butun">
+                Preview
+              </Button>
+              <Button outline color="secondary" style={{borderRadius:"3px", fontSize:"14px"}}>
         Launch
-      </Button>
+      </Button></Row>
+      <li className=" d-flex ">
+        <p style={{marginLeft:'10px'}} className="mb-0 mt-4">  <span className="font-weight-bold">Duration:</span> 1 month</p>
+      </li>
+      <li className=" d-flex ">
+        <p style={{marginLeft:'10px'}} className="mb-0 mt-4">  <span className="font-weight-bold">Fees:</span> $130</p>
+      </li>
     </Colxx>
     </Row>
     </CardBody>
@@ -366,7 +376,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   <nav>
                     <Row>
                       
-                        <Colxx md="2" xs="12" className="cardseparations text-center font-weight-bold">
+                        <Colxx md="3" xs="12" className="cardseparations text-center font-weight-bold">
                              <h3 className="font-weight-bold" style={{fontSize:"1.3rem"}}>{this.state.data.Trainer.name}</h3>
                               <img src={Avatar} alt="..." id="avatar"/>
                               <p>Web developer, IBM, bengaluru</p>
@@ -391,7 +401,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                                 <li>DEVOPS</li> 
                             </ul> */}
                         </Colxx>
-                        <Colxx md="5" xs="12">
+                        <Colxx md="4" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Experience</h5>
                         <Scrollbars style={{ width: "100%", height: 300 }}>
                           <div className="mt-4">
@@ -442,9 +452,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   onChange={(secondary) => this.setState({timeline:secondary})}
                 /> </Row>
                       </FormGroup></Col>
-                      <Col md="6" > <Button outline color="secondary" className="mb-2 ml-auto butun">
-                Preview
-              </Button></Col></Row>
+                      <Col md="6" > </Col></Row>
                   
     
         

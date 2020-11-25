@@ -124,6 +124,15 @@
     .navbar{
         height:70px;
     }
+    .rights{
+        margin-right: 50px;
+    }
+    .fbicon{
+        margin-right: 40px;
+    }
+    .deliver{
+        color :black;
+    }
 
 
 }

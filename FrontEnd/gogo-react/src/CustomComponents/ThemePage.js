@@ -34,7 +34,7 @@ function Themepage() {
   const [timeline, settimeline] = useState(false)
   const [timeline1, settimeline1] = useState(false)
   const [timeline2, settimeline2] = useState(false)
-  const [activeFirstTab1, setActiveFirstTab1] = useState('1');
+  const [activeFirstTab1, setActiveFirstTab1] = useState('4');
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "",rate: "" }]);
   
   const handleInputChange = (e, index) => {
@@ -225,7 +225,7 @@ function Themepage() {
             
             </TabContent>
           </Card>
-        </Card> : null}
+        </Card> : null}<br/>
       {/* <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink

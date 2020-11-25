@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FormGroup, Label, CustomInput } from 'reactstrap';
 import { colors } from '../../constants/defaultValues';
 import { getCurrentColor, setCurrentColor, getCurrentRadius, setCurrentRadius } from '../../helpers/Utils';
+import TopnavDarkSwitch from '../../containers/navs/Topnav.DarkSwitch';
 
 const ColorSwitcher = () => {
   const containerRef = useRef();
@@ -54,7 +55,10 @@ const ColorSwitcher = () => {
   return (
     <div ref={containerRef} className={`theme-colors ${isOpen ? 'shown' : ''}`}>
       <div className="p-4">
-        <p className="text-muted mb-2">Light Theme</p>
+      <p className="text-muted mb-2">Dark Mode</p>
+      <TopnavDarkSwitch /* className="mr-auto" */ style={{marginRight:'60px' , marginBottom: '10px'}}  />
+
+        <p className="text-muted mb-2 mt-2">Light Theme</p>
         <div className="d-flex flex-row justify-content-between mb-3">
           {colors.slice(0, 5).map((color) => (
             <a

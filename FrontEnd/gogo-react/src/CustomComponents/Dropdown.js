@@ -20,10 +20,10 @@ const selectFilters = [
 ];
   
   const selectSort = [
-    { label: 'date', value: 'date', key: 0 },
+    { label: 'Date', value: 'date', key: 0 },
     { label: 'Name', value: 'name', key: 1 },
     { label: 'Fees', value: 'fees', key: 2 },
-    { label: 'Registration', value: 'registration', key: 3 }
+    { label: 'Registrations', value: 'registration', key: 3 }
   ]
   
   

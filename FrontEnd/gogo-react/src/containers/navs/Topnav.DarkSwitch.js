@@ -30,7 +30,7 @@ const TopnavDarkSwitch = () => {
 
   return (
     
-    <div className="d-flex justify-content-center align-middle mr-3">
+    <div className="">
       <Switch
         id="tooltip_switch"
         className="custom-switch custom-switch-primary custom-switch-small"

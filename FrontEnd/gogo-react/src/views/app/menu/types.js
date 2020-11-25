@@ -13,6 +13,7 @@ import IntlMessages from '../../../helpers/IntlMessages';
 import products from '../../../data/products';
 import DatatablePagination from '../../../components/DatatablePagination';
 import my_table from '../../../data/my_table';
+import affiliate from '../../../data/affiliate';
 import { FaUsers } from 'react-icons/fa';
 import { FaFilter } from 'react-icons/fa';
 import { LineChart } from '../../../components/charts';
@@ -30,11 +31,19 @@ import { BiMessageRoundedDots } from 'react-icons/bi';
 import { BiTime } from 'react-icons/bi';
 import { RiMailSendFill } from 'react-icons/ri';
 import { MdLocalLibrary } from 'react-icons/md';
+import { IoIosPeople } from 'react-icons/io';
+import { FaUserCheck } from 'react-icons/fa';
+import { FaBlog } from 'react-icons/fa';
+import { FaComments } from 'react-icons/fa';
+import { BiCheckDouble } from 'react-icons/bi';
+import { AiOutlineExclamation } from 'react-icons/ai';
 import './style.css'
 import { Scrollbars } from 'react-custom-scrollbars';
 import my_table_courses from '../../../data/my_table_courses';
 import Communication_table2 from '../../../data/Communication_table2';
 import Communication_table3 from '../../../data/Communication_table3';
+import posts1 from '../../../data/posts1';
+import posts2 from '../../../data/posts2';
 
 const MenuTypes = ({
   match,
@@ -122,6 +131,106 @@ const MenuTypes = ({
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
     },
+  
+  ]
+  const cols12 = [
+    {
+      Header: 'Blog Name',
+      accessor: 'name',
+      cellClass: 'text-muted w-30',
+      Cell: (props) => <p className="ml-2">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Blogger Name',
+      accessor: 'b_name',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p className="ml-4 mr-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Comments',
+      accessor: 'comments',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Like',
+      accessor: 'like',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+  ]
+  const cols13 = [
+    {
+      Header: 'Blogger Name',
+      accessor: 'b_name',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-2">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Total number of Blogs',
+      accessor: 'tnbp',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p className="ml-4 mr-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Total number of Comments',
+      accessor: 'comments',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Total Likes',
+      accessor: 'like',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+  ]
+
+  const cols11 = [
+    {
+      Header: 'Affiliate Name',
+      accessor: 'affiliate_name',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-2">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Number of Enrollments',
+      accessor: 'noe',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p className="text-center">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Revenue Generated',
+      accessor: 'Revenue',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Rewards Recieved',
+      accessor: 'Rewards',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Course Name',
+      accessor: 'Course',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+
   
   ]
 
@@ -454,6 +563,8 @@ const MenuTypes = ({
     }
   const [activeFirstTab, setActiveFirstTab] = useState('1');
   const [activeFirstTab1, setActiveFirstTab1] = useState('8');
+  const [activeFirstTab2, setActiveFirstTab2] = useState('13');
+
   /* const [tab, settab] = useState('8') */
 
 
@@ -599,10 +710,10 @@ const MenuTypes = ({
                    <h6>Link Tracking</h6>
                     </NavLink>
                   </NavItem>
-                  <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
+                  {/* <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
                     <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
                     <Button id="searchbutton" className="d-flex ml-2">Search</Button>
-                  </FormGroup>
+                  </FormGroup> */}
                 </Nav>
                 <div className="mb-4">
 
@@ -954,10 +1065,177 @@ const MenuTypes = ({
     </Row>
 </TabPane>
 <TabPane tabId="5">
-  quiz
+<Row>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#FFA07A"}}>
+          <Row>
+          <Col md="6" xs="6">
+          <IoIosPeople id="myicon" className="text-light"/>
+          </Col>
+          <Col md="6" xs="6">
+            <CardText className="font-weight-bold head text-light">42</CardText>
+            <CardText className="font-weight-bold para text-light">Total Affiliates</CardText>
+          </Col>
+          </Row>
+        </Card>
+      </Col>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#AF7AC5"}}>
+          <Row>
+        <Col md="6" xs="6">
+          <FaUserCheck id="myicon" className="text-light"/>
+        </Col>
+        <Col md="6" xs="6"> 
+        <CardText className="font-weight-bold head text-light">22</CardText>
+            <CardText className="font-weight-bold para text-light">Total Enrollments</CardText>
+        </Col>
+        </Row>
+        </Card>
+      </Col>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#52BE80"}}>
+        <Row>
+        <Col md="6" xs="6">
+        <RiMoneyDollarCircleFill id="myicon" className="text-light"/>
+        </Col>
+        <Col md="6" xs="6" className="mb-3">
+        <CardText className="font-weight-bold head text-light"/*  style={{fontSize:'30px', marginTop:'30px'}} */>$11</CardText>
+          <CardText className="font-weight-bold para text-light">Total Revenue</CardText>
+        </Col>
+        </Row>
+        </Card>
+      </Col>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#5499C7"}}>
+        <Row>
+        <Col md="6" xs="6">
+          <FaHandHoldingUsd id="myicon" className="text-light"/>
+          </Col>
+          <Col md="6" xs="6" className="mb-3">
+          <CardText className="font-weight-bold head text-light">60</CardText>
+            <CardText className="font-weight-bold para text-light">Total Rewards given</CardText>
+          </Col>
+          </Row>
+        </Card>
+      </Col>
+    </Row>
+    <Row>
+      <Col md="12" xs="12">
+    <Card className="h-100  ">
+    <Scrollbars style={{ width: '100%', height: 400 }}>
+      <CardBody>
+        <Table columns={cols11} data={affiliate} /> 
+      </CardBody>
+      </Scrollbars>
+    </Card>
+    </Col>
+    </Row>
+    <br/>
 </TabPane>
 <TabPane tabId="6">
-  doubts
+    <Row>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#0984e3"}}>
+          <Row>
+          <Col md="6" xs="6">
+          <FaBlog id="myicon" className="text-light"/>
+          </Col>
+          <Col md="6" xs="6">
+            <CardText className="font-weight-bold head text-light">12</CardText>
+            <CardText className="font-weight-bold para text-light">Total Blogs</CardText>
+          </Col>
+          </Row>
+        </Card>
+      </Col>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#6c5ce7"}}>
+          <Row>
+        <Col md="6" xs="6">
+          <FaComments id="myicon" className="text-light"/>
+        </Col>
+        <Col md="6" xs="6"> 
+        <CardText className="font-weight-bold head text-light">22</CardText>
+            <CardText className="font-weight-bold para text-light">Total Comments</CardText>
+        </Col>
+        </Row>
+        </Card>
+      </Col>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#e17055"}}>
+        <Row>
+        <Col md="6" xs="6">
+        <BiCheckDouble id="myicon" className="text-light"/>
+        </Col>
+        <Col md="6" xs="6" className="mb-3">
+        <CardText className="font-weight-bold head text-light"/*  style={{fontSize:'30px', marginTop:'30px'}} */>143</CardText>
+          <CardText className="font-weight-bold para text-light">Total Page Views</CardText>
+        </Col>
+        </Row>
+        </Card>
+      </Col>
+      <Col sm="3" xs="12" className="mb-3">
+        <Card body id="crd" className="text-center" style={{backgroundColor:"#e84393"}}>
+        <Row>
+        <Col md="6" xs="6">
+          <AiOutlineExclamation id="myicon" className="text-light"/>
+          </Col>
+          <Col md="6" xs="6" className="mb-3">
+          <CardText className="font-weight-bold head text-light">60</CardText>
+            <CardText className="font-weight-bold para text-light">Unique Pageviews</CardText>
+          </Col>
+          </Row>
+        </Card>
+      </Col>
+    </Row>
+    <Row>
+      <Col md="12" xs="12">
+    <Card className="h-100  ">
+    <Scrollbars style={{ width: '100%', height: 400 }}>
+      <CardBody>
+      <Nav tabs className="card-header-tabs mb-3">
+       
+       <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab2 === '13',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab2('13');
+                      }}
+                    >
+                   <h6>Blogs</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab2 === '14',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab2('14');
+                      }}
+                    >
+                   <h6>Blogger</h6>
+                    </NavLink>
+                  </NavItem>
+                    </Nav> 
+                    <TabContent activeTab={activeFirstTab2}>
+                    <TabPane tabId="13"><Table columns={cols12} data={posts1} /></TabPane>
+                    <TabPane tabId="14"><Table columns={cols13} data={posts2}/></TabPane>
+                    </TabContent>
+         
+      </CardBody>
+      </Scrollbars>
+    </Card>
+    </Col>
+    </Row>
+    <br/>
 </TabPane>
 </TabContent>
 

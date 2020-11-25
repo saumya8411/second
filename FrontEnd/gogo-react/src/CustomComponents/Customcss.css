@@ -239,7 +239,7 @@ input[type="file"] {
 }
 .butun{
     display: flex;
-    margin-left: auto;
+    
     border-radius: 0%;
 }
 .card2{

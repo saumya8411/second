@@ -91,17 +91,21 @@ console.log(data,produtcs)
 <Row style={{marginBottom:'20px'}}>
             
              
-                  <Col md="4" xs="12">
+                  <Col md="3" xs="12">
                     <li className="d-flex ">
     <h6 className="mb-0"> <a href="" style={{cursor:'pointer'}}>{data.link?data.link:"www.zoomapp.com,"}</a></h6>
                     </li></Col>
-                    <Col md="4" xs="12">
+                    <Col md="3" xs="12">
                     <li className=" d-flex">
                         <p className="mb-0" style={{marginLeft:'10px'}}><span className="font-weight-bold">Code: </span> ZOOM1111</p>
                     </li></Col>
-                    <Col md="4" xs="12">
+                    <Col md="3" xs="12">
                     <li className=" d-flex ">
                       <p style={{marginLeft:'10px'}} className="mb-0">  <span className="font-weight-bold">Password:</span> axsaerxcc</p>
+                    </li></Col>
+                    <Col md="3" xs="12">
+                    <li className=" d-flex ">
+                      <p style={{marginLeft:'10px'}} className="mb-0">  <span className="font-weight-bold">Duration:</span> 1 month</p>
                     </li></Col>
                     
         
@@ -121,8 +125,8 @@ console.log(data,produtcs)
             <Modal isOpen={modal} toggle={toggle} className={className}>
                 <ModalHeader toggle={toggle}>Edit Details</ModalHeader>
                 <ModalBody>
-                    <Label for="exampleText">Tagline</Label>
-                    <Input type="textarea"  /* value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." */ id="exampleText" />
+                    {/* <Label for="exampleText">Tagline</Label> */}
+                   {/*  <Input type="textarea" */}  {/*  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." */ /* id="exampleText" /> */} */
                     <Label for="exampleText2" className="mt-4">Description</Label>
                     <Input type="textarea"  /* value={desc} onChange={(e) => change(e)} */  id="exampleText2" />
                 </ModalBody>
@@ -134,14 +138,30 @@ console.log(data,produtcs)
             </Row>
             <Row className="pr-4">
  
-          <Colxx xs='12' md="12">
+        {/*   <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Tagline</h3>
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-          </Colxx>
+          </Colxx> */}
           
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Description</h3>
             <p>Hello I am from desc</p>
+          </Colxx>
+          <Colxx xs='12' md="12">
+            <h3 className="font-weight-bold">Fees</h3>
+            <p>$1900</p>
+          </Colxx>
+          <Colxx xs='12' md="12">
+            <h3 className="font-weight-bold">Registration</h3>
+            <p>Enable</p>
+          </Colxx>
+          <Colxx xs='12' md="12">
+            <h3 className="font-weight-bold">Associated Courses</h3>
+            <p>ReactJS, VueJS, Anhular 8</p>
+          </Colxx>
+          <Colxx xs='12' md="12">
+            <h3 className="font-weight-bold">Occurance</h3>
+            <p>Daily</p>
           </Colxx>
           
 
@@ -220,7 +240,7 @@ console.log(data,produtcs)
 </Row>  
 </CardBody>
 </Card> 
-
+<br/>
 
 </div>
 </section>

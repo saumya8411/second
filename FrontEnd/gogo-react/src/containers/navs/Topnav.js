@@ -35,13 +35,35 @@ import {
   buyUrl,
   adminRoot,
 } from '../../constants/defaultValues';
-
+import message from '../../data/message';
 import { MobileMenuIcon, MenuIcon } from '../../components/svg';
 import TopnavEasyAccess from './Topnav.EasyAccess';
 import TopnavNotifications from './Topnav.Notifications';
 import TopnavDarkSwitch from './Topnav.DarkSwitch';
 
 import { getDirection, setDirection } from '../../helpers/Utils';
+
+
+const Messages = ({ img, title, date }) => {
+  return (
+    
+    <div>
+      <div className="border-bottom-3 d-flex" style={{marginLeft:'-15px', marginRight:'-15px' }}>
+        <NavLink to={`${adminRoot}/pages/product/details`} >
+          <Row className="ml-2">
+            <Col md={2}>
+          <img src={img} style={{width:'300%', borderRadius:'50%', display:'flex'}}/></Col>
+          <Col md={10}>
+          <p className="font-weight-medium mb-1 ml-3 d-flex">{title}</p></Col>
+          <p className="text-muted mt-1 mb-0  text-small d-flex" style={{marginLeft:"70px"}}>{date}</p></Row>
+          
+        </NavLink>
+      </div>
+      <DropdownItem divider style={{width:'200px',backgroundColor:'#F1F1F1', color:'#F1F1F1'}} />
+   </div>
+  );
+};
+
 
 const TopNav = ({
   intl,
@@ -313,9 +335,9 @@ const TopNav = ({
             <PerfectScrollbar
               options={{ suppressScrollX: true, wheelPropagation: false }}
             >
-              {/* {notifications.map((notification, index) => {
-                return <NotificationItem key={index} {...notification} />;
-              })} */}
+              {message.map((mess, index) => {
+                return <Messages key={index} {...mess} />;
+              })} 
             </PerfectScrollbar>
           </DropdownMenu>
         </UncontrolledDropdown>
@@ -333,8 +355,8 @@ const TopNav = ({
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
-              <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark" onClick={change} />
-         <span> Night Mode</span></DropdownItem>
+            {/*   <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark"  />
+         <span> Night Mode</span></DropdownItem> */}
               <DropdownItem divider />
               <DropdownItem onClick={() => handleLogout()}>
                 Sign out

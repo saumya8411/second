@@ -1,5 +1,5 @@
 import React,{useRef,useState} from 'react'
-import { Row, Card, CardBody, FormGroup, Label, Button,Input } from 'reactstrap';
+import { Row, Card, CardBody, FormGroup, Label, Button,Input, Col } from 'reactstrap';
 import { Formik, Form, Field } from 'formik';
 import {FormikReactSelect } from '../containers/form-validations/FormikFields';
 import { Colxx } from '../components/common/CustomBootstrap';
@@ -9,6 +9,7 @@ import 'rc-switch/assets/index.css';
 import RemoteSession from './RemoteSession';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
+import Select from 'react-select';
 
 const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
@@ -39,6 +40,11 @@ const OndemandSession = (props) =>{
   
   const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true);
   const [tagsLO, setTagsLO] = useState([]);
+  let [select, setselect] = useState('')
+
+  const takeinput = (e) => {
+    setselect(select = e.target.value);
+  }
 
     const onSubmit = (values, { setSubmitting }) => {
         const payload = {
@@ -132,18 +138,29 @@ const OndemandSession = (props) =>{
                     </div>
                   ) : null}
                 </FormGroup>
+                <Row>
+                  <Col md={6}>
+                  <Label for="exampleSelect">Select</Label>
+                  <Input type="select" name="select" onChange={(e) => takeinput(e)} id="exampleSelect">
+                  <option>Choose Something</option>
+                  <option>Free for Course Enrolled Students</option>
+                  <option>Paid for Course Enrolled Students</option>
+                  </Input>
+                  </Col>
+                  <Col md={6}>
                 <FormGroup className="error-l-75">
                   <Label>Fees</Label>
-                  <Field className="form-control" name="session_fee" 
+                  {select == 'Free for Course Enrolled Students' ? <Input disabled/> : <Field className="form-control" name="session_fee" 
                   
-                  />
+                  />}
                   {errors.session_fee && touched.session_fee ? (
                     <div className="invalid-feedback d-block">
                       {errors.session_fee}
                     </div>
                   ) : null}
                 </FormGroup>
-
+                </Col>
+                </Row>
                
                 <Button color="primary" type="submit">
                   Submit

@@ -114,8 +114,8 @@ console.log(newarray[index],newarray[index][named],named,)
      <Colxx sm="12">
      <Row style={{marginBottom:'20px'}}>
           <Colxx xxs='12' md="4">
-              <h3>Tagline</h3>
-              {/* <p>Tagline is here</p> */}
+              {/* <h3>Tagline</h3>
+              {/* <p>Tagline is here</p> 
               <Editable
       text={tagline}
       placeholder="Write a good tagline"
@@ -127,13 +127,13 @@ console.log(newarray[index],newarray[index][named],named,)
         placeholder="Write a good tagline"
         value={tagline}
         onChange={e => onTaglineChange(e.target.value)}
-      />
+      /> */}
       {/* <Input 
        name="task"
        placeholder="Write a task name"
     //    value={chapername}
       onChange={onChapternameChange}/> */}
-    </Editable>
+  {/*   </Editable> */}
   
           </Colxx>
           

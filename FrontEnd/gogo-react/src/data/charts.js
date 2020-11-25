@@ -6,7 +6,7 @@ export const lineChartData = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      label: 'Sales',
+      label: 'Registrations',
       data: [54, 63, 60, 65, 60, 68, 60],
       borderColor: colors.themeColor1,
       pointBackgroundColor: colors.foregroundColor,

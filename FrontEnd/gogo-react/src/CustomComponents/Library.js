@@ -256,10 +256,10 @@ export const Library = () => {
                    <h6>Quiz</h6>
                     </NavLink>
                   </NavItem> 
-                  <FormGroup className="mb-4 ml-auto d-flex float-right" id="search">
+                  {/* <FormGroup className="mb-4 ml-auto d-flex float-right" id="search">
                     <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
                     <Button id="searchbutton" className="d-flex ml-2">Search</Button>
-                  </FormGroup>
+                  </FormGroup> */}
                 </Nav>
                 <div className="mb-4">
 

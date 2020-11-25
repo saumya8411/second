@@ -32,7 +32,7 @@ export class EmailCommunication extends Component {
     this.state = {
       courses: [
         { name: 'nikhil', id: '1', status: false, notificationperiod: 1 },
-        { name: 'vedant', id: '2', status: true, notificationperiod: 3 },
+        { name: 'vedant', id: '2', status: false, notificationperiod: 3 },
         { name: 'Soumya', id: '3', status: false, notificationperiod: 5 },
       ],
     };

@@ -36,15 +36,15 @@ const BlankPage = ({ intl,match }) => {
 const number = 43;
   return (
     <>
-      <Row> 
+ {/*      <Row> 
         <Colxx xs="12">
           <FormGroup className="mb-4 d-flex float-right" id="search">
             <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
             <Button id="searchbutton" className="d-flex ml-2">Search</Button>
           </FormGroup>
         </Colxx>
-      </Row>
-      <Row>
+      </Row>*/}
+      <Row> 
         <Col md = "3" xs = "12">
       <Card id="card121"> 
         {/* <CardImg top width="100%" src="/assets/318x180.svg" alt="Card image cap" /> */}
@@ -72,7 +72,7 @@ const number = 43;
           <Col md="12">
             <FaCode id="users"/>
             <h1 id="number" >11</h1>
-            <CardText id="small">Courses till now</CardText>
+            <CardText id="small">Courses uploaded till now</CardText>
           </Col>
           </Row>
         </CardBody>
@@ -134,8 +134,8 @@ const number = 43;
       <Row className="ml-4 mt-4">
       
       <div className="thecard">
-        <span id="dot"></span><small className="ml-2">Sales</small> 
-        <span id="dot2"></span><small id="no" className="ml-2" >Enrolled</small>
+        <span id="dot"></span><small className="ml-2">Registrations</small> 
+        <span id="dot2"></span><small id="no" className="ml-2" >Enrollments</small>
         <span id="dot3"></span> <small id="no">Revenue</small>
       </div>
 

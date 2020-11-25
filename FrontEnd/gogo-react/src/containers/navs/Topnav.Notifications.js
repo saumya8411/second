@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, NavLink,DropdownItem } from 'reactstrap';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import notifications from '../../data/notifications';
 import { adminRoot } from '../../constants/defaultValues';
@@ -8,22 +8,16 @@ import { adminRoot } from '../../constants/defaultValues';
 
 const NotificationItem = ({ img, title, date }) => {
   return (
-    <div className="d-flex flex-row mb-3 pb-3 border-bottom">
-      <NavLink to={`${adminRoot}/pages/product/details`}>
-        <img
-          src={img}
-          alt={title}
-          className="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"
-          style={{width:'25px'}}
-        />
-      </NavLink>
-      <div className="pl-3 pr-2">
-        <NavLink to={`${adminRoot}/pages/product/details`}>
+    
+    <div>
+      <div className="border-bottom-3" style={{marginLeft:'-15px', marginRight:'-15px' }}>
+        <NavLink to={`${adminRoot}/pages/product/details`} >
           <p className="font-weight-medium mb-1">{title}</p>
           <p className="text-muted mb-0 text-small">{date}</p>
         </NavLink>
       </div>
-    </div>
+      <DropdownItem divider />
+   </div>
   );
 };
 
@@ -46,6 +40,7 @@ const TopnavNotifications = () => {
           <PerfectScrollbar
             options={{ suppressScrollX: true, wheelPropagation: false }}
           >
+            {/* <h5>Pending notifications</h5> */}
             {notifications.map((notification, index) => {
               return <NotificationItem key={index} {...notification} />;
             })}
