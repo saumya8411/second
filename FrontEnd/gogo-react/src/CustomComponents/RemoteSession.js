@@ -28,7 +28,7 @@ const CreatesessionSchema = Yup.object().shape({
         session_fee:Yup.number().required("Fees is required"),
         session_duration:Yup.number()
         .required("Session Duration is required")
-        .max(999, 'Too Long!'),
+        .max(999, 'Too Long! Must be under 999'),
         fee_select:Yup.string().required('Session description is required!') ,
         session_occurance:Yup.string().required('Session occurance is required!') ,
         time:Yup.string().required('Session time is required!') ,
@@ -83,14 +83,29 @@ const CreatesessionSchema = Yup.object().shape({
     
 
 const RemoteSession = () =>{
+    let date = ''
     const [startDateRange, setStartDateRange] = useState(new Date());
     const [time, setTime] = useState("");
     const [days, setDays] = useState(0)
-    const [endDateRange, setEndDateRange] = useState(new Date())
+    const [endDateRange, setEndDateRange] = useState(date)
     const [duration, setDuration] = useState("");
     const [check, setcheck] = useState(false)
     let [state, setstate] = useState('')
     let [fees, setfees] = useState('')
+    let [course, setCourse] = useState([])
+    let [defval, setdefval] = useState(false)
+    let [occurance, setOccurance] = useState('')
+    const checkempty = () => {
+      if(!course){
+        setdefval(!defval)
+      }
+    }
+    const checkdate = () => {
+      if(occurance == 'Daily'){
+        date = startDateRange + 7 ;
+      }
+    }
+    
 
     const checkinp = () => {
       setcheck(!check)
@@ -180,15 +195,22 @@ const calculateDate = (endDateRange,startDateRange) => {
                 </FormGroup>  
                 <FormGroup className="error-l-100">
                   <Label>Occurance </Label>
-                  <FormikReactSelect
-                    name="session_occurance"
+{/*                 <FormikReactSelect
+                    name="occurance"
                     id="occur"
                     value={values.session_occurance}
                     
-                    options={options}
-                    onChange={setFieldValue}
+                    options={occurance}
+                    onChange={(e) => setOccurance(e)}
                     onBlur={setFieldTouched}
-                  />
+                  /> */} {/* {occurance} {date} */}
+                   <Input type="select" name="occurance" onChange={(e) => setOccurance(e.target.value)} id="exampleSelect">
+                  <option>Once</option>
+                  <option>Daily</option>
+                  <option>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Yearly</option>
+                </Input> 
                   {errors.session_occurance && touched.session_occurance ? (
                     <div className="invalid-feedback d-block" style={{marginTop: '50px', marginLeft: '355px'}}>
                       {errors.session_occurance}
@@ -197,6 +219,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                 </FormGroup>
                 
              <Row >
+                {/* {startDateRange}  */}
                  <Colxx xxs="6">
                  <FormGroup className="error-l-100">
                   <Label>Start Date </Label>
@@ -210,7 +233,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                 />
               
                   
-                </FormGroup> 
+                {/* </FormGroup> 
                  </Colxx>
                  <Colxx xxs="6">
                  <FormGroup className="error-l-100">
@@ -222,7 +245,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                   onChange={setEndDateRange}
                   name="session_end_date"
                   placeholderText={['form-components.start']}
-                />
+                /> */}
               
                   
                 </FormGroup> 
@@ -232,7 +255,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                  <Row>
                    <Colxx xxs="6">
                    <FormGroup className="error-l-100">
-                      <Label for="duration">Duration</Label>
+                      <Label for="duration">Duration(in minutes)</Label>
                      {/*  <Field name="session_duration" id="duration" value={values.session_dur} onChange={setFieldValue}
                     onBlur={setFieldTouched} /> */}
                     <Field className="form-control" name="session_duration" />
@@ -247,14 +270,14 @@ const calculateDate = (endDateRange,startDateRange) => {
                 <Colxx xxs="6"> 
                 <FormGroup className="error-l-100">
                   <Label>Time </Label>
-                  <Input
+                   <Input
           type="time"
           name="time"
           id="time"
           value={time}
           placeholder="Time to start from"
-          onChange={e=>setTime(e.target.value)}
-        />
+           onChange={e=>setTime(e.target.value)} 
+        /> 
 
 {errors.time && touched.time ? (
                     <div className="invalid-feedback d-block" style={{marginTop: '50px', marginLeft: '115px'}}>
@@ -274,10 +297,9 @@ const calculateDate = (endDateRange,startDateRange) => {
                 </FormGroup>  
                 </Row>
                 <br/>
-                
-                {check ? <> <FormGroup className="error-l-100">
+                <FormGroup className="error-l-100">
                   <Label>Associated with any Course </Label>
-{/*                   <FormikReactSelect
+                  {/* <FormikReactSelect
                     name="session_correspondance"
                     id="session_associated_course"
                     value={values.session_associated_course}
@@ -286,12 +308,40 @@ const calculateDate = (endDateRange,startDateRange) => {
                     onChange={setFieldValue}
                     onBlur={setFieldTouched}
                   /> */}<Select
-                     /*  defaultValue={} */
+                      /* defaultValue={[colourOptions[2], colourOptions[3]]} */
                       isMulti
-                      name="colors"
+                      name="session_associated_course"
                       options={colourOptions}
+                      defaultValue={colourOptions[0]}
                       className="basic-multi-select"
                       classNamePrefix="select"
+                      onChange={(e) => setCourse(e)}
+                       onBlur={setFieldTouched} 
+                    />
+                    
+                    
+                    {defval ? <> <div className="invalid-feedback d-block" style={{marginTop: '45px', marginLeft: '345px', width:'250px'}}>please Dont leave this field empty</div> </> : null}
+                </FormGroup>
+                {check ? <> {/* <FormGroup className="error-l-100"> */}
+                  {/* <Label>Associated with any Course </Label> */}
+{/*                   <FormikReactSelect
+                    name="session_correspondance"
+                    id="session_associated_course"
+                    value={values.session_associated_course}
+                    
+                    options={course}
+                    onChange={setFieldValue}
+                    onBlur={setFieldTouched}
+                  /> */}{/* <Select */}
+                      {/*  defaultValue={} */} 
+                      {/* isMulti
+                      name="session_associated_course"
+                      options={colourOptions}
+                      value={values.session_associated_course}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={setFieldValue}
+                      onBlur={setFieldTouched}
                     />
                     
                   {errors.session_associated_course && touched.session_associated_course ? (
@@ -299,7 +349,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                       {errors.session_associated_course}
                     </div>
                   ) : null}
-                </FormGroup>
+                </FormGroup> */}
                 <Row> 
                 
                   <Col md={6}>
@@ -341,30 +391,7 @@ const calculateDate = (endDateRange,startDateRange) => {
    
                 </Col>
                 </Row> </> : <>
-                <FormGroup className="error-l-100">
-                  <Label>Associated with any Course </Label>
-                  {/* <FormikReactSelect
-                    name="session_correspondance"
-                    id="session_associated_course"
-                    value={values.session_associated_course}
-                    
-                    options={course}
-                    onChange={setFieldValue}
-                    onBlur={setFieldTouched}
-                  /> */}<Select
-                      /* defaultValue={[colourOptions[2], colourOptions[3]]} */
-                      isMulti
-                      name="colors"
-                      options={colourOptions}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                    />
-                  {errors.session_associated_course && touched.session_associated_course ? (
-                    <div className="invalid-feedback d-block">
-                      {errors.session_associated_course}
-                    </div>
-                  ) : null}
-                </FormGroup>
+                
                 <Row> 
                   <Col md={6}>
                 <FormGroup className="error-l-100">
@@ -427,7 +454,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                     </div>
                   ) : null}
                 </FormGroup> */}
-                <Button color="primary" type="submit">
+                <Button color="primary" type="submit" onClick={checkempty}>
                   Submit
                 </Button>
             

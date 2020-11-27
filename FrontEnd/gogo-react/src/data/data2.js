@@ -1,8 +1,9 @@
 export const colourOptions = [
-    { value: 'ocean', label: 'Angular 8', color: '#00B8D9', isFixed: true },
-    { value: 'blue', label: 'ReactJS', color: '#0052CC', isDisabled: true },
+    { value: 'none', label: 'None', color: '#00B8D9',isFixed: true },
+    { value: 'ocean', label: 'Angular 8', color: '#00B8D9'},
+    { value: 'blue', label: 'ReactJS', color: '#0052CC', },
     { value: 'purple', label: 'Flutter', color: '#5243AA' },
-    { value: 'red', label: 'React Native', color: '#FF5630', isFixed: true },
+    { value: 'red', label: 'React Native', color: '#FF5630'},
     { value: 'orange', label: 'VueJS', color: '#FF8B00' },
     { value: 'yellow', label: 'NodeJs', color: '#FFC400' },
     { value: 'green', label: 'Dart', color: '#36B37E' },

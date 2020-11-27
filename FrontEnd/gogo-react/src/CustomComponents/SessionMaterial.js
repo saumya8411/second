@@ -376,14 +376,14 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                   <nav>
                     <Row>
                       
-                        <Colxx md="3" xs="12" className="cardseparations text-center font-weight-bold">
+                        <Colxx md="4" xs="12" className="cardseparations text-center font-weight-bold">
                              <h3 className="font-weight-bold" style={{fontSize:"1.3rem"}}>{this.state.data.Trainer.name}</h3>
                               <img src={Avatar} alt="..." id="avatar"/>
                               <p>Web developer, IBM, bengaluru</p>
                               <p>2017 to present</p>
                               <Button outline color="secondary" >Edit Profile</Button>
                         </Colxx>
-                        <Colxx md="5" xs="12" className="">
+                        <Colxx md="4" xs="12" className="">
                             <h5 className="ml-4 font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Career Summary</h5>
                             <p className="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                             {/* <ul className="skillslist">
@@ -404,17 +404,8 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                         <Colxx md="4" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Experience</h5>
                         <Scrollbars style={{ width: "100%", height: 300 }}>
-                          <div className="mt-4">
-                              <p className="text-center" style={{fontSize:"15px"}}>Web Developer, IBM, Bengaluru</p>
-                              <p className="text-center">from 2017 to present</p>
-                          </div>
-                          <div className="mt-4">
-                              <p className="text-center" style={{fontSize:"15px"}}>frontend Developer, Capgemini, Bengaluru</p>
-                              <p className="text-center">from 2015 to 2017</p>
-                          </div>
-                          <div className="mt-4">
-                              <p className="text-center" style={{fontSize:"15px"}}>Software Engineer, Infosys, Hyderabad</p>
-                              <p className="text-center">from 2012 to 2015</p>
+                          <div className="">
+                            <p className="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                           </div>
                         </Scrollbars>
                         </Colxx>

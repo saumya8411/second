@@ -1,0 +1,58 @@
+const linkTraking = [
+
+    
+    {
+      id: 1,
+      link_name: 'Angular 8',
+      link: 'www.angular.org',
+      visits: 56,
+      u_visits: 33,
+      av_ses_dur: '9:30',
+      color: 'danger',
+      Rewards_g: '$44',
+      bounce_rate: 12,
+      real_time_30: '$400',
+      real_time_24: '4',
+    },
+    {
+      id: 2,
+      link_name: 'Material Design',
+      link: 'www.materialdesign.org',
+      visits: 56,
+      u_visits: 33,
+      av_ses_dur: '9:30',
+      color: 'danger',
+      Rewards_g: '$44',
+      bounce_rate: 12,
+      real_time_30: '$400',
+      real_time_24: '4',
+    },
+    {
+      id: 3,
+      link_name: 'VueJS',
+      link: 'www.vue.org',
+      visits: 56,
+      u_visits: 33,
+      av_ses_dur: '9:30',
+      color: 'danger',
+      Rewards_g: '$44',
+      bounce_rate: 12,
+      real_time_30: '$400',
+      real_time_24: '4',
+    },
+    
+    {
+      id: 4,
+      link_name: 'ReactJS',
+      link: 'www.reactjs.org',
+      visits: 56,
+      u_visits: 33,
+      av_ses_dur: '9:30',
+      color: 'danger',
+      Rewards_g: '$44',
+      bounce_rate: 12,
+      real_time_30: '$400',
+      real_time_24: '4',
+    },
+  ];
+  export default linkTraking;

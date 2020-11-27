@@ -3,18 +3,19 @@ import {
   Card,
   Row,
   Input,
-  CardTitle,
+  CardTitle,Modal, ModalHeader, ModalBody, ModalFooter,
   CardBody,
   CardHeader,
   Nav,
   NavItem,
   TabContent,
-  Button,
+  Button,Form,
   Label,
   FormGroup,
   TabPane,Col,
   CardImg,CardText
 } from 'reactstrap';
+
 import { Colxx } from '../components/common/CustomBootstrap';
 import Switch from 'rc-switch';
 import './Customcss.css';
@@ -22,6 +23,11 @@ import { useTable, usePagination, useSortBy } from 'react-table';
 import EmailCommunication from './EmailCommunication';
 import { NavLink } from 'react-router-dom';
 import classnames from 'classnames';
+import setting from '../data/setting';
+import { Scrollbars } from 'react-custom-scrollbars';
+
+import avatar from './l60Hf.png'
+import {FiUpload} from 'react-icons/fi'
 
 function Themepage() {
   const [defaulttheme, setDefaulttheme] = useState(true);
@@ -35,7 +41,9 @@ function Themepage() {
   const [timeline1, settimeline1] = useState(false)
   const [timeline2, settimeline2] = useState(false)
   const [activeFirstTab1, setActiveFirstTab1] = useState('4');
+  const [activeFirstTab3, setActiveFirstTab3] = useState('30');
   const [inputList, setInputList] = useState([{ firstName: "", lastName: "",rate: "" }]);
+  const [inputList1, setInputList1] = useState([{ fullname: "", phone: "",email: "",address: "",website: "",linkedin: "",twitter: "",facebook: "",instagram: "",career_summary: ""}]);
   
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -43,14 +51,129 @@ function Themepage() {
     list[index][name] = value;
     setInputList(list);
   };
-   
+  function Table({ columns, data }) {
+    const {
+      getTableProps,
+      getTableBodyProps,
+      prepareRow,
+      headerGroups,
+      page,
+      canPreviousPage,
+      canNextPage,
+      pageCount,
+      gotoPage,
+      setPageSize,
+      state: { pageIndex, pageSize },
+    } = useTable(
+      {
+        columns,
+        data,
+        initialState: { pageIndex: 0, pageSize: 6 },
+      },
+      useSortBy,
+      usePagination
+    );
+
+  
+    return (
+      <>
+      
+        <table {...getTableProps()} className="r-table table">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, columnIndex) => (
+                  <th
+                    key={`th_${columnIndex}`}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    className={
+                      column.isSorted
+                        ? column.isSortedDesc
+                          ? 'sorted-desc'
+                          : 'sorted-asc'
+                        : ''
+                    }
+                  >
+                    {column.render('Header')}
+                    <span />
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell, cellIndex) => (
+                    <td
+                      key={`td_${cellIndex}`}
+                      {...cell.getCellProps({
+                        className: cell.column.cellClass,
+                      })}
+                    >
+                      {cell.render('Cell')}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+  
+        {/* <DatatablePagination
+          page={pageIndex}
+          pages={pageCount}
+          canPrevious={canPreviousPage}
+          canNext={canNextPage}
+          pageSizeOptions={[4, 10, 20, 30, 40, 50]}
+          showPageSizeOptions={false}
+          showPageJump={false}
+          defaultPageSize={pageSize}
+          onPageChange={(p) => gotoPage(p)}
+          onPageSizeChange={(s) => setPageSize(s)}
+          paginationMaxSize={pageCount}
+        /> */}
+      </>
+    );
+  }
+  
   // handle click event of the Remove button
   const handleRemoveClick = index => {
     const list = [...inputList];
     list.splice(index, 1);
     setInputList(list);
   };
-   
+  const cols = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Email',
+      accessor: 'email',
+      cellClass: 'color',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Role',
+      accessor: 'role',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Action',
+      cellClass: 'text-muted w-25',
+      Cell: () => <Button color="danger">Delete</Button>,
+      sortType: 'basic',
+    },
+  ]
   // handle click event of the Add button
   const handleAddClick = () => {
     setInputList([...inputList, { firstName: "", lastName: "",rate: "" }]);
@@ -68,7 +191,29 @@ function Themepage() {
         setSelect(select = 'Select')
       }
   }
+
+  const [modal, setModal] = useState(false);
+
+  const toggle = () => setModal(!modal);
   const value = 100
+  const handleInputChange1 = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList1];
+    list[index][name] = value;
+    setInputList1(list);
+  };
+   
+  // handle click event of the Remove button
+  const handleRemoveClick1 = index => {
+    const list = [...inputList1];
+    list.splice(index, 1);
+    setInputList1(list);
+  };
+   
+  // handle click event of the Add button
+  const handleAddClick1 = () => {
+    setInputList1([...inputList1, { fullname: "", phone: "",email: "",address: "",website: "",linkedin: "",twitter: "",facebook: "",instagram: "",career_summary: ""}]);
+  };
 
   return (
     <>
@@ -76,6 +221,102 @@ function Themepage() {
           <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
           <Button id="searchbutton" className="d-flex ml-2">Search</Button>
         </FormGroup> */}
+         <Row>
+            <Nav tabs className="card-header-tabs mb-3">
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '30',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('30');
+                      }}
+                    >
+                   <h6>General</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '31',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('31');
+                      }}
+                    >
+                      <h6>Profile</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '32',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('32');
+                      }}
+                    >
+                      <h6>Manage Users</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '33',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('33');
+                      }}
+                    >
+                      <h6>Trainers</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '34',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('34');
+                      }}
+                    >
+                      <h6>Payement Details</h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '35',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('35');
+                      }}
+                    >
+                      <h6>Manage Subscriptions</h6>
+                    </NavLink>
+                  </NavItem>
+                  </Nav>
+            </Row>
+            <TabContent activeTab={activeFirstTab3}>
+            <TabPane tabId="30">
     <h3 id="default" className="font-weight-bold">1. Website Theme</h3>
        
     <Row className="mt-1" style={{ marginLeft: '15px' }}>
@@ -225,7 +466,223 @@ function Themepage() {
             
             </TabContent>
           </Card>
-        </Card> : null}<br/>
+        </Card> : null}
+        </TabPane>
+        <TabPane tabId="31" >
+          <Row className="p-4">
+          <Form>
+            <div className="mx-4">
+          <Card body>
+              <Row>
+                <Col md={6} className="pl-4">
+                  
+                 <Row className="ml-1"> <img src={avatar} style={{width:'20%', marginLeft:'10px'}} /><label className="mr-auto ml-4">
+                      <input type="file" accept=".jpg,.jpeg,.png"/>
+                      <FiUpload className="text-center " style={{marginLeft:'50px'}} />
+                      <p id="ufd">Upload from device</p>
+                  </label>
+                   </Row>
+                   <label className="mt-4">SubDomain Name</label>
+                    <Input type="text" placeholder="Subdomain Name"/>
+                </Col>
+                <Col md={6} className="pr-4">
+                     <label className="mt-4">Organization Name</label>
+                    <Input type="text" placeholder="Organization Name"/>
+                    <label className="mt-4">About me</label>
+                    <Input type="textarea" height="200" name="text" id="exampleText" />
+                </Col>
+              </Row>
+              <label className="mt-4 mx-1">Career Summary</label>
+              <Input type="textarea" className="mr-2" rows="5" name="text" id="exampleText" />
+              <p className="mt-2"><b>Note:</b>&nbsp;Please add ',' to separte skills.</p>
+              <Row>
+                <Col md={6}>
+                  <label>Role</label>
+                  <Input type="text" value="Instructor" disabled/>
+                  <label className="mt-4">Occupation</label>
+                  <Input type="text" placeholder="Occupation"/>
+                  <label className="mt-4">Website</label>
+                  <Input type="text" placeholder="example: www.xyz.com"/>
+                </Col>
+                <Col md={6}>
+                  <label className="">LinkedIn</label>
+                  <Input type="text" placeholder="Your LinkedIn Account URL"/>
+                  <label className="mt-4">Facebook</label>
+                  <Input type="text" placeholder="Your Facebook Account URL"/>
+                  <label className="mt-4">Twitter</label>
+                  <Input type="text" placeholder="Your Twitter Account URL"/>
+                </Col>
+              </Row>
+              <Row className=""><Button type="reset" className="ml-auto mt-4 mr-2" style={{width:'100px', borderRadius: '0px'}} >Reset</Button> <Button type="submit" className="mr-auto mt-4 ml-2" style={{width:'100px', borderRadius:'0px'}}>Submit</Button></Row>
+          </Card>
+          </div>
+          </Form>
+          </Row>
+        </TabPane>
+        <TabPane tabId="32">
+        <Button onClick={toggle} className="mx-auto d-flex mb-4" style={{borderRadius:"0px"}}>Invite User</Button>
+        <Row>
+          <Col md="12" xs="12">
+        <Card className="h-100  ">
+        <Scrollbars style={{ width: '100%', height: 400 }}>
+          <CardBody>
+            <Table columns={cols} data={setting} /> 
+          </CardBody>
+          </Scrollbars>
+        </Card>
+        </Col>
+        </Row>
+          <Modal isOpen={modal} toggle={toggle} >
+            <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+            <Form>
+            <ModalBody>
+                <label>Name</label>
+                <Input type="text" placeholder="Example: John Doe"/>
+                <label>Role</label>
+                <Input type="text" placeholder="Example: Tutor"/>
+                <label>Email</label>
+                <Input type="text" placeholder="Example: johndoe@gmail.com"/>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={toggle}>Submit</Button>{' '}
+              <Button color="secondary" onClick={toggle}>Cancel</Button>
+            </ModalFooter>
+            </Form>
+          </Modal>
+        </TabPane>
+        <TabPane tabId="33">
+        {inputList1.map((x, i) => {
+      return (
+        <>
+        
+        <Card className="box mb-4">
+          <CardBody>
+          <Row className="mt-4">
+            <Col md={4} xs="12">
+            <label style={{fontSize:'15px'}}>Full Name</label>
+          <Input
+            name="fullname"
+ placeholder="Enter Fullname"
+            value={x.fullname}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col>
+          <Col md={4} xs="12">
+          <label style={{fontSize:'15px'}}>Phone</label>
+          <Input
+            className="ml10"
+            name="phone"
+ placeholder="Phone Number"
+            value={x.phone}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col>
+          <Col md={4} xs="12">
+          {/* fullname: "", phone: "",email: "",address: "",website: "",linkedin: "",twitter: "",facebook: "",instagram: "",career_summary: "" */}
+          <label style={{fontSize:'15px'}}>Email</label>
+          <Input
+            className="ml10"
+            name="email"
+ placeholder="Email"
+            value={x.email}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col></Row>
+          <Row className="mt-4">
+            <Col md={4} xs="12">
+            <label style={{fontSize:'15px'}}>Address</label>
+          <Input
+            className="ml10"
+            name="address"
+ placeholder="Address"
+            value={x.address}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col>
+          <Col md={4} xs="12">
+          <label style={{fontSize:'15px'}}>Website</label>
+          <Input
+            className="ml10"
+            name="website"
+ placeholder="Website"
+            value={x.website}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col>
+          <Col md={4} xs="12">
+          <label style={{fontSize:'15px'}}>LinkedIn</label>
+          <Input
+            className="ml10"
+            name="linkedin"
+ placeholder="Copy & paste linkedin profile URL"
+            value={x.linkedin}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col></Row>
+          <Row className="mt-4">
+          <Col md={4} xs="12">
+          <label style={{fontSize:'15px'}}>Twitter</label>
+          <Input
+            className="ml10"
+            name="twitter"
+ placeholder="Copy & paste Twitter profile URL"
+            value={x.twitter}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col>
+          <Col md={4} xs="12">
+          <label style={{fontSize:'15px'}}>Facebook</label>
+          <Input
+            className="ml10"
+            name="facebook"
+ placeholder="Copy & paste Facebook profile URL"
+            value={x.facebook}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col>
+           <Col md={4} xs="12">
+           <label style={{fontSize:'15px'}}>Instagram</label>
+          <Input
+            className="ml10"
+            name="instagram"
+ placeholder="Copy & paste Instagram profile URL"
+            value={x.instagram}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col></Row>
+          <Row className="mt-4">
+            <Col md={12} xs={12}>
+            <label style={{fontSize:'15px'}}>Career Summary</label>
+          <Input
+          type="textarea"
+            className="ml10"
+            name="career_summary"
+ placeholder="Please use ',' to separte your skills"
+            value={x.career_summary}
+            onChange={e => handleInputChange1(e, i)}
+          /></Col></Row>
+          <div className="btn-box">
+            {inputList1.length !== 1 && <Button
+              className="mr-auto ml-auto d-flex mt-4" color="danger" style={{borderRadius: '0px'}}
+              onClick={() => handleRemoveClick1(i)}>Remove</Button>}
+          </div>
+          </CardBody>
+        </Card>
+        {inputList1.length - 1 === i && <Button style={{borderRadius:'0px'}} className="mr-auto ml-auto d-flex" onClick={handleAddClick1}>Add</Button>}
+        </>
+      );
+    })}
+        </TabPane>
+        <TabPane tabId="34">
+          <Card className="mx-auto" style={{width:'50%'}}>
+            <CardBody>
+              <label>Full name</label>
+              <Input type="text" placeholder="Full name"/>
+              <label className="mt-2">Bank name</label>
+              <Input type="text" placeholder="Bank name"/>
+              <label className="mt-2">Account Number</label>
+              <Input type="text" placeholder="Account Number"/>
+              <label className="mt-2">IFSC Code</label>
+              <Input type="text" placeholder="IFSC Code"/>
+              <label className="mt-2">Bank Address</label>
+              <Input type="text" placeholder="Bank Address"/>
+              <Button type="submit" style={{borderRadius:"0px"}} className="mt-4 mx-auto d-flex">Submit</Button>
+            </CardBody>
+          </Card>
+        </TabPane>
+        </TabContent>
+        <br/>
       {/* <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink

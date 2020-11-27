@@ -350,18 +350,18 @@ const TopNav = ({
                 <img alt="Profile"  src="/assets/img/profiles/l-1.jpg" />
               </span>
             </DropdownToggle>
-            <DropdownMenu className="mt-3" right>
+            {/* <DropdownMenu className="mt-3" right>
               <DropdownItem >Account</DropdownItem>
               <DropdownItem>Features</DropdownItem>
               <DropdownItem>History</DropdownItem>
               <DropdownItem>Support</DropdownItem>
             {/*   <DropdownItem> <TopnavDarkSwitch className="toggle ml-4 dark"  />
-         <span> Night Mode</span></DropdownItem> */}
+         <span> Night Mode</span></DropdownItem> 
               <DropdownItem divider />
               <DropdownItem onClick={() => handleLogout()}>
                 Sign out
               </DropdownItem>
-            </DropdownMenu>
+            </DropdownMenu> */}
           </UncontrolledDropdown>
         </div>
       </div>

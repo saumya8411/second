@@ -445,6 +445,12 @@ const data = [
   //   label: 'menu.blank-page',
   //   to: `${adminRoot}/blank-page`,
   // },
+  {
+    id: 'logout',
+    icon: 'iconsminds-close',
+    label: 'Logout',
+    to: `/user/login`, 
+  }
 
   
 ];
