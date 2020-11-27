@@ -13,6 +13,10 @@ const linkTraking = [
       bounce_rate: 12,
       real_time_30: '$400',
       real_time_24: '4',
+      lcwp:'India(80%), USA(15%), Bangladesh(5%)',
+      lcwv:'Delhi(80%), Kolkata(20%)',
+      dc:6,
+      device_type:'Mobile(80%), Laptop(20%)',
     },
     {
       id: 2,
@@ -26,6 +30,10 @@ const linkTraking = [
       bounce_rate: 12,
       real_time_30: '$400',
       real_time_24: '4',
+      lcwp:'India(80%), USA(15%), Bangladesh(5%)',
+      lcwv:'Delhi(80%), Kolkata(20%)',
+      dc:6,
+      device_type:'Mobile(80%), Laptop(20%)',
     },
     {
       id: 3,
@@ -39,6 +47,10 @@ const linkTraking = [
       bounce_rate: 12,
       real_time_30: '$400',
       real_time_24: '4',
+      lcwp:'India(80%), USA(15%), Bangladesh(5%)',
+      lcwv:'Delhi(80%), Kolkata(20%)',
+      dc:6,
+      device_type:'Mobile(80%), Laptop(20%)',
     },
     
     {
@@ -53,6 +65,10 @@ const linkTraking = [
       bounce_rate: 12,
       real_time_30: '$400',
       real_time_24: '4',
+      lcwp:'India(80%), USA(15%), Bangladesh(5%)',
+      lcwv:'Delhi(80%), Kolkata(20%)',
+      dc:6,
+      device_type:'Mobile(80%), Laptop(20%)',
     },
   ];
   export default linkTraking;

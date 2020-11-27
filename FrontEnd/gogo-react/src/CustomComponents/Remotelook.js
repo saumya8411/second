@@ -53,11 +53,10 @@ console.log(data,produtcs)
       //  const summary : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
 
     return(
-        <section>
+        <section style={{marginLeft:"7%", marginRight:'7%'}}>
             <Link to="/app/dashboard/default">              
         <div className={`glyph-icon ${iconsmind[2].icons[42]} sessionlookicon`} style={{fontSize:'3rem'}} />
         </Link>
-        <div style={{marginRight:'10%',marginLeft:'10%'}}>
       <Card className="p-4 mb-3 ">
           <CardBody>
             <Row>
@@ -126,8 +125,8 @@ console.log(data,produtcs)
                 <ModalHeader toggle={toggle}>Edit Details</ModalHeader>
                 <ModalBody>
                     {/* <Label for="exampleText">Tagline</Label> */}
-                   {/*  <Input type="textarea" */}  {/*  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." */ /* id="exampleText" /> */} */
-                    <Label for="exampleText2" className="mt-4">Description</Label>
+                   {/*  <Input type="textarea" */}  {/*  value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." */ /* id="exampleText" /> */}
+                    <Label for="exampleText2" className="">Description</Label>
                     <Input type="textarea"  /* value={desc} onChange={(e) => change(e)} */  id="exampleText2" />
                 </ModalBody>
                 <ModalFooter>
@@ -149,7 +148,7 @@ console.log(data,produtcs)
           </Colxx>
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Fees</h3>
-            <p>$1900</p>
+            <p> Paid for course Enrolled Students - $1900</p>
           </Colxx>
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Registration</h3>
@@ -192,11 +191,11 @@ console.log(data,produtcs)
                         </Colxx>
                         <Colxx md="4" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.1rem"}}>Experience</h5>
-                        <Scrollbars style={{ width: "100%", height: 300 }}>
+                        
                           <div className="">
                           <p className="text-center" style={{fontSize:'15px'}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                           </div>
-                        </Scrollbars>
+
                         </Colxx>
                         
                     </Row>
@@ -233,7 +232,7 @@ console.log(data,produtcs)
 </Card> 
 <br/>
 
-</div>
+
 </section>
     )
 }

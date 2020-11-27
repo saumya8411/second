@@ -20,9 +20,9 @@ function Make_modal() {
                 <ModalBody>
                     <Label for="exampleText">Tagline</Label>
                     <Input type="textarea" name="text" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." id="exampleText" />
-                    <Label for="exampleText2" className="mt-4">Description</Label>
-                    <Input type="textarea" name="text" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." id="exampleText2" />
                     <Label for="exampleText2" className="mt-4">SEO Tags</Label>
+                    <Input type="textarea" name="text" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." id="exampleText2" />
+                    <Label for="exampleText2" className="mt-4">Description</Label>
                     <Input type="textarea" name="text" value="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s." id="exampleText2" />
                 </ModalBody>
                 <ModalFooter>

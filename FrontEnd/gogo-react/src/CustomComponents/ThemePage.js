@@ -557,6 +557,14 @@ function Themepage() {
         
         <Card className="box mb-4">
           <CardBody>
+          <Row><Col md={6} xs={12}><img src={avatar} className=" ml-auto" style={{width:'15%'}}/><label className="mr-auto ml-4" >
+                      <input type="file" accept=".jpg,.jpeg,.png"/>
+                      <FiUpload className="text-center " style={{marginLeft:'50px'}} />
+                      <p id="ufd">Upload from device</p>
+                  </label></Col><Col md={6} xs={12}>
+                    <label>Occupation</label>
+                    <Input type="text" placeholder="Where are you working right now?" />
+                  </Col></Row>
           <Row className="mt-4">
             <Col md={4} xs="12">
             <label style={{fontSize:'15px'}}>Full Name</label>
@@ -642,7 +650,7 @@ function Themepage() {
             onChange={e => handleInputChange1(e, i)}
           /></Col></Row>
           <Row className="mt-4">
-            <Col md={12} xs={12}>
+            <Col md={6} xs={12}>
             <label style={{fontSize:'15px'}}>Career Summary</label>
           <Input
           type="textarea"
@@ -651,7 +659,16 @@ function Themepage() {
  placeholder="Please use ',' to separte your skills"
             value={x.career_summary}
             onChange={e => handleInputChange1(e, i)}
-          /></Col></Row>
+          /></Col><Col md={6} xs={12}>
+          <label style={{fontSize:'15px'}}>Experience</label>
+        <Input
+        type="textarea"
+          className="ml10"
+          name="career_summary"
+placeholder="Please use ',' to separte your skills"
+          value={x.career_summary}
+          onChange={e => handleInputChange1(e, i)}
+        /></Col></Row>
           <div className="btn-box">
             {inputList1.length !== 1 && <Button
               className="mr-auto ml-auto d-flex mt-4" color="danger" style={{borderRadius: '0px'}}

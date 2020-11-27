@@ -3,7 +3,7 @@ const my_table_courses = [
     
     {
       id: 1,
-      title: 'AngularJS',
+      title: 'Angular 8',
       img: '/assets/img/products/marble-cake-thumb.jpg',
       ph: 6667778889,
       date: '26-Nov-2020',

@@ -229,7 +229,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
         <Link to="/app/dashboard/default">              
         <div className={`glyph-icon ${iconsmind[2].icons[42]} sessionlookicon`} style={{fontSize:'3rem'}} />
         </Link>
-          <Card className="p-4 mb-3">
+          <Card className="p-4  mb-3">
               <CardBody>
                 <Row>
          <Colxx md="7" sm="12">
@@ -268,12 +268,14 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
               <Button outline color="secondary" style={{borderRadius:"3px", fontSize:"14px"}}>
         Launch
       </Button></Row>
+      <Row>
       <li className=" d-flex ">
         <p style={{marginLeft:'10px'}} className="mb-0 mt-4">  <span className="font-weight-bold">Duration:</span> 1 month</p>
       </li>
       <li className=" d-flex ">
         <p style={{marginLeft:'10px'}} className="mb-0 mt-4">  <span className="font-weight-bold">Fees:</span> $130</p>
       </li>
+      </Row>
     </Colxx>
     </Row>
     </CardBody>
@@ -403,11 +405,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                         </Colxx>
                         <Colxx md="4" xs="12">
                         <h5 className=" font-weight-bold text-center" style={{fontSize:"1.3rem"}}>Experience</h5>
-                        <Scrollbars style={{ width: "100%", height: 300 }}>
+                   
                           <div className="">
                             <p className="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                           </div>
-                        </Scrollbars>
+     
                         </Colxx>
                         
                     </Row>
