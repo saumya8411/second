@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,ModalBody,CardTitle,ModalHeader, ModalFooter,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,Modal,ModalBody,CardTitle,ModalHeader, ModalFooter,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
@@ -13,8 +13,9 @@ import Avatar from './avatarnew.png'
 import {FaPlayCircle} from 'react-icons/fa'
 import {RiAttachmentLine} from 'react-icons/ri'
 import {BsQuestionDiamond} from 'react-icons/bs'
+import {BsPlusCircle} from 'react-icons/bs'
 import {FaRegNewspaper} from 'react-icons/fa'
-import {RiDeleteBin2Fill} from 'react-icons/ri'
+import {BiChevronDown} from 'react-icons/bi'
 import {BsCaretDownFill} from 'react-icons/bs'
 import {FiUpload} from 'react-icons/fi'
 import {VscLibrary} from 'react-icons/vsc'
@@ -30,14 +31,17 @@ import Make_modal from './Make_modal'
 
 export default class SessionMaterial extends Component {
 
+
     constructor(props) {
         super(props)
         this.deleteTask = this.deleteTask.bind(this)
         this.state = {
+          modal:false,
           showMessage: false,
           showMessage2: false,
           showMessage3: false,
           showMessage4: false,
+          option: [{opt:""}],
             my_lesson:[{
               lname:'NodeJS'
             }],
@@ -90,7 +94,19 @@ modal : false
         this.fileUploadButton = this.fileUploadButton.bind(this);
 
     }
-   
+    toggle = () => {this.setState({modal:true})}
+    toggle2 = () => {this.setState({modal:false})}
+    addop = () => {
+      this.setState((prevState) => ({
+        option: [...prevState.option,{opt:""}],
+      }))
+    }
+/*     removeop = (i) => {
+      let opt = [...this.state.option,{opt:""}]
+      opt.splice(i,1)
+      this.state({option: opt}) 
+
+    } */
     onButtonClickHandler = () => {
       this.setState({showMessage: true});
       this.setState({showMessage2: false})
@@ -454,17 +470,23 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
         <CardBody>
           {this.state.SessionMaterial.map((item,index)=>{
             return(
-              <>
+              <div className="mb-2" style={{border: '1px solid #d7d7d7', borderRadius: '5px',}}>
               {/* <h3 className="mt-4 text-center font-weight-bold">{item.name}</h3> */}
-              <Card  id="toggle2" className="text-center mt-4" style={{cursor:'pointer'}} ><Row className=" m-0 text-center mx-auto my-auto">{item.name} <BsCaretDownFill className="float-right mt-2" style={{fontSize:'15px'}}/></Row></Card>
+              <Card  id="toggle2" className="text-center my-2" style={{cursor:'pointer', boxShadow:'none'}} ><Row className=" m-0 text-center mx-auto my-auto font-weight-bold">{item.name} <BiChevronDown className="float-right mt-1 down-arr" style={{fontSize:'20px'}}/></Row></Card>
               <UncontrolledCollapse toggler="#toggle2">
     
-        <Card>
+        <Card style={{ boxShadow:'none'}}>
           <CardBody>
               <Row>
                 <Col md="6">
               <FormGroup >
-                <Label for="exampleText d-flex justify-content-center" sm={10}>What you will learn after this course?</Label>
+              <Label for="exampleText d-flex justify-content-center">Chapter Name</Label>
+              <MDBInput
+                  name="name"
+                  placeholder="Add Chapter Name"
+                  value={item.name}
+                  onChange={e => this.changeChapterAttribute(e,index)} />
+                <Label for="exampleText d-flex justify-content-center">What you will learn after this chapter?</Label>
                 
                   <Input type="textarea" name="text" id="exampleText" />
               </FormGroup>
@@ -472,12 +494,8 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
               <Col  md="6">
               <button onClick={(evt) => {
                   evt.stopPropagation()
-                  this.deleteTask(index)}} className="delete">Delete Chapter</button>
-                <MDBInput
-                  name="name"
-                  placeholder="Add Chapter Name"
-                  value={item.name}
-                  onChange={e => this.changeChapterAttribute(e,index)} />
+                  this.deleteTask(index)}} className="delete" >Delete Chapter</button>
+                
               </Col>
 
           </Row>
@@ -495,11 +513,11 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
           <div key={lessonindex}>
             <div>                <button onClick={(e) => {e.stopPropagation() 
                   this.handleRemoveClick(lessonindex)}} className="d-flex mt-4 ml-auto delete2 text-center">Delete Lesson</button>
-            <Card  id="toggler" className="text-center mt-4" style={{ width:'100%', height:'40px',cursor:'pointer' }}>
-              <Row className="text-center m-0 mx-auto my-auto">{lessonitem.name} <BsCaretDownFill className="float-right mt-2" style={{fontSize:'15px'}}/></Row>
+            <Card  id="toggler" className="text-center mt-4" style={{ width:'100%', height:'40px',cursor:'pointer', boxShadow:'none' }}>
+              <Row className="text-center m-0 mx-auto my-auto">Lesson : {lessonitem.name} <BiChevronDown className="float-right mt-1" style={{fontSize:'20px'}}/></Row>
             </Card>
             <UncontrolledCollapse toggler="#toggler">
-              <Card>
+              <Card style={{ boxShadow:'none' }}>
 
                 <CardBody>
                 <Input
@@ -581,14 +599,34 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
              {this.state.showMessage3 && <><p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .pdf format.</p>
                    <Row className="text-center">
                    <label className="input-label-1">
-                      <input type="file" accept=".pdf,.word"/>
-                      <FiUpload/>
-                      <p id="ufd">Upload from device</p>
+                      <BsPlusCircle onClick={this.toggle} style={{cursor: 'pointer'}}/>
+                      <p id="ufd">Add a Quiz</p>
                   </label>
                   <label className="input-label-2">
                       <input type="file"/>
-                      <VscLibrary/>
+                      <VscLibrary />
                       <p id="ufl">Upload from Library</p>
+                      <Modal isOpen={this.state.modal} toggle={this.toggle}>
+                        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                        <ModalBody>
+                        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
+                          <option>Select..</option>
+                          <option>Checkbox</option>
+                          <option>Radio button</option>
+                        </Input>
+                          <label>Add Question</label>
+                          <Input placeholder="Please don't forget '?' at the end..."/>
+                          {this.state.option.map( op => <><label className="mt-3">Options</label>
+                          <Input placeholder="Example: my answer one"/>{/* <button onClick={this.removeop(op)}>remove</button> */}</> )}
+
+                          
+                        </ModalBody>
+                        <ModalFooter>
+                        <Button color="secondary" onClick={this.addop}>Add Options</Button>
+                          <Button color="primary" onClick={this.toggle2}>Do Something</Button>{' '}
+                          <Button color="secondary" onClick={this.toggle2}>Cancel</Button>
+                        </ModalFooter>
+                      </Modal>
                   </label>
                   </Row></>}
              {this.state.showMessage4 && <> <p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .word format and scanned clearly.</p>
@@ -628,7 +666,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
         </Card>
 
       </UncontrolledCollapse>
-          </>
+          </div>
            
             )
           })}
@@ -637,8 +675,10 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
     </Card>{/* <Button className="mt-4 btn13">Next</Button> */}
     </Card>
   
-         
+    <br/><br/>
          </section>
+
+         
     
         )
     }
