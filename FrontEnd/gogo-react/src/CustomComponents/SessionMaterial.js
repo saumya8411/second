@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,Modal,ModalBody,CardTitle,ModalHeader, ModalFooter,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,Button,Card,CardBody,Modal,ModalBody,Form,CardTitle,ModalHeader, ModalFooter,Row,UncontrolledCollapse ,FormGroup,Label, Input,CardText,Collapse, Col} from 'reactstrap';
 import Switch from 'rc-switch';
 import {iconsmind,simplelineicons} from '../data/icons'
 import 'rc-switch/assets/index.css';
@@ -18,6 +18,7 @@ import {FaRegNewspaper} from 'react-icons/fa'
 import {BiChevronDown} from 'react-icons/bi'
 import {BsCaretDownFill} from 'react-icons/bs'
 import {FiUpload} from 'react-icons/fi'
+import {IoMdRemoveCircleOutline} from 'react-icons/io'
 import {VscLibrary} from 'react-icons/vsc'
 import ScrollBar from 'react-perfect-scrollbar';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -41,7 +42,7 @@ export default class SessionMaterial extends Component {
           showMessage2: false,
           showMessage3: false,
           showMessage4: false,
-          option: [{opt:""}],
+          option: [""],
             my_lesson:[{
               lname:'NodeJS'
             }],
@@ -97,16 +98,20 @@ modal : false
     toggle = () => {this.setState({modal:true})}
     toggle2 = () => {this.setState({modal:false})}
     addop = () => {
-      this.setState((prevState) => ({
-        option: [...prevState.option,{opt:""}],
-      }))
+      this.setState(prevState => ({ option: [...prevState.option, '']}))
     }
-/*     removeop = (i) => {
-      let opt = [...this.state.option,{opt:""}]
-      opt.splice(i,1)
-      this.state({option: opt}) 
+    removeop = (i) => {
+      let option = [...this.state.option]
+      option.splice(i,1)
+      this.setState({option}) 
 
-    } */
+    } 
+    handlemyChange = (i, event) => {
+      let values = [...this.state.option];
+      values[i] = event.target.value;
+      this.setState({ values });
+    }
+    
     onButtonClickHandler = () => {
       this.setState({showMessage: true});
       this.setState({showMessage2: false})
@@ -608,24 +613,28 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                       <p id="ufl">Upload from Library</p>
                       <Modal isOpen={this.state.modal} toggle={this.toggle}>
                         <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                        <ModalBody>
-                        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-                          <option>Select..</option>
+                        <Form > <ModalBody>
+                          
+                        <Input type="select" name="select" id="exampleSelect">
+                          <option>Select ...</option>
                           <option>Checkbox</option>
                           <option>Radio button</option>
                         </Input>
                           <label>Add Question</label>
-                          <Input placeholder="Please don't forget '?' at the end..."/>
-                          {this.state.option.map( op => <><label className="mt-3">Options</label>
-                          <Input placeholder="Example: my answer one"/>{/* <button onClick={this.removeop(op)}>remove</button> */}</> )}
+                          <Input placeholder="Please don't forget '?' at the end..." required/>
+                          
+                          {this.state.option.map( (val,myindex) => <>
+                          <label className="mt-3">Options {myindex + 1}</label>
+                         <Row><Col md={10}><Input placeholder="Example: my answer one"  onChange={this.handlemyChange.bind(this, myindex)} required/></Col><Col md={2}> <IoMdRemoveCircleOutline style={{color: '#E74C3C',cursor:'pointer',fontSize:'20px'}} onClick={this.removeop.bind(this, myindex)}/></Col></Row> </> )}
 
                           
                         </ModalBody>
                         <ModalFooter>
-                        <Button color="secondary" onClick={this.addop}>Add Options</Button>
-                          <Button color="primary" onClick={this.toggle2}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.addop.bind(this)}>Add Options</Button>
+                          <Button color="primary" type="submit">Submit</Button>{' '}
                           <Button color="secondary" onClick={this.toggle2}>Cancel</Button>
-                        </ModalFooter>
+                          
+                        </ModalFooter></Form>
                       </Modal>
                   </label>
                   </Row></>}
