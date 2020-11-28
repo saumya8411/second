@@ -1052,6 +1052,7 @@ const MenuTypes = ({
     </Card>
     </Col>
     </Row>
+    <br/><br/>
 </TabPane>
 <TabPane tabId="3">
 <Row>
@@ -1120,6 +1121,7 @@ const MenuTypes = ({
       </div>
 
       <div className="position-absolute card-top-buttons">
+        <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
@@ -1134,7 +1136,7 @@ const MenuTypes = ({
             <Row className="ml-1">Last three months</Row>
             </DropdownItem>
           </DropdownMenu>
-
+          </UncontrolledDropdown>
           </div>
         </Row>
         </CardTitle>
@@ -1211,6 +1213,7 @@ const MenuTypes = ({
     </Card>
     </Col>
     </Row>
+    <br/><br/>
 </TabPane>
 <TabPane tabId="4">
 <Row>
@@ -1279,6 +1282,7 @@ const MenuTypes = ({
       </div>
 
       <div className="position-absolute card-top-buttons">
+        <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
@@ -1293,7 +1297,7 @@ const MenuTypes = ({
             <Row className="ml-1">Last three months</Row>
             </DropdownItem>
           </DropdownMenu>
-
+          </UncontrolledDropdown>
           </div>
         </Row>
         </CardTitle>
@@ -1318,6 +1322,7 @@ const MenuTypes = ({
     </Card>
     </Col>
     </Row>
+    <br/><br/>
 </TabPane>
 <TabPane tabId="5">
 <Row>
@@ -1422,7 +1427,7 @@ const MenuTypes = ({
     </Card>
     </Col>
     </Row>
-    <br/>
+    <br/><br/>
 </TabPane>
 <TabPane tabId="6">
     <Row>
@@ -1527,7 +1532,7 @@ const MenuTypes = ({
     </Card>
     </Col>
     </Row>
-    <br/>
+    <br/><br/>
 </TabPane>
 <TabPane tabId="7">
     <Row>

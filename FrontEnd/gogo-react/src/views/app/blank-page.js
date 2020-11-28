@@ -140,6 +140,7 @@ const number = 43;
       </div>
 
       <div className="position-absolute card-top-buttons">
+        <UncontrolledDropdown>
           <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
             <FaFilter className="mb-1"/>
           </DropdownToggle>
@@ -154,7 +155,7 @@ const number = 43;
             <Row className="ml-1">Last three months</Row>
             </DropdownItem>
           </DropdownMenu>
-
+          </UncontrolledDropdown>
           </div>
         </Row>
         </CardTitle>
