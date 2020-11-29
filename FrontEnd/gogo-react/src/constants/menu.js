@@ -6,7 +6,7 @@ const data = [
     id: 'dashboards',
     icon: 'iconsminds-shop-4',
     label: 'menu.dashboards',
-    to: `/app/blankpage`,
+    to: `/app/mydashboard`,
     // roles: [UserRole.Admin, UserRole.Editor],
     // subs: [
     //   {
@@ -437,7 +437,7 @@ const data = [
         id: 'Support',
         icon: 'iconsminds-support',
         label: 'Support',
-        to: `${adminRoot}/library`,},
+        to: `${adminRoot}/support`,},
     
   //     {
   //   id: 'blankpage',

@@ -22,7 +22,7 @@ const MessageCard = ({ sender, item, currentUserid }) => {
             <div className=" d-flex flex-grow-1 min-width-zero">
               <div className="m-2 pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                 <div className="min-width-zero">
-                  <p className="mb-0 truncate list-item-heading">
+                  <p className="mb-0 truncate " style={{fontSize:'20px'}}>
                     {sender.name}
                   </p>
                 </div>

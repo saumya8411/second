@@ -175,7 +175,7 @@ const ChatApplicationMenu = ({
           <PerfectScrollbar
             options={{ suppressScrollX: true, wheelPropagation: false }}
           >
-            <div className="pt-2 pr-4 pl-4 pb-2">
+            <div className="pt-2 pr-4 pl-4 pb-2" >
               {loadingContacts &&
                 contacts
                   .filter((x) => x.id !== currentUser.id)

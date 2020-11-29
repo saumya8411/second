@@ -16,7 +16,7 @@ import {
   Input, Row, Col
 } from 'reactstrap';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import IntlMessages from '../../helpers/IntlMessages';
@@ -336,7 +336,11 @@ const TopNav = ({
               options={{ suppressScrollX: true, wheelPropagation: false }}
             >
               {message.map((mess, index) => {
-                return <Messages key={index} {...mess} />;
+                return (
+                  <NavLink to={`${adminRoot}/message`}>
+                    <Messages key={index} {...mess} />
+                  </NavLink>
+                );
               })} 
             </PerfectScrollbar>
           </DropdownMenu>

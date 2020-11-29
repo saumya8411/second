@@ -789,8 +789,10 @@ const MenuTypes = ({
   const [activeFirstTab6, setActiveFirstTab6] = useState('20')
 
   /* const [tab, settab] = useState('8') */
+
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
+    /* scaleShowLabels: false, */
     datasets: [{
       label: 'Views in one week for #link1',
       data: [32, 36, 29, 35, 32, 39, 28, 39, 44],
@@ -803,7 +805,6 @@ const MenuTypes = ({
       pointBorderWidth:2,
       pointBackgroundColor:" #FFFFFF",
       display:false,
-      
     },
     
     {

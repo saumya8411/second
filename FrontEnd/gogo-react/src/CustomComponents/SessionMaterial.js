@@ -6,7 +6,7 @@ import 'rc-switch/assets/index.css';
 import { Colxx, Separator } from '../components/common/CustomBootstrap';
 import Editable from './Editable';
 import './Customcss.css'
-import { Link } from 'react-router-dom';
+import { Link,BrowserRouter as Router } from 'react-router-dom';
 import { MDBInput } from "mdbreact";
 import {useCounter} from './useCounter'
 import Avatar from './avatarnew.png'
@@ -601,7 +601,7 @@ this.setState({SessionMaterial:newarray},console.log(this.state.SessionMaterial)
                       <p id="ufl">Upload from Library</p>
                   </label>
                   </Row></>}
-             {this.state.showMessage3 && <><p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .pdf format.</p>
+             {this.state.showMessage3 && <><Row><p className="mx-auto mt-4 text-center" style={{fontSize:'15px'}}>The Attachment must be in .pdf format.</p> <Link to="/app/preview"><Button className="d-flex mt-2" style={{borderRadius:'3px' , height:'35px'}}>Preview</Button></Link></Row>
                    <Row className="text-center">
                    <label className="input-label-1">
                       <BsPlusCircle onClick={this.toggle} style={{cursor: 'pointer'}}/>

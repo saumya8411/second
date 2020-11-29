@@ -15,7 +15,7 @@ const ChatHeading = ({ name, thumb, lastSeenDate }) => {
           <div className="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
             <div className="min-width-zero">
               <div>
-                <p className="list-item-heading mb-1 truncate ">{name}</p>
+                <p className=" mb-1 " style={{fontSize:'20px'}}>{name}</p>
               </div>
               <p className="mb-0 text-muted text-small">
                 {lastSeenDate === '0' ? '-' : lastSeenDate}

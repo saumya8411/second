@@ -22,12 +22,26 @@ const Applications = React.lazy(() =>
 );
 const Ui = React.lazy(() => import(/* webpackChunkName: "ui" */ '../../CustomComponents/EmailCommunicationfunction'));
 const Menu = React.lazy(() => import(/* webpackChunkName: "menu" */ './menu'));
-const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "blank-page" */ './blank-page')
+/* const BlankPage = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ /*'./blank-page')
+); */
+
+const Mydash = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './mydashboard')
 );
 const Themepage = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/ThemePage')
 );
+const Message = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/message')
+);
+const Preview = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/preview')
+);
+const Support = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/support')
+);
+
 
 const SessionDetail = React.lazy(() =>
 import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/RemotesessionLook')
@@ -47,13 +61,25 @@ const App = ({ match }) => {
               path={`${match.url}/dashboard`}
               render={(props) => <Dashboards {...props} />}
             />
-            <Route
+            {/* <Route
               path={`${match.url}/blankpage`}
               render={(props) => <BlankPage {...props} />}
-            />
+            /> */}
             <Route
               path={`${match.url}/applications`}
               render={(props) => <Applications {...props} />}
+            />
+            <Route
+              path={`${match.url}/mydashboard`}
+              render={(props) => <Mydash {...props} />}
+            />
+            <Route
+              path={`${match.url}/preview`}
+              render={(props) => <Preview {...props} />}
+            />
+            <Route
+              path={`${match.url}/support`}
+              render={(props) => <Support {...props} />}
             />
             {/* <ProtectedRoute
                     path={`${match.url}/applications`}
@@ -83,6 +109,10 @@ const App = ({ match }) => {
             <Route
               path={`${match.url}/themesetting`}
               render={(props) => <Themepage {...props} />}
+            />
+            <Route
+              path={`${match.url}/message`}
+              render={(props) => <Message {...props} />}
             />
               <Route
               path={`${match.url}/sessiondetail`}

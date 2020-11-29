@@ -73,7 +73,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
       .catch(err => console.log(err))
 
 
-      history.push(adminRoot)
+      history.push('../app/mydashboard')
     }
   };
 
