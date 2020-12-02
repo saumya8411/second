@@ -787,9 +787,33 @@ const MenuTypes = ({
   const [activeFirstTab1, setActiveFirstTab1] = useState('8');
   const [activeFirstTab2, setActiveFirstTab2] = useState('13');
   const [activeFirstTab6, setActiveFirstTab6] = useState('20')
+  const [chartstatus, setchartstatus] = useState(false)
+
+  const changechart = () => {
+    setchartstatus(!chartstatus)
+    console.log(chartstatus)
+  }
 
   /* const [tab, settab] = useState('8') */
-
+/*   var myChart =  {
+    type: 'bar',
+    data: {
+       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+       datasets: [{
+            label: '# of Votes',
+            data: [90, 60, 30, 50, 30, 80],
+       }]
+    },
+    options: {
+       scales: {
+            xAxes: [{
+               gridLines: {
+                  display: false
+               }
+            }],
+          }
+        }
+      } */
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
     /* scaleShowLabels: false, */
@@ -804,12 +828,44 @@ const MenuTypes = ({
       pointHoverRadius:6,
       pointBorderWidth:2,
       pointBackgroundColor:" #FFFFFF",
-      display:false,
+
     },
-    
+
     {
       label: 'Views in one week for #link2',
       data: [35, 26, 27, 23, 32, 30, 28, 39, 34],
+      tension: 0,
+      radius: 3,
+      fill: false,
+      borderColor:'#EC7600',
+      pointRadius:6,
+      pointHoverRadius:6,
+      pointBorderWidth:2,
+      pointBackgroundColor:" #FFFFFF",
+    }
+  ],
+
+  }
+  const data2 = {
+    labels: ['Thu', 'Fri', 'Sat','Sun'],
+    /* scaleShowLabels: false, */
+    datasets: [{
+      label: 'Views in one week for #link1',
+      data: [ 39, 28, 39, 44],
+      radius: 3,
+      tension: 0,
+      fill: false,
+      borderColor:'#5CCB00',
+      pointRadius:6,
+      pointHoverRadius:6,
+      pointBorderWidth:2,
+      pointBackgroundColor:" #FFFFFF",
+
+    },
+
+    {
+      label: 'Views in one week for #link2',
+      data: [30, 28, 39, 34],
       tension: 0,
       radius: 3,
       fill: false,
@@ -1590,8 +1646,16 @@ const MenuTypes = ({
         </Card>
       </Col>
     </Row>
-    <Card><CardBody>
-      <Line data={data}/>  
+    <Card>      
+      <FormGroup className="ml-auto mr-4 mt-4">
+        <Input type="select" name="select" id="exampleSelect"style={{width: "150px"}} onChange={changechart}>
+          <option >Select filter</option>
+          <option >Last 7 days</option>
+          <option>Last 4 days</option>
+        </Input>
+      </FormGroup>
+<CardBody>
+      { chartstatus ? <Line data={data} style={{marginTop:'-100px'}}/> : <Line data={data2} style={{marginTop:'-100px'}}/>}  
     </CardBody></Card>
     
     <br/>

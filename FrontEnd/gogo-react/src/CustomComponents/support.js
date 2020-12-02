@@ -198,9 +198,7 @@ function Support() {
                             </Input>
                             <Row className="mt-4">
                                 <Col md={6}>
-                                   
                                     <TiAttachment className="text-center" style={{fontSize:'35px' ,color:'#19BC7D'}}/>
-                                   
                                 </Col>
                                 <Col md={6}>
                                     <Button outline>Reset</Button>
