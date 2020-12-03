@@ -6,18 +6,18 @@ import { connect } from 'react-redux';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Row } from 'reactstrap';
 
-import { Colxx } from '../components/common/CustomBootstrap';
+import { Colxx } from '../../components/common/CustomBootstrap';
 
 import {
   getContacts,
   getConversations,
   changeConversation,
   addMessageToConversation,
-} from '../redux/actions';
-import ChatApplicationMenu from '../containers/applications/ChatApplicationMenu';
-import ChatHeading from '../components/applications/ChatHeading';
-import MessageCard from '../components/applications/MessageCard';
-import SaySomething from '../components/applications/SaySomething';
+} from '../../redux/actions';
+import ChatApplicationMenu from '../../containers/applications/ChatApplicationMenu';
+import ChatHeading from '../../components/applications/ChatHeading';
+import MessageCard from '../../components/applications/MessageCard';
+import SaySomething from '../../components/applications/SaySomething';
 
 const ChatApp = ({
   intl,

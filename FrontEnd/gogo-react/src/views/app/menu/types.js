@@ -1646,7 +1646,7 @@ const MenuTypes = ({
         </Card>
       </Col>
     </Row>
-    <Card>      
+    <Card /* style={{height: '500px'}} */>      
       <FormGroup className="ml-auto mr-4 mt-4">
         <Input type="select" name="select" id="exampleSelect"style={{width: "150px"}} onChange={changechart}>
           <option >Select filter</option>
@@ -1655,7 +1655,10 @@ const MenuTypes = ({
         </Input>
       </FormGroup>
 <CardBody>
-      { chartstatus ? <Line data={data} style={{marginTop:'-100px'}}/> : <Line data={data2} style={{marginTop:'-100px'}}/>}  
+      { chartstatus ? <Line data={data} style={{marginTop:'-100px'}} options={{
+          responsive: true,
+          maintainAspectRatio: true,
+        }}/> : <Line data={data2} style={{marginTop:'-100px'}}/>}  
     </CardBody></Card>
     
     <br/>

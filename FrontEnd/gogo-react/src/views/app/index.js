@@ -33,7 +33,7 @@ const Themepage = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/ThemePage')
 );
 const Message = React.lazy(() =>
-  import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/message')
+  import(/* webpackChunkName: "blank-page" */ './message')
 );
 const Preview = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/preview')

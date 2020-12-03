@@ -49,7 +49,7 @@ const Messages = ({ img, title, date }) => {
     
     <div>
       <div className="border-bottom-3 d-flex" style={{marginLeft:'-15px', marginRight:'-15px' }}>
-        <NavLink to={`${adminRoot}/pages/product/details`} >
+        
           <Row className="ml-2">
             <Col md={2}>
           <img src={img} style={{width:'300%', borderRadius:'50%', display:'flex'}}/></Col>
@@ -57,7 +57,7 @@ const Messages = ({ img, title, date }) => {
           <p className="font-weight-medium mb-1 ml-3 d-flex">{title}</p></Col>
           <p className="text-muted mt-1 mb-0  text-small d-flex" style={{marginLeft:"70px"}}>{date}</p></Row>
           
-        </NavLink>
+      
       </div>
       <DropdownItem divider style={{width:'200px',backgroundColor:'#F1F1F1', color:'#F1F1F1'}} />
    </div>
@@ -337,7 +337,7 @@ const TopNav = ({
             >
               {message.map((mess, index) => {
                 return (
-                  <NavLink to={`${adminRoot}/message`}>
+                  <NavLink to="/app/message">
                     <Messages key={index} {...mess} />
                   </NavLink>
                 );
