@@ -73,7 +73,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
       .catch(err => console.log(err))
 
 
-      history.push('../app/mydashboard')
+      history.push('/app/mydashboard')
     }
   };
 
@@ -100,7 +100,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
               Please use your credentials to login.
               <br />
               If you are not a member, please{' '}
-              <NavLink to="/user/register" className="black">
+              <NavLink to="/Tutor/user/register" className="black">
                 <b>register</b>
               </NavLink>
               .
@@ -155,7 +155,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
                     )}
                   </FormGroup>
                   <div className="d-flex justify-content-between align-items-center">
-                    <NavLink to="/user/forgot-password">
+                    <NavLink to="/Tutor/user/forgot-password">
                       <IntlMessages id="user.forgot-password-question" />
                     </NavLink>
                     <Button

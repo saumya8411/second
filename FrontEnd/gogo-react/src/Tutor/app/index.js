@@ -41,6 +41,24 @@ const Preview = React.lazy(() =>
 const Support = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/support')
 );
+const Privacy = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './privacy')
+);
+const Cookie = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './cookie')
+);
+const Terms = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './terms')
+);
+const IRP = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './irp')
+);
+const Anti = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './antispam')
+);
+const Abuse = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ './abuse')
+);
 
 
 const SessionDetail = React.lazy(() =>
@@ -117,6 +135,30 @@ const App = ({ match }) => {
               <Route
               path={`${match.url}/sessiondetail`}
               render={(props) => <SessionDetail {...props} />}
+            />
+              <Route
+              path={`${match.url}/privacy`}
+              render={(props) => <Privacy {...props} />}
+            />
+              <Route
+              path={`${match.url}/cookie`}
+              render={(props) => <Cookie {...props} />}
+            />
+              <Route
+              path={`${match.url}/terms`}
+              render={(props) => <Terms {...props} />}
+            />
+              <Route
+              path={`${match.url}/irp`}
+              render={(props) => <IRP {...props} />}
+            />
+              <Route
+              path={`${match.url}/antispam`}
+              render={(props) => <Anti {...props} />}
+            />
+              <Route
+              path={`${match.url}/abuse`}
+              render={(props) => <Abuse {...props} />}
             />
             <Redirect to="/error" />
           </Switch>

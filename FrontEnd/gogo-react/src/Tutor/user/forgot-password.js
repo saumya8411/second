@@ -68,7 +68,7 @@ const ForgotPassword = ({
             <p className="white mb-0">
               Please use your e-mail to reset your password. <br />
               If you are not a member, please{' '}
-              <NavLink to="/user/register" className="white">
+              <NavLink to="/Tutor/user/register" className="white">
                 register
               </NavLink>
               .

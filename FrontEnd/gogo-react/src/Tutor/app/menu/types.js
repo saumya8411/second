@@ -1654,11 +1654,8 @@ const MenuTypes = ({
           <option>Last 4 days</option>
         </Input>
       </FormGroup>
-<CardBody>
-      { chartstatus ? <Line data={data} style={{marginTop:'-100px'}} options={{
-          responsive: true,
-          maintainAspectRatio: true,
-        }}/> : <Line data={data2} style={{marginTop:'-100px'}}/>}  
+<CardBody style={{ }}>
+      { chartstatus ? <Line data={data} style={{marginTop:'-100px'}} />: <Line data={data2} style={{marginTop:'-100px'}}/>}  
     </CardBody></Card>
     
     <br/>

@@ -96,7 +96,7 @@ const Register = ({ history }) => {
   //  })
   //  .catch(err => console.log(err))
 
-    history.push("../app/blankpage")
+    history.push("/app/mydashboard")
   };
 
   return (
@@ -108,7 +108,7 @@ const Register = ({ history }) => {
             <p className="white mb-0">
               Please use this form to register. <br />
               If you are a member, please 
-              <NavLink to="/user/login" className="black">
+              <NavLink to="/Tutor/user/login" className="black">
                 <b> login </b> 
               </NavLink>
             </p> 
