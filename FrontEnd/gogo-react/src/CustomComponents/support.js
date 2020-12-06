@@ -69,7 +69,7 @@ function Support() {
                         setActiveFirstTab('3');
                       }}
                     >
-                   <h6>Feedback</h6>
+                   <h6>Raise a Ticket</h6>
                     </NavLink>
                 </NavItem>
             </Nav> 
@@ -176,15 +176,15 @@ function Support() {
                 <TabPane tabId="3">
                     <Card className="mx-auto" style={{width:'60%'}}>
                       <CardBody className="px-4">
-                          <h4 className="text-center">Your Feedback is Valuable !!!</h4> 
+                          <h4 className="text-center">Raise a Ticket!!!</h4> 
                         <label className="mt-4">Contact Name</label>
-                        <Input placeholder="default" />
+                        <Input placeholder="Name" />
                         <label className="mt-4">Email</label>
-                        <Input placeholder="default" />
+                        <Input placeholder="Email" />
                         <label className="mt-4">Subject</label>
-                        <Input placeholder="default" />
+                        <Input placeholder="Subject" />
                         <label className="mt-4">Phone</label>
-                        <Input placeholder="default" />
+                        <Input placeholder="Phone" />
                         <FormGroup className="mt-4">
                             <Label for="exampleText">Description</Label>
                             <Input type="textarea" name="text" id="exampleText" />

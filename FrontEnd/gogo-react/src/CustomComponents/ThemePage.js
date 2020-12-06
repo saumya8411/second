@@ -313,6 +313,21 @@ function Themepage() {
                       <h6>Manage Subscriptions</h6>
                     </NavLink>
                   </NavItem>
+                  <NavItem>
+                    <NavLink
+                      to="#"
+                      location={{}}
+                      className={classnames({
+                        active: activeFirstTab3 === '36',
+                        'nav-link': true,
+                      })}
+                      onClick={() => {
+                        setActiveFirstTab3('36');
+                      }}
+                    >
+                      <h6>Third party integrations</h6>
+                    </NavLink>
+                  </NavItem>
                   </Nav>
             </Row>
             <TabContent activeTab={activeFirstTab3}>
@@ -697,6 +712,23 @@ placeholder="Please use ',' to separte your skills"
               <Button type="submit" style={{borderRadius:"0px"}} className="mt-4 mx-auto d-flex">Submit</Button>
             </CardBody>
           </Card>
+        </TabPane>
+        <TabPane tabId='35'>Hi, i am manage subscription</TabPane>
+        <TabPane tabId='36'>
+          <label>Zoom JWT Token</label>
+          <Input style={{width:'30%'}}/>
+          <Button className="mt-4">Submit</Button>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          
         </TabPane>
         </TabContent>
         <br/>

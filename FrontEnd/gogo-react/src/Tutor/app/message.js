@@ -119,16 +119,16 @@ const ChatApp = ({
     <>
       <Row className="app-row">
         <Colxx xxs="12" className="chat-app">
-          {loadingConversations && selectedUser && (
+          {/* {loadingConversations && selectedUser && (
             <ChatHeading
               name={selectedUser.name}
               thumb={selectedUser.thumb}
               lastSeenDate={selectedUser.lastSeenDate}
             />
-          )}
+          )} */}
 
           {selectedConversation && (
-            <PerfectScrollbar
+            <PerfectScrollbar style={{height:'500px'}}
               ref={scrollBarRef}
               // containerRef={(ref) => {}}
               options={{ suppressScrollX: true, wheelPropagation: false }}

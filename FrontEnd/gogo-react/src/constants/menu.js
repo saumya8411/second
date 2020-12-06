@@ -449,7 +449,7 @@ const data = [
     id: 'logout',
     icon: 'iconsminds-close',
     label: 'Logout',
-    to: `/user/login`, 
+    to: `/Tutor/user/login`, 
   }
 
   
