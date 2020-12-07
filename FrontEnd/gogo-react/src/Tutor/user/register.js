@@ -88,13 +88,13 @@ const Register = ({ history }) => {
   const onSubmit = (values) => {
     console.log(values);
 
-   // axios.post('http://localhost:5000/users' , {
-   //   values
-  //  })
-  //  .then(response => {
-  //    console.log(response)
-  //  })
-  //  .catch(err => console.log(err))
+   axios.post('http://localhost:5000/users' , {
+    values
+    })
+ .then(response => {
+     console.log(response)
+   })
+ .catch(err => console.log(err))
 
     history.push("/app/mydashboard")
   };
