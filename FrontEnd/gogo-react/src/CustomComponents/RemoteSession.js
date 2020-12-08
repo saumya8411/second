@@ -9,6 +9,7 @@ import 'rc-switch/assets/index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
+import axios from 'axios'
 import { colourOptions } from '../data/data2';
 const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
@@ -30,8 +31,8 @@ const CreatesessionSchema = Yup.object().shape({
         .required("Session Duration is required")
         .max(999, 'Too Long! Must be under 999'),
         fee_select:Yup.string().required('Session description is required!') ,
-        session_occurance:Yup.string().required('Session occurance is required!') ,
-        time:Yup.string().required('Session time is required!') ,
+       // session_occurance:Yup.string().required('Session occurance is required!') ,
+        //time:Yup.string().required('Session time is required!') ,
         session_associated_course:Yup.string().required('Session associated course is required!') ,
 
     
@@ -123,17 +124,20 @@ const calculateDate = (endDateRange,startDateRange) => {
   days = setDays(endDateRange - startDateRange)
 }
 
-    const onSubmit = (values, { setSubmitting }) => {
-        const payload = {
-          //...values,
-        //  reactSelect: values.reactSelect.map((t) => t.value),
-          
-        };
-        setTimeout(() => {
+    const onSubmit = (values) => {
+           axios.post('http://localhost:5000/users' , {
+      values
+    })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(err => console.log(err))
+  console.log(values)
+        /* setTimeout(() => {
           console.log(JSON.stringify(payload, null, 2));
           setSubmitting(false);
-        }, 1000);
-        console.log(values)
+        }, 1000); */
+        
       };
     
     return(
@@ -454,7 +458,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                     </div>
                   ) : null}
                 </FormGroup> */}
-                <Button color="primary" type="submit" onClick={checkempty}>
+                <Button color="primary" type="submit" /* onClick={checkempty} */>
                   Submit
                 </Button>
             
