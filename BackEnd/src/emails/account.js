@@ -78,9 +78,53 @@ req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
 req.end();
 }
 
+const sendPasswordResetEmail = (email) => {
+  var options = {
+  "method": "POST",
+  "hostname": "api.transmail.com",
+  "port": null,
+  "path": "/v1.1/email",
+  "headers": {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "authorization": `Zoho-enczapikey ${process.env.API_TRANSMAIL}`,
+  }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+               
+  res.on("end", function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
+});
+console.log('==================================================');
+console.log(email);
+
+req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
+  from: { address: process.env.SENDERS_MAIL, name: 'TestMail' },
+  to: 
+   [ { email_address: 
+        { address: email,
+          } } ],
+  subject: 'Welcome!!!!!!',
+  htmlbody: `nice to have you here ${email}
+            <h2>Reset Your Password</h2>
+            <a href="http://localhost:3000/Tutor/user/reset-password?oobCode=${email}">Reset</a>
+  ` }));
+req.end();
+console.log("==============================================>");
+}
+
 module.exports = {
     sendWelcomeEmail,
-    sendCancelationEmail
+  sendCancelationEmail,
+  sendPasswordResetEmail
 }
 
 

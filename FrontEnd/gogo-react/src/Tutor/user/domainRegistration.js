@@ -1,15 +1,19 @@
-import React from 'react'
+import React ,{useEffect} from 'react'
 import * as Yup from "yup";
 import { Formik, Form, Field} from "formik";
 import {FormGroup,Button,Label,Card,Row,CardTitle,InputGroupAddon,InputGroup,InputGroupText,Input } from 'reactstrap'
 import { NavLink, Redirect } from "react-router-dom";
 import { Colxx } from "../../components/common/CustomBootstrap";
+import { connect } from "react-redux"
+import { NotificationManager } from '../../components/common/react-notifications';
+
+import { registerUser } from "../../redux/actions";
 
 const initialValues = {
     institutename: "",
     subdomain: "",
-    otp_in_mobile: "",
-    otp_in_email:""
+    // otp_in_mobile: "",
+    // otp_in_email:""
   };
 
 
@@ -22,22 +26,37 @@ const initialValues = {
       .min(2, "Subdomain should be min 2 characters")
       .max(50, "please enter correct subdomian")
       .required("Subdomain is required"),
-    otp_in_mobile: Yup.string()
-    .min(4, "Please Enter valid otp")
-    .max(6, "Please Enter correct otp")
-    .required("OTP is Required"),
-    otp_in_email: Yup.string()
-    .min(4, "Please Enter valid otp")
-    .max(6, "Please Enter correct otp")
-    .required("OTP is Required")
+    // otp_in_mobile: Yup.string()
+    // .min(4, "Please Enter valid otp")
+    // .max(6, "Please Enter correct otp")
+    // .required("OTP is Required"),
+    // otp_in_email: Yup.string()
+    // .min(4, "Please Enter valid otp")
+    // .max(6, "Please Enter correct otp")
+    // .required("OTP is Required")
   });
 
-function DomainRegistration({history}) {
+function DomainRegistration({history,loading,error,registerUserAction,...props}) {
 
     const onSubmit = (values) => {
-        console.log(values);
-history.push("/app")
+      console.log(values);
+      const data = {
+        customer_first_name :props.location.state.data.name,  
+        customer_email : props.location.state.data.email,    
+        customer_profile_picture:props.location.state.data.imageUrl,
+        customer_institute_name: values.institutename,
+        customer_subdomain_name: values.subdomain,
+        using_google:true
       };
+      values = data;
+      registerUserAction({ history, values });
+  };
+  useEffect(() => {
+    if (error) {
+      NotificationManager.warning(error, 'Login Error', 3000, null, null, '');
+    }
+  }, [error]);
+
     return (
         
             <Row className="h-100">
@@ -48,7 +67,7 @@ history.push("/app")
             <p className="white mb-0">
               Please use this form to register. <br />
               If you are a member, please 
-              <NavLink to="/user/login" className="black">
+              <NavLink to="/Tutor/user/login" className="black">
                 <b> login </b> 
               </NavLink>
             </p> 
@@ -112,7 +131,7 @@ history.push("/app")
                       </div>
                     ) : null}
                   </FormGroup>
-                  <FormGroup className="form-group has-float-label">
+                  {/* <FormGroup className="form-group has-float-label">
                     <Label>
                       OTP in Mobile
                     </Label> 
@@ -139,7 +158,7 @@ history.push("/app")
                         {errors.otp_in_email}
                       </div>
                     ) : null}
-                  </FormGroup> 
+                  </FormGroup>  */}
                {/* <FormGroup className="form-group has-float-label">
                     <Label>
                       SubDomain
@@ -166,5 +185,15 @@ history.push("/app")
     )
 }
 
-export default DomainRegistration;
+// export default DomainRegistration;
+
+const mapStateToProps = ({ authUser }) => {
+  const { loading, error } = authUser;
+  return { loading, error };
+};
+
+export default connect(mapStateToProps, {
+  registerUserAction: registerUser
+})(DomainRegistration);
+
      

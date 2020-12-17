@@ -22,11 +22,13 @@ const User = db.define("customer_table", {
   },
   customer_password:{
   		type: DataTypes.STRING ,
-  		allowNull: false
+      // allowNull: false
+      allowNull:true
   },
   customer_phone_number:{
   		type: DataTypes.INTEGER(15) ,
-  		allowNull: false
+      // allowNull: false
+      allowNull:true
   },
   customer_institute_name:{
   		type: DataTypes.STRING,

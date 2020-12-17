@@ -148,8 +148,10 @@ export const getCurrentUser = () => {
   return user;
 }
 
-export const setCurrentUser = (user) => {
+export const setCurrentUser = (item) => {
+  // console.log(user)
   try {
+    const user = item.user;
     if (user) {
       localStorage.setItem('gogo_current_user', JSON.stringify(user))
     } else {

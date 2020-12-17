@@ -21,29 +21,41 @@ import {
 
 import { adminRoot, currentUser } from "../../constants/defaultValues"
 import { setCurrentUser } from '../../helpers/Utils';
+import axiosInstance from '../../helpers/axiosInstance';
 
 export function* watchLoginUser() {
   yield takeEvery(LOGIN_USER, loginWithEmailPassword);
 }
 
-const loginWithEmailPasswordAsync = async (email, password) =>
-  await auth
-    .signInWithEmailAndPassword(email, password)
-    .then((user) => user)
-    .catch((error) => error);
+const loginWithEmailPasswordAsync = async (customer_email, customer_password,using_google) =>{
+  try {
+    const values = { customer_email, customer_password,using_google };
+    const result=await axiosInstance.post('/users/login', {values})
+    return result.data;
+  } catch (err) {
+    try {
+      const result = err.response;
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+}
 
 function* loginWithEmailPassword({ payload }) {
-  const { email, password } = payload.user;
-  const { history } = payload;
+  const { customer_email, customer_password='',using_google=false } = payload.user.values;
+  const { history } = payload.user;
+  // console.log(payload);
   try {
-    const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
-    if (!loginUser.message) {
-      const item = { uid: loginUser.user.uid, ...currentUser };
+    const loginUser = yield call(loginWithEmailPasswordAsync, customer_email, customer_password,using_google);
+    // console.log(loginUser);
+    if (loginUser.success) {
+      const item = { uid: loginUser.token, user: loginUser.user };
       setCurrentUser(item);
       yield put(loginUserSuccess(item));
-      history.push(adminRoot);
+      history.push('/app/mydashboard');
     } else {
-      yield put(loginUserError(loginUser.message));
+      yield put(loginUserError(loginUser.error));
     }
   } catch (error) {
     yield put(loginUserError(error));
@@ -54,28 +66,37 @@ export function* watchRegisterUser() {
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerWithEmailPasswordAsync = async (email, password) =>
-  await auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((user) => user)
-    .catch((error) => error);
+const registerWithEmailPasswordAsync = async (values) => {
+  try {
+    const result = await axiosInstance.post('/users', { values });
+    return result.data;
+  } catch (error) {
+    try {
+      const result = error.response;
+      return result;
+    } catch (err) {
+      return err;
+    }
+  }
+}
 
 function* registerWithEmailPassword({ payload }) {
-  const { email, password } = payload.user;
-  const { history } = payload;
+  // const { email, password } = payload.user;
+  const { history } = payload.user;
+  // console.log(payload);
   try {
+    const values = payload.user.values;
     const registerUser = yield call(
       registerWithEmailPasswordAsync,
-      email,
-      password
+      values
     );
-    if (!registerUser.message) {
-      const item = { uid: registerUser.user.uid, ...currentUser };
+    if (registerUser.success) {
+      const item = { uid: registerUser.token, user: registerUser.user };
       setCurrentUser(item);
       yield put(registerUserSuccess(item));
-      history.push(adminRoot);
+      history.push('/app/dashboard');
     } else {
-      yield put(registerUserError(registerUser.message));
+      yield put(registerUserError(registerUser.error));
     }
   } catch (error) {
     yield put(registerUserError(error));
@@ -105,20 +126,36 @@ export function* watchForgotPassword() {
 }
 
 const forgotPasswordAsync = async (email) => {
-  return await auth
-    .sendPasswordResetEmail(email)
-    .then((user) => user)
-    .catch((error) => error);
+  
+  try {
+    const values = { email };
+    const result = await axiosInstance.post('/users/forgotPassword', { values });
+    return result.data;
+  } catch (error) {
+    try {
+      const result = error.response;
+      return result;
+    } catch (err) {
+      return err;
+    }    
+  }
+  
+  // return await auth
+  //   .sendPasswordResetEmail(email)
+  //   .then((user) => user)
+  //   .catch((error) => error);
 };
 
 function* forgotPassword({ payload }) {
   const { email } = payload.forgotUserMail;
+  // console.log(payload)
   try {
     const forgotPasswordStatus = yield call(forgotPasswordAsync, email);
-    if (!forgotPasswordStatus) {
+    console.log(forgotPasswordStatus)
+    if (forgotPasswordStatus.success) {
       yield put(forgotPasswordSuccess('success'));
     } else {
-      yield put(forgotPasswordError(forgotPasswordStatus.message));
+      yield put(forgotPasswordError(forgotPasswordStatus.data.error));
     }
   } catch (error) {
     yield put(forgotPasswordError(error));
@@ -130,24 +167,39 @@ export function* watchResetPassword() {
 }
 
 const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
-  return await auth
-    .confirmPasswordReset(resetPasswordCode, newPassword)
-    .then((user) => user)
-    .catch((error) => error);
+  
+  try {
+    const values = { email: resetPasswordCode, newPassword };
+    const result = await axiosInstance.post('/users/reset-password', { values });
+    return result.data;
+  } catch (error) {
+    try {
+      const result = error.response;
+      return result;
+    } catch (err) {
+      return err;
+    }
+  }
+  // return await auth
+  //   .confirmPasswordReset(resetPasswordCode, newPassword)
+  //   .then((user) => user)
+  //   .catch((error) => error);
 };
 
 function* resetPassword({ payload }) {
   const { newPassword, resetPasswordCode } = payload;
+  // console.log(payload);
   try {
     const resetPasswordStatus = yield call(
       resetPasswordAsync,
       resetPasswordCode,
       newPassword
     );
-    if (!resetPasswordStatus) {
+    console.log(resetPasswordStatus);
+    if (resetPasswordStatus.success) {
       yield put(resetPasswordSuccess('success'));
     } else {
-      yield put(resetPasswordError(resetPasswordStatus.message));
+      yield put(resetPasswordError(resetPasswordStatus.data.error));
     }
   } catch (error) {
     yield put(resetPasswordError(error));

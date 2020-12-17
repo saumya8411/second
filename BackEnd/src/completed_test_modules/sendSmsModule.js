@@ -48,7 +48,7 @@ async function sendsms (toNumber,msg){
         var toNumber;
         var msg;
         
-        var username = urlencode('User_email');
+        var username = urlencode('info.oyesters@gmail.com');
         var hash = process.env.HASH_TEXTLOCAL; // The hash key could be found under Help->All Documentation->Your hash key. Alternatively you can use your Textlocal password in plain text.
         var sender = 'OYESTR';
         var data = 'username=' + username + '&hash=' + hash + '&sender=' + sender + '&numbers=' + toNumber + '&message=' + data;
@@ -62,15 +62,17 @@ async function sendsms (toNumber,msg){
            str += chunk;
          });//the whole response has been recieved, so we just print it out here
          response.on('end', function () {
-           console.log(str);
+           console.log('response on end from sendsms',str);
          });
         }//console.log('hello js'))
         http.request(options, callback).end();//url encode instalation need to use $ npm install urlencode
         
         }
-        var response1=sendsms('917470461269', `Dear Attendee,
-        We have received payment of {{amount}} against your purchase of 1 seat for {{course}}.
-        Thank you for registering! Further details will be conveyed to you via Email and SMS 1 day prior to the webinar.
-        Regards,
-        Oyesters Training`)
-        console.log(response1)
+        // var response1=sendsms('9764010025', `Dear Attendee,
+        // We have received payment of {{amount}} against your purchase of 1 seat for {{course}}.
+        // Thank you for registering! Further details will be conveyed to you via Email and SMS 1 day prior to the webinar.
+        // Regards,
+        // Oyesters Training`)
+        // console.log(response1)
+
+module.exports.sendsms = sendsms;

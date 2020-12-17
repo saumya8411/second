@@ -8,6 +8,8 @@ import IntlMessages from '../../helpers/IntlMessages';
 import { resetPassword } from '../../redux/actions';
 import { NotificationManager } from '../../components/common/react-notifications';
 import Logo from './logo.png'
+
+
 const validateNewPassword = (values) => {
   const { newPassword, newPasswordAgain } = values;
   const errors = {};
@@ -18,6 +20,7 @@ const validateNewPassword = (values) => {
 };
 
 const ResetPassword = ({
+  checkSuccess,
   location,
   history,
   loading,
@@ -37,7 +40,7 @@ const ResetPassword = ({
         null,
         ''
       );
-    } else if (!loading && newPassword === 'success')
+    } else if (!loading && checkSuccess === 'success')
       NotificationManager.success(
         'Please login with your new password.',
         'Reset Password Success',
@@ -132,7 +135,7 @@ const ResetPassword = ({
                   </FormGroup>
 
                   <div className="d-flex justify-content-between align-items-center">
-                    <NavLink to="/user/login">
+                    <NavLink to="/Tutor/user/login">
                       <IntlMessages id="user.login-title" />
                     </NavLink>
                     <Button
@@ -164,7 +167,7 @@ const ResetPassword = ({
 
 const mapStateToProps = ({ authUser }) => {
   const { newPassword, resetPasswordCode, loading, error } = authUser;
-  return { newPassword, resetPasswordCode, loading, error };
+  return { checkSuccess:newPassword, resetPasswordCode, loading, error };
 };
 
 export default connect(mapStateToProps, {

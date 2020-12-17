@@ -1,4 +1,4 @@
-import React, { createRef, useState } from "react";
+import React, { createRef, useState,useEffect } from "react";
 import {iconsmind,simplelineicons} from '../../data/icons'
 import './auth.css'
 import {
@@ -19,7 +19,7 @@ import BottomNavigation from '../../components/wizard/BottomNavigation';
 import Apple from './apple.png'
 import Logo from './logo.png'
 import { NavLink, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect,useDispatch } from "react-redux";
 import { registerUser } from "../../redux/actions";
 import { Formik, Form, Field } from "formik";
 import { AiOutlineApple } from "react-icons/ai";
@@ -28,6 +28,11 @@ import Google from './google.png'
 import { Colxx } from "../../components/common/CustomBootstrap";
 import { adminRoot } from "../../constants/defaultValues";
 import axios from 'axios';
+import { NotificationManager } from '../../components/common/react-notifications';
+import { useHistory } from 'react-router-dom';
+import { useGoogleLogin } from 'react-google-login';
+import { refreshTokenSetup } from './utils/refreshTokenSetup';
+import { registerUserError } from '../../redux/auth/actions';
 
 const initialValues = {
   customer_first_name: "",
@@ -82,22 +87,59 @@ const validation = Yup.object().shape({
 });
 
 
-const Register = ({ history }) => {
-  
-  //make your network request here...if request success make 
+const Register = ({ loading,error,registerUserAction }) => {
+  const history = useHistory();
+  const dispatch = useDispatch()
+
+  //don't do network request ...please define network requests in /redux/auth/saga.js
   const onSubmit = (values) => {
     console.log(values);
 
-    axios.post('http://localhost:5000/users' , {
-      values
-    })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(err => console.log(err))
+    registerUserAction({history,values})
 
-    history.push("/app/mydashboard")
+    // axios.post('http://localhost:5000/users' , {
+    //   values
+    // })
+    // .then(response => {
+    //   console.log(response)
+    // })
+    // .catch(err => console.log(err))
+
+    // history.push("/app/mydashboard")
   };
+  
+  const onSuccess = (res) => {
+    // console.log('login success', res.profileObj);
+    refreshTokenSetup(res);
+    console.log(res.profileObj.name, res.profileObj.email, res.profileObj.imageUrl);
+    const data = {
+      name: res.profileObj.name, 
+      email: res.profileObj.email, 
+      imageUrl: res.profileObj.imageUrl
+    }
+    history.push({
+      pathname: '/Tutor/user/domainregistration',
+      state:{data}
+    })
+  }
+  const onFailure = (err) => {
+    dispatch(registerUserError(err.error|| 'unable to register'));
+    console.log(err)
+  }
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId: process.env.REACT_APP_CLIENT_ID,
+    isSignedIn: false,
+    accessType: 'offline'
+  });
+
+
+  useEffect(() => {
+    if (error) {
+      NotificationManager.warning(error, 'Login Error', 3000, null, null, '');
+    }
+  }, [error]);
 
   return (
     <Row className="h-100">
@@ -282,12 +324,12 @@ const Register = ({ history }) => {
          
             <Row className="mt-4 d-flex justify-content-center">
         <div style={{width:'90%'}}>   
-         <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
+         <Button outline color="secondary" onClick={ signIn } className="mb-2 d-flex align-items-center p-3 registerug">
          {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
          <img src={Google} className="logo"/> 
 <span>Continue with Google</span>
            </Button>
-           <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
+           <Button outline color="secondary"  className="mb-2 d-flex align-items-center p-3 registerug">
         <img src={Apple} className="logo2" />
 <span>Continue with Apple</span>
            </Button>
@@ -299,7 +341,12 @@ const Register = ({ history }) => {
     </Row>
   );
 };
-const mapStateToProps = () => {};
+// const mapStateToProps = () => {};
+
+const mapStateToProps = ({ authUser }) => {
+  const { loading, error } = authUser;
+  return { loading, error };
+};
 
 export default connect(mapStateToProps, {
   registerUserAction: registerUser

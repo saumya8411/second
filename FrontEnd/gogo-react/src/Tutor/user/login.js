@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Card, CardTitle, Label, FormGroup, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect,useDispatch } from 'react-redux';
 import './auth.css'
 import { Formik, Form, Field } from 'formik';
 import { NotificationManager } from '../../components/common/react-notifications';
@@ -17,6 +17,11 @@ import axios from 'axios';
 import Apple from './apple.png'
 import Logo from './logo.png'
 import Google from './google.png'
+import { useHistory } from 'react-router-dom'
+import { useGoogleLogin } from 'react-google-login';
+import { refreshTokenSetup } from './utils/refreshTokenSetup';
+import { loginUserError } from '../../redux/auth/actions';
+
 
 const validatePassword = (value) => {
   let error;
@@ -50,9 +55,12 @@ const validation = Yup.object().shape({
       .min(6, "Email should have min 7 characters")
       .required("Email is required"),
 });
-const Login = ({ history, loading, error, loginUserAction }) => {
+const Login = ({  loading, error, loginUserAction }) => {
   // const [email] = useState('demo@gogo.com');
   // const [password] = useState('gogo123');
+  const history = useHistory();
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     if (error) {
       NotificationManager.warning(error, 'Login Error', 3000, null, null, '');
@@ -64,18 +72,43 @@ const Login = ({ history, loading, error, loginUserAction }) => {
     if (!loading) {
       console.log(values)
 
-      axios.post("http://localhost:5000/users/login" , {
-        values
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => console.log(err))
+      loginUserAction({history,values});
+
+      // axios.post("http://localhost:5000/users/login" , {
+      //   values
+      // })
+      // .then(response => {
+      //   console.log(response);
+      // })
+      // .catch(err => console.log(err))
 
 
-      history.push('/app/mydashboard')
+      // history.push('/app/mydashboard')
     }
   };
+
+  const onSuccess = (res) => {
+    console.log('login success', res.profileObj);
+    refreshTokenSetup(res);
+    console.log(res.profileObj.name, res.profileObj.email, res.profileObj.imageUrl);
+    const values = {
+      customer_name: res.profileObj.name, 
+      customer_email: res.profileObj.email, 
+      using_google:true
+    }
+    loginUserAction({history,values});
+  }
+  const onFailure = (err) => {
+    dispatch(loginUserError(err.error|| 'unable to register'));
+    console.log(err)
+  }
+  const { signIn } = useGoogleLogin({
+    onSuccess,
+    onFailure,
+    clientId: process.env.REACT_APP_CLIENT_ID,
+    isSignedIn: false,
+    accessType: 'offline'
+  });
 
   // const onUserLogin = (values, { setSubmitting }) => {
   //   const payload = {
@@ -182,7 +215,7 @@ const Login = ({ history, loading, error, loginUserAction }) => {
             </Formik>
          <Row className="mt-4 d-flex justify-content-center">
         <div style={{width:'90%'}}>   
-        <Button outline color="secondary" className="mb-2 d-flex align-items-center p-3 registerug">
+        <Button outline color="secondary" onClick={ signIn } className="mb-2 d-flex align-items-center p-3 registerug">
          {/*<div className={`glyph-icon ${simplelineicons[176]} mr-2 `} />*/}
          <img src={Google} className="logo"/> 
           <span id="text">Continue with Google</span>
