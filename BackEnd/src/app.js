@@ -14,8 +14,26 @@ const libraryRouter = require('./library/routes/index');
 
 const app = express()
 
+const whiteList = [
+  'http://localhost:3000',
+  'http://65.0.185.168:3000/',
+  'http://65.0.185.168:3001/',
+  'http://65.0.185.168:3002/',
+  'http://65.0.185.168:3003/',
+];
 
-app.use(cors());
+const corsOptionsDelegate = function (req, callback) {
+	let corsOptions;
+	console.log('header is', req.header('Origin'), '\n', req.url);
+	if ( whiteList.indexOf(req.header('Origin')) !== -1	)
+		corsOptions = { origin: true };
+	else corsOptions = { origin: false };
+
+	callback(null, corsOptions);
+};
+
+app.use(cors(corsOptionsDelegate));
+// app.use(cors());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
