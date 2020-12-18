@@ -30,12 +30,12 @@ console.log('==================================================');
 console.log(email,name);
 
 req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
-  from: { address: process.env.SENDERS_MAIL, name: 'TestMail' },
+  from: { address: process.env.SENDERS_MAIL, name: 'Oyesters Training' },
   to: 
    [ { email_address: 
         { address: email,
           name: name } } ],
-  subject: 'Welcome!!!!!!',
+  subject: 'Test Email',
   htmlbody: `nice to have you here ${name}` }));
 req.end();
 console.log("==============================================>");
@@ -68,7 +68,7 @@ var req = http.request(options, function (res) {
 });
 
 req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
-  from: { address: process.env.SENDERS_MAIL, name: 'TestMail' },
+  from: { address: process.env.SENDERS_MAIL, name: 'Oyesters Training' },
   to: 
    [ { email_address: 
         { address: email,
@@ -107,7 +107,7 @@ console.log('==================================================');
 console.log(email);
 
 req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
-  from: { address: process.env.SENDERS_MAIL, name: 'TestMail' },
+  from: { address: process.env.SENDERS_MAIL, name: 'Oyesters Training' },
   to: 
    [ { email_address: 
         { address: email,
@@ -115,7 +115,7 @@ req.write(JSON.stringify({ bounce_address: process.env.BOUNCE_MAIL,
   subject: 'Welcome!!!!!!',
   htmlbody: `nice to have you here ${email}
             <h2>Reset Your Password</h2>
-            <a href="http://localhost:3000/Tutor/user/reset-password?oobCode=${email}">Reset</a>
+            <a href="http://65.0.185.168:3000/Tutor/user/reset-password?oobCode=${email}">Reset</a>
   ` }));
 req.end();
 console.log("==============================================>");
