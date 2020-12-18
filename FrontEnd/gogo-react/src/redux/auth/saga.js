@@ -48,7 +48,7 @@ function* loginWithEmailPassword({ payload }) {
   // console.log(payload);
   try {
     const loginUser = yield call(loginWithEmailPasswordAsync, customer_email, customer_password,using_google);
-    // console.log(loginUser);
+    console.log(loginUser);
     if (loginUser.success) {
       const item = { uid: loginUser.token, user: loginUser.user };
       setCurrentUser(item);
@@ -58,7 +58,7 @@ function* loginWithEmailPassword({ payload }) {
       yield put(loginUserError(loginUser.error));
     }
   } catch (error) {
-    yield put(loginUserError(error));
+    yield put(loginUserError(JSON.stringify(error) || 'Unable to proceed..Please Try Again'));
   }
 }
 
@@ -90,6 +90,7 @@ function* registerWithEmailPassword({ payload }) {
       registerWithEmailPasswordAsync,
       values
     );
+    // console.log(registerUser)
     if (registerUser.success) {
       const item = { uid: registerUser.token, user: registerUser.user };
       setCurrentUser(item);
@@ -99,7 +100,8 @@ function* registerWithEmailPassword({ payload }) {
       yield put(registerUserError(registerUser.error));
     }
   } catch (error) {
-    yield put(registerUserError(error));
+    console.log(error,typeof error,error.message,JSON.stringify(error));
+    yield put(registerUserError(JSON.stringify(error) || 'Unable to proceed..Please Try Again'));
   }
 }
 
@@ -158,7 +160,7 @@ function* forgotPassword({ payload }) {
       yield put(forgotPasswordError(forgotPasswordStatus.data.error));
     }
   } catch (error) {
-    yield put(forgotPasswordError(error));
+    yield put(forgotPasswordError(JSON.stringify(error) || 'Unable to proceed..Please Try Again'));
   }
 }
 
@@ -202,7 +204,7 @@ function* resetPassword({ payload }) {
       yield put(resetPasswordError(resetPasswordStatus.data.error));
     }
   } catch (error) {
-    yield put(resetPasswordError(error));
+    yield put(resetPasswordError(JSON.stringify(error) || 'Unable to proceed..Please Try Again'));
   }
 }
 

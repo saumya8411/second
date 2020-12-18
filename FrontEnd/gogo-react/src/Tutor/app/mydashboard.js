@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect} from 'react';
 import { Row,Card,CardImg,CardBody,CardTitle,CardSubtitle,CardText,Button,Col,  UncontrolledDropdown,FormGroup,Input,
   DropdownItem,
   DropdownToggle,
@@ -18,11 +18,11 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { LineChart } from '../../components/charts';
 
 import { lineChartData } from '../../data/charts';
-
+import { useHistory } from 'react-router-dom';
 
 import { CircularProgressbar ,buildStyles} from 'react-circular-progressbar';
 import EnhancedTable from '../../CustomComponents/EnhancedTable';
-
+// import { getCurrentUser } from '../../helpers/Utils';
 
 
 // Radial separators
@@ -33,7 +33,18 @@ const BlankPage = ({ intl,match }) => {
   const course_percentage = 9;
   const data_percentage = '14';
   const bandwidth_percentage = 20
-const number = 43;
+  const number = 43;
+
+  const history = useHistory();
+  
+  // useEffect(() => {
+  //   try {
+  //     if (!getCurrentUser().user.frontend_token)
+  //       history.push('/Tutor/user/login');
+  //   } catch (err) {
+  //     history.push('/Tutor/user/login');
+  //   }
+  // })
   return (
     <>
  {/*      <Row> 
@@ -169,7 +180,7 @@ const number = 43;
     </Card></Scrollbars>
     </Col>
     </Row>
-     {/* <EnhancedTable/>  */}
+        {/* <EnhancedTable/>  */}
     </>
   );
 };

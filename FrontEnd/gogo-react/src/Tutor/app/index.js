@@ -60,6 +60,9 @@ const Abuse = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ './abuse')
 );
 
+const Validate = React.lazy(() =>
+  import ('./Validate')
+);
 
 const SessionDetail = React.lazy(() =>
 import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/RemotesessionLook')
@@ -67,6 +70,7 @@ import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/Remotesessio
 const App = ({ match }) => {
   return (
     <AppLayout>
+      <Validate/>
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
           <Switch>

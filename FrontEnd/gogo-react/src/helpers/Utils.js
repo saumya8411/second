@@ -140,6 +140,7 @@ export const setCurrentLanguage = (locale) => {
 export const getCurrentUser = () => {
   let user = null;
   try {
+    console.log('getCurrentUser',localStorage.getItem('gogo_current_user'))
     user = localStorage.getItem('gogo_current_user') != null ? JSON.parse(localStorage.getItem('gogo_current_user')) : null;
   } catch (error) {
     console.log(">>>>: src/helpers/Utils.js  : getCurrentUser -> error", error)
@@ -149,11 +150,14 @@ export const getCurrentUser = () => {
 }
 
 export const setCurrentUser = (item) => {
-  // console.log(user)
   try {
     const user = item.user;
+    user.frontend_token = item.uid;
+    console.log(user,user.frontend_token);
     if (user) {
+      console.log('here')
       localStorage.setItem('gogo_current_user', JSON.stringify(user))
+      console.log('saved')
     } else {
       localStorage.removeItem('gogo_current_user')
     }
