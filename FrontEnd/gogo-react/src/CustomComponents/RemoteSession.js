@@ -129,7 +129,7 @@ const RemoteSession = () =>{
     // const consolelog = (e) =>{
 //   console.log(e.target.value)
 // }
-  const [success, setSuccess] = useState('');
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
     
   const calculateDate = (endDateRange,startDateRange) => {
@@ -142,7 +142,7 @@ const RemoteSession = () =>{
       NotificationManager.warning(error,'Create Live Session', 3000, null, null, '');
     }
     else if (success) {
-      NotificationManager.success(success,'Create Live Session',3000,null,null,'');
+      NotificationManager.success('Session Created Successfully','Create Live Session',3000,null,null,'');
     }
   }, [success,error]);
   
@@ -163,7 +163,7 @@ const RemoteSession = () =>{
       return { success: 0, error: 'Please provide a duration' };
     if (!values.time)
       return { success: 0, error: 'Please provide time' };
-    if (fees!=='Free for Course Enrolled Students' && fees!=='Free for new Registrants + Free for Course Enrolled Students.' && session_fee<=0)
+    if (!check && fees!=='Free for Course Enrolled Students' && fees!=='Free for new Registrants + Free for Course Enrolled Students.' && session_fee<=0)
       return { success: 0, error: 'Please provide fees' };
     return { success:1,error:null };
   }
@@ -174,7 +174,7 @@ const RemoteSession = () =>{
     
     if (check) {
       // console.log(state)
-      if (state !== 'Free for new Registrants + Free for Course Enrolled Students.')
+      if (state != 'Free for new Registrants + Free for Course Enrolled Students.')
         values.fees = `${state} ${session_fee}`
       else
         values.fees = state;
@@ -197,8 +197,10 @@ const RemoteSession = () =>{
       axiosInstance.post('/sessions/createLiveSession' , { values })
         .then(response => {
           console.log(response)
-          if (response.data.success)
-            setSuccess('Session Created Successfully');
+          if (response.data.success) {
+            setError(null);
+            setSuccess(true);
+          }
           else
             setError('Create Session Error',);
         })
