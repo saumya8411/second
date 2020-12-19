@@ -1,4 +1,4 @@
-import React,{useRef,useState} from 'react'
+import React,{useRef,useState,useEffect} from 'react'
 import { Row,Col, Card, CardBody, FormGroup, Label, Button,Input} from 'reactstrap';
 /* import { Formik, Form, Field } from 'formik'; */
 import {FormikReactSelect } from '../containers/form-validations/FormikFields';
@@ -9,8 +9,11 @@ import 'rc-switch/assets/index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
-import axios from 'axios'
 import { colourOptions } from '../data/data2';
+import axiosInstance from '../helpers/axiosInstance';
+import { useHistory } from 'react-router-dom';
+import NotificationManager from '../components/common/react-notifications/NotificationManager';
+
 /* const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
     session_name:'',
@@ -91,19 +94,22 @@ const RemoteSession = () =>{
     const [endDateRange, setEndDateRange] = useState('')
     const [duration, setDuration] = useState('');
     const [check, setcheck] = useState(false)
-    let [state, setstate] = useState('')
-    let [fees, setfees] = useState('')
+    let [state, setstate] = useState('Paid for new Registrants + Free for Course Enrolled Students.')
+    let [fees, setfees] = useState('Paid for Course Enrolled Students')
     let [course, setCourse] = useState([])
     let [defval, setdefval] = useState(false)
-    let [occurance, setOccurance] = useState('')
+    let [occurance, setOccurance] = useState('Once')
     let [session_name, setSession_name] = useState('')
     let [description, setDescription] = useState('')
-    let [trainer, setTrainer] = useState('')
+    let [trainer, setTrainer] = useState('You')
+    let [session_fee, setSession_fee] = useState('');
+    
     const checkempty = () => {
       if(!course){
         setdefval(!defval)
       }
     }
+  
     const checkdate = () => {
       if(occurance == 'Daily'){
         date = startDateRange + 7 ;
@@ -123,22 +129,86 @@ const RemoteSession = () =>{
     // const consolelog = (e) =>{
 //   console.log(e.target.value)
 // }
-const calculateDate = (endDateRange,startDateRange) => {
-  days = setDays(endDateRange - startDateRange)
-}
+  const [success, setSuccess] = useState('');
+  const [error, setError] = useState('');
+    
+  const calculateDate = (endDateRange,startDateRange) => {
+    days = setDays(endDateRange - startDateRange)
+  }
 
-    const onSubmit = () => {
-  /*          axios.post('http://localhost:5000/users' , {
+  useEffect(() => {
+    if (error) {
+      console.log(error)
+      NotificationManager.warning(error,'Create Live Session', 3000, null, null, '');
+    }
+    else if (success) {
+      NotificationManager.success(success,'Create Live Session',3000,null,null,'');
+    }
+  }, [success,error]);
+  
+  const validateInput = (values) => {
+
+    if ((check && state == 'Choose Something') || fees==='Choose Something')
+      return { success: 0, error: 'Please provide all information' };
+    if (check && state !== 'Free for new Registrants + Free for Course Enrolled Students.' && session_fee <= 0)
+      return { success: 0, error: 'please provide valid fees' };
       
-    })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(err => console.log(err)) */
-  console.log(session_name,description,trainer,fees,duration,time,state,startDateRange)
+    if (!values.session_name) 
+      return { success: 0, error: 'Please provide a session name' }
+    if (!values.description)
+      return { success: 0, error: 'Please provide a description' };
+    if (!values.startDateRange)
+      return { success: 0, error: 'Please provide a start date range' };
+    if (!values.duration)
+      return { success: 0, error: 'Please provide a duration' };
+    if (!values.time)
+      return { success: 0, error: 'Please provide time' };
+    if (fees!=='Free for Course Enrolled Students' && fees!=='Free for new Registrants + Free for Course Enrolled Students.' && session_fee<=0)
+      return { success: 0, error: 'Please provide fees' };
+    return { success:1,error:null };
+  }
 
-        
-      };
+  const onSubmit = () => {
+    // console.log(check,state,session_fee)
+    const values = { session_name, description, trainer, occurance, startDateRange, duration, time };
+    
+    if (check) {
+      // console.log(state)
+      if (state !== 'Free for new Registrants + Free for Course Enrolled Students.')
+        values.fees = `${state} ${session_fee}`
+      else
+        values.fees = state;
+      values.session_registration = true;
+      // values.fees = null;
+    }
+    else if (fees !== 'Free for Course Enrolled Students') {
+      values.fees = `${fees} ${session_fee}`
+      // values.state = null;
+    }
+    else values.fees = fees;
+     
+    // console.log(values.fees)
+    const isValid = validateInput(values);
+    // console.log(isValid)
+    if (!isValid.success)
+      setError(isValid.error);
+    else {
+      values.session_tags = course.map(doc => doc.label).toString();
+      axiosInstance.post('/sessions/createLiveSession' , { values })
+        .then(response => {
+          console.log(response)
+          if (response.data.success)
+            setSuccess('Session Created Successfully');
+          else
+            setError('Create Session Error',);
+        })
+        .catch(err => {
+          console.log(err)
+          setError('Create Session Error',);
+        })
+    }
+      console.log(values)
+  };
     
     return(
         <>
@@ -190,12 +260,12 @@ const calculateDate = (endDateRange,startDateRange) => {
                     onBlur={setFieldTouched}
                   /> */} {/* {occurance} {date} */}
                    <Input type="select" name="occurance" onChange={(e) => setOccurance(e.target.value)} id="exampleSelect">
-                  <option>Once</option>
-                  <option>Daily</option>
-                  <option>Weekly</option>
-                  <option>Monthly</option>
-                  <option>Yearly</option>
-                </Input> 
+                    <option>Once</option>
+                    <option>Daily</option>
+                    <option>Weekly</option>
+                    <option>Monthly</option>
+                    <option>Yearly</option>
+                  </Input> 
                   {/* {errors.session_occurance && touched.session_occurance ? (
                     <div className="invalid-feedback d-block" style={{marginTop: '50px', marginLeft: '355px'}}>
                       {errors.session_occurance}
@@ -356,11 +426,12 @@ const calculateDate = (endDateRange,startDateRange) => {
                     options={fee2}
                     onChange={(e) => selectcheck(e)}
                     onBlur={setFieldTouched}
-                  /> */}<Input type="select" name="select" onChange={(e) => selectcheck(e)} id="exampleSelect">
-                  <option>Choose Something</option>
-                  <option>Free for new Registrants + Free for Course Enrolled Students.</option>
+                  /> */}<Input type="select" name="select" onChange={(e) => selectcheck(e)} id="exampleSelect" placeholder="Choose Something" required>
+                  {/* <option>Choose Something</option> */}
                   <option>Paid for new Registrants + Free for Course Enrolled Students.</option>
                   <option>Paid for new Registrants + Paid for Course Enrolled Students.</option>
+                  <option>Free for new Registrants + Free for Course Enrolled Students.</option>
+                 
                 </Input>
                   
                   {/* {errors.session_fee && touched.session_fee ? (
@@ -371,9 +442,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                 </FormGroup></Col><Col md={6}>
                 <FormGroup className="error-l-75">
         <Label>Fees</Label>
-        {state == 'Free for new Registrants + Free for Course Enrolled Students.' ? <><Input disabled/> </> : <><Input className="form-control" name="session_fee" 
-        
-        /></>} 
+        {state == 'Free for new Registrants + Free for Course Enrolled Students.' ? <><Input disabled/> </> : <><Input className="form-control" name="session_fee" value={session_fee} onChange={e=>setSession_fee(e.target.value)} /></>} 
     {/*  {errors.session_fee && touched.session_fee ? (
           <div className="invalid-feedback d-block">
             {errors.session_fee}
@@ -397,10 +466,11 @@ const calculateDate = (endDateRange,startDateRange) => {
                     onChange={setFieldValue,selectcheck}
                     onBlur={setFieldTouched}
                   />  */}
-                <Input type="select" name="select" onChange={(e) => selectcheck2(e)} id="exampleSelect">
-                  <option>Choose Something</option>
-                  <option>Free for Course Enrolled Students</option>
+                <Input type="select" name="select" onChange={(e) => selectcheck2(e)} id="exampleSelect" placeholder="Choose Something" required>
+                  {/* <option>Choose Something</option> */}
                   <option>Paid for Course Enrolled Students</option>
+                    <option>Free for Course Enrolled Students</option>
+                  
                 </Input>
                   
                  {/*  {errors.session_occurance && touched.session_occurance ? (
@@ -411,7 +481,7 @@ const calculateDate = (endDateRange,startDateRange) => {
                 </FormGroup></Col><Col md={6}>
                 <FormGroup className="error-l-75">
         <Label>Fees</Label>
-        {fees == 'Free for Course Enrolled Students' ? <Input disabled/> : <Input className="form-control" name="session_fee" />}
+        {fees == 'Free for Course Enrolled Students' ? <Input disabled/> : <Input className="form-control" name="session_fee" value={session_fee} onChange={e=>setSession_fee(e.target.value)} />}
         
 {/*      {errors.session_fee && touched.session_fee ? (
           <div className="invalid-feedback d-block">

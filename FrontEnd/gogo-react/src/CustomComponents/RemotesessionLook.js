@@ -32,7 +32,7 @@ function RemotesessionLook(props) {
       }]);
 
 useEffect(() => {
-  //call your data from backend with uniquesessionid and store in data
+  //call your data from backend with unique sessionid and store in data
   //setData(result);
   return () => {
       //do what you want you do when component unmounts

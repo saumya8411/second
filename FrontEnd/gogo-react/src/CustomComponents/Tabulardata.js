@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { Card, CardBody, CardTitle,Button } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
@@ -13,32 +13,32 @@ import { adminRoot } from '../constants/defaultValues';
 import Counter from './useCounter'
 import useCounter from './useCounter';
 import produtcs from '../data/products';
+import axiosInstance from '../helpers/axiosInstance';
 
 function Table({ columns, data, divided = false, defaultPageSize = data.length }) {
     const {
-      getTableProps,
-      getTableBodyProps,
-      prepareRow,
-      headerGroups,
-      page,
-      canPreviousPage,
-      canNextPage,
-      pageCount,
-      gotoPage,
-      setPageSize,
-      state: { pageIndex, pageSize },
-    
-    } = useTable(
-      {
-        columns,
-        data,
-        initialState: { pageIndex: 0, pageSize: defaultPageSize },
-      },
-      useSortBy,
-      usePagination
+            getTableProps,
+            getTableBodyProps,
+            prepareRow,
+            headerGroups,
+            page,
+            canPreviousPage,
+            canNextPage,
+            pageCount,
+            gotoPage,
+            setPageSize,
+            state: { pageIndex, pageSize },
+          } = useTable(
+            {
+              columns,
+              data,
+              initialState: { pageIndex: 0, pageSize: defaultPageSize },
+            },
+            useSortBy,
+            usePagination
     );
     let [name, setName] = useState("Launch")
-    
+    // console.log(page  )
     /* let change = (e,props) => {
 
       if(e == props){
@@ -51,17 +51,13 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
   // console.log(prepareRow,"prepare------row")
   // console.log(page,"----------------page")
   let clickHandlerTable = (e) =>{
-    for(let i = 0 ; i< produtcs.length ;i++){
-    if(e == page[i].cells[0].row.id ){
-      page[i].cells[0].row.original.launched = !page[i].cells[0].row.original.launched
-      setName( page[i].cells[0].row.original.launched ? 'Launched' : 'Launch')
-      
-
-    }else{
-    
+    for(let i = 0 ; i< data.length ;i++){
+      if(e == page[i].cells[0].row.id ){
+        page[i].cells[0].row.original.launched = !page[i].cells[0].row.original.launched
+        setName( page[i].cells[0].row.original.launched ? 'Launched' : 'Launch')
+      }
+    // console.log(e, page)
     }
-    console.log(e, page)
-  }
   }
   //const [name , ChangeName] = useCounter()
   const info = {
@@ -109,7 +105,6 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell, cellIndex) => (
-                   
                    <td
                       key={`td_${cellIndex}`}
                       {...cell.getCellProps({
@@ -117,17 +112,23 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
                       })}
                     >
 
-{cellIndex===0?(
-  <Link to={{
-  pathname: row.original.type==="Recorded"?`${adminRoot}/recordedsession`:`${adminRoot}/livesession`,
-  state: {
-  uniquesessionid:row.original.id 
-  }
-}} id="link"
->{cell.render('Cell')}</Link>
+                  {cellIndex!==0?(
+                    <Link to={{
+                        pathname: row.original.type==="Recorded"?`${adminRoot}/recordedsession`:`${adminRoot}/livesession`,
+                        state: {
+                          uniquesessionid:row.original.id 
+                        }
+                      }}
+                      id="link"
+                    >
+                      {cell.render('Cell')}
+                    </Link>
 
-):cell.render('Cell')}
-                      {row.original.type==="Recorded" && console.log("true it is")}
+                     ) 
+                     : cell.render('Cell')
+                   } 
+                      
+                    {row.original.type==="Recorded" && console.log("true it is")}
                     {cellIndex===4?"  registrants":""}
                     {cellIndex===1?"  INR":""}
                     {cellIndex===0?<p style={{fontSize:'.8rem'}}>{row.original.type}</p>:""}
@@ -138,12 +139,13 @@ function Table({ columns, data, divided = false, defaultPageSize = data.length }
                  { console.log(page[0].cells[0].row.original.id)}
                   <td >
                     <div style={{display:"flex",alignItems:"center"}}>
-                  { row.original.launched ? <Button color="secondary" className="text-center" onClick={()=>{clickHandlerTable(row.id); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1rem',marginRight:'10px', width:'110px'}}>
+                      {row.original.launched ? <Button color="secondary" className="text-center" onClick={() => { clickHandlerTable(row.id); /* change(row.id); */ }} id={row.id} className="mr-3" style={{ fontSize: '1rem', marginRight: '10px', width: '110px' }}>
+                        
                    {/* row.original.launched ?  */}{/* 'Launched' */} {/* : 'Launch' */} Launched
                   </Button> : <Button color="secondary" className="text-center" onClick={()=>{clickHandlerTable(row.id); /* change(row.id); */}} id={row.id} className="mr-3" style={{fontSize:'1rem',marginRight:'10px', width:'110px'}}>
                    {/* row.original.launched ?  */}{/* 'Launched' */} {/* : 'Launch' */} Launch
                   </Button>}
-                  <PopoverItem id={row.id}/>
+                  <PopoverItem id={row.id} item={row.original} />
                   </div>
                 </td>
                 </tr>
@@ -205,10 +207,36 @@ export const TabularData = () => {
         },
       ],
       []
-    );
+  );
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    axiosInstance.get('/sessions/FindAllSession')
+      .then((response) => {
+        const sessions = [];
+        response.data.sessions.forEach((doc => {
+          const session = {
+            id: doc.session_id,
+            description: doc.session_description,
+            type: doc.session_type,
+            title: doc.session_name,
+            date: doc.session_start_date,
+            tags: doc.session_tags,
+            fee: doc.session_fee,
+            registrations: doc.session_registration,
+          }
+          sessions.push(session)
+        }))
+       
+        setData(sessions);  
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },[])
     return (
       <div className="mb-4">
-         {products.length>0?(<Table columns={cols} data={products} divided  />):(<CreateSession/>)} 
+         {data.length>0?(<Table columns={cols} data={data} divided  />):(<CreateSession/>)} 
       </div>
     );
   };

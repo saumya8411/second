@@ -25,7 +25,7 @@ const auth = (req,res,next) => {
             }
 
             // console.log(decoded.temporaryResult[0])
-            console.log(decoded.temporaryResult);
+            // console.log(decoded.temporaryResult);
 
             req.user = decoded.temporaryResult;
             // console.log(req.user)

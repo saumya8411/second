@@ -9,7 +9,9 @@ import {iconsmind,simplelineicons} from '../data/icons'
 import { Link } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import {FiUpload} from 'react-icons/fi'
-import {VscLibrary} from 'react-icons/vsc'
+import { VscLibrary } from 'react-icons/vsc';
+import axiosInstance  from '../helpers/axiosInstance';
+
 // import Switch from 'rc-switch';
 // import {iconsmind} from '../data/icons'
 // import 'rc-switch/assets/index.css';
@@ -18,16 +20,26 @@ const Remotelook = (props) =>{
     const {uniquesessionid} = props.location.state;
      console.log(props.location)
     console.log(uniquesessionid)
-    const [data,setData] = useState(produtcs[uniquesessionid-1]);
-console.log(data,produtcs)
+    const [data,setData] = useState(produtcs[3]); //uniquesessionid instead of products
+// console.log(data,produtcs)
     useEffect(() => {
         //call your data from backend with uniquesessionid and store in data
         //setData(result);
+        axiosInstance.get(`/sessions/FindSessionById/${uniquesessionid}`)
+            .then(response => {
+                console.log(response);
+                if (response.data.success)
+                    setData(response.data.session);
+                else
+                    console.log('err occured')
+            })
+            .catch(err => {
+                console.log(err);
+            })
         return () => {
             //do what you want you do when component unmounts
-
         }
-    }, [data])
+    }, [])
 
         const {
           buttonLabel,
@@ -78,10 +90,10 @@ console.log(data,produtcs)
                 <ul className="d-flex">
                    
                     <li className="d-flex align-items-center">
-                        <span style={{fontSize:'12px'}}>{data.date},</span>
+                        <span style={{fontSize:'12px'}}>{data.session_start_date},</span>
                     </li>
                     <li className="d-flex">
-                        <span style={{fontSize:'12px'}}>12:35 AM</span>
+                                            <span style={{ fontSize: '12px' }}>{ data.session_start_time}</span>
                     </li>
                     
                 </ul>
@@ -92,19 +104,19 @@ console.log(data,produtcs)
              
                   <Col md="3" xs="12">
                     <li className="d-flex ">
-    <h6 className="mb-0"> <a href="" style={{cursor:'pointer'}}>{data.link?data.link:"www.zoomapp.com,"}</a></h6>
+    <h6 className="mb-0"> <a href="" style={{cursor:'pointer'}}>{data.session_link?data.link:"www.zoomapp.com,"}</a></h6>
                     </li></Col>
                     <Col md="3" xs="12">
                     <li className=" d-flex">
-                        <p className="mb-0" style={{marginLeft:'10px'}}><span className="font-weight-bold">Code: </span> ZOOM1111</p>
+                                        <p className="mb-0" style={{ marginLeft: '10px' }}><span className="font-weight-bold">Code: </span> { data.session_zoom_code}</p>
                     </li></Col>
                     <Col md="3" xs="12">
                     <li className=" d-flex ">
-                      <p style={{marginLeft:'10px'}} className="mb-0">  <span className="font-weight-bold">Password:</span> axsaerxcc</p>
+                                        <p style={{ marginLeft: '10px' }} className="mb-0">  <span className="font-weight-bold">Password:</span> {data.session_zoom_password}</p>
                     </li></Col>
                     <Col md="3" xs="12">
                     <li className=" d-flex ">
-                      <p style={{marginLeft:'10px'}} className="mb-0">  <span className="font-weight-bold">Duration:</span> 1 month</p>
+                                        <p style={{ marginLeft: '10px' }} className="mb-0">  <span className="font-weight-bold">Duration:</span> { data.session_duration} Days</p>
                     </li></Col>
                     
         
@@ -144,23 +156,23 @@ console.log(data,produtcs)
           
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Description</h3>
-            <p>Hello I am from desc</p>
+            <p>{data.session_description}</p>
           </Colxx>
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Fees</h3>
-            <p> Paid for course Enrolled Students - $1900</p>
+            <p> {data.session_fee}</p>
           </Colxx>
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Registration</h3>
-            <p>Enable</p>
+            <p>{data.session_registration}</p>
           </Colxx>
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Associated Courses</h3>
-            <p>ReactJS, VueJS, Anhular 8</p>
+            <p>{data.session_tags}</p>
           </Colxx>
           <Colxx xs='12' md="12">
             <h3 className="font-weight-bold">Occurance</h3>
-            <p>Daily</p>
+            <p>{data.session_occurance}</p>
           </Colxx>
           
 
