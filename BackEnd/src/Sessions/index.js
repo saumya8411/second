@@ -113,53 +113,84 @@ router.post('/createLiveSession',auth,async (req,res)=>{
 
 });
 
-router.post('/createRecordedSession',async (req,res)=>{
-        console.log(req.user);
-        let {       session_name,
-                    session_description,
-                    session_duration,
-                    session_fee,
-                    session_occurance,
-                    session_start_date,
-                    session_end_date,
-                    session_start_time,
-                    session_associated_course_id}=req.body;
-                    // finding associated courses
-                    session_associated_course_id=Session.findAll({
-                                                                    where: {
-                                                                      session_id:session_associated_course_id
-                                                                    }
-                                                                  });
+router.post('/createRecordedSession',auth,async (req,res)=>{
+  console.log(req.user,req.body);
+  try {
+    let {
+      session_name,
+      session_description,
+      session_duration,
+      session_fee,
+      session_tags,
+      session_occurance,
+      session_start_date,
+      session_end_date,
+      session_start_time,
+      session_associated_course_id="10"
+    } = req.body.values;
 
+    if (!session_fee || !session_name || !session_description || !session_duration )
+      return res.status(500).json({
+        success: 0,
+        error:'Data Incomplete'
+      })
 
-                    // creating zoom meet
-                     Zoom_body={title:session_name,type:2,start_time:session_start_time,duration:session_duration,timezone:'IN'}
-                
- var Zoom_res=await zoomApi(`https://api.zoom.us/v2/users/${req.body.Zoom_email}/meetings`,'POST',`${req.user.zoomApiToken}`,{status: 'active'},Zoom_body);
-          console.log('❓',Zoom_res)
-                    
-                  const session = await Session.create({
-                  customer_id:req.user.customer_id,
-                  session_type:"Live Session",
-                    session_name,
-                    session_description,
-                    session_trainer_id:Zoom_res.host_id,
-                    session_duration,
-                    session_fee,
-                    session_link:Zoom_res.join_url,
-                    session_uploaded_on:Zoom_res.created_at,
-                    session_occurance,
-                    session_start_date,
-                    session_start_time,
-                    session_registration,
-                    session_associated_course_id,
-                    session_zoom_code:Zoom_res.id,
-                  session_zoom_password:Zoom_res.password
+    // finding associated courses
+    session_associated_course_id=Session.findAll({ where: { session_id:session_associated_course_id } });
 
-                  });
-        console.log('new Session created', session)
+    // creating zoom meet
+    Zoom_body = {
+      title: session_name,
+      type: 2,
+      // start_time: session_start_time,
+      start_time: "10:00:00",
+      duration: session_duration,
+      timezone: 'IN'
+    }
+                  
+    Zoom_res=await zoomApi(`https://api.zoom.us/v2/users/${process.env.EMAIL_ID}/meetings`,'POST',process.env.JWT_TOKEN_ZOOM_VEDANT,{status: 'active'},Zoom_body);
+    console.log('❓',Zoom_res)
+                      
+    const session = await Session.create({
+      customer_id:req.user.customer_id,
+      session_type:"Recorded Session",
+      session_name,
+      session_description,
+      session_trainer_id:Zoom_res.host_id,
+      session_duration,
+      session_tags,
+      session_fee,
+      session_link:Zoom_res.join_url,
+      session_uploaded_on:Zoom_res.created_at,
+      session_occurance,
+      session_start_date,
+      session_start_time,
+      session_registration:false,
+      session_associated_course_id,
+      session_zoom_code:Zoom_res.id,
+      session_zoom_password:Zoom_res.password
+    });
+    // console.log('new Session created', session)
+    if (!session)
+      return res.status(500).json({
+        success: 0,
+        error:'Could not create session'
+      })
+    return res.status(200).json({
+      success: 1,
+      session
+    })
+  
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({
+      success: 0,
+      error: 'Could not create session',
+      errorReturned: JSON.stringify(err)
+    })
+  }
 
-  });
+});
 
 
 router.get('/FindAllSession',auth,async(req,res)=>{

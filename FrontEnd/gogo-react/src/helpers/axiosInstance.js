@@ -1,5 +1,5 @@
-import axios from "axios";
-import { getCurrentUser } from "./Utils";
+import axios from 'axios';
+import { getCurrentUser } from './Utils';
 
 // export const axiosInstance = () => axios.create({
 //   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -12,17 +12,26 @@ import { getCurrentUser } from "./Utils";
 
 // token = getCurrentUser() ? getCurrentUser().frontend_token : null;
 
+const getToken = () => {
+  const user = getCurrentUser();
+  if (!user || !user.frontend_token) {
+    console.log('token not found', user);
+    return null;
+  }
+  // console.log(user.frontend_token);
+  return user.frontend_token;
+};
+
 const Instance = axios.create({
   headers: {
-    Authorization:`Bearer ${getCurrentUser() ? getCurrentUser().frontend_token : null}`,
-  }
-})
+    Authorization: `Bearer ${getToken()}`,
+  },
+});
 
 export default Instance;
 
 // export default (history = null) => {
 //   const baseURL = process.env.REACT_APP_BACKEND_URL;
-
 
 //   let headers = {};
 
