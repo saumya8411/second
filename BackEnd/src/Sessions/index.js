@@ -210,7 +210,7 @@ router.get('/FindAllSession',auth,async(req,res)=>{
         
 });
 
-router.get('/FindSessionById/:id',async(req,res)=>{
+router.get('/FindSessionById/:id',auth,async(req,res)=>{
       console.log(req.params);
       // res.send(Session.findAll({where:{session_id:req.params.id}}));
     const sqlCheck = await Session.findOne({
@@ -233,14 +233,54 @@ router.get('/FindSessionById/:id',async(req,res)=>{
 
 });
 
-router.post('/updateSession',async (req,res)=>{
-      console.log(req.body);
-      const session = await Session.update({ lastName: "Doe" }, {
-              where: {
-                lastName: null
-              }
-      });
-      console.log('new Session created', session)
+router.post('/updateSession',auth,async (req,res)=>{
+  console.log(req.body);
+  try {
+    const { session_id, session_description } = req.body.values;
+    
+  if (!session_id  )
+    return res.status(200).json({
+      success: 0,
+      error: 'Please provide session id '
+    });
+
+  if(!session_description)
+    return res.status(200).json({
+      success: 0,
+      error: 'Please provide session description '
+    });
+    
+  const session = await Session.findOne({
+    where: {
+        session_id
+    }
+  })
+
+  if (!session)
+    return res.status(400).json({
+      sucess: 0,
+      error:'Could not find session'
+    })
+  
+  session.session_description = session_description;
+  const updatedSession = await session.save();
+
+  console.log(updatedSession);
+  return res.status(200).json({
+    success: 1,
+    session:updatedSession
+  })
+
+  } catch (err) {
+    console.log(err)
+    return res.status(400).json({
+      success: 0,
+      error: 'could not update session details',
+      errorReturned:err
+    })
+}
+
+  
 
 });
 

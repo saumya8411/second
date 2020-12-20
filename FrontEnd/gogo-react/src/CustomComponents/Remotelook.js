@@ -20,24 +20,26 @@ import {
 import './Customcss.css';
 import Avatar from './avatarnew.png';
 import { func } from 'prop-types';
-import produtcs from '../data/products';
+// import produtcs from '../data/products';
 import { iconsmind, simplelineicons } from '../data/icons';
 import { Link } from 'react-router-dom';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { FiUpload } from 'react-icons/fi';
 import { VscLibrary } from 'react-icons/vsc';
 import axiosInstance from '../helpers/axiosInstance';
+import { useHistory } from 'react-router-dom';
+import NotificationManager from '../components/common/react-notifications/NotificationManager';
 
 // import Switch from 'rc-switch';
 // import {iconsmind} from '../data/icons'
 // import 'rc-switch/assets/index.css';
 
 const Remotelook = (props) => {
+  const history = useHistory();
   const { uniquesessionid } = props.location.state;
-  //   console.log(props.location);
-  //   console.log(uniquesessionid);
-  const [data, setData] = useState(produtcs[3]); //uniquesessionid instead of products
-  // console.log(data,produtcs)
+  console.log(uniquesessionid);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState([]); //uniquesessionid instead of products
   useEffect(() => {
     //call your data from backend with uniquesessionid and store in data
     //setData(result);
@@ -46,15 +48,62 @@ const Remotelook = (props) => {
       .then((response) => {
         console.log(response);
         if (response.data.success) setData(response.data.session);
-        else console.log('err occured');
+        else {
+          console.log('err occured');
+          history.push('/app/dashboard/default');
+        }
       })
       .catch((err) => {
         console.log(err);
+        history.push('/app/dashboard/default');
       });
     return () => {
       //do what you want you do when component unmounts
     };
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+      NotificationManager.warning(
+        error,
+        'Update Live Session Error',
+        3000,
+        null,
+        null,
+        ''
+      );
+    }
+  }, [error]);
+
+  const handleSubmit = () => {
+    setModal(!modal);
+    const values = {
+      session_description: document.getElementById('exampleText2').value,
+      session_id: uniquesessionid,
+    };
+    if (!values.session_description) setError('provide session description');
+    else {
+      axiosInstance
+        .post('/sessions/updateSession', { values })
+        .then((response) => {
+          console.log(response);
+          if (response.data.success) setData(response.data.session);
+          else {
+            console.log(response.data.error);
+            setError(response.data.error);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          try {
+            setError(err.message);
+          } catch (err) {
+            setError('Could not update...try again');
+          }
+        });
+    }
+  };
 
   const { buttonLabel, className } = props;
   /*         const [desc,setDesc] = useState('Hello I am desc') */
@@ -96,7 +145,7 @@ const Remotelook = (props) => {
                         style={{ marginBottom: '0' }}
                         className="font-weight-bold"
                       >
-                        {data.title}
+                        {data.session_name}
                       </h1>
                     </li>
                     <li className="d-flex align-items-center ">
@@ -135,8 +184,14 @@ const Remotelook = (props) => {
                   <li className="d-flex ">
                     <h6 className="mb-0">
                       {' '}
-                      <a href="" style={{ cursor: 'pointer' }}>
-                        {data.session_link ? data.link : 'www.zoomapp.com,'}
+                      <a
+                        href={data.session_link}
+                        target="_blank"
+                        style={{ cursor: 'pointer' }}
+                      >
+                        {data.session_link
+                          ? data.session_link
+                          : 'www.zoomapp.com,'}
                       </a>
                     </h6>
                   </li>
@@ -174,6 +229,7 @@ const Remotelook = (props) => {
                 outline
                 color="secondary"
                 style={{ fontSize: '1.0rem', borderRadius: '0px' }}
+                onClick={() => window.open(data.session_link)}
               >
                 Launch
               </Button>
@@ -203,13 +259,14 @@ const Remotelook = (props) => {
                 </Label>
                 <Input
                   type="textarea"
+                  name="session_description"
                   /* value={desc} onChange={(e) => change(e)} */ id="exampleText2"
                 />
               </ModalBody>
               <ModalFooter>
                 <Button
                   color="primary"
-                  onClick={toggle}
+                  onClick={handleSubmit}
                   style={{ borderRadius: '0px', fontSize: '15px' }}
                 >
                   Submit

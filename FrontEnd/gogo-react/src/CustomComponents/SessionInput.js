@@ -1,7 +1,18 @@
-import React,{useState} from 'react'
-import { Row, Card, CardBody, FormGroup, Label, Button ,CardHeader,Nav,NavItem,TabContent,
-    TabPane,} from 'reactstrap';
-    import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import {
+  Row,
+  Card,
+  CardBody,
+  FormGroup,
+  Label,
+  Button,
+  CardHeader,
+  Nav,
+  NavItem,
+  TabContent,
+  TabPane,
+} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 
 import { Colxx } from '../components/common/CustomBootstrap';
 import OndemandSession from './OndemandSession';
@@ -10,18 +21,17 @@ import classnames from 'classnames';
 import RemotesessionLook from './RemotesessionLook';
 
 function SessionInput() {
-    const [activeFirstTab, setActiveFirstTab] = useState('1');
+  const [activeFirstTab, setActiveFirstTab] = useState('1');
 
-        return(
-            <section className="p-4">
-                <div style={{margin: '0 auto',
-        maxWidth: '500px'}}>
-             <Row>
-        <Colxx xxs="12">
-<h3>Create Sessions</h3>        
-        </Colxx>
+  return (
+    <section className="p-4">
+      <div style={{ margin: '0 auto', maxWidth: '500px' }}>
+        <Row>
+          <Colxx xxs="12">
+            <h3>Create Sessions</h3>
+          </Colxx>
         </Row>
-           
+
         <Row>
           <Colxx xxs="12">
             <Card className="mb-4 pl-4 pr-4 pb-4 pt-4">
@@ -57,24 +67,22 @@ function SessionInput() {
                       Recorded Session
                     </NavLink>
                   </NavItem>
-                 
                 </Nav>
               </CardHeader>
               <TabContent activeTab={activeFirstTab}>
                 <TabPane tabId="1">
-                  <RemoteSession/>
+                  <RemoteSession />
                 </TabPane>
                 <TabPane tabId="2">
-                  <OndemandSession/>
+                  <OndemandSession />
                 </TabPane>
-                             </TabContent>
-
-              </Card>
-              </Colxx>
-              </Row>
-</div>
-</section>
-    )
+              </TabContent>
+            </Card>
+          </Colxx>
+        </Row>
+      </div>
+    </section>
+  );
 }
 
 export default SessionInput;
