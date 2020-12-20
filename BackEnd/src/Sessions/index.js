@@ -129,7 +129,7 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
       session_associated_course_id="10"
     } = req.body.values;
 
-    if (!session_fee || !session_name || !session_description || !session_duration )
+    if ( !session_name || !session_description || !session_duration )
       return res.status(500).json({
         success: 0,
         error:'Data Incomplete'

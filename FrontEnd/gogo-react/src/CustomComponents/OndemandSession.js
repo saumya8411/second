@@ -97,6 +97,10 @@ const OndemandSession = (props) => {
       setError('Provide Valid Fees');
     else {
       setTimeout(() => {
+        values.session_fee =
+          select === 'Free for Course Enrolled Students'
+            ? `0`
+            : `${select} ${values.session_fee}`;
         //here makerequest fr your session creation
         axiosInstance
           .post('/sessions/createRecordedSession', { values })
