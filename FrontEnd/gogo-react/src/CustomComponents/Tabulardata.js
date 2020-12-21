@@ -14,7 +14,7 @@ import Counter from './useCounter';
 import useCounter from './useCounter';
 import produtcs from '../data/products';
 import axiosInstance from '../helpers/axiosInstance';
-import { DropDownContext, SortByContext } from '../context/DropdownContext';
+import { DropDownContext } from '../context/DropdownContext';
 
 function Table({
   columns,
@@ -272,6 +272,7 @@ export const TabularData = () => {
     setSelectedSort,
     search,
     setSearch,
+    handleReloadTable,
   ] = useContext(DropDownContext);
   // const [sortBy, setSortBy] = useContext(SortByContext);
 
@@ -314,6 +315,7 @@ export const TabularData = () => {
     setSelectedSort,
     search,
     setSearch,
+    handleReloadTable,
   ]);
   return (
     <div className="mb-4">

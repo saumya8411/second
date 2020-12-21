@@ -7,6 +7,13 @@ export const DropDownContextProvider = ({ children }) => {
   const [selectedFilter, setSelectedFilter] = useState('');
   const [selectedSort, setSelectedSort] = useState('');
   const [search, setSearch] = useState('');
+  const [reloadTable, setReloadTable] = useState(false);
+
+  const handleReloadTable = () => {
+    console.log('reloading table');
+    setReloadTable(!reloadTable);
+  };
+
   return (
     <DropDownContext.Provider
       value={[
@@ -16,6 +23,7 @@ export const DropDownContextProvider = ({ children }) => {
         setSelectedSort,
         search,
         setSearch,
+        handleReloadTable,
       ]}
     >
       {children}

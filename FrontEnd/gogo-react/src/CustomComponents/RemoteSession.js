@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import {
   Row,
   Col,
@@ -22,6 +22,7 @@ import { colourOptions } from '../data/data2';
 import axiosInstance from '../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
 import NotificationManager from '../components/common/react-notifications/NotificationManager';
+import { DropDownContext } from '../context/DropdownContext';
 
 /* const initialValues = {
     trainer: [{ value: 'you', label: 'you' }],
@@ -90,7 +91,7 @@ const correspondanceoption = [
 ];
 
 const RemoteSession = ({ closeModal }) => {
-  console.log(closeModal);
+  // console.log(closeModal);
   let date = '';
   const [startDateRange, setStartDateRange] = useState('');
   const [time, setTime] = useState('');
@@ -109,6 +110,7 @@ const RemoteSession = ({ closeModal }) => {
   let [description, setDescription] = useState('');
   let [trainer, setTrainer] = useState('You');
   let [session_fee, setSession_fee] = useState('');
+  const [handleReloadTable] = useContext(DropDownContext);
 
   const checkempty = () => {
     if (!course) {
@@ -198,8 +200,8 @@ const RemoteSession = ({ closeModal }) => {
   };
 
   const onSubmit = () => {
-    console.log(closeModal);
-    // closeModal(true);
+    // console.log(closeModal);
+
     const values = {
       session_name,
       description,
@@ -237,6 +239,7 @@ const RemoteSession = ({ closeModal }) => {
           if (response.data.success) {
             setError(null);
             setSuccess(true);
+            closeModal();
           } else setError(response.data.error);
         })
         .catch((err) => {
@@ -247,7 +250,8 @@ const RemoteSession = ({ closeModal }) => {
           } catch (error) {
             setError('Create Session Error');
           }
-        });
+        })
+        .then(() => handleReloadTable);
     }
     console.log(values);
   };

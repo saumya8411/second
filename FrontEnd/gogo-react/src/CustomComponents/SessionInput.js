@@ -20,10 +20,8 @@ import RemoteSession from './RemoteSession';
 import classnames from 'classnames';
 import RemotesessionLook from './RemotesessionLook';
 
-function SessionInput(props) {
+function SessionInput({ closeModal }) {
   const [activeFirstTab, setActiveFirstTab] = useState('1');
-
-  console.log(props);
 
   return (
     <section className="p-4">
@@ -73,10 +71,10 @@ function SessionInput(props) {
               </CardHeader>
               <TabContent activeTab={activeFirstTab}>
                 <TabPane tabId="1">
-                  <RemoteSession closeModal={props.closeModal} />
+                  <RemoteSession closeModal={closeModal} />
                 </TabPane>
                 <TabPane tabId="2">
-                  <OndemandSession closeModal={props.closeModal} />
+                  <OndemandSession closeModal={closeModal} />
                 </TabPane>
               </TabContent>
             </Card>

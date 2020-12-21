@@ -44,6 +44,8 @@ const CustomSelect = ({ intl }) => {
   // const [search, setSearch] = useState('');
   const [modalLarge, setModalLarge] = useState(false);
 
+  const handleToggle = () => setModalLarge(!modalLarge);
+
   const handleSearchInputKeyPress = (e) => {
     if (e.key === 'Enter') {
       search();
@@ -125,16 +127,16 @@ const CustomSelect = ({ intl }) => {
     }
   };
 
-  useEffect(() => {
-    console.log(selectedSort, selectedFilter, search);
-  }, [
-    selectedFilter,
-    setSelectedFilter,
-    selectedSort,
-    setSelectedSort,
-    search,
-    setSearch,
-  ]);
+  // useEffect(() => {
+  //   console.log(selectedSort, selectedFilter, search);
+  // }, [
+  //   selectedFilter,
+  //   setSelectedFilter,
+  //   selectedSort,
+  //   setSelectedSort,
+  //   search,
+  //   setSearch,
+  // ]);
 
   return (
     <>
@@ -190,12 +192,8 @@ const CustomSelect = ({ intl }) => {
           >
             Create Session
           </Button>
-          <Modal
-            isOpen={modalLarge}
-            size="lg"
-            toggle={() => setModalLarge(!modalLarge)}
-          >
-            <SessionInput />
+          <Modal isOpen={modalLarge} size="lg" toggle={() => handleToggle}>
+            <SessionInput closeModal={handleToggle} />
           </Modal>
         </Colxx>
       </Row>

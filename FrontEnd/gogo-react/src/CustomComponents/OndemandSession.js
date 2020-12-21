@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import {
   Row,
   Card,
@@ -21,6 +21,7 @@ import 'react-tagsinput/react-tagsinput.css';
 import Select from 'react-select';
 import axiosInstance from '../helpers/axiosInstance';
 import NotificationManager from '../components/common/react-notifications/NotificationManager';
+import { DropDownContext } from '../context/DropdownContext';
 
 const initialValues = {
   trainer: [{ value: 'you', label: 'you' }],
@@ -47,45 +48,42 @@ const CreatesessionSchema = Yup.object().shape({
 
 const options = [{ value: 'you', label: 'You' }];
 
-const OndemandSession = (props) => {
+const OndemandSession = ({ closeModal }) => {
   const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true);
   const [tagsLO, setTagsLO] = useState([]);
   let [select, setselect] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [handleReloadTable] = useContext(DropDownContext);
 
   useEffect(() => {
     if (error) {
       console.log(error);
       NotificationManager.warning(
         error,
-        'Create Live Session',
+        'Create Ondemand Session',
         3000,
         null,
         null,
         ''
       );
-      return;
-    }
-    if (success) {
+    } else if (success) {
       NotificationManager.success(
         'Session Created Successfully',
-        'Create Live Session',
+        'Create Ondemand Session',
         3000,
         null,
         null,
         ''
       );
     }
-  }, [success, error]);
+  }, [success, error, setError, setSuccess]);
 
   const takeinput = (e) => {
     setselect((select = e.target.value));
   };
 
   const onSubmit = (values, { setSubmitting }) => {
-    // props.closeModal(true);
-    console.log(props.closeModal);
     values.session_tags = tagsLO.toString();
     values.session_trainer = JSON.stringify(values.trainer);
     console.log(values, select);
@@ -111,6 +109,7 @@ const OndemandSession = (props) => {
             if (response.data.success) {
               setError(null);
               setSuccess(true);
+              closeModal();
             } else {
               try {
                 setError(response.data.error);
@@ -126,8 +125,9 @@ const OndemandSession = (props) => {
             } catch (error) {
               setError('Could not create session');
             }
-          });
-
+          })
+          .then(() => handleReloadTable);
+        //
         setSubmitting(false);
       }, 1000);
     }

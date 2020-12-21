@@ -53,7 +53,7 @@ router.post('/createLiveSession',auth,async (req,res)=>{
     console.log('❓', session_name);
     
     // Find if session name already exists
-    const sessionExist = await Session.findOne({ where: { session_name } })
+    const sessionExist = await Session.findOne({ where: {  customer_id:req.user.customer_id,session_name } })
     console.log(sessionExist);
     if (sessionExist)
       return res.status(400).json({
@@ -169,7 +169,7 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
       })
 
     // Find if session name already exists
-    const sessionExist = await Session.findOne({ where: { session_name } })
+    const sessionExist = await Session.findOne({ where: {  customer_id:req.user.customer_id, session_name } })
     console.log(sessionExist);
     if (sessionExist)
       return res.status(400).json({
