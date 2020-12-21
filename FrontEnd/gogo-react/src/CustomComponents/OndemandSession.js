@@ -122,7 +122,7 @@ const OndemandSession = (props) => {
           .catch((err) => {
             console.log(err);
             try {
-              setError(err.message);
+              setError(err.response.data.error);
             } catch (error) {
               setError('Could not create session');
             }

@@ -50,7 +50,17 @@ router.post('/createLiveSession',auth,async (req,res)=>{
     session_associated_course_id = "10";
     session_fee = fees;
 
-    console.log('❓',session_name);
+    console.log('❓', session_name);
+    
+    // Find if session name already exists
+    const sessionExist = await Session.findOne({ where: { session_name } })
+    console.log(sessionExist);
+    if (sessionExist)
+      return res.status(400).json({
+        success: 0,
+        error:'Sesison name already exists'
+      })
+    
 
     // finding associated courses
     session_associated_course_id= await Session.findAll({
@@ -158,6 +168,15 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
         error:'Data Incomplete'
       })
 
+    // Find if session name already exists
+    const sessionExist = await Session.findOne({ where: { session_name } })
+    console.log(sessionExist);
+    if (sessionExist)
+      return res.status(400).json({
+        success: 0,
+        error:'Sesison name already exists'
+      })
+    
     // finding associated courses
     session_associated_course_id=Session.findAll({ where: { session_id:session_associated_course_id } });
 

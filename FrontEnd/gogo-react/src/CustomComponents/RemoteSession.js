@@ -237,11 +237,16 @@ const RemoteSession = ({ closeModal }) => {
           if (response.data.success) {
             setError(null);
             setSuccess(true);
-          } else setError('Create Session Error');
+          } else setError(response.data.error);
         })
         .catch((err) => {
           console.log(err);
-          setError('Create Session Error');
+          try {
+            // console.log(err.message, err.response.data.error);
+            setError(err.response.data.error);
+          } catch (error) {
+            setError('Create Session Error');
+          }
         });
     }
     console.log(values);
