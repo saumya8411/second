@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Card, CardBody, CardTitle, Button } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
@@ -14,6 +14,7 @@ import Counter from './useCounter';
 import useCounter from './useCounter';
 import produtcs from '../data/products';
 import axiosInstance from '../helpers/axiosInstance';
+import { DropDownContext, SortByContext } from '../context/DropdownContext';
 
 function Table({
   columns,
@@ -161,7 +162,7 @@ function Table({
                     )}
                   </td>
                 ))}
-                {console.log(page[0].cells[0].row.original.id)}
+                {/* {console.log(page[0].cells[0].row.original.id)} */}
                 <td>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     {row.original.launched ? (
@@ -264,10 +265,26 @@ export const TabularData = () => {
     []
   );
   const [data, setData] = useState([]);
+  const [
+    selectedFilter,
+    setSelectedFilter,
+    selectedSort,
+    setSelectedSort,
+    search,
+    setSearch,
+  ] = useContext(DropDownContext);
+  // const [sortBy, setSortBy] = useContext(SortByContext);
 
   useEffect(() => {
+    const route = selectedFilter.value || 'findall';
+    const sortFilter = selectedSort.value || 'session_start_date';
+    const searchSession = search || '';
+
+    console.log(route, sortFilter, search);
     axiosInstance
-      .get('/sessions/FindAllSession')
+      .get(
+        `/sessions/FindAllSession?route=${route}&sort=${sortFilter}&search=${searchSession}`
+      )
       .then((response) => {
         console.log(response);
         const sessions = [];
@@ -278,7 +295,7 @@ export const TabularData = () => {
             type: doc.session_type,
             title: doc.session_name,
             date: doc.session_start_date,
-            tags: doc.session_tags,
+            tags: doc.session_trainer_id,
             fee: doc.session_fee,
             registrations: doc.session_registration,
           };
@@ -290,7 +307,14 @@ export const TabularData = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [
+    selectedFilter,
+    setSelectedFilter,
+    selectedSort,
+    setSelectedSort,
+    search,
+    setSearch,
+  ]);
   return (
     <div className="mb-4">
       {data.length > 0 ? (

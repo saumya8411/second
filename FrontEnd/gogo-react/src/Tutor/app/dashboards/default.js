@@ -23,7 +23,7 @@ import ConversionRatesChartCard from '../../../containers/dashboards/ConversionR
 import TopRatedItems from '../../../containers/dashboards/TopRatedItems';
 import CustomDropdown from '../../../CustomComponents/Dropdown';
 import { TabularData } from '../../../CustomComponents/Tabulardata';
-import OndemandSession from '../../../CustomComponents/OndemandSession'
+import OndemandSession from '../../../CustomComponents/OndemandSession';
 import SessionInput from '../../../CustomComponents/SessionInput';
 import RemotesessionLook from '../../../CustomComponents/RemotesessionLook';
 import EmailCommunication from '../../../CustomComponents/EmailCommunication';
@@ -31,32 +31,35 @@ import CreateSessions from '../../../CustomComponents/CreateSessions';
 import Remotelook from '../../../CustomComponents/Remotelook';
 import Emailcommunicationfunction from '../../../CustomComponents/EmailCommunicationfunction';
 import Themepage from '../../../CustomComponents/ThemePage';
-import Icons from '../ui/components/icons'
+import Icons from '../ui/components/icons';
 import SessionMaterial from '../../../CustomComponents/SessionMaterial';
+import { DropDownContextProvider } from '../../../context/DropdownContext';
+
 const DefaultDashboard = ({ intl, match }) => {
   const { messages } = intl;
 
   return (
-    <>
+    <DropDownContextProvider>
       <Row>
         <Colxx xxs="12">
           {/* <Breadcrumb heading="menu.default" match={match} /> */}
-          <CustomDropdown/>
+          <CustomDropdown />
           <Separator className="mb-5" />
         </Colxx>
       </Row>
       <Row>
-      <Colxx xxs="12">
-      <TabularData/>
-     {/* <OndemandSession />
+        <Colxx xxs="12">
+          <TabularData />
+          {/* <OndemandSession />
        <SessionInput/>
       <RemotesessionLook/>
       <Emailcommunicationfunction/>
       <CreateSessions/>
       <Remotelook/>
       <Themepage/> */}
-      </Colxx>
-      </Row>{/* <Row>
+        </Colxx>
+      </Row>
+      {/* <Row>
         <Colxx lg="4" md="12" className="mb-4">
           <ProductCategoriesPolarArea chartClass="dashboard-donut-chart" />
         </Colxx>
@@ -135,9 +138,7 @@ const DefaultDashboard = ({ intl, match }) => {
           <TopRatedItems />
         </Colxx>
       </Row> */}
-      
-
-    </>
+    </DropDownContextProvider>
   );
 };
 export default injectIntl(DefaultDashboard);

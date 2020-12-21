@@ -4,7 +4,7 @@ const {zoomApi} =require("./zoomAPi")
 const rp = require('request-promise')
 const router = require('express').Router()
 const auth = require('../middleware/deepakAuth');
-
+const { Op } = require("sequelize");
 
 //Connecting to database
 // let connection = mysql.createConnection({
@@ -61,14 +61,37 @@ router.post('/createLiveSession',auth,async (req,res)=>{
 
     console.log(session_associated_course_id);
 
-  // creating zoom meet
-  Zoom_body = {
-    title: session_name,
-    type: 2,
-    start_time: session_start_time,
-    duration: session_duration,
-    timezone: 'IN'
-  }
+    // let type;
+
+  /*once->pass no parameter
+	daily->1
+	weekly->2
+  monthly -> 3*/
+   
+    let type=4,Zoom_body;
+    if (session_occurance == 'daily') type = 1;
+    if (session_occurance == 'weekly') type = 2;
+    if (session_occurance == 'monthly') type = 3;
+    
+
+    // creating zoom meet
+    if (type == 4) {
+      Zoom_body = {
+        title: session_name,
+        start_time: session_start_time,
+        duration: session_duration,
+        timezone: 'IN'
+      }
+    } else {
+      Zoom_body = {
+        title: session_name,
+        type:  type,
+        start_time: session_start_time,
+        duration: session_duration,
+        timezone: 'IN'
+      }
+    }
+    
   
       
     // Zoom_res=await zoomApi(`https://api.zoom.us/v2/users/${req.user.customer_zoom_email}/meetings`,'POST',`${req.user.customer_zoom_jwt_token}`,{status: 'active'},Zoom_body);
@@ -165,7 +188,7 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
       session_occurance,
       session_start_date,
       session_start_time,
-      session_registration:false,
+      session_registration:0,
       session_associated_course_id,
       session_zoom_code:Zoom_res.id,
       session_zoom_password:Zoom_res.password
@@ -192,22 +215,112 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
 
 });
 
-
 router.get('/FindAllSession',auth,async(req,res)=>{
-  console.log(req.user);
-  // res.json(Session.findAll());
-  const sqlCheck = await Session.findAll({ 
-    where: {
-      customer_id: req.user.customer_id
-    },
-    attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration'], 
-  })
+  console.log('route is ',req.query.route,'sort filter: ',req.query.sort);
+  const route = req.query.route || 'findall';
+  const sortFilter = req.query.sort || 'session_name';
+  const searchSession = req.query.search || '';
 
-  console.log(sqlCheck.dataValues,sqlCheck);
-  if (!sqlCheck)
-    return res.status(400).json({ success: 0, error: 'could not found' });
-  return res.status(200).json({ success:1,sessions:sqlCheck})
-        
+  console.log(route, sortFilter, searchSession);
+
+  if(route=='findall') {
+    const sqlCheck = await Session.findAll({ 
+      where: {
+        customer_id: req.user.customer_id,
+        session_name: {
+          [Op.like]: `%${searchSession}%` 
+        }
+      },
+      order: [
+        [sortFilter, 'ASC'],
+    ],
+      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id'], 
+    })
+
+    // console.log(sqlCheck.dataValues,sqlCheck);
+    if (!sqlCheck)
+      return res.status(400).json({ success: 0, error: 'could not found' });
+    return res.status(200).json({ success:1,sessions:sqlCheck})
+  }
+
+  if (route == 'liveSession') {
+    const sqlCheck = await Session.findAll({ 
+      where: {
+        customer_id: req.user.customer_id,
+        session_type: 'Live Session',
+        session_name: {
+          [Op.like]: `%${searchSession}%`
+        }
+      },
+      order: [
+        [sortFilter, 'ASC'],
+    ],
+      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id'], 
+    })
+
+    // console.log(sqlCheck.dataValues,sqlCheck);
+    if (!sqlCheck)
+      return res.status(400).json({ success: 0, error: 'could not found' });
+    return res.status(200).json({ success:1,sessions:sqlCheck})
+  }
+
+  if (route == 'recordedSession') {
+    const sqlCheck = await Session.findAll({ 
+      where: {
+        customer_id: req.user.customer_id,
+        session_type: 'Recorded Session',
+        session_name: {
+          [Op.like]: `%${searchSession}%`
+        } 
+      },
+      order: [
+        [sortFilter, 'ASC'],
+    ],
+      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id'], 
+    })
+
+    // console.log(sqlCheck.dataValues,sqlCheck);
+    if (!sqlCheck)
+      return res.status(400).json({ success: 0, error: 'could not found' });
+    return res.status(200).json({ success:1,sessions:sqlCheck})
+  }
+
+  // if (route == 'launched') {
+  //     const sqlCheck = await Session.findAll({ 
+  //       where: {
+  //         customer_id: req.user.customer_id,
+  //         session_launch:'launched'
+  //       },
+          // order: [
+          //   [sortFilter, 'ASC'],
+          // ],
+  //       attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id], 
+  //     })
+  
+  //     console.log(sqlCheck.dataValues,sqlCheck);
+  //     if (!sqlCheck)
+  //       return res.status(400).json({ success: 0, error: 'could not found' });
+  //     return res.status(200).json({ success:1,sessions:sqlCheck})
+  // }
+
+  // if (route == 'yetToLaunch') {
+  //   const sqlCheck = await Session.findAll({ 
+  //     where: {
+  //       customer_id: req.user.customer_id,
+  //       session_launch:'launch'
+  //     },
+        //   order: [
+        //     [sortFilter, 'ASC'],
+        // ],
+  //     attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id], 
+  //   })
+
+  //   console.log(sqlCheck.dataValues,sqlCheck);
+  //   if (!sqlCheck)
+  //     return res.status(400).json({ success: 0, error: 'could not found' });
+  //   return res.status(200).json({ success:1,sessions:sqlCheck})
+  // }
+
 });
 
 router.get('/FindSessionById/:id',auth,async(req,res)=>{
@@ -283,6 +396,64 @@ router.post('/updateSession',auth,async (req,res)=>{
   
 
 });
+
+
+router.post('/updateRecordedSession', auth, async (req, res) => {
+  console.log(req.body.values);
+  try {
+    const { session_tags, session_id, session_description, session_tagline } = req.body.values;
+    
+    if (!session_id  )
+    return res.status(200).json({
+      success: 0,
+      error: 'Please provide session id '
+    });
+
+  if(!session_description)
+    return res.status(200).json({
+      success: 0,
+      error: 'Please provide session description '
+    });
+
+    if(!session_tags)
+    return res.status(200).json({
+      success: 0,
+      error: 'Please provide session tags '
+    });
+    
+  const session = await Session.findOne({
+    where: {
+        session_id
+    }
+  })
+
+  if (!session)
+    return res.status(400).json({
+      sucess: 0,
+      error:'Could not find session'
+    })
+
+    session.session_tags = session_tags;
+    session.session_description = session_description;
+    session.session_tagline = session_tagline;
+
+    const updatedSession = await session.save();
+
+  console.log(updatedSession);
+  return res.status(200).json({
+    success: 1,
+    session:updatedSession
+  })
+
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: 0,
+      error: 'could not update session',
+      errorReturned:err
+    })
+  }
+})
 
 router.post('/deleteSession',async (req,res)=>{
   			console.log(req.body);

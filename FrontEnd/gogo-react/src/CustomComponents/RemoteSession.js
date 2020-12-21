@@ -89,7 +89,8 @@ const correspondanceoption = [
   { value: 'uploaded', label: 'uploaded' },
 ];
 
-const RemoteSession = () => {
+const RemoteSession = ({ closeModal }) => {
+  console.log(closeModal);
   let date = '';
   const [startDateRange, setStartDateRange] = useState('');
   const [time, setTime] = useState('');
@@ -182,6 +183,8 @@ const RemoteSession = () => {
       return { success: 0, error: 'Please provide a start date range' };
     if (!values.duration)
       return { success: 0, error: 'Please provide a duration' };
+    if (/\D/.test(values.duration))
+      return { success: 0, error: 'Duration must be a number' };
     if (!values.time) return { success: 0, error: 'Please provide time' };
     if (
       !check &&
@@ -195,7 +198,8 @@ const RemoteSession = () => {
   };
 
   const onSubmit = () => {
-    // console.log(check,state,session_fee)
+    console.log(closeModal);
+    // closeModal(true);
     const values = {
       session_name,
       description,
@@ -368,6 +372,7 @@ const RemoteSession = () => {
             {/*  <Field name="session_duration" id="duration" value={values.session_dur} onChange={setFieldValue}
                     onBlur={setFieldTouched} /> */}
             <Input
+              type="number"
               className="form-control"
               name="session_duration"
               onChange={(e) => setDuration(e.target.value)}
@@ -533,6 +538,7 @@ const RemoteSession = () => {
                 ) : (
                   <>
                     <Input
+                      type="number"
                       className="form-control"
                       name="session_fee"
                       value={session_fee}
@@ -591,6 +597,7 @@ const RemoteSession = () => {
                   <Input disabled />
                 ) : (
                   <Input
+                    type="number"
                     className="form-control"
                     name="session_fee"
                     value={session_fee}

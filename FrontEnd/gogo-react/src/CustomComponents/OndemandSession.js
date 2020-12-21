@@ -39,7 +39,7 @@ const CreatesessionSchema = Yup.object().shape({
         value: Yup.string().required(),
       })
     ),
-  session_duration: Yup.string().required('Duration of course is required!'),
+  session_duration: Yup.number().required('Duration of course is required!'),
   session_name: Yup.string().required('Name of course is required!'),
   session_description: Yup.string().required('Description is required!'),
   session_fee: Yup.number().required('Fees is required'),
@@ -84,6 +84,8 @@ const OndemandSession = (props) => {
   };
 
   const onSubmit = (values, { setSubmitting }) => {
+    // props.closeModal(true);
+    console.log(props.closeModal);
     values.session_tags = tagsLO.toString();
     values.session_trainer = JSON.stringify(values.trainer);
     console.log(values, select);

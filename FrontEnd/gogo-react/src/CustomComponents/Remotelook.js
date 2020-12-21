@@ -180,23 +180,22 @@ const Remotelook = (props) => {
                 </nav>
               </Row>
               <Row style={{ marginBottom: '20px' }}>
-                <Col md="3" xs="12">
-                  <li className="d-flex ">
-                    <h6 className="mb-0">
-                      {' '}
-                      <a
-                        href={data.session_link}
-                        target="_blank"
-                        style={{ cursor: 'pointer' }}
-                      >
-                        {data.session_link
-                          ? data.session_link
-                          : 'www.zoomapp.com,'}
-                      </a>
-                    </h6>
-                  </li>
-                </Col>
-                <Col md="3" xs="12">
+                {/* <Col md="3" xs="12"> */}
+                {/* <li className="d-flex "> */}
+                <h6 className="mb-0">
+                  <a
+                    href={data.session_link}
+                    target="_blank"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {data.session_link ? data.session_link : 'www.zoomapp.com,'}
+                  </a>
+                </h6>
+                {/* </li> */}
+                {/* </Col> */}
+              </Row>
+              <Row>
+                <Col md="4" xs="12">
                   <li className=" d-flex">
                     <p className="mb-0" style={{ marginLeft: '10px' }}>
                       <span className="font-weight-bold">Code: </span>{' '}
@@ -204,7 +203,7 @@ const Remotelook = (props) => {
                     </p>
                   </li>
                 </Col>
-                <Col md="3" xs="12">
+                <Col md="4" xs="12">
                   <li className=" d-flex ">
                     <p style={{ marginLeft: '10px' }} className="mb-0">
                       {' '}
@@ -213,7 +212,7 @@ const Remotelook = (props) => {
                     </p>
                   </li>
                 </Col>
-                <Col md="3" xs="12">
+                <Col md="4" xs="12">
                   <li className=" d-flex ">
                     <p style={{ marginLeft: '10px' }} className="mb-0">
                       {' '}
