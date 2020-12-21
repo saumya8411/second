@@ -34,6 +34,13 @@ function Make_modal(props) {
   const handleSubmit = () => {
     setModal(!modal);
     console.log(tagline, tags, description);
+    const values = {
+      session_tagline: tagline,
+      session_tags: tags,
+      session_description: description,
+      session_id: props.session_id,
+    };
+    props.handleUpdateSession(values);
   };
 
   return (

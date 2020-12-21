@@ -349,7 +349,7 @@ router.get('/FindSessionById/:id',auth,async(req,res)=>{
 router.post('/updateSession',auth,async (req,res)=>{
   console.log(req.body);
   try {
-    const { session_id, session_description } = req.body.values;
+    const { session_id, session_description,session_tagline,session_tags, } = req.body.values;
     
   if (!session_id  )
     return res.status(200).json({
@@ -374,7 +374,12 @@ router.post('/updateSession',auth,async (req,res)=>{
       sucess: 0,
       error:'Could not find session'
     })
-  
+
+  if(session.session_type=='Recorded Session') {
+    session.session_tagline = session_tagline;
+    session.session_tags=session_tags
+  }
+    
   session.session_description = session_description;
   const updatedSession = await session.save();
 

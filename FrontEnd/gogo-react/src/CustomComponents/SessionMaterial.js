@@ -54,6 +54,7 @@ export default class SessionMaterial extends Component {
     super(props);
     this.deleteTask = this.deleteTask.bind(this);
     this.state = {
+      error: '',
       modal: false,
       showMessage: false,
       showMessage2: false,
@@ -128,6 +129,17 @@ export default class SessionMaterial extends Component {
       this.state.data.seo,
       this.state.data.description
     );
+    if (this.state.error) {
+      console.log(this.state.error);
+      NotificationManager.warning(
+        this.state.error,
+        'Create Live Session',
+        3000,
+        null,
+        null,
+        ''
+      );
+    }
     if (!this.props.location.state.uniquesessionid)
       this.props.history.push('/app/dashboard/default');
     axiosInstance
@@ -323,6 +335,51 @@ export default class SessionMaterial extends Component {
     );
   };
 
+  handleUpdateSession = (values) => {
+    console.log(values);
+    axiosInstance
+      .post('/sessions/updateSession', { values })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          const session = response.data.session;
+          this.setState({
+            ...this.state,
+            data: {
+              name: session.session_name,
+              type: session.session_type,
+              date: session.session_start_date,
+              time: session.session_start_time,
+              tagline: session.session_tagline || 'Default Tagline',
+              description: session.session_description,
+              seo: session.session_tags,
+              session_fee: session.session_fee
+                ? `${session.session_fee} INR`
+                : '0',
+              Trainer: this.state.data.Trainer,
+            },
+          });
+        } else
+          this.setState({
+            ...this.state,
+            error: response.data.error,
+          });
+      })
+      .catch((err) => {
+        try {
+          this.setState({
+            ...this.state,
+            error: err.message,
+          });
+        } catch (err) {
+          this.setState({
+            ...this.state,
+            error: 'Could not update session...please try again',
+          });
+        }
+      });
+  };
+
   render() {
     return (
       <section style={{ marginLeft: '7%', marginRight: '7%' }}>
@@ -416,6 +473,7 @@ export default class SessionMaterial extends Component {
               tagline={this.state.data.tagline}
               seotags={this.state.data.seo}
               description={this.state.data.description}
+              handleUpdateSession={this.handleUpdateSession}
             />
             <Row>
               <Colxx sm="12">
