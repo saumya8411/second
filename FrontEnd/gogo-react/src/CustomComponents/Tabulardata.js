@@ -273,6 +273,8 @@ export const TabularData = () => {
     search,
     setSearch,
     handleReloadTable,
+    reloadTable,
+    setReloadTable,
   ] = useContext(DropDownContext);
   // const [sortBy, setSortBy] = useContext(SortByContext);
 
@@ -316,6 +318,8 @@ export const TabularData = () => {
     search,
     setSearch,
     handleReloadTable,
+    reloadTable,
+    setReloadTable,
   ]);
   return (
     <div className="mb-4">

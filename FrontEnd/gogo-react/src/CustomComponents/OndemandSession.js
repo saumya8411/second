@@ -54,7 +54,9 @@ const OndemandSession = ({ closeModal }) => {
   let [select, setselect] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [handleReloadTable] = useContext(DropDownContext);
+  const [handleReloadTable, reloadTable, setReloadTable] = useContext(
+    DropDownContext
+  );
 
   useEffect(() => {
     if (error) {
@@ -126,7 +128,10 @@ const OndemandSession = ({ closeModal }) => {
               setError('Could not create session');
             }
           })
-          .then(() => handleReloadTable);
+          .then(() => {
+            console.log('calling handle reload table', handleReloadTable);
+            reloadTable(!reloadTable);
+          });
         //
         setSubmitting(false);
       }, 1000);

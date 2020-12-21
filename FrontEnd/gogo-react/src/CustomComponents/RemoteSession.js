@@ -110,7 +110,11 @@ const RemoteSession = ({ closeModal }) => {
   let [description, setDescription] = useState('');
   let [trainer, setTrainer] = useState('You');
   let [session_fee, setSession_fee] = useState('');
-  const [handleReloadTable] = useContext(DropDownContext);
+  const [handleReloadTable, reloadTable, setReloadTable] = useContext(
+    DropDownContext
+  );
+
+  console.log(reloadTable, setReloadTable);
 
   const checkempty = () => {
     if (!course) {
@@ -251,7 +255,10 @@ const RemoteSession = ({ closeModal }) => {
             setError('Create Session Error');
           }
         })
-        .then(() => handleReloadTable);
+        .then(() => {
+          console.log('calling handle reload table', setReloadTable);
+          reloadTable(!reloadTable);
+        });
     }
     console.log(values);
   };

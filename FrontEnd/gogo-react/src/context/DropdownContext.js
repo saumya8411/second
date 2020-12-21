@@ -9,6 +9,8 @@ export const DropDownContextProvider = ({ children }) => {
   const [search, setSearch] = useState('');
   const [reloadTable, setReloadTable] = useState(false);
 
+  // console.log(setReloadTable);
+
   const handleReloadTable = () => {
     console.log('reloading table');
     setReloadTable(!reloadTable);
