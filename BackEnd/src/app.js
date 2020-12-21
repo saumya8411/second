@@ -41,6 +41,7 @@ app.use(userRouter)
 // app.use(sessionRouter)
 app.use('/sessions', require('./Sessions/index'))
 app.use('/themes',require('./server'))
-app.use('/library' , libraryRouter)
+app.use('/library', libraryRouter)
+app.use('/shorturl', require('./urlShorten'));
 
 module.exports = app

@@ -114,7 +114,7 @@ const RemoteSession = ({ closeModal }) => {
     DropDownContext
   );
 
-  console.log(reloadTable, setReloadTable);
+  // console.log(reloadTable, setReloadTable);
 
   const checkempty = () => {
     if (!course) {

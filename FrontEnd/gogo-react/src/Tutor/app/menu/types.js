@@ -1,10 +1,30 @@
-import React ,{useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useTable, usePagination, useSortBy } from 'react-table';
-import { Row, Button ,NavItem,Nav,TabContent,TabPane,NavLink,Table,CardTitle,CardBody,Card,Badge,Col,CardText,UncontrolledDropdown,Label,FormGroup,Input,
+import {
+  Row,
+  Button,
+  NavItem,
+  Nav,
+  TabContent,
+  TabPane,
+  NavLink,
+  Table,
+  CardTitle,
+  CardBody,
+  Card,
+  Badge,
+  Col,
+  CardText,
+  UncontrolledDropdown,
+  Label,
+  Form,
+  FormGroup,
+  Input,
   DropdownItem,
   DropdownToggle,
-  DropdownMenu, } from 'reactstrap';
+  DropdownMenu,
+} from 'reactstrap';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
 import Breadcrumb from '../../../containers/navs/Breadcrumb';
 import classnames from 'classnames';
@@ -24,8 +44,8 @@ import { FaBookOpen } from 'react-icons/fa';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import { AiFillBank } from 'react-icons/ai';
 import { FaHandHoldingUsd } from 'react-icons/fa';
-import Communication_table from '../../../data/Communication_table'
-import Monitization_table from '../../../data/Monitization_table'
+import Communication_table from '../../../data/Communication_table';
+import Monitization_table from '../../../data/Monitization_table';
 import { BiBroadcast } from 'react-icons/bi';
 import { BiMessageRoundedDots } from 'react-icons/bi';
 import { BiTime } from 'react-icons/bi';
@@ -40,7 +60,7 @@ import { BiCheckDouble } from 'react-icons/bi';
 import { AiOutlineExclamation } from 'react-icons/ai';
 import { MdVisibility } from 'react-icons/md';
 import { FaGlobeAsia } from 'react-icons/fa';
-import './style.css'
+import './style.css';
 import { Scrollbars } from 'react-custom-scrollbars';
 import my_table_courses from '../../../data/my_table_courses';
 import Communication_table2 from '../../../data/Communication_table2';
@@ -48,12 +68,14 @@ import Communication_table3 from '../../../data/Communication_table3';
 import posts1 from '../../../data/posts1';
 import posts2 from '../../../data/posts2';
 import affiliate2 from '../../../data/affiliate2';
-import {Line} from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2';
 import linkTraking from '../../../data/linkTraking';
-import countries from '../../../data/countries'
-import cities from '../../../data/cities'
-import d_countries from '../../../data/d_countries'
-import device from '../../../data/device'
+import countries from '../../../data/countries';
+import cities from '../../../data/cities';
+import d_countries from '../../../data/d_countries';
+import device from '../../../data/device';
+import axiosInstance from '../../../helpers/axiosInstance';
+import { NotificationManager } from '../../../components/common/react-notifications';
 
 const MenuTypes = ({
   match,
@@ -62,6 +84,45 @@ const MenuTypes = ({
   selectedMenuHasSubItems,
   setContainerClassnamesAction,
 }) => {
+  const [shortUrl, setShortUrl] = useState('');
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (error) {
+      NotificationManager.warning(
+        error,
+        'Get Url Track Error',
+        3000,
+        null,
+        null,
+        ''
+      );
+    }
+  }, [error]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(document.getElementById('exampleFullurl').value);
+    const values = {
+      full: document.getElementById('exampleFullurl').value,
+    };
+    axiosInstance
+      .post('/shorturl/genShort', { values })
+      .then((response) => {
+        console.log(response);
+        if (response.data.success) setShortUrl(response.data.shortUrl);
+        else setError(response.data.error);
+      })
+      .catch((err) => {
+        console.log(err);
+        try {
+          setError(err.response.data.error);
+        } catch (error) {
+          setError('Could not get utl...tey again');
+        }
+      });
+  };
+
   const getMenuClassesForResize = (classes) => {
     let nextClasses = classes.split(' ').filter((x) => x !== '');
     const windowWidth = window.innerWidth;
@@ -97,7 +158,7 @@ const MenuTypes = ({
       selectedMenuHasSubItems
     );
   };
-  const name = ['Peter', 'Bruce', 'Kent', 'Tony', 'Joker']
+  const name = ['Peter', 'Bruce', 'Kent', 'Tony', 'Joker'];
   const cols2 = [
     {
       Header: 'Course',
@@ -110,14 +171,14 @@ const MenuTypes = ({
       Header: 'Registrations',
       accessor: 'status',
       cellClass: 'color',
-      Cell: (props) => <p style={{marginLeft:'30px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '30px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Enrolled',
       accessor: 'fee',
       cellClass: 'text-muted w-25',
-      Cell: (props) => <p style={{marginLeft:'30px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '30px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
@@ -131,18 +192,17 @@ const MenuTypes = ({
       Header: 'Library space consumed',
       accessor: 're',
       cellClass: 'text-muted w-30',
-      Cell: (props) => <p style={{marginLeft:'90px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '90px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Bandwidth',
       accessor: 'NOC',
       cellClass: 'text-muted w-25',
-      Cell: (props) => <p style={{marginLeft:'30px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '30px' }}>{props.value}</p>,
       sortType: 'basic',
     },
-  
-  ]
+  ];
   const cols12 = [
     {
       Header: 'Blog Name',
@@ -172,8 +232,8 @@ const MenuTypes = ({
       Cell: (props) => <p className="ml-4">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
-  const cols16  = [
+  ];
+  const cols16 = [
     {
       Header: 'Blog Name',
       accessor: 'name',
@@ -202,7 +262,7 @@ const MenuTypes = ({
       Cell: (props) => <p className="ml-4">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
   const cols13 = [
     {
       Header: 'Blogger Name',
@@ -232,7 +292,7 @@ const MenuTypes = ({
       Cell: (props) => <p className="ml-4">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
   const cols15 = [
     {
       Header: 'Course Name',
@@ -252,26 +312,24 @@ const MenuTypes = ({
       Header: 'Enrollments by Affiliate',
       accessor: 'Revenue',
       cellClass: 'text-muted w-25',
-      Cell: (props) => <p style={{marginLeft:'50px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '50px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Revenue Generated by Affiliate',
       accessor: 'rge',
       cellClass: 'text-muted w-30',
-      Cell: (props) => <p style={{marginLeft:'90px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '90px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Rewards Given',
       accessor: 'Rewards_g',
       cellClass: 'text-muted w-20',
-      Cell: (props) => <p style={{marginLeft:'50px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '50px' }}>{props.value}</p>,
       sortType: 'basic',
     },
-
-  
-  ]
+  ];
 
   const cols11 = [
     {
@@ -292,14 +350,14 @@ const MenuTypes = ({
       Header: 'Revenue Generated',
       accessor: 'Revenue',
       cellClass: 'text-muted w-20',
-      Cell: (props) => <p style={{marginLeft:'70px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '70px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Rewards Given',
       accessor: 'Rewards',
       cellClass: 'text-muted w-20',
-      Cell: (props) => <p style={{marginLeft:'50px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '50px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
@@ -309,9 +367,7 @@ const MenuTypes = ({
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
     },
-
-  
-  ]
+  ];
   const cols21 = [
     {
       Header: 'Country',
@@ -327,7 +383,7 @@ const MenuTypes = ({
       Cell: (props) => <p className="text-center">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
   const cols23 = [
     {
       Header: 'Visitors from countries',
@@ -336,7 +392,7 @@ const MenuTypes = ({
       Cell: (props) => <p className="ml-2">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
   const cols24 = [
     {
       Header: 'Visitors according devices',
@@ -352,7 +408,7 @@ const MenuTypes = ({
       Cell: (props) => <p className="ml-2">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
   const cols22 = [
     {
       Header: 'Cities',
@@ -368,7 +424,7 @@ const MenuTypes = ({
       Cell: (props) => <p className="text-center">{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
   const cols20 = [
     {
       Header: 'Link Name',
@@ -402,28 +458,28 @@ const MenuTypes = ({
       Header: 'Average Session Duration',
       accessor: 'av_ses_dur',
       cellClass: 'text-muted w-10',
-      Cell: (props) => <p style={{marginLeft:'70px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '70px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Bouce Rates',
       accessor: 'bounce_rate',
       cellClass: 'text-muted w-5',
-      Cell: (props) => <p style={{marginLeft:'50px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '50px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Realtime(Last 30min)',
       accessor: 'real_time_30',
       cellClass: 'text-muted w-5',
-      Cell: (props) => <p style={{marginLeft:'40px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '40px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Realtime(Last 24hrs)',
       accessor: 'real_time_24',
       cellClass: 'text-muted w-5',
-      Cell: (props) => <p style={{marginLeft:'50px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '50px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
@@ -437,14 +493,14 @@ const MenuTypes = ({
       Header: 'City Name',
       accessor: 'lcwv',
       cellClass: 'text-muted w-5',
-      Cell: (props) => <p style={{marginLeft:'0px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '0px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
       Header: 'Distinct Countries',
       accessor: 'dc',
       cellClass: 'text-muted w-5',
-      Cell: (props) => <p style={{marginLeft:'50px'}}>{props.value}</p>,
+      Cell: (props) => <p style={{ marginLeft: '50px' }}>{props.value}</p>,
       sortType: 'basic',
     },
     {
@@ -454,7 +510,7 @@ const MenuTypes = ({
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
     },
-  ]
+  ];
 
   const cols3 = [
     {
@@ -489,10 +545,40 @@ const MenuTypes = ({
       Header: 'Opened',
       accessor: 'opened',
       cellClass: 'text-muted',
-      Cell: (props) => { if(props.value === 'Yes'){ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green',marginLeft:'20px'}}>{props.value}</Badge>} else{ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red',marginLeft:'20px'}}>{props.value}</Badge>}},
+      Cell: (props) => {
+        if (props.value === 'Yes') {
+          return (
+            <Badge
+              color="primary"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'green',
+                marginLeft: '20px',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        } else {
+          return (
+            <Badge
+              color="danger"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        }
+      },
       sortType: 'basic',
     },
-  ]
+  ];
   const cols8 = [
     {
       Header: 'Send to',
@@ -526,10 +612,40 @@ const MenuTypes = ({
       Header: 'Opened',
       accessor: 'opened',
       cellClass: 'text-muted',
-      Cell: (props) => { if(props.value === 'Yes'){ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green',marginLeft:'20px'}}>{props.value}</Badge>} else{ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red',marginLeft:'20px'}}>{props.value}</Badge>}},
+      Cell: (props) => {
+        if (props.value === 'Yes') {
+          return (
+            <Badge
+              color="primary"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'green',
+                marginLeft: '20px',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        } else {
+          return (
+            <Badge
+              color="danger"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        }
+      },
       sortType: 'basic',
     },
-  ]
+  ];
   const cols9 = [
     {
       Header: 'Send to',
@@ -563,10 +679,40 @@ const MenuTypes = ({
       Header: 'Opened',
       accessor: 'opened',
       cellClass: 'text-muted',
-      Cell: (props) => { if(props.value === 'Yes'){ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green',marginLeft:'20px'}}>{props.value}</Badge>} else{ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red',marginLeft:'20px'}}>{props.value}</Badge>}},
+      Cell: (props) => {
+        if (props.value === 'Yes') {
+          return (
+            <Badge
+              color="primary"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'green',
+                marginLeft: '20px',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        } else {
+          return (
+            <Badge
+              color="danger"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'red',
+                marginLeft: '20px',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        }
+      },
       sortType: 'basic',
     },
-  ]
+  ];
   const cols4 = [
     {
       Header: 'Payment ID',
@@ -602,21 +748,47 @@ const MenuTypes = ({
       cellClass: 'text-muted',
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
-    },   
+    },
     {
       Header: 'Time',
       accessor: 'time',
       cellClass: 'text-muted',
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
-    }, 
+    },
     {
       Header: 'Status',
       accessor: 'status',
       cellClass: 'text-muted',
-      Cell: (props) => {if(props.value == 'Incompleted'){ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red'}}>{props.value}</Badge> }
-      else{ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green'}}>{props.value}</Badge>
-    } },
+      Cell: (props) => {
+        if (props.value == 'Incompleted') {
+          return (
+            <Badge
+              color="danger"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'red',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        } else {
+          return (
+            <Badge
+              color="primary"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'green',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        }
+      },
       sortType: 'basic',
     },
 
@@ -634,140 +806,164 @@ const MenuTypes = ({
       Cell: (props) => <p>{props.value}</p>,
       sortType: 'basic',
     },
-  ]
-
+  ];
 
   const cols = [
-      {
-        Header: 'Name',
-        accessor: 'title',
-        cellClass: 'text-muted w-10',
-        Cell: (props) => <p>{props.value}</p>,
-        sortType: 'basic',
+    {
+      Header: 'Name',
+      accessor: 'title',
+      cellClass: 'text-muted w-10',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Contact No.',
+      accessor: 'ph',
+      cellClass: 'text-muted',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Email',
+      accessor: 'email',
+      cellClass: 'text-muted w-10',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Total Courses',
+      accessor: 'NOC',
+      cellClass: 'text-muted w-15 ',
+      Cell: (props) => <p className="text-center">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Fee Paid',
+      accessor: 'fee',
+      cellClass: 'text-muted w-10',
+      Cell: (props) => <p className="text-center">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Referrals',
+      accessor: 'sb',
+      cellClass: 'text-muted w-10',
+      Cell: (props) => <p className="text-center">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Reward Earned',
+      accessor: 're',
+      cellClass: 'text-muted w-20',
+      Cell: (props) => <p className="ml-4">{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Status',
+      accessor: 'status',
+      cellClass: 'color w-10',
+      Cell: (props) => {
+        if (props.value == 'Registered') {
+          return (
+            <Badge
+              color="danger"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'red',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        } else {
+          return (
+            <Badge
+              color="primary"
+              style={{
+                fontSize: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'green',
+              }}
+            >
+              {props.value}
+            </Badge>
+          );
+        }
       },
+      sortType: 'basic',
+    },
+  ];
+  function Table({ columns, data }) {
+    const {
+      getTableProps,
+      getTableBodyProps,
+      prepareRow,
+      headerGroups,
+      page,
+      canPreviousPage,
+      canNextPage,
+      pageCount,
+      gotoPage,
+      setPageSize,
+      state: { pageIndex, pageSize },
+    } = useTable(
       {
-        Header: 'Contact No.',
-        accessor: 'ph',
-        cellClass: 'text-muted',
-        Cell: (props) => <p>{props.value}</p>,
-        sortType: 'basic',
+        columns,
+        data,
+        initialState: { pageIndex: 0, pageSize: 6 },
       },
-      {
-        Header: 'Email',
-        accessor: 'email',
-        cellClass: 'text-muted w-10',
-        Cell: (props) => <p>{props.value}</p>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Total Courses',
-        accessor: 'NOC',
-        cellClass: 'text-muted w-15 ',
-        Cell: (props) => <p className="text-center">{props.value}</p>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Fee Paid',
-        accessor: 'fee',
-        cellClass: 'text-muted w-10',
-        Cell: (props) => <p className="text-center">{props.value}</p>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Referrals',
-        accessor: 'sb',
-        cellClass: 'text-muted w-10',
-        Cell: (props) => <p className="text-center">{props.value}</p>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Reward Earned',
-        accessor: 're',
-        cellClass: 'text-muted w-20',
-        Cell: (props) => <p className="ml-4">{props.value}</p>,
-        sortType: 'basic',
-      },
-      {
-        Header: 'Status',
-        accessor: 'status',
-        cellClass: 'color w-10',
-      Cell: (props) => {if(props.value == 'Registered'){ return <Badge color="danger" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'red'}}>{props.value}</Badge> }
-      else{ return <Badge color="primary" style={{fontSize:'10px', borderRadius:'10px', backgroundColor:'green'}}>{props.value}</Badge>
-    } },
-        sortType: 'basic',
-      },
-    ]
-    function Table({ columns, data }) {
-      const {
-        getTableProps,
-        getTableBodyProps,
-        prepareRow,
-        headerGroups,
-        page,
-        canPreviousPage,
-        canNextPage,
-        pageCount,
-        gotoPage,
-        setPageSize,
-        state: { pageIndex, pageSize },
-      } = useTable(
-        {
-          columns,
-          data,
-          initialState: { pageIndex: 0, pageSize: 6 },
-        },
-        useSortBy,
-        usePagination
-      );
-    
-      return (
-        <>
-        
-          <table {...getTableProps()} className="r-table table">
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column, columnIndex) => (
-                    <th
-                      key={`th_${columnIndex}`}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                      className={
-                        column.isSorted
-                          ? column.isSortedDesc
-                            ? 'sorted-desc'
-                            : 'sorted-asc'
-                          : ''
-                      }
+      useSortBy,
+      usePagination
+    );
+
+    return (
+      <>
+        <table {...getTableProps()} className="r-table table">
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, columnIndex) => (
+                  <th
+                    key={`th_${columnIndex}`}
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    className={
+                      column.isSorted
+                        ? column.isSortedDesc
+                          ? 'sorted-desc'
+                          : 'sorted-asc'
+                        : ''
+                    }
+                  >
+                    {column.render('Header')}
+                    <span />
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell, cellIndex) => (
+                    <td
+                      key={`td_${cellIndex}`}
+                      {...cell.getCellProps({
+                        className: cell.column.cellClass,
+                      })}
                     >
-                      {column.render('Header')}
-                      <span />
-                    </th>
+                      {cell.render('Cell')}
+                    </td>
                   ))}
                 </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map((row) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell, cellIndex) => (
-                      <td
-                        key={`td_${cellIndex}`}
-                        {...cell.getCellProps({
-                          className: cell.column.cellClass,
-                        })}
-                      >
-                        {cell.render('Cell')}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-    
-          {/* <DatatablePagination
+              );
+            })}
+          </tbody>
+        </table>
+
+        {/* <DatatablePagination
             page={pageIndex}
             pages={pageCount}
             canPrevious={canPreviousPage}
@@ -780,22 +976,22 @@ const MenuTypes = ({
             onPageSizeChange={(s) => setPageSize(s)}
             paginationMaxSize={pageCount}
           /> */}
-        </>
-      );
-    }
+      </>
+    );
+  }
   const [activeFirstTab, setActiveFirstTab] = useState('1');
   const [activeFirstTab1, setActiveFirstTab1] = useState('8');
   const [activeFirstTab2, setActiveFirstTab2] = useState('13');
-  const [activeFirstTab6, setActiveFirstTab6] = useState('20')
-  const [chartstatus, setchartstatus] = useState(false)
+  const [activeFirstTab6, setActiveFirstTab6] = useState('20');
+  const [chartstatus, setchartstatus] = useState(false);
 
   const changechart = () => {
-    setchartstatus(!chartstatus)
-    console.log(chartstatus)
-  }
+    setchartstatus(!chartstatus);
+    console.log(chartstatus);
+  };
 
   /* const [tab, settab] = useState('8') */
-/*   var myChart =  {
+  /*   var myChart =  {
     type: 'bar',
     data: {
        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -815,80 +1011,74 @@ const MenuTypes = ({
         }
       } */
   const data = {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat','Sun'],
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     /* scaleShowLabels: false, */
-    datasets: [{
-      label: 'Views in one week for #link1',
-      data: [32, 36, 29, 35, 32, 39, 28, 39, 44],
-      radius: 3,
-      tension: 0,
-      fill: false,
-      borderColor:'#5CCB00',
-      pointRadius:6,
-      pointHoverRadius:6,
-      pointBorderWidth:2,
-      pointBackgroundColor:" #FFFFFF",
+    datasets: [
+      {
+        label: 'Views in one week for #link1',
+        data: [32, 36, 29, 35, 32, 39, 28, 39, 44],
+        radius: 3,
+        tension: 0,
+        fill: false,
+        borderColor: '#5CCB00',
+        pointRadius: 6,
+        pointHoverRadius: 6,
+        pointBorderWidth: 2,
+        pointBackgroundColor: ' #FFFFFF',
+      },
 
-    },
-
-    {
-      label: 'Views in one week for #link2',
-      data: [35, 26, 27, 23, 32, 30, 28, 39, 34],
-      tension: 0,
-      radius: 3,
-      fill: false,
-      borderColor:'#EC7600',
-      pointRadius:6,
-      pointHoverRadius:6,
-      pointBorderWidth:2,
-      pointBackgroundColor:" #FFFFFF",
-    }
-  ],
-
-  }
+      {
+        label: 'Views in one week for #link2',
+        data: [35, 26, 27, 23, 32, 30, 28, 39, 34],
+        tension: 0,
+        radius: 3,
+        fill: false,
+        borderColor: '#EC7600',
+        pointRadius: 6,
+        pointHoverRadius: 6,
+        pointBorderWidth: 2,
+        pointBackgroundColor: ' #FFFFFF',
+      },
+    ],
+  };
   const data2 = {
-    labels: ['Thu', 'Fri', 'Sat','Sun'],
+    labels: ['Thu', 'Fri', 'Sat', 'Sun'],
     /* scaleShowLabels: false, */
-    datasets: [{
-      label: 'Views in one week for #link1',
-      data: [ 39, 28, 39, 44],
-      radius: 3,
-      tension: 0,
-      fill: false,
-      borderColor:'#5CCB00',
-      pointRadius:6,
-      pointHoverRadius:6,
-      pointBorderWidth:2,
-      pointBackgroundColor:" #FFFFFF",
+    datasets: [
+      {
+        label: 'Views in one week for #link1',
+        data: [39, 28, 39, 44],
+        radius: 3,
+        tension: 0,
+        fill: false,
+        borderColor: '#5CCB00',
+        pointRadius: 6,
+        pointHoverRadius: 6,
+        pointBorderWidth: 2,
+        pointBackgroundColor: ' #FFFFFF',
+      },
 
-    },
-
-    {
-      label: 'Views in one week for #link2',
-      data: [30, 28, 39, 34],
-      tension: 0,
-      radius: 3,
-      fill: false,
-      borderColor:'#EC7600',
-      pointRadius:6,
-      pointHoverRadius:6,
-      pointBorderWidth:2,
-      pointBackgroundColor:" #FFFFFF",
-    }
-  ],
-
-  }
-
+      {
+        label: 'Views in one week for #link2',
+        data: [30, 28, 39, 34],
+        tension: 0,
+        radius: 3,
+        fill: false,
+        borderColor: '#EC7600',
+        pointRadius: 6,
+        pointHoverRadius: 6,
+        pointBorderWidth: 2,
+        pointBackgroundColor: ' #FFFFFF',
+      },
+    ],
+  };
 
   return (
     <>
-        
       <Row>
-        <Colxx xxs="12">
-
-        </Colxx>
+        <Colxx xxs="12"></Colxx>
       </Row>
-{/*       <Row>
+      {/*       <Row>
         <Colxx xxs="12" className="mb-4">
           <Button
             outline
@@ -916,762 +1106,1060 @@ const MenuTypes = ({
           </Button>
         </Colxx>
       </Row> */}
-       <Nav tabs className="card-header-tabs mb-3">
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '1',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('1');
-                      }}
-                    >
-                   <h6>Students</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '2',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('2');
-                      }}
-                    >
-                      <h6>Courses</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '3',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('3');
-                      }}
-                    >
-                 <h6>Communication</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '4',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('4');
-                      }}
-                    >
-                   <h6>Monetization</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '5',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('5');
-                      }}
-                    >
-                   <h6>Affiliate</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '6',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('6');
-                      }}
-                    >
-                   <h6>Blogs</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab === '7',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab('7');
-                      }}
-                    >
-                   <h6>Link Traking</h6>
-                    </NavLink>
-                  </NavItem>
-                  {/* <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
+      <Nav tabs className="card-header-tabs mb-3">
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '1',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('1');
+            }}
+          >
+            <h6>Students</h6>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '2',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('2');
+            }}
+          >
+            <h6>Courses</h6>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '3',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('3');
+            }}
+          >
+            <h6>Communication</h6>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '4',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('4');
+            }}
+          >
+            <h6>Monetization</h6>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '5',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('5');
+            }}
+          >
+            <h6>Affiliate</h6>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '6',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('6');
+            }}
+          >
+            <h6>Blogs</h6>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink
+            to="#"
+            location={{}}
+            className={classnames({
+              active: activeFirstTab === '7',
+              'nav-link': true,
+            })}
+            onClick={() => {
+              setActiveFirstTab('7');
+            }}
+          >
+            <h6>Link Traking</h6>
+          </NavLink>
+        </NavItem>
+        {/* <FormGroup className="mb-4 d-flex float-right ml-auto" id="search">
                     <Input type="email" className="d-flex" id="exampleEmail" placeholder="Search anything" />
                     <Button id="searchbutton" className="d-flex ml-2">Search</Button>
                   </FormGroup> */}
-                </Nav>
-                <div className="mb-4">
+      </Nav>
+      <div className="mb-4">
+        <TabContent activeTab={activeFirstTab}>
+          <TabPane tabId="1">
+            <Card className="h-120 ">
+              <Scrollbars style={{ width: '100%', height: 400 }}>
+                <CardBody>
+                  <Table columns={cols} data={my_table} />
+                </CardBody>
+              </Scrollbars>
+            </Card>
+            <br />
+          </TabPane>
+          <TabPane tabId="2">
+            <Row>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#F4A261' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaUsers id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        13
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Students Enrolled
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#ab47bc' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <ImBooks id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        23
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Courses Created
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#E9C46A' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <BiBroadcast id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        12
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Live Lectures
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#457B9D' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <MdLocalLibrary id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        60
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Library Items
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12" xs="12">
+                <Card className="h-100  ">
+                  <Scrollbars style={{ width: '100%', height: 400 }}>
+                    <CardBody>
+                      <Table columns={cols2} data={my_table_courses} />
+                    </CardBody>
+                  </Scrollbars>
+                </Card>
+              </Col>
+            </Row>
+            <br />
+            <br />
+          </TabPane>
+          <TabPane tabId="3">
+            <Row>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#ec407a' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <MdEmail id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        76
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Email Send
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#ab47bc' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <RiMailSendFill id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        43
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Text Message Send
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#64b5f6' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <BiMessageRoundedDots
+                        id="myicon"
+                        className="text-light"
+                      />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        33
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Whattsapp Message Send
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#4db6ac' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <BiTime id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        60
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Spendings
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <Scrollbars style={{ width: '100%', height: 500 }}>
+              <Card className="mt-4 line" md="12" id="l1">
+                <CardTitle>
+                  <Row className="ml-4 mt-4">
+                    <div className="thecard">
+                      <span id="dott"></span>
+                      <small className="ml-2">Text Messages</small>
+                      <span id="dott2"></span>
+                      <small id="no" className="ml-2">
+                        Whattsapp
+                      </small>
+                      <span id="dott3"></span> <small id="no">Spendings</small>
+                    </div>
 
-                <TabContent activeTab={activeFirstTab}>
-<TabPane tabId="1">
-<Card className="h-120 ">
-<Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody>
+                    <div className="position-absolute card-top-buttons">
+                      <UncontrolledDropdown>
+                        <DropdownToggle
+                          color=""
+                          className="btn btn-header-light icon-button mr-4"
+                        >
+                          <FaFilter className="mb-1" />
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                          <DropdownItem>
+                            <Row className="ml-1">Last 7 Days</Row>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <Row className="ml-1">Last one month</Row>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <Row className="ml-1">Last three months</Row>
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    </div>
+                  </Row>
+                </CardTitle>
+                <CardBody>
+                  <div className="dashboard-line-chart">
+                    <LineChart shadow data={lineChartData} />
+                  </div>
+                </CardBody>
+              </Card>
+            </Scrollbars>
+            <Row>
+              <Col md="12" xs="12">
+                <Card className="h-100  ">
+                  <Scrollbars style={{ width: '100%', height: 400 }}>
+                    <CardBody>
+                      <Nav tabs className="card-header-tabs mb-3">
+                        <NavItem>
+                          <NavLink
+                            to="#"
+                            location={{}}
+                            className={classnames({
+                              active: activeFirstTab1 === '8',
+                              'nav-link': true,
+                            })}
+                            onClick={() => {
+                              setActiveFirstTab1('8');
+                            }}
+                          >
+                            <h6>Email</h6>
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            to="#"
+                            location={{}}
+                            className={classnames({
+                              active: activeFirstTab1 === '9',
+                              'nav-link': true,
+                            })}
+                            onClick={() => {
+                              setActiveFirstTab1('9');
+                            }}
+                          >
+                            <h6>Whatsapp Message</h6>
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            to="#"
+                            location={{}}
+                            className={classnames({
+                              active: activeFirstTab1 === '10',
+                              'nav-link': true,
+                            })}
+                            onClick={() => {
+                              setActiveFirstTab1('10');
+                            }}
+                          >
+                            <h6>Text Messages</h6>
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                      <TabContent activeTab={activeFirstTab1}>
+                        <TabPane tabId="8">
+                          <Table columns={cols3} data={Communication_table} />
+                        </TabPane>
+                        <TabPane tabId="9">
+                          <Table columns={cols8} data={Communication_table2} />
+                        </TabPane>
+                        <TabPane tabId="10">
+                          <Table columns={cols9} data={Communication_table3} />
+                        </TabPane>
+                      </TabContent>
+                    </CardBody>
+                  </Scrollbars>
+                </Card>
+              </Col>
+            </Row>
+            <br />
+            <br />
+          </TabPane>
+          <TabPane tabId="4">
+            <Row>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#FFBF69' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaBookOpen id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        42
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Courses Created
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#E76F51' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaHandHoldingUsd id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        22
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Rewards Given
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#457B9D' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <RiMoneyDollarCircleFill
+                        id="myicon"
+                        className="text-light"
+                      />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        31
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Number of payments
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#4db6ac' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <AiFillBank id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        60
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Payment volume
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <Scrollbars style={{ width: '100%', height: 500 }}>
+              <Card className=" line" md="12" id="l1">
+                <CardTitle>
+                  <Row className="ml-4 mt-4">
+                    <div className="thecard">
+                      <span id="dott"></span>
+                      <small className="ml-2">Earning</small>
+                      <span id="dott2"></span>
+                      <small id="no" className="ml-2">
+                        Courses
+                      </small>
+                      <span id="dott3"></span> <small id="no">Rewards</small>
+                    </div>
 
-        <Table columns={cols} data={my_table} /> 
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    <br/>
-</TabPane>
-<TabPane tabId="2">
-    <Row>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#F4A261"}}>
-          <Row>
-          <Col md="6" xs="6">
-          <FaUsers id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-            <CardText className="font-weight-bold head text-light">13</CardText>
-            <CardText className="font-weight-bold para text-light">Total Students Enrolled</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ab47bc"}}>
-          <Row>
-        <Col md="6" xs="6">
-          <ImBooks id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6">
-        <CardText className="font-weight-bold head text-light">23</CardText>
-            <CardText className="font-weight-bold para text-light">Total Courses Created</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#E9C46A"}}>
-        <Row>
-        <Col md="6" xs="6">
-        <BiBroadcast id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6">
-        <CardText className="font-weight-bold head text-light">12</CardText>
-            <CardText className="font-weight-bold para text-light">Total Live Lectures</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#457B9D"}}>
-        
-        <Row>
-          <Col md="6" xs="6">
-            <MdLocalLibrary id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-          <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Total Library Items</CardText>
-          </Col>
-          </Row>
-          
-        </Card>
-      </Col>
-    </Row>
-    <Row>
-      <Col md="12" xs="12">
-    <Card className="h-100  ">
-    <Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody>
-        <Table columns={cols2} data={my_table_courses} /> 
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    </Col>
-    </Row>
-    <br/><br/>
-</TabPane>
-<TabPane tabId="3">
-<Row>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ec407a"}}>
-          <Row>
-          <Col md="6" xs="6">
-          <MdEmail id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-            <CardText className="font-weight-bold head text-light">76</CardText>
-            <CardText className="font-weight-bold para text-light">Total Email Send</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ab47bc"}}>
-          <Row>
-        <Col md="6" xs="6">
-          <RiMailSendFill id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6"> 
-        <CardText className="font-weight-bold head text-light">43</CardText>
-            <CardText className="font-weight-bold para text-light">Total Text Message Send</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#64b5f6"}}>
-        <Row>
-        <Col md="6" xs="6">
-        <BiMessageRoundedDots id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6" className="mb-3">
-        <CardText className="font-weight-bold head text-light">33</CardText>
-          <CardText className="font-weight-bold para text-light">Total Whattsapp Message Send</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#4db6ac"}}>
-        <Row>
-        <Col md="6" xs="6">
-          <BiTime id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6" className="mb-3">
-          <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Total Spendings</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
-    <Scrollbars style={{ width: '100%', height: 500 }}>
-    <Card className="mt-4 line" md='12' id="l1" >
-    <CardTitle>
-      <Row className="ml-4 mt-4">
-      
-      <div className="thecard">
-        <span id="dott"></span><small className="ml-2">Text Messages</small> 
-        <span id="dott2"></span><small id="no" className="ml-2" >Whattsapp</small>
-        <span id="dott3"></span> <small id="no">Spendings</small>
+                    <div className="position-absolute card-top-buttons">
+                      <UncontrolledDropdown>
+                        <DropdownToggle
+                          color=""
+                          className="btn btn-header-light icon-button mr-4"
+                        >
+                          <FaFilter className="mb-1" />
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                          <DropdownItem>
+                            <Row className="ml-1">Last 7 Days</Row>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <Row className="ml-1">Last one month</Row>
+                          </DropdownItem>
+                          <DropdownItem>
+                            <Row className="ml-1">Last three months</Row>
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    </div>
+                  </Row>
+                </CardTitle>
+                <CardBody>
+                  <CardTitle></CardTitle>
+                  <div className="dashboard-line-chart">
+                    <LineChart shadow data={lineChartData} />
+                  </div>
+                </CardBody>
+              </Card>
+            </Scrollbars>
+            <Row>
+              <Col md="12" xs="12">
+                <Card className="h-120  ">
+                  <Scrollbars style={{ width: '100%', height: 400 }}>
+                    <CardBody style={{ width: '120%' }}>
+                      <Table columns={cols4} data={Monitization_table} />
+                    </CardBody>
+                  </Scrollbars>
+                </Card>
+              </Col>
+            </Row>
+            <br />
+            <br />
+          </TabPane>
+          <TabPane tabId="5">
+            <Row>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#FFA07A' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <IoIosPeople id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        42
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Affiliates
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#AF7AC5' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaUserCheck id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        22
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Enrollments
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#52BE80' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <RiMoneyDollarCircleFill
+                        id="myicon"
+                        className="text-light"
+                      />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText
+                        className="font-weight-bold head text-light" /*  style={{fontSize:'30px', marginTop:'30px'}} */
+                      >
+                        $11
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Revenue
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#5499C7' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaHandHoldingUsd id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        60
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Rewards given
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12" xs="12">
+                <Card className="h-100 pl-4  ">
+                  <Nav tabs className="card-header-tabs ">
+                    <NavItem style={{ marginTop: '40px', MarginLeft: '40px' }}>
+                      <NavLink
+                        to="#"
+                        location={{}}
+                        className={classnames({
+                          active: activeFirstTab6 === '20',
+                          'nav-link': true,
+                        })}
+                        onClick={() => {
+                          setActiveFirstTab6('20');
+                        }}
+                      >
+                        <h6>Affiliate Name</h6>
+                      </NavLink>
+                    </NavItem>
+                    <NavItem style={{ marginTop: '40px', MarginLeft: '40px' }}>
+                      <NavLink
+                        to="#"
+                        location={{}}
+                        className={classnames({
+                          active: activeFirstTab6 === '21',
+                          'nav-link': true,
+                        })}
+                        onClick={() => {
+                          setActiveFirstTab6('21');
+                        }}
+                      >
+                        <h6>Course Name</h6>
+                      </NavLink>
+                    </NavItem>
+                  </Nav>
+                  <Scrollbars style={{ width: '100%', height: 400 }}>
+                    <CardBody>
+                      <TabContent activeTab={activeFirstTab6}>
+                        <TabPane tabId="20">
+                          <Table columns={cols11} data={affiliate} />{' '}
+                        </TabPane>
+                        <TabPane tabId="21">
+                          <Table columns={cols15} data={affiliate2} />{' '}
+                        </TabPane>
+                      </TabContent>
+                    </CardBody>
+                  </Scrollbars>
+                </Card>
+              </Col>
+            </Row>
+            <br />
+            <br />
+          </TabPane>
+          <TabPane tabId="6">
+            <Row>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#0984e3' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaBlog id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        12
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Blogs
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#6c5ce7' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaComments id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        22
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Comments
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#e17055' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <BiCheckDouble id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText
+                        className="font-weight-bold head text-light" /*  style={{fontSize:'30px', marginTop:'30px'}} */
+                      >
+                        143
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Page Views
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#e84393' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <AiOutlineExclamation
+                        id="myicon"
+                        className="text-light"
+                      />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        60
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Unique Pageviews
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="12" xs="12">
+                <Card className="h-100  ">
+                  <Scrollbars style={{ width: '100%', height: 400 }}>
+                    <CardBody>
+                      <Nav tabs className="card-header-tabs mb-3">
+                        <NavItem>
+                          <NavLink
+                            to="#"
+                            location={{}}
+                            className={classnames({
+                              active: activeFirstTab2 === '13',
+                              'nav-link': true,
+                            })}
+                            onClick={() => {
+                              setActiveFirstTab2('13');
+                            }}
+                          >
+                            <h6>Blogs</h6>
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            to="#"
+                            location={{}}
+                            className={classnames({
+                              active: activeFirstTab2 === '14',
+                              'nav-link': true,
+                            })}
+                            onClick={() => {
+                              setActiveFirstTab2('14');
+                            }}
+                          >
+                            <h6>Blogger</h6>
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                      <TabContent activeTab={activeFirstTab2}>
+                        <TabPane tabId="13">
+                          <Table columns={cols12} data={posts1} />
+                        </TabPane>
+                        <TabPane tabId="14">
+                          <Table columns={cols13} data={posts2} />
+                        </TabPane>
+                      </TabContent>
+                    </CardBody>
+                  </Scrollbars>
+                </Card>
+              </Col>
+            </Row>
+            <br />
+            <br />
+          </TabPane>
+          <TabPane tabId="7">
+            <Row>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#ec407a' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaLink id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        16
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total links
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#ab47bc' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <MdVisibility id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6">
+                      <CardText className="font-weight-bold head text-light">
+                        43
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total visits
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#64b5f6' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaUsers id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        12
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Unique visits
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+              <Col sm="3" xs="12" className="mb-3">
+                <Card
+                  body
+                  id="crd"
+                  className="text-center"
+                  style={{ backgroundColor: '#4db6ac' }}
+                >
+                  <Row>
+                    <Col md="6" xs="6">
+                      <FaGlobeAsia id="myicon" className="text-light" />
+                    </Col>
+                    <Col md="6" xs="6" className="mb-3">
+                      <CardText className="font-weight-bold head text-light">
+                        6
+                      </CardText>
+                      <CardText className="font-weight-bold para text-light">
+                        Total Distinct Countries
+                      </CardText>
+                    </Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
+
+            <Card /* style={{height: '500px'}} */>
+              <div
+                style={{
+                  display: 'flex',
+                  marginTop: '3%',
+                  marginLeft: '3%',
+                  justifyContent: 'space-evenly',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <Form
+                  inline
+                  onSubmit={
+                    handleSubmit
+                  } /*style={{ marginTop: '5%', marginLeft: '3%' }}*/
+                >
+                  <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                    <Input
+                      type="text"
+                      name="fullurl"
+                      id="exampleFullurl"
+                      placeholder="Enter Url To Be Tracked"
+                    />
+                  </FormGroup>
+
+                  <Button>Submit</Button>
+                </Form>
+
+                <a
+                  href={shortUrl}
+                  target="_blank"
+                  style={{ marginTop: '20px' }}
+                >
+                  {shortUrl}
+                </a>
+                <div>
+                  <FormGroup className="ml-auto mr-4 mt-4">
+                    <Input
+                      type="select"
+                      name="select"
+                      id="exampleSelect"
+                      style={{ width: '150px' }}
+                      onChange={changechart}
+                    >
+                      <option>Select filter</option>
+                      <option>Last 7 days</option>
+                      <option>Last 4 days</option>
+                    </Input>
+                  </FormGroup>
+                </div>
+              </div>
+              <CardBody style={{}}>
+                {chartstatus ? (
+                  <Line data={data} style={{ marginTop: '-100px' }} />
+                ) : (
+                  <Line data={data2} style={{ marginTop: '-100px' }} />
+                )}
+              </CardBody>
+            </Card>
+
+            <br />
+            <Card className="h-100 ">
+              <Scrollbars style={{ width: '100%', height: 400 }}>
+                <CardBody style={{ width: '260%' }}>
+                  <Table columns={cols20} data={linkTraking} />
+                </CardBody>
+              </Scrollbars>
+            </Card>
+            <br />
+            <br />
+            <br />
+          </TabPane>
+        </TabContent>
       </div>
-
-      <div className="position-absolute card-top-buttons">
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
-            <FaFilter className="mb-1"/>
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Row className="ml-1">Last 7 Days</Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Last one month</Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Last three months</Row>
-            </DropdownItem>
-          </DropdownMenu>
-          </UncontrolledDropdown>
-          </div>
-        </Row>
-        </CardTitle>
-      <CardBody  >
-
-      
-        <div className="dashboard-line-chart">
-          <LineChart shadow data={lineChartData} />
-        </div>
-      </CardBody>
-      
-    </Card></Scrollbars>
-    <Row>
-      <Col md="12" xs="12">
-    <Card className="h-100  ">
-    <Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody>
-
-       <Nav tabs className="card-header-tabs mb-3">
-       
-       <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab1 === '8',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab1('8');
-                      }}
-                    >
-                   <h6>Email</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab1 === '9',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab1('9');
-                      }}
-                    >
-                   <h6>Whatsapp Message</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab1 === '10',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab1('10');
-                      }}
-                    >
-                   <h6>Text Messages</h6>
-                    </NavLink>
-                  </NavItem>
-                    </Nav> 
-                    <TabContent activeTab={activeFirstTab1}>
-                    <TabPane tabId="8"><Table columns={cols3} data={Communication_table}/></TabPane>
-                    <TabPane tabId="9"><Table columns={cols8} data={Communication_table2}/></TabPane>
-                    <TabPane tabId="10"><Table columns={cols9} data={Communication_table3}/></TabPane>
-                    </TabContent>
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    </Col>
-    </Row>
-    <br/><br/>
-</TabPane>
-<TabPane tabId="4">
-<Row>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#FFBF69"}}>
-          <Row>
-          <Col md="6" xs="6">
-          <FaBookOpen id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-            <CardText className="font-weight-bold head text-light">42</CardText>
-            <CardText className="font-weight-bold para text-light">Total Courses Created</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#E76F51"}}>
-          <Row>
-        <Col md="6" xs="6">
-          <FaHandHoldingUsd id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6"> 
-        <CardText className="font-weight-bold head text-light">22</CardText>
-            <CardText className="font-weight-bold para text-light">Total Rewards Given</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#457B9D"}}>
-        <Row>
-        <Col md="6" xs="6">
-        <RiMoneyDollarCircleFill id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6" className="mb-3">
-        <CardText className="font-weight-bold head text-light">31</CardText>
-          <CardText className="font-weight-bold para text-light">Number of payments</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#4db6ac"}}>
-        <Row>
-        <Col md="6" xs="6">
-          <AiFillBank id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6" className="mb-3">
-          <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Payment volume</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
-    <Scrollbars style={{ width: '100%', height: 500 }}>
-    <Card className=" line" md='12' id="l1">
-    <CardTitle>
-      <Row className="ml-4 mt-4">
-      
-      <div className="thecard">
-        <span id="dott"></span><small className="ml-2">Earning</small> 
-        <span id="dott2"></span><small id="no" className="ml-2" >Courses</small>
-        <span id="dott3"></span> <small id="no">Rewards</small>
-      </div>
-
-      <div className="position-absolute card-top-buttons">
-        <UncontrolledDropdown>
-          <DropdownToggle color="" className="btn btn-header-light icon-button mr-4">
-            <FaFilter className="mb-1"/>
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>
-              <Row className="ml-1">Last 7 Days</Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Last one month</Row>
-            </DropdownItem>
-            <DropdownItem>
-            <Row className="ml-1">Last three months</Row>
-            </DropdownItem>
-          </DropdownMenu>
-          </UncontrolledDropdown>
-          </div>
-        </Row>
-        </CardTitle>
-      <CardBody >
-
-        <CardTitle>
-        </CardTitle>
-        <div className="dashboard-line-chart">
-          <LineChart shadow data={lineChartData} />
-        </div>
-      </CardBody>
-    </Card>
-    </Scrollbars>
-    <Row>
-      <Col md="12" xs="12">
-    <Card className="h-120  ">
-    <Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody style={{width:'120%'}}>
-        <Table columns={cols4} data={Monitization_table} /> 
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    </Col>
-    </Row>
-    <br/><br/>
-</TabPane>
-<TabPane tabId="5">
-<Row>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#FFA07A"}}>
-          <Row>
-          <Col md="6" xs="6">
-          <IoIosPeople id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-            <CardText className="font-weight-bold head text-light">42</CardText>
-            <CardText className="font-weight-bold para text-light">Total Affiliates</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#AF7AC5"}}>
-          <Row>
-        <Col md="6" xs="6">
-          <FaUserCheck id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6"> 
-        <CardText className="font-weight-bold head text-light">22</CardText>
-            <CardText className="font-weight-bold para text-light">Total Enrollments</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#52BE80"}}>
-        <Row>
-        <Col md="6" xs="6">
-        <RiMoneyDollarCircleFill id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6" className="mb-3">
-        <CardText className="font-weight-bold head text-light"/*  style={{fontSize:'30px', marginTop:'30px'}} */>$11</CardText>
-          <CardText className="font-weight-bold para text-light">Total Revenue</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#5499C7"}}>
-        <Row>
-        <Col md="6" xs="6">
-          <FaHandHoldingUsd id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6" className="mb-3">
-          <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Total Rewards given</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
-    <Row>
-      <Col md="12" xs="12">
-    <Card className="h-100 pl-4  ">
-    <Nav tabs className="card-header-tabs ">
-       
-       <NavItem style={{marginTop:'40px', MarginLeft:'40px'}}>
-                    <NavLink 
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab6 === '20',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab6('20');
-                      }}
-                    >
-                   <h6>Affiliate Name</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem style={{marginTop:'40px', MarginLeft:'40px'}}>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab6 === '21',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab6('21');
-                      }}
-                    >
-                   <h6>Course Name</h6>
-                    </NavLink>
-                  </NavItem>
-                </Nav> 
-    <Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody>
-        
-                  <TabContent activeTab={activeFirstTab6}>
-                    <TabPane tabId="20"><Table columns={cols11} data={affiliate} /> </TabPane>
-                    <TabPane tabId="21"><Table columns={cols15} data={affiliate2} /> </TabPane>
-                  </TabContent>
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    </Col>
-    </Row>
-    <br/><br/>
-</TabPane>
-<TabPane tabId="6">
-    <Row>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#0984e3"}}>
-          <Row>
-          <Col md="6" xs="6">
-          <FaBlog id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-            <CardText className="font-weight-bold head text-light">12</CardText>
-            <CardText className="font-weight-bold para text-light">Total Blogs</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#6c5ce7"}}>
-          <Row>
-        <Col md="6" xs="6">
-          <FaComments id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6"> 
-        <CardText className="font-weight-bold head text-light">22</CardText>
-            <CardText className="font-weight-bold para text-light">Total Comments</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#e17055"}}>
-        <Row>
-        <Col md="6" xs="6">
-        <BiCheckDouble id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6" className="mb-3">
-        <CardText className="font-weight-bold head text-light"/*  style={{fontSize:'30px', marginTop:'30px'}} */>143</CardText>
-          <CardText className="font-weight-bold para text-light">Total Page Views</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#e84393"}}>
-        <Row>
-        <Col md="6" xs="6">
-          <AiOutlineExclamation id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6" className="mb-3">
-          <CardText className="font-weight-bold head text-light">60</CardText>
-            <CardText className="font-weight-bold para text-light">Unique Pageviews</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
-    <Row>
-      <Col md="12" xs="12">
-    <Card className="h-100  ">
-    <Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody>
-      <Nav tabs className="card-header-tabs mb-3">
-       
-       <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab2 === '13',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab2('13');
-                      }}
-                    >
-                   <h6>Blogs</h6>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      to="#"
-                      location={{}}
-                      className={classnames({
-                        active: activeFirstTab2 === '14',
-                        'nav-link': true,
-                      })}
-                      onClick={() => {
-                        setActiveFirstTab2('14');
-                      }}
-                    >
-                   <h6>Blogger</h6>
-                    </NavLink>
-                  </NavItem>
-                    </Nav> 
-                    <TabContent activeTab={activeFirstTab2}>
-                    <TabPane tabId="13"><Table columns={cols12} data={posts1} /></TabPane>
-                    <TabPane tabId="14"><Table columns={cols13} data={posts2}/></TabPane>
-                    </TabContent>
-         
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    </Col>
-    </Row>
-    <br/><br/>
-</TabPane>
-<TabPane tabId="7">
-    <Row>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ec407a"}}>
-          <Row>
-          <Col md="6" xs="6">
-          <FaLink id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6">
-            <CardText className="font-weight-bold head text-light">16</CardText>
-            <CardText className="font-weight-bold para text-light">Total links</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#ab47bc"}}>
-          <Row>
-        <Col md="6" xs="6">
-          <MdVisibility id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6"> 
-        <CardText className="font-weight-bold head text-light">43</CardText>
-            <CardText className="font-weight-bold para text-light">Total visits</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#64b5f6"}}>
-        <Row>
-        <Col md="6" xs="6">
-        <FaUsers id="myicon" className="text-light"/>
-        </Col>
-        <Col md="6" xs="6" className="mb-3">
-        <CardText className="font-weight-bold head text-light">12</CardText>
-          <CardText className="font-weight-bold para text-light">Total Unique visits</CardText>
-        </Col>
-        </Row>
-        </Card>
-      </Col>
-      <Col sm="3" xs="12" className="mb-3">
-        <Card body id="crd" className="text-center" style={{backgroundColor:"#4db6ac"}}>
-        <Row>
-        <Col md="6" xs="6">
-          <FaGlobeAsia id="myicon" className="text-light"/>
-          </Col>
-          <Col md="6" xs="6" className="mb-3">
-          <CardText className="font-weight-bold head text-light">6</CardText>
-            <CardText className="font-weight-bold para text-light">Total Distinct Countries</CardText>
-          </Col>
-          </Row>
-        </Card>
-      </Col>
-    </Row>
-    <Card /* style={{height: '500px'}} */>      
-      <FormGroup className="ml-auto mr-4 mt-4">
-        <Input type="select" name="select" id="exampleSelect"style={{width: "150px"}} onChange={changechart}>
-          <option >Select filter</option>
-          <option >Last 7 days</option>
-          <option>Last 4 days</option>
-        </Input>
-      </FormGroup>
-<CardBody style={{ }}>
-      { chartstatus ? <Line data={data} style={{marginTop:'-100px'}} />: <Line data={data2} style={{marginTop:'-100px'}}/>}  
-    </CardBody></Card>
-    
-    <br/>
-    <Card className="h-100 ">
-    <Scrollbars style={{ width: '100%', height: 400 }}>
-      <CardBody style={{width:'260%'}}>
-        <Table columns={cols20} data={linkTraking} /> 
-      </CardBody>
-      </Scrollbars>
-    </Card>
-    <br/>
-    <br/><br/>
-</TabPane>
-</TabContent>
-
-  </div>
     </>
   );
 };

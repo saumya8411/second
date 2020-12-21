@@ -26,6 +26,8 @@ export const DropDownContextProvider = ({ children }) => {
         search,
         setSearch,
         handleReloadTable,
+        reloadTable,
+        setReloadTable,
       ]}
     >
       {children}
