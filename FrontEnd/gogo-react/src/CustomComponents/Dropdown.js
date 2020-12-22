@@ -38,6 +38,7 @@ const CustomSelect = ({ intl }) => {
     setSelectedSort,
     search,
     setSearch,
+    handleReloadTable,
   ] = useContext(DropDownContext);
   // const [selectedSort, setSelectedSort] = useState('');
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -193,7 +194,10 @@ const CustomSelect = ({ intl }) => {
             Create Session
           </Button>
           <Modal isOpen={modalLarge} size="lg" toggle={() => handleToggle}>
-            <SessionInput closeModal={handleToggle} />
+            <SessionInput
+              closeModal={handleToggle}
+              propHandle={handleReloadTable}
+            />
           </Modal>
         </Colxx>
       </Row>

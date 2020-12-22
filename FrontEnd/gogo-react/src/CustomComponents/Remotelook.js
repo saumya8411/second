@@ -306,6 +306,10 @@ const Remotelook = (props) => {
               <h3 className="font-weight-bold">Occurance</h3>
               <p>{data.session_occurance}</p>
             </Colxx>
+            <Colxx xs="12" md="12">
+              <h3 className="font-weight-bold">Fees Type</h3>
+              <p>{data.session_fee_type}</p>
+            </Colxx>
           </Row>
         </CardBody>
       </Card>

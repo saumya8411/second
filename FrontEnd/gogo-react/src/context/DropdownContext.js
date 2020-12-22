@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react';
+import { useEffect } from 'react';
 
 export const DropDownContext = createContext();
 // export const SortByContext = createContext();
@@ -16,6 +17,10 @@ export const DropDownContextProvider = ({ children }) => {
     setReloadTable(!reloadTable);
   };
 
+  useEffect(() => {
+    console.log('context useffect called', handleReloadTable);
+  });
+
   return (
     <DropDownContext.Provider
       value={[
@@ -26,8 +31,8 @@ export const DropDownContextProvider = ({ children }) => {
         search,
         setSearch,
         handleReloadTable,
-        reloadTable,
-        setReloadTable,
+        // reloadTable,
+        // setReloadTable,
       ]}
     >
       {children}

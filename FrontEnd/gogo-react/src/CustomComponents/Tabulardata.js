@@ -44,6 +44,8 @@ function Table({
     usePagination
   );
   let [name, setName] = useState('Launch');
+
+  useEffect(() => console.log(data.length, page, page.length));
   // console.log(page  )
   /* let change = (e,props) => {
 
@@ -273,23 +275,22 @@ export const TabularData = () => {
     search,
     setSearch,
     handleReloadTable,
-    reloadTable,
-    setReloadTable,
   ] = useContext(DropDownContext);
-  // const [sortBy, setSortBy] = useContext(SortByContext);
+
+  // console.log(handleReloadTable);
 
   useEffect(() => {
     const route = selectedFilter.value || 'findall';
     const sortFilter = selectedSort.value || 'session_start_date';
     const searchSession = search || '';
 
-    console.log(route, sortFilter, search);
+    // console.log(route, sortFilter, search);
     axiosInstance
       .get(
         `/sessions/FindAllSession?route=${route}&sort=${sortFilter}&search=${searchSession}`
       )
       .then((response) => {
-        console.log(response);
+        console.log(response, response.data.sessions.length);
         const sessions = [];
         response.data.sessions.forEach((doc) => {
           const session = {
@@ -304,7 +305,7 @@ export const TabularData = () => {
           };
           sessions.push(session);
         });
-
+        console.log('final length: ', sessions.length);
         setData(sessions);
       })
       .catch((error) => {
@@ -318,8 +319,8 @@ export const TabularData = () => {
     search,
     setSearch,
     handleReloadTable,
-    reloadTable,
-    setReloadTable,
+    // reloadTable,
+    // setReloadTable,
   ]);
   return (
     <div className="mb-4">

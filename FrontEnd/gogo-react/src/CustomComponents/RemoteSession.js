@@ -90,8 +90,8 @@ const correspondanceoption = [
   { value: 'uploaded', label: 'uploaded' },
 ];
 
-const RemoteSession = ({ closeModal }) => {
-  // console.log(closeModal);
+const RemoteSession = ({ closeModal, propHandle }) => {
+  console.log(closeModal, propHandle);
   let date = '';
   const [startDateRange, setStartDateRange] = useState('');
   const [time, setTime] = useState('');
@@ -110,11 +110,9 @@ const RemoteSession = ({ closeModal }) => {
   let [description, setDescription] = useState('');
   let [trainer, setTrainer] = useState('You');
   let [session_fee, setSession_fee] = useState('');
-  const [handleReloadTable, reloadTable, setReloadTable] = useContext(
-    DropDownContext
-  );
+  const [handleReloadTable] = useContext(DropDownContext);
 
-  // console.log(reloadTable, setReloadTable);
+  console.log(handleReloadTable);
 
   const checkempty = () => {
     if (!course) {
@@ -204,7 +202,7 @@ const RemoteSession = ({ closeModal }) => {
   };
 
   const onSubmit = () => {
-    // console.log(closeModal);
+    console.log(handleReloadTable);
 
     const values = {
       session_name,
@@ -214,28 +212,39 @@ const RemoteSession = ({ closeModal }) => {
       startDateRange,
       duration,
       time,
+      session_fee,
     };
+    values.session_fee_type = check ? state : fees;
+    values.session_tags = course.map((doc) => doc.label).toString();
+    values.session_enable_registration = check ? 1 : 0;
+    if (
+      (!check && fees === 'Free for Course Enrolled Students') ||
+      (check &&
+        state ===
+          'Free for new Registrants + Free for Course Enrolled Students.')
+    )
+      values.session_fee = 0;
 
-    if (check) {
-      // console.log(state)
-      if (
-        state != 'Free for new Registrants + Free for Course Enrolled Students.'
-      )
-        values.fees = `${state} ${session_fee}`;
-      else values.fees = state;
-      values.session_registration = true;
-      // values.fees = null;
-    } else if (fees !== 'Free for Course Enrolled Students') {
-      values.fees = `${fees} ${session_fee}`;
-      // values.state = null;
-    } else values.fees = fees;
+    console.log(state, values, fees);
+    // if (check) {
+    //   // console.log(state)
+    //   if (
+    //     state != 'Free for new Registrants + Free for Course Enrolled Students.'
+    //   )
+    //     values.fees = `${state} ${session_fee}`;
+    //   else values.fees = state;
+    //   values.session_registration = true;
+    //   // values.fees = null;
+    // } else if (fees !== 'Free for Course Enrolled Students') {
+    //   values.fees = `${fees} ${session_fee}`;
+    //   // values.state = null;
+    // } else values.fees = fees;
 
     // console.log(values.fees)
     const isValid = validateInput(values);
     // console.log(isValid)
     if (!isValid.success) setError(isValid.error);
     else {
-      values.session_tags = course.map((doc) => doc.label).toString();
       axiosInstance
         .post('/sessions/createLiveSession', { values })
         .then((response) => {
@@ -255,12 +264,8 @@ const RemoteSession = ({ closeModal }) => {
             setError('Create Session Error');
           }
         })
-        .then(() => {
-          console.log('calling handle reload table', setReloadTable);
-          reloadTable(!reloadTable);
-        });
+        .then(() => propHandle());
     }
-    console.log(values);
   };
 
   return (

@@ -24,31 +24,33 @@ const { Op } = require("sequelize");
 
 
 router.post('/createLiveSession',auth,async (req,res)=>{
-  console.log('❓', req.user.customer_id);
+  console.log('❓', req.body);
   // return res.status(200).json({success:1})
 
   try {
       let {       
             session_name,
             description,
-            // session_duration,
-            fees,
             occurance,
             duration,
             session_tags,
-            session_start_date,
-            session_end_date,
-            session_start_time,
+            session_fee,
+            trainer,
+            startDateRange,
+            session_fee_type,
+            // session_end_date,
+            time,
         session_associated_course_id,
-        session_registration=false
+        session_enable_registration
     } = req.body.values;
     
     session_description = description;
-    // session_course = course;
     session_duration = duration;
     session_occurance =occurance;
     session_associated_course_id = "10";
-    session_fee = fees;
+    session_start_date = startDateRange;
+    session_trainer_name = trainer;
+    session_start_time=time
 
     console.log('❓', session_name);
     
@@ -118,6 +120,8 @@ router.post('/createLiveSession',auth,async (req,res)=>{
       session_trainer_id:Zoom_res.host_id,
       session_duration,
       session_fee,
+      session_fee_type,
+      session_trainer_name,
       session_tags,
       session_link:Zoom_res.join_url,
       session_uploaded_on:Zoom_res.created_at,
@@ -155,10 +159,8 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
       session_duration,
       session_fee,
       session_tags,
-      session_occurance,
-      session_start_date,
-      session_end_date,
-      session_start_time,
+      session_trainer_name,
+      session_fee_type,
       session_associated_course_id="10"
     } = req.body.values;
 
@@ -202,11 +204,13 @@ router.post('/createRecordedSession',auth,async (req,res)=>{
       session_duration,
       session_tags,
       session_fee,
+      session_fee_type,
+      session_trainer_name,
       session_link:Zoom_res.join_url,
       session_uploaded_on:Zoom_res.created_at,
-      session_occurance,
-      session_start_date,
-      session_start_time,
+      // session_occurance,
+      // session_start_date,
+      // session_start_time,
       session_registration:0,
       session_associated_course_id,
       session_zoom_code:Zoom_res.id,

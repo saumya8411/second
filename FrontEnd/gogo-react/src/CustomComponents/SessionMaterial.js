@@ -92,6 +92,8 @@ export default class SessionMaterial extends Component {
         description: '',
         seo: '',
         session_fee: '0',
+        session_link: '',
+        session_fee_type: '',
         Trainer: {
           name: 'Vedant',
           skills: [
@@ -147,7 +149,7 @@ export default class SessionMaterial extends Component {
         `/sessions/FindSessionById/${this.props.location.state.uniquesessionid}`
       )
       .then((response) => {
-        console.log(response);
+        console.log(response, response.data.session.session_link);
         if (response.data.success) {
           const session = response.data.session;
 
@@ -161,6 +163,8 @@ export default class SessionMaterial extends Component {
               tagline: session.session_tagline || 'Default Tagline',
               description: session.session_description,
               seo: session.session_tags,
+              session_link: session.session_link,
+              session_fee_type: session.session_fee_type,
               session_fee: session.session_fee
                 ? `${session.session_fee} INR`
                 : '0',
@@ -353,6 +357,8 @@ export default class SessionMaterial extends Component {
               tagline: session.session_tagline || 'Default Tagline',
               description: session.session_description,
               seo: session.session_tags,
+              session_fee_type: session.session_fee_type,
+              session_link: session.session_link,
               session_fee: session.session_fee
                 ? `${session.session_fee} INR`
                 : '0',
@@ -442,6 +448,7 @@ export default class SessionMaterial extends Component {
                     outline
                     color="secondary"
                     style={{ borderRadius: '3px', fontSize: '14px' }}
+                    onClick={() => window.open(this.state.data.session_link)}
                   >
                     Launch
                   </Button>
@@ -546,6 +553,33 @@ export default class SessionMaterial extends Component {
                       Description
                     </h3>
                     <p>{this.state.data.description}</p>
+                    {/* <Input
+                      type="text"
+                      name="description"
+                      placeholder="Write a good description"
+                      value={this.state.data.description}
+                      onChange={(e) => this.changepageattribute(e)}
+                    /> */}
+                    {/* <Editable
+                      style={{ fontSize: '15px' }}
+                      text={this.state.data.description}
+                      placeholder="Write a good description"
+                      type="input"
+                    >
+                     
+                     
+                    </Editable> */}
+                  </Colxx>
+                </Row>
+                <Row style={{ marginBottom: '20px' }}>
+                  <Colxx xxs="12" md="4">
+                    <h3
+                      className="font-weight-bold"
+                      style={{ fontSize: '1.5rem' }}
+                    >
+                      Fees Type
+                    </h3>
+                    <p>{this.state.data.session_fee_type}</p>
                     {/* <Input
                       type="text"
                       name="description"

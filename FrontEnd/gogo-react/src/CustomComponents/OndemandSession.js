@@ -48,15 +48,13 @@ const CreatesessionSchema = Yup.object().shape({
 
 const options = [{ value: 'you', label: 'You' }];
 
-const OndemandSession = ({ closeModal }) => {
+const OndemandSession = ({ closeModal, propHandle }) => {
   const [checkedSecondarySmall, setCheckedSecondarySmall] = useState(true);
   const [tagsLO, setTagsLO] = useState([]);
   let [select, setselect] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [handleReloadTable, reloadTable, setReloadTable] = useContext(
-    DropDownContext
-  );
+  const [handleReloadTable] = useContext(DropDownContext);
 
   useEffect(() => {
     if (error) {
@@ -86,10 +84,13 @@ const OndemandSession = ({ closeModal }) => {
   };
 
   const onSubmit = (values, { setSubmitting }) => {
+    console.log(handleReloadTable);
     values.session_tags = tagsLO.toString();
-    values.session_trainer = JSON.stringify(values.trainer);
-    console.log(values, select);
+    values.session_trainer_name = JSON.stringify(values.trainer);
+    values.session_fee_type = select;
 
+    if (select == 'Free for Course Enrolled Students') values.session_fee = 0;
+    console.log(values);
     if (!select || select === 'Choose Something')
       setError('Select Valid Option From Dropdown');
     else if (
@@ -99,10 +100,6 @@ const OndemandSession = ({ closeModal }) => {
       setError('Provide Valid Fees');
     else {
       setTimeout(() => {
-        values.session_fee =
-          select === 'Free for Course Enrolled Students'
-            ? `0`
-            : `${select} ${values.session_fee}`;
         //here makerequest fr your session creation
         axiosInstance
           .post('/sessions/createRecordedSession', { values })
@@ -128,11 +125,7 @@ const OndemandSession = ({ closeModal }) => {
               setError('Could not create session');
             }
           })
-          .then(() => {
-            console.log('calling handle reload table', handleReloadTable);
-            reloadTable(!reloadTable);
-          });
-        //
+          .then(() => propHandle());
         setSubmitting(false);
       }, 1000);
     }
