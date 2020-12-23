@@ -1,6 +1,5 @@
 const { db } = require("./connection");
 const  { DataTypes } = require("sequelize");
-const moment = require('moment-timezone');
 const Sequelize=require('sequelize')
 const Session = db.define("session_table", {
 	session_id: {
