@@ -241,6 +241,14 @@ const OndemandSession = ({ closeModal, propHandle }) => {
           <Button color="primary" type="submit">
             Submit
           </Button>
+          <Button
+            color="primary"
+            style={{ marginLeft: '30px' }}
+            type="cancel"
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
         </Form>
       )}
     </Formik>

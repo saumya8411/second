@@ -40,6 +40,13 @@ router.post('/users' , async (req,res) => {
             })
         }
 
+        const isSubDomainExists = await User.findOne({ where: { customer_subdomain_name } });
+        if (isSubDomainExists)
+            return res.status(400).json({
+                success: 0,
+                error:'Subdomain Already Exists'
+            })
+
         if(!using_google) {
             const salt = bcrypt.genSaltSync(10);
             customer_password = await bcrypt.hashSync(customer_password,salt)

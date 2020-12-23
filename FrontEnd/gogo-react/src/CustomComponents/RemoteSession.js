@@ -451,7 +451,7 @@ const RemoteSession = ({ closeModal, propHandle }) => {
           isMulti
           name="session_associated_course"
           options={colourOptions}
-          defaultValue={colourOptions[0]}
+          // defaultValue={colourOptions[0]}
           className="basic-multi-select"
           classNamePrefix="select"
           onChange={(e) => setCourse(e)}
@@ -657,6 +657,14 @@ const RemoteSession = ({ closeModal, propHandle }) => {
         onClick={onSubmit} /* onClick={checkempty} */
       >
         Submit
+      </Button>
+      <Button
+        color="primary"
+        type="cancel"
+        style={{ marginLeft: '30px' }}
+        onClick={closeModal} /* onClick={checkempty} */
+      >
+        Cancel
       </Button>
 
       {/* {console.log(initialValues.fee_select)} */}

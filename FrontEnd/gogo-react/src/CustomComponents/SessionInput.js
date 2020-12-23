@@ -30,9 +30,6 @@ function SessionInput({ closeModal, propHandle }) {
           <Colxx xxs="8">
             <h3>Create Sessions</h3>
           </Colxx>
-          <Colxx xxs="4" style={{ marginLeft: 'auto' }}>
-            <Button onClick={closeModal}>Cancel</Button>
-          </Colxx>
         </Row>
 
         <Row>
