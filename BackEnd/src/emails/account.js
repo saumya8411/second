@@ -3,15 +3,16 @@ const http = require('https');
 
 const sendWelcomeEmail = (email, name) => {
   var options = {
-  "method": "POST",
-  "hostname": "api.transmail.com",
-  "port": null,
-  "path": "/v1.1/email",
-  "headers": {
-    "accept": "application/json",
-    "content-type": "application/json",
-    "authorization": `Zoho-enczapikey ${process.env.API_TRANSMAIL}`,
-  }
+    "method": "POST",
+    "hostname": "api.transmail.com",
+    "port": null,
+    "path": "/v1.1/email",
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json",
+      "authorization": `Zoho-enczapikey ${process.env.API_TRANSMAIL}`,
+    }
+  
 };
 
 var req = http.request(options, function (res) {
@@ -50,7 +51,7 @@ const sendCancelationEmail = (email, name) => {
   "headers": {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": process.env.API_TRANSMAIL
+    "authorization": `Zoho-enczapikey ${process.env.API_TRANSMAIL}`
   }
 };
 

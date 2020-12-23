@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const { route } = require('../Sessions');
 const { db, ShortUrl } = require('./model');
 const router = require('express').Router();
-const  shortUrlGenerator = require('node-url-shortener');
+const shortId = require('shortid');
 
 router.post('/genShort', async (req, res) => {
     // await ShortUrl.create({ full: req.body.fullUrl })
@@ -12,37 +12,25 @@ router.post('/genShort', async (req, res) => {
             success: 0,
             error:'Provide full url'
         })
-    shortUrlGenerator.short(full, async(err, url) => {
-        if (err)
-            return res.status(500).json({
-                success: 0,
-                error: 'Could not create short url...please try again',
-                errorReturned:err
-            })
-        console.log(url);
-
-        const isPresent = await ShortUrl.findOne({ where: { short: url } })
-        if (isPresent)
-            return res.status(500).json({
-                success: 0,
-                error:'url already exists..can not create url'
-            })
-        const record = await ShortUrl.create({
-            full,
-            short:url
+    
+    const id = shortId.generate();
+    const isPresent = await ShortUrl.findOne({ where: { short: id } });
+    if (isPresent)
+        return res.status(500).json({
+            success: 0,
+            error:'error while generating shortid..please try again'
         })
-        console.log(record);
-        if (!record)
-            return res.status(500).json({
-                success: 0,
-                error: 'Could not create short url'
-            })
-        return res.status(200).json({
-            success: 1,
-            shortUrl:url
+    const savedRecord = await ShortUrl.create({ full, short:id });
+    if (!savedRecord)
+        return res.status(500).json({
+            success: 0,
+            error:'error while saving record to database...please try again'
         })
-    });
-    // res.redirect('/')
+    return res.status(200).json({
+        success: 1,
+        shortUrl: id,
+        fullUrl:full
+    })
   })
   
 router.get('/:short', async (req, res) => {

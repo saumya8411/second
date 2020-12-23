@@ -1,7 +1,7 @@
 const { db } = require("./connection");
 const { DataTypes } = require("sequelize");
 
-const Session = db.define("session_table2", {
+const Session = db.define("session_table", {
 	session_id: {
 		type: DataTypes.INTEGER(255),
 		primaryKey: true,
@@ -70,6 +70,14 @@ const Session = db.define("session_table2", {
 		type: DataTypes.DATE,
 		defaultValue: DataTypes.NOW
 	},
+	session_start_time: {
+		type: DataTypes.DATE,
+		defaultValue: DataTypes.NOW,
+	},
+	session_end_time: {
+		type: DataTypes.DATE,
+		defaultValue: DataTypes.NOW,
+	},
 	session_occurance: {
 		type: DataTypes.STRING,
 		allowNull: true,
@@ -84,16 +92,7 @@ const Session = db.define("session_table2", {
 		defaultValue: DataTypes.NOW,
 		allowNull: true,
 	},
-	session_start_time: {
-		type: DataTypes.TIME,
-		defaultValue: DataTypes.NOW,
-		allowNull: true,
-	},
-	session_end_time: {
-		type: DataTypes.TIME,
-		defaultValue: DataTypes.NOW,
-		allowNull: true,
-	},
+	
 	session_registration: {
 		type: DataTypes.INTEGER,
 		allowNull: true,

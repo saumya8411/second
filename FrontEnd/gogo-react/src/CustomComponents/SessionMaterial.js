@@ -94,6 +94,7 @@ export default class SessionMaterial extends Component {
         session_fee: '0',
         session_link: '',
         session_fee_type: '',
+        session_duration: '',
         Trainer: {
           name: 'Vedant',
           skills: [
@@ -163,6 +164,7 @@ export default class SessionMaterial extends Component {
               tagline: session.session_tagline || 'Default Tagline',
               description: session.session_description,
               seo: session.session_tags,
+              session_duration: session.session_duration,
               session_link: session.session_link,
               session_fee_type: session.session_fee_type,
               session_fee: session.session_fee
@@ -357,6 +359,7 @@ export default class SessionMaterial extends Component {
               tagline: session.session_tagline || 'Default Tagline',
               description: session.session_description,
               seo: session.session_tags,
+              session_duration: session.session_duration,
               session_fee_type: session.session_fee_type,
               session_link: session.session_link,
               session_fee: session.session_fee
@@ -457,8 +460,9 @@ export default class SessionMaterial extends Component {
                   <li className=" d-flex ">
                     <p style={{ marginLeft: '10px' }} className="mb-0 mt-4">
                       {' '}
-                      <span className="font-weight-bold">Duration:</span> 1
-                      month
+                      <span className="font-weight-bold">Duration:</span>{' '}
+                      {this.state.data.session_duration.toString().slice(-8)}{' '}
+                      days
                     </p>
                   </li>
                   <li className=" d-flex ">

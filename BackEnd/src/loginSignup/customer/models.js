@@ -1,7 +1,7 @@
 const { db } = require("./connection");
 const { DataTypes } = require("sequelize");
 
-const User = db.define("customer_table2", {
+const User = db.define("customer_table", {
   customer_id : {
   		type: DataTypes.INTEGER(255),
       allowNull: false,

@@ -34,7 +34,7 @@ import products from '../../../data/products';
 import DatatablePagination from '../../../components/DatatablePagination';
 import my_table from '../../../data/my_table';
 import affiliate from '../../../data/affiliate';
-import { FaUsers } from 'react-icons/fa';
+import { FaShoePrints, FaUsers } from 'react-icons/fa';
 import { FaFilter } from 'react-icons/fa';
 import { LineChart } from '../../../components/charts';
 import { lineChartData } from '../../../data/charts';
@@ -76,6 +76,7 @@ import d_countries from '../../../data/d_countries';
 import device from '../../../data/device';
 import axiosInstance from '../../../helpers/axiosInstance';
 import { NotificationManager } from '../../../components/common/react-notifications';
+import ShortUrlRedirector from './ShortUrlRedirector';
 
 const MenuTypes = ({
   match,
@@ -85,6 +86,8 @@ const MenuTypes = ({
   setContainerClassnamesAction,
 }) => {
   const [shortUrl, setShortUrl] = useState('');
+  const [fullUrl, setFullUrl] = useState('');
+  const [showComponent, setShowComponent] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -110,8 +113,10 @@ const MenuTypes = ({
       .post('/shorturl/genShort', { values })
       .then((response) => {
         console.log(response);
-        if (response.data.success) setShortUrl(response.data.shortUrl);
-        else setError(response.data.error);
+        if (response.data.success) {
+          setShortUrl(response.data.shortUrl);
+          setFullUrl(response.data.fullUrl);
+        } else setError(response.data.error);
       })
       .catch((err) => {
         console.log(err);
@@ -1072,6 +1077,13 @@ const MenuTypes = ({
       },
     ],
   };
+
+  if (showComponent)
+    return (
+      <>
+        <ShortUrlRedirector fullUrl={fullUrl} />
+      </>
+    );
 
   return (
     <>
@@ -2085,58 +2097,63 @@ const MenuTypes = ({
                 </Card>
               </Col>
             </Row>
+            <br />
+            <h1 style={{ marginLeft: '40%', marginRight: 'auto' }}>
+              Shortened Url{' '}
+            </h1>
+
+            <div
+              style={{
+                display: 'flex',
+                // marginTop: '3%',
+                marginLeft: '3%',
+                marginBottom: '3%',
+                justifyContent: 'space-evenly',
+                flexWrap: 'wrap',
+              }}
+            >
+              <Form inline onSubmit={handleSubmit}>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                  <Input
+                    type="text"
+                    name="fullurl"
+                    id="exampleFullurl"
+                    placeholder="Enter Url To Be Tracked"
+                  />
+                </FormGroup>
+
+                <Button>Submit</Button>
+              </Form>
+              {shortUrl ? (
+                <Button onClick={() => setShowComponent(!showComponent)}>
+                  https://tracking.oyesters.in/{shortUrl}
+                </Button>
+              ) : null}
+              {/* <div>
+                <Button onClick={() => setShowComponent(!showComponent)}>
+                  {shortUrl}
+                </Button>
+                {showComponent ? (
+                  <ShortUrlRedirector fullUrl={fullUrl} />
+                ) : null}
+              </div> */}
+            </div>
 
             <Card /* style={{height: '500px'}} */>
-              <div
-                style={{
-                  display: 'flex',
-                  marginTop: '3%',
-                  marginLeft: '3%',
-                  justifyContent: 'space-evenly',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <Form
-                  inline
-                  onSubmit={
-                    handleSubmit
-                  } /*style={{ marginTop: '5%', marginLeft: '3%' }}*/
+              <FormGroup className="ml-auto mr-4 mt-4">
+                <Input
+                  type="select"
+                  name="select"
+                  id="exampleSelect"
+                  style={{ width: '150px' }}
+                  onChange={changechart}
                 >
-                  <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Input
-                      type="text"
-                      name="fullurl"
-                      id="exampleFullurl"
-                      placeholder="Enter Url To Be Tracked"
-                    />
-                  </FormGroup>
+                  <option>Select filter</option>
+                  <option>Last 7 days</option>
+                  <option>Last 4 days</option>
+                </Input>
+              </FormGroup>
 
-                  <Button>Submit</Button>
-                </Form>
-
-                <a
-                  href={shortUrl}
-                  target="_blank"
-                  style={{ marginTop: '20px' }}
-                >
-                  {shortUrl}
-                </a>
-                <div>
-                  <FormGroup className="ml-auto mr-4 mt-4">
-                    <Input
-                      type="select"
-                      name="select"
-                      id="exampleSelect"
-                      style={{ width: '150px' }}
-                      onChange={changechart}
-                    >
-                      <option>Select filter</option>
-                      <option>Last 7 days</option>
-                      <option>Last 4 days</option>
-                    </Input>
-                  </FormGroup>
-                </div>
-              </div>
               <CardBody style={{}}>
                 {chartstatus ? (
                   <Line data={data} style={{ marginTop: '-100px' }} />
