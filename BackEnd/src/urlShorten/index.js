@@ -22,6 +22,13 @@ router.post('/genShort',auth, async (req, res) => {
             error:'Provide full url'
         })
     
+    const isFullUrlPresent = await ShortUrl.findOne({ where: { link_long_url: full } });
+    if (isFullUrlPresent)
+        return res.status(400).json({
+            success: 0,
+            error:'provided long url already exists'
+        })
+    
     if (custom) {
         try {
             const check = await ShortUrl.findOne({ where: { link_short_url: custom } });
