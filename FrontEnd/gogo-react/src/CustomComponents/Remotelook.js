@@ -37,7 +37,7 @@ import NotificationManager from '../components/common/react-notifications/Notifi
 const Remotelook = (props) => {
   const history = useHistory();
   const { uniquesessionid } = props.location.state;
-  console.log(uniquesessionid);
+  // console.log(uniquesessionid);
   const [error, setError] = useState(null);
   const [data, setData] = useState([]); //uniquesessionid instead of products
   useEffect(() => {
@@ -173,7 +173,9 @@ const Remotelook = (props) => {
                     </li>
                     <li className="d-flex">
                       <span style={{ fontSize: '12px' }}>
-                        {data.session_start_time}
+                        {data.session_end_time
+                          ? data.session_end_time.toString().slice(-8)
+                          : ''}
                       </span>
                     </li>
                   </ul>

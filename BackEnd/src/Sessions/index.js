@@ -134,7 +134,8 @@ router.post('/createLiveSession',auth,async (req,res)=>{
     session_zoom_password:Zoom_res.password
 
     });
-  console.log('new Session created', session)
+    console.log(session.session_start_time)
+  // console.log('new Session created', session)
     return res.status(200).json({
       success:1,
       session
@@ -257,7 +258,7 @@ router.get('/FindAllSession',auth,async(req,res)=>{
       order: [
         [sortFilter, 'ASC'],
     ],
-      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id'], 
+      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_name'], 
     })
 
     // console.log(sqlCheck.dataValues,sqlCheck);
@@ -278,7 +279,7 @@ router.get('/FindAllSession',auth,async(req,res)=>{
       order: [
         [sortFilter, 'ASC'],
     ],
-      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id'], 
+      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_name'], 
     })
 
     // console.log(sqlCheck.dataValues,sqlCheck);
@@ -299,7 +300,7 @@ router.get('/FindAllSession',auth,async(req,res)=>{
       order: [
         [sortFilter, 'ASC'],
     ],
-      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_id'], 
+      attributes: ['session_id', 'session_description','session_type','session_name','session_start_date','session_tags','session_fee','session_registration','session_trainer_name'], 
     })
 
     // console.log(sqlCheck.dataValues,sqlCheck);

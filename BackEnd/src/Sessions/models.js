@@ -1,6 +1,7 @@
 const { db } = require("./connection");
-const { DataTypes } = require("sequelize");
-
+const  { DataTypes } = require("sequelize");
+const moment = require('moment-timezone');
+const Sequelize=require('sequelize')
 const Session = db.define("session_table", {
 	session_id: {
 		type: DataTypes.INTEGER(255),
@@ -71,12 +72,14 @@ const Session = db.define("session_table", {
 		defaultValue: DataTypes.NOW
 	},
 	session_start_time: {
-		type: DataTypes.DATE,
-		defaultValue: DataTypes.NOW,
+		type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
 	},
 	session_end_time: {
-		type: DataTypes.DATE,
-		defaultValue: DataTypes.NOW,
+		type: 'TIMESTAMP',
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        allowNull: false
 	},
 	session_occurance: {
 		type: DataTypes.STRING,

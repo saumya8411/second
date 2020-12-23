@@ -22,7 +22,7 @@ function Table({
   divided = false,
   defaultPageSize = data.length,
 }) {
-  const {
+  let {
     getTableProps,
     getTableBodyProps,
     prepareRow,
@@ -45,7 +45,9 @@ function Table({
   );
   let [name, setName] = useState('Launch');
 
-  useEffect(() => console.log(data.length, page, page.length));
+  useEffect(() => {
+    console.log(data.length, page, page.length);
+  });
   // console.log(page  )
   /* let change = (e,props) => {
 
@@ -295,14 +297,19 @@ export const TabularData = () => {
         response.data.sessions.forEach((doc) => {
           const session = {
             id: doc.session_id,
-            description: doc.session_description,
+            // description: doc.session_description,
             type: doc.session_type,
             title: doc.session_name,
             date: doc.session_start_date,
-            tags: doc.session_trainer_id,
+            tags: doc.session_trainer_name,
             fee: doc.session_fee,
             registrations: doc.session_registration,
           };
+          try {
+            session.tags = JSON.parse(session.tags)[0].label;
+          } catch (err) {
+            session.tags = session.tags;
+          }
           sessions.push(session);
         });
         console.log('final length: ', sessions.length);

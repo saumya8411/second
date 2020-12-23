@@ -127,11 +127,6 @@ export default class SessionMaterial extends Component {
   }
 
   componentDidMount() {
-    console.log(
-      this.state.data.tagline,
-      this.state.data.seo,
-      this.state.data.description
-    );
     if (this.state.error) {
       console.log(this.state.error);
       NotificationManager.warning(
@@ -150,17 +145,21 @@ export default class SessionMaterial extends Component {
         `/sessions/FindSessionById/${this.props.location.state.uniquesessionid}`
       )
       .then((response) => {
-        console.log(response, response.data.session.session_link);
         if (response.data.success) {
           const session = response.data.session;
-
+          console.log(
+            //   session.session_start_time,
+            //   typeof session.session_start_time,
+            //   session.session_start_time.toString(),
+            session.session_start_time.toString().slice(-8)
+          );
           this.setState({
             ...this.state,
             data: {
               name: session.session_name,
               type: session.session_type,
               date: session.session_start_date,
-              time: session.session_start_time,
+              time: session.session_start_time.toString().slice(-8),
               tagline: session.session_tagline || 'Default Tagline',
               description: session.session_description,
               seo: session.session_tags,
@@ -355,7 +354,7 @@ export default class SessionMaterial extends Component {
               name: session.session_name,
               type: session.session_type,
               date: session.session_start_date,
-              time: session.session_start_time,
+              time: session.session_start_time.toString().slice(-8),
               tagline: session.session_tagline || 'Default Tagline',
               description: session.session_description,
               seo: session.session_tags,
@@ -436,7 +435,7 @@ export default class SessionMaterial extends Component {
                         <span>{this.state.data.date}</span>
                       </li>
                       <li className="marking" style={{ fontSize: '1rem' }}>
-                        <span>{this.state.data.time} PM</span>
+                        <span>{this.state.data.time} </span>
                       </li>
                     </ul>
                   </nav>
@@ -461,8 +460,7 @@ export default class SessionMaterial extends Component {
                     <p style={{ marginLeft: '10px' }} className="mb-0 mt-4">
                       {' '}
                       <span className="font-weight-bold">Duration:</span>{' '}
-                      {this.state.data.session_duration.toString().slice(-8)}{' '}
-                      days
+                      {this.state.data.session_duration} days
                     </p>
                   </li>
                   <li className=" d-flex ">

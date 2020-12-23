@@ -91,7 +91,6 @@ const correspondanceoption = [
 ];
 
 const RemoteSession = ({ closeModal, propHandle }) => {
-  console.log(closeModal, propHandle);
   let date = '';
   const [startDateRange, setStartDateRange] = useState('');
   const [time, setTime] = useState('');
@@ -111,8 +110,6 @@ const RemoteSession = ({ closeModal, propHandle }) => {
   let [trainer, setTrainer] = useState('You');
   let [session_fee, setSession_fee] = useState('');
   const [handleReloadTable] = useContext(DropDownContext);
-
-  console.log(handleReloadTable);
 
   const checkempty = () => {
     if (!course) {
