@@ -17,8 +17,7 @@ import {
   Col,
   CardText,
   UncontrolledDropdown,
-  Label,
-  Form,
+  Modal,
   FormGroup,
   Input,
   DropdownItem,
@@ -74,9 +73,8 @@ import countries from '../../../data/countries';
 import cities from '../../../data/cities';
 import d_countries from '../../../data/d_countries';
 import device from '../../../data/device';
-import axiosInstance from '../../../helpers/axiosInstance';
+import ShowForm from './ShowForm';
 import { NotificationManager } from '../../../components/common/react-notifications';
-import ShortUrlRedirector from './ShortUrlRedirector';
 
 const MenuTypes = ({
   match,
@@ -85,10 +83,11 @@ const MenuTypes = ({
   selectedMenuHasSubItems,
   setContainerClassnamesAction,
 }) => {
+  const [modal, setModal] = useState(false);
   const [shortUrl, setShortUrl] = useState('');
-  const [fullUrl, setFullUrl] = useState('');
-  const [showComponent, setShowComponent] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
+
+  const toggle = () => setModal(!modal);
 
   useEffect(() => {
     if (error) {
@@ -102,31 +101,6 @@ const MenuTypes = ({
       );
     }
   }, [error]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(document.getElementById('exampleFullurl').value);
-    const values = {
-      full: document.getElementById('exampleFullurl').value,
-    };
-    axiosInstance
-      .post('/shorturl/genShort', { values })
-      .then((response) => {
-        console.log(response);
-        if (response.data.success) {
-          setShortUrl(response.data.shortUrl);
-          setFullUrl(response.data.fullUrl);
-        } else setError(response.data.error);
-      })
-      .catch((err) => {
-        console.log(err);
-        try {
-          setError(err.response.data.error);
-        } catch (error) {
-          setError('Could not get utl...tey again');
-        }
-      });
-  };
 
   const getMenuClassesForResize = (classes) => {
     let nextClasses = classes.split(' ').filter((x) => x !== '');
@@ -1077,13 +1051,6 @@ const MenuTypes = ({
       },
     ],
   };
-
-  if (showComponent)
-    return (
-      <>
-        <ShortUrlRedirector fullUrl={fullUrl} />
-      </>
-    );
 
   return (
     <>
@@ -2099,46 +2066,38 @@ const MenuTypes = ({
             </Row>
             <br />
             <h1 style={{ marginLeft: '40%', marginRight: 'auto' }}>
-              Shortened Url{' '}
-            </h1>
-
+              Tracking Url{' '}
+            </h1>{' '}
+            <br />
             <div
               style={{
                 display: 'flex',
-                // marginTop: '3%',
-                marginLeft: '3%',
-                marginBottom: '3%',
-                justifyContent: 'space-evenly',
-                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+                marginBottom: '10px',
               }}
             >
-              <Form inline onSubmit={handleSubmit}>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                  <Input
-                    type="text"
-                    name="fullurl"
-                    id="exampleFullurl"
-                    placeholder="Enter Url To Be Tracked"
-                  />
-                </FormGroup>
-
-                <Button>Submit</Button>
-              </Form>
-              {shortUrl ? (
-                <Button onClick={() => setShowComponent(!showComponent)}>
-                  https://tracking.oyesters.in/{shortUrl}
-                </Button>
-              ) : null}
-              {/* <div>
-                <Button onClick={() => setShowComponent(!showComponent)}>
-                  {shortUrl}
-                </Button>
-                {showComponent ? (
-                  <ShortUrlRedirector fullUrl={fullUrl} />
-                ) : null}
-              </div> */}
+              <Button color="danger" onClick={toggle}>
+                Create Shortened Url
+              </Button>
+              <Modal isOpen={modal} toggle={toggle}>
+                <ShowForm
+                  toggle={toggle}
+                  setShortUrl={setShortUrl}
+                  setError={setError}
+                />
+              </Modal>
+              <p>
+                {' '}
+                {shortUrl
+                  ? `https://tracking.oyesters.in/new.html?${shortUrl}`
+                  : ''}{' '}
+              </p>
             </div>
-
+            {/* <Button>
+              Create
+              <ShowForm />
+            </Button> */}
+            {/* <ShowForm /> */}
             <Card /* style={{height: '500px'}} */>
               <FormGroup className="ml-auto mr-4 mt-4">
                 <Input
@@ -2162,7 +2121,6 @@ const MenuTypes = ({
                 )}
               </CardBody>
             </Card>
-
             <br />
             <Card className="h-100 ">
               <Scrollbars style={{ width: '100%', height: 400 }}>

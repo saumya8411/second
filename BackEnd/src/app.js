@@ -2,6 +2,7 @@ const express = require('express')
 const mysql = require('mysql')
 const morgan = require('morgan')
 const cors = require('cors');
+const fileUpload=require('express-fileupload')
 // require('./db/mongoose')
 
 
@@ -15,6 +16,7 @@ const libraryRouter = require('./library/routes/index');
 const app = express()
 
 app.use(cors());
+app.use(fileUpload());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -43,5 +45,6 @@ app.use('/sessions', require('./Sessions/index'))
 app.use('/themes',require('./server'))
 app.use('/library', libraryRouter)
 app.use('/shorturl', require('./urlShorten'));
+app.use('/libraryItems', require('./Sessions/LibraryItems'));
 
 module.exports = app

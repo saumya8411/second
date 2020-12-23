@@ -30,16 +30,32 @@ import axiosInstance from '../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
 import NotificationManager from '../components/common/react-notifications/NotificationManager';
 
-// import Switch from 'rc-switch';
-// import {iconsmind} from '../data/icons'
-// import 'rc-switch/assets/index.css';
+const isValidFileFormat = (ext) => {
+  const arr = [
+    'txt',
+    'rtf',
+    'pdf',
+    'odt',
+    'dotx',
+    'dotm',
+    'docx',
+    'docm',
+    'doc',
+  ];
+  return arr.indexOf(ext) >= 0;
+};
 
 const Remotelook = (props) => {
   const history = useHistory();
   const { uniquesessionid } = props.location.state;
   // console.log(uniquesessionid);
   const [error, setError] = useState(null);
-  const [data, setData] = useState([]); //uniquesessionid instead of products
+  const [success, setSuccess] = useState(false);
+  const [fileUploadError, setFileUploadError] = useState(false);
+  const [data, setData] = useState([]);
+  const [file, setFile] = useState('');
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+
   useEffect(() => {
     //call your data from backend with uniquesessionid and store in data
     //setData(result);
@@ -76,6 +92,76 @@ const Remotelook = (props) => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (success) {
+      NotificationManager.success(
+        'File Uploaded Succeessfully',
+        'Session Material',
+        3000,
+        null,
+        null,
+        ''
+      );
+    }
+  }, [success]);
+
+  useEffect(() => {
+    if (fileUploadError) {
+      NotificationManager.warning(
+        fileUploadError || 'could not upload file',
+        'Session Material Upload Error',
+        3000,
+        null,
+        null,
+        ''
+      );
+    }
+  }, [fileUploadError]);
+
+  const onFileChange = async (e) => {
+    console.log(e.target.files[0].name);
+    setFile(e.target.files[0]);
+  };
+
+  useEffect(() => {
+    async function upload() {
+      if (file) {
+        const extension = file.name.slice(file.name.lastIndexOf('.') + 1);
+        console.log(extension);
+        if (!isValidFileFormat(extension)) setError('Not a valid file format');
+        else {
+          const formData = new FormData();
+          formData.append('file', file);
+          formData.append('session_id', uniquesessionid);
+          formData.append('session_type', 'Live Session');
+          formData.append('item_type', 'Session Material');
+          try {
+            const res = await axiosInstance.post(
+              '/libraryItems/upload',
+              formData,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                },
+              }
+            );
+            console.log(res);
+            if (res.data.success) setSuccess(true);
+            else setFileUploadError('please check file format');
+          } catch (err) {
+            console.log(err);
+            try {
+              setFileUploadError(err.response.data.error);
+            } catch (error) {
+              setFileUploadError('could not upload file..please try again');
+            }
+          }
+        }
+      }
+    }
+    upload();
+  }, [file]);
+
   const handleSubmit = () => {
     setModal(!modal);
     const values = {
@@ -105,25 +191,9 @@ const Remotelook = (props) => {
     }
   };
 
-  const { buttonLabel, className } = props;
-  /*         const [desc,setDesc] = useState('Hello I am desc') */
+  const { className } = props;
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
-
-  const fileUploadButton = () => {
-    document.getElementById('fileButton').click();
-    document.getElementById('fileButton').onchange = () => {
-      this.setState({
-        fileUploadState: document.getElementById('fileButton').value,
-      });
-    };
-  };
-  /*         const change = (e) => {
-            setDesc({desc : e.target.value})
-            
-        } */
-  //  const summary : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
 
   return (
     <section style={{ marginLeft: '7%', marginRight: '7%' }}>
@@ -403,7 +473,11 @@ const Remotelook = (props) => {
               <h3 className="font-weight-bold text-center">Session Material</h3>
               <Row className="text-center">
                 <label className="input-label-1">
-                  <input type="file" accept=".pdf,.word" />
+                  <input
+                    type="file"
+                    accept=".pdf,.word,.docx"
+                    onChange={onFileChange}
+                  />
                   <FiUpload />
                   <p id="ufd">Upload from device</p>
                 </label>
