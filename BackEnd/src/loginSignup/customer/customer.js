@@ -10,9 +10,32 @@ const { sendsms } =require('../../completed_test_modules/sendSmsModule')
 //Connecting to Database
 const connection = require('../../db/sql');
 
-//Just for testing if token is working or not
-router.get('/users',auth,(req,res)=>{
-    res.send("dvsd");
+router.get('/user',auth,async(req,res)=>{
+    const sqlCheck = await User.findOne({
+        where: { customer_id: req.user.customer_id },
+        attributes: [
+            'customer_profile_picture',
+            'customer_subdomain_name',
+            'customer_institute_name',
+            'customer_about_me',
+            'customer_career_summary',
+            'customer_role',
+            'customer_linkedin_url',
+            'customer_occupation',
+            'customer_facebook_url',
+            'customer_website_url',
+            'customer_twitter_url'
+        ]
+    })
+    if (!sqlCheck)
+        return res.status(400).json({
+            success: 0,
+            error:'user does not exists'
+        })
+    return res.status(200).json({
+        success: 1,
+        user:sqlCheck.dataValues
+    })
 })
 
 //Create a new User
@@ -216,6 +239,129 @@ router.post('/users/reset-password',async (req, res) => {
     }
 
 })
+
+
+router.put('/users', auth, async (req, res) => {
+    try {
+        // console.log(req.files.profile_picture,JSON.parse(req.body.values))
+        if (req.files && req.files.profile_picture) {
+            const file = req.files.profile_picture;
+            file.mv(`${process.env.FILE_UPLOAD_PATH_CLIENT}${file.name}`, err => {
+                if (err) {
+                    console.log(err)
+                    return res.status(500).json({
+                        success: 0,
+                        error:'could not upload profile picture'
+                    })
+                }
+                console.log('profile picture updated')
+            })
+        }
+            
+        const {
+            customer_subdomain_name,
+            customer_institute_name,
+            customer_about_me,
+            customer_career_summary,
+            customer_role,
+            customer_linkedin_url,
+            customer_occupation,
+            customer_facebook_url,
+            customer_website_url,
+            customer_twitter_url, } = JSON.parse(req.body.values);
+        
+        const user = await User.findOne({ where: { customer_id: req.user.customer_id } });
+        if (!user)
+            return res.status(400).json({
+                success: 0,
+                error:'user does not exists'
+            })
+        
+        // const user = sqlCheck.dataValues;
+        if (customer_subdomain_name != user.customer_subdomain_name) {
+            const isPresent = await User.findOne({
+                where: {
+                    customer_id: { $not: req.user.customer_id },
+                    $and:{ customer_subdomain_name }
+                }
+            })
+            if (isPresent)
+                return res.status(400).json({
+                    success: 0,
+                    error:'provided subdomain name already exists'
+                })
+        }
+        console.log(user)
+        // user.customer_profile_picture = customer_profile_picture;
+        user.customer_subdomain_name = customer_subdomain_name;
+        user.customer_institute_name=customer_institute_name;
+        user.customer_about_me = customer_about_me;
+        user.customer_career_summary = customer_career_summary;
+        user.customer_role = customer_role;
+        user.customer_linkedin_url = customer_linkedin_url;
+        user.customer_occupation = customer_occupation;
+        user.customer_facebook_url = customer_facebook_url;
+        user.customer_website_url = customer_website_url;
+        user.customer_twitter_url = customer_twitter_url;
+
+        const updatedUser = await user.save();
+        if (!updatedUser)
+            return res.status(400).json({
+                success: 0,
+                error:'unable to update user info'
+            })
+        res.status(200).json({
+            success: 1,
+            user:updatedUser
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            success: 0,
+            error:'can not update user details'
+        })
+    }
+})
+
+router.post('/user/payment/details', auth, async(req, res) => {
+    try {
+        console.log(req.body)
+        const {
+            customer_payment_full_name,
+            customer_payment_bank_name,
+            customer_payment_account_number,
+            customer_payment_IFSC_code,
+            customer_payment_bank_address,
+        } = req.body.values;
+        const user = User.findOne({ where: { customer_id: req.user.customer_id } });
+        if (!user)
+            return res.status(400).json({
+                success: 0,
+                error:'user does not exists'
+            })
+        
+        const updatedUser=await User.update(req.body.values, {where:{ customer_id: req.user.customer_id }});
+        console.log(updatedUser);
+        
+        // const updatedUser = await user.save();
+        if (!updatedUser)
+            return res.status(500).json({
+                success: 0,
+                error:'could not upload data'
+            })
+        return res.status(200).json({
+            success:1
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error:'coould not update payment details'
+        })
+    }
+   
+})
+
 
 // these 2 routes we don't need
 // create a user registered via google auth
