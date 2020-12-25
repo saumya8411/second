@@ -54,7 +54,7 @@ export default class SessionMaterial extends Component {
     super(props);
     this.deleteTask = this.deleteTask.bind(this);
     this.state = {
-      error: '',
+      error: null,
       modal: false,
       showMessage: false,
       showMessage2: false,
@@ -70,6 +70,7 @@ export default class SessionMaterial extends Component {
       SessionMaterial: [
         {
           name: 'Chapter 1',
+          learning: '',
           lesson: [
             {
               id: 'theid',
@@ -125,8 +126,7 @@ export default class SessionMaterial extends Component {
 
     this.fileUploadButton = this.fileUploadButton.bind(this);
   }
-
-  componentDidMount() {
+  componentDidUpdate() {
     if (this.state.error) {
       console.log(this.state.error);
       NotificationManager.warning(
@@ -137,7 +137,10 @@ export default class SessionMaterial extends Component {
         null,
         ''
       );
+      this.setState({ error: null });
     }
+  }
+  componentDidMount() {
     if (!this.props.location.state.uniquesessionid)
       this.props.history.push('/app/dashboard/default');
     axiosInstance
@@ -180,6 +183,62 @@ export default class SessionMaterial extends Component {
       });
   }
 
+  handleFinalSubmit = async () => {
+    console.log(this.state);
+    try {
+      const formData = new FormData();
+      const chapterData = [];
+      this.state.SessionMaterial.forEach((doc, index) => {
+        console.log(doc, index);
+        const chapter = {
+          name: doc.name,
+          learning: doc.learning,
+          lessions: [],
+        };
+        doc.lesson.forEach((element, lessonindex) => {
+          console.log('lessonindex ', element, lessonindex);
+          const lession = {
+            name: element.name,
+          };
+          if (element.video) {
+            formData.append(
+              `chapter ${index} lesson ${lessonindex} video ${element.video.name}`,
+              element.video
+            );
+            lession.video = element.video;
+          }
+
+          if (element.assignment) {
+            formData.append(
+              `chapter ${index} lesson ${lessonindex} assignment ${element.assignment.name}`,
+              element.assignment
+            );
+            lession.assignment = element.assignment;
+          }
+
+          if (element.thumbnail) {
+            formData.append(
+              `chapter ${index} lesson ${lessonindex} thumbnail ${element.thumbnail.name}`,
+              element.thumbnail
+            );
+            lession.thumbnail = element.thumbnail;
+          }
+          chapter.lessions.push(JSON.stringify(lession));
+        });
+        chapterData.push(chapter);
+      });
+      formData.append('bodyPart', JSON.stringify(chapterData));
+      console.log(formData);
+
+      formData.append('session_id', this.props.location.state.uniquesessionid);
+
+      const result = await axiosInstance.post(
+        '/libraryItems/recorded',
+        formData
+      );
+    } catch (err) {}
+  };
+
   toggle = () => {
     this.setState({ modal: true });
   };
@@ -195,9 +254,10 @@ export default class SessionMaterial extends Component {
     this.setState({ option });
   };
   handlemyChange = (i, event) => {
+    console.log(event.target.value);
     let values = [...this.state.option];
     values[i] = event.target.value;
-    this.setState({ values });
+    this.setState({ option: values });
   };
 
   onButtonClickHandler = () => {
@@ -301,10 +361,12 @@ export default class SessionMaterial extends Component {
     );
   }
   changeLessonattribute(props, index, lessonindex) {
+    console.log(props, index, lessonindex);
     const newarray = this.state.SessionMaterial;
     const named = props.target.name;
-    console.log(props.target.value, index, lessonindex);
+    console.log(props.target.value, index, lessonindex, newarray[index]);
     newarray[index].lesson[lessonindex][props.target.name] = props.target.value;
+    // newarray[index].lesson.push(props.target.value);
     this.setState(
       { SessionMaterial: newarray },
       console.log(this.state.SessionMaterial)
@@ -776,9 +838,14 @@ export default class SessionMaterial extends Component {
                                 </Label>
 
                                 <Input
-                                  type="textarea"
-                                  name="text"
-                                  id="exampleText"
+                                  type="text"
+                                  name="learning"
+                                  style={{ height: '70px' }}
+                                  onChange={(e) => {
+                                    const newArr = this.state.SessionMaterial;
+                                    newArr[index].learning = e.target.value;
+                                  }}
+                                  required
                                 />
                               </FormGroup>
                             </Col>
@@ -796,7 +863,7 @@ export default class SessionMaterial extends Component {
                           </Row>
 
                           {item.lesson.map((lessonitem, lessonindex) => {
-                            console.log(lessonitem);
+                            console.log(lessonindex);
                             return (
                               <div key={lessonindex}>
                                 <div>
@@ -831,13 +898,32 @@ export default class SessionMaterial extends Component {
                                   <UncontrolledCollapse toggler="#toggler">
                                     <Card style={{ boxShadow: 'none' }}>
                                       <CardBody>
-                                        <Input
+                                        <MDBInput
+                                          name="name"
+                                          placeholder="Write a Lesson name"
+                                          value={lessonitem.name}
+                                          onChange={(e) =>
+                                            this.changeLessonattribute(
+                                              e,
+                                              index,
+                                              lessonindex
+                                            )
+                                          }
+                                        />
+                                        {/* <Input
                                           type="text"
                                           name="name"
                                           placeholder="Write a Lesson name"
                                           value=""
-                                          /* onChange={e => this.changeLessonattribute(e, lessonindex)} */ className="mt-4"
-                                        />
+                                          onChange={(e) => {
+                                            // console.log(e);
+                                            this.changeLessonattribute(
+                                              e,
+                                              lessonindex
+                                            );
+                                          }}
+                                          className="mt-4"
+                                        /> */}
 
                                         <Row className="mt-4">
                                           {/*           <Colxx  md="4">
@@ -958,6 +1044,40 @@ export default class SessionMaterial extends Component {
                                                     <input
                                                       type="file"
                                                       accept=".mp4,.ogg,.mkv,.mov"
+                                                      onChange={(e) => {
+                                                        const fileName =
+                                                          e.target.files[0]
+                                                            .name;
+                                                        const ext = fileName.slice(
+                                                          fileName.lastIndexOf(
+                                                            '.'
+                                                          ) + 1
+                                                        );
+                                                        if (
+                                                          ext !== 'mp4' &&
+                                                          ext !== 'ogg' &&
+                                                          ext !== 'mkv' &&
+                                                          ext !== 'mov'
+                                                        )
+                                                          this.setState({
+                                                            error:
+                                                              'Only Specified File Formats are Allowed',
+                                                          });
+                                                        else {
+                                                          const newArr = this
+                                                            .state
+                                                            .SessionMaterial;
+
+                                                          newArr[index].lesson[
+                                                            lessonindex
+                                                          ].video =
+                                                            e.target.files[0];
+
+                                                          // newArr[index].lesson[
+                                                          //   lessonindex
+                                                          // ].video.name = `chapter${index} lesson${lessonindex} video ${e.target.files[0].name}`;
+                                                        }
+                                                      }}
                                                     />
                                                     <FiUpload />
                                                     <p id="ufd">
@@ -989,6 +1109,40 @@ export default class SessionMaterial extends Component {
                                                     <input
                                                       type="file"
                                                       accept=".pdf,.word"
+                                                      onChange={(e) => {
+                                                        const fileName =
+                                                          e.target.files[0]
+                                                            .name;
+                                                        const ext = fileName.slice(
+                                                          fileName.lastIndexOf(
+                                                            '.'
+                                                          ) + 1
+                                                        );
+                                                        if (
+                                                          ext !== 'pdf' &&
+                                                          ext !== 'docx' &&
+                                                          ext !== 'doc' &&
+                                                          ext !== 'word'
+                                                        )
+                                                          this.setState({
+                                                            error:
+                                                              'Only Specified File Formats are allowed',
+                                                          });
+                                                        else {
+                                                          const newArr = this
+                                                            .state
+                                                            .SessionMaterial;
+
+                                                          newArr[index].lesson[
+                                                            lessonindex
+                                                          ].assignment =
+                                                            e.target.files[0];
+
+                                                          // newArr[index].lesson[
+                                                          //   lessonindex
+                                                          // ].assignment.name = `chapter${index} lesson${lessonindex} assignment ${e.target.files[0].name}`;
+                                                        }
+                                                      }}
                                                     />
                                                     <FiUpload />
                                                     <p id="ufd">
@@ -1052,7 +1206,14 @@ export default class SessionMaterial extends Component {
                                                       >
                                                         Modal title
                                                       </ModalHeader>
-                                                      <Form>
+                                                      <Form
+                                                        onSubmit={(e) => {
+                                                          e.preventDefault();
+                                                          console.log(
+                                                            this.state.option
+                                                          );
+                                                        }}
+                                                      >
                                                         {' '}
                                                         <ModalBody>
                                                           <Input
@@ -1164,6 +1325,40 @@ export default class SessionMaterial extends Component {
                                                     <input
                                                       type="file"
                                                       accept=".pdf,.word"
+                                                      onChange={(e) => {
+                                                        const fileName =
+                                                          e.target.files[0]
+                                                            .name;
+                                                        const ext = fileName.slice(
+                                                          fileName.lastIndexOf(
+                                                            '.'
+                                                          ) + 1
+                                                        );
+                                                        if (
+                                                          ext !== 'pdf' &&
+                                                          ext !== 'word' &&
+                                                          ext !== 'docx' &&
+                                                          ext !== 'doc'
+                                                        )
+                                                          this.setState({
+                                                            error:
+                                                              'Only Specified File Formats Are Allowed',
+                                                          });
+                                                        else {
+                                                          const newArr = this
+                                                            .state
+                                                            .SessionMaterial;
+
+                                                          newArr[index].lesson[
+                                                            lessonindex
+                                                          ].thumbnail =
+                                                            e.target.files[0];
+
+                                                          // newArr[index].lesson[
+                                                          //   lessonindex
+                                                          // ].thumbnail.name = `chapter${index} lesson${lessonindex} ${e.target.files[0].name}`;
+                                                        }
+                                                      }}
                                                     />
                                                     <FiUpload />
                                                     <p id="ufd">
@@ -1217,6 +1412,8 @@ export default class SessionMaterial extends Component {
           </Card>
           {/* <Button className="mt-4 btn13">Next</Button> */}
         </Card>
+
+        <Button onClick={this.handleFinalSubmit}>Submit</Button>
 
         <br />
         <br />

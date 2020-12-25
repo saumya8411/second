@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const auth = require('../../middleware/deepakAuth');
 const { LibraryItem } = require('./model');
+const recordedSessionRouter = require('./recorded');
 
-
+router.use('/recorded', recordedSessionRouter);
 
 const isValidFileFormat = (ext) => {
   const arr = [

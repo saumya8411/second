@@ -46,5 +46,5 @@ app.use('/themes',require('./server'))
 app.use('/library', libraryRouter)
 app.use('/shorturl', require('./urlShorten'));
 app.use('/libraryItems', require('./Sessions/LibraryItems'));
-
+app.use('/libraryItems/recorded', require('./Sessions/LibraryItems/recorded'));
 module.exports = app

@@ -22,12 +22,12 @@ import {
 import axiosInstance from '../helpers/axiosInstance';
 
 function Make_modal(props) {
-  console.log(props);
+  // console.log(props);
   const [modal, setModal] = useState(false);
   const [tagline, setTagline] = useState(props.tagline);
   const [tags, setTags] = useState(props.seotags);
   const [description, setDescription] = useState(props.description);
-  console.log(description, tags, tagline, props.session_id);
+  // console.log(description, tags, tagline, props.session_id);
 
   const toggle = () => setModal(!modal);
 
