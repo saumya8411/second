@@ -61,21 +61,23 @@ Router.post('/',auth,async (req, res) => {
         }
         
         //save files
-        const filesArray = Object.keys(req.files).map(key => req.files[key])
-        // console.log(filesArray)
-        filesArray.forEach(doc => {
-            doc.mv(`${process.env.FILE_UPLOAD_PATH}${doc.name}`, err => {
-                if (err) {
-                    flg = 1;
-                console.error(err);
-                    return res.status(500).josn({
-                        success: 0,
-                        error: 'could not upload file',
-                        errorReturned:JSON.stringify(err)
+        if(req.files){
+            const filesArray = Object.keys(req.files).map(key => req.files[key])
+            // console.log(filesArray)
+            filesArray.forEach(doc => {
+                doc.mv(`${process.env.FILE_UPLOAD_PATH}${doc.name}`, err => {
+                    if (err) {
+                        flg = 1;
+                    console.error(err);
+                        return res.status(500).josn({
+                            success: 0,
+                            error: 'could not upload file',
+                            errorReturned:JSON.stringify(err)
+                    });
+                    }
                 });
-                }
-            });
-        })
+            })
+        }
         
         // // saves chapterdata to chapter_table 
         if(!flg)

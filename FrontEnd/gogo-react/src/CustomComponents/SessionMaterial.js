@@ -55,6 +55,7 @@ export default class SessionMaterial extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.state = {
       error: null,
+      success: null,
       modal: false,
       showMessage: false,
       showMessage2: false,
@@ -128,16 +129,26 @@ export default class SessionMaterial extends Component {
   }
   componentDidUpdate() {
     if (this.state.error) {
-      console.log(this.state.error);
       NotificationManager.warning(
         this.state.error,
-        'Create Live Session',
+        'Ondemand Session Error',
         3000,
         null,
         null,
         ''
       );
       this.setState({ error: null });
+    }
+    if (this.state.success) {
+      NotificationManager.success(
+        this.state.success,
+        'Ondemad Session',
+        3000,
+        null,
+        null,
+        ''
+      );
+      this.setState({ success: null });
     }
   }
   componentDidMount() {
@@ -183,60 +194,104 @@ export default class SessionMaterial extends Component {
       });
   }
 
+  validate = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      console.log(data[i].learning);
+      if (!data[i].learning) return false;
+    }
+    return true;
+  };
+
+  validateChapterName = (data) => {
+    for (let i = 0; i < data.length; i++) if (!data[i].name) return false;
+    return true;
+  };
+
+  validateLessonNames = (data) => {
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].lesson.length; j++)
+        if (!data[i].lesson[j].name) return false;
+    }
+    return true;
+  };
+
   handleFinalSubmit = async () => {
     console.log(this.state);
     try {
-      const formData = new FormData();
-      const chapterData = [];
-      this.state.SessionMaterial.forEach((doc, index) => {
-        console.log(doc, index);
-        const chapter = {
-          name: doc.name,
-          learning: doc.learning,
-          lessions: [],
-        };
-        doc.lesson.forEach((element, lessonindex) => {
-          console.log('lessonindex ', element, lessonindex);
-          const lession = {
-            name: element.name,
+      if (!this.validate(this.state.SessionMaterial))
+        this.setState({ error: 'please provide chapter learning' });
+      else if (!this.validateChapterName(this.state.SessionMaterial))
+        this.setState({ error: 'please provide chapter name' });
+      else if (!this.validateLessonNames(this.state.SessionMaterial))
+        this.setState({ error: 'please provide lesson name' });
+      else {
+        const formData = new FormData();
+        const chapterData = [];
+        this.state.SessionMaterial.forEach((doc, index) => {
+          console.log(doc, index);
+          const chapter = {
+            name: doc.name,
+            learning: doc.learning,
+            lessions: [],
           };
-          if (element.video) {
-            formData.append(
-              `chapter ${index} lesson ${lessonindex} video ${element.video.name}`,
-              element.video
-            );
-            lession.video = element.video;
-          }
+          doc.lesson.forEach((element, lessonindex) => {
+            console.log('lessonindex ', element, lessonindex);
+            const lession = {
+              name: element.name,
+            };
+            if (element.video) {
+              formData.append(
+                `chapter ${index} lesson ${lessonindex} video ${element.video.name}`,
+                element.video
+              );
+              lession.video = element.video;
+            }
 
-          if (element.assignment) {
-            formData.append(
-              `chapter ${index} lesson ${lessonindex} assignment ${element.assignment.name}`,
-              element.assignment
-            );
-            lession.assignment = element.assignment;
-          }
+            if (element.assignment) {
+              formData.append(
+                `chapter ${index} lesson ${lessonindex} assignment ${element.assignment.name}`,
+                element.assignment
+              );
+              lession.assignment = element.assignment;
+            }
 
-          if (element.thumbnail) {
-            formData.append(
-              `chapter ${index} lesson ${lessonindex} thumbnail ${element.thumbnail.name}`,
-              element.thumbnail
-            );
-            lession.thumbnail = element.thumbnail;
-          }
-          chapter.lessions.push(JSON.stringify(lession));
+            if (element.thumbnail) {
+              formData.append(
+                `chapter ${index} lesson ${lessonindex} thumbnail ${element.thumbnail.name}`,
+                element.thumbnail
+              );
+              lession.thumbnail = element.thumbnail;
+            }
+            chapter.lessions.push(JSON.stringify(lession));
+          });
+          chapterData.push(chapter);
         });
-        chapterData.push(chapter);
-      });
-      formData.append('bodyPart', JSON.stringify(chapterData));
-      console.log(formData);
+        formData.append('bodyPart', JSON.stringify(chapterData));
+        console.log(formData);
 
-      formData.append('session_id', this.props.location.state.uniquesessionid);
+        formData.append(
+          'session_id',
+          this.props.location.state.uniquesessionid
+        );
 
-      const result = await axiosInstance.post(
-        '/libraryItems/recorded',
-        formData
-      );
-    } catch (err) {}
+        const result = await axiosInstance.post(
+          '/libraryItems/recorded',
+          formData
+        );
+        console.log(result);
+        if (result.data.success)
+          this.setState({ success: 'Material Uploaded Successfully' });
+        else {
+          try {
+            this.setState({ error: result.data.error });
+          } catch (err) {
+            this.setState({ error: 'could not upload data' });
+          }
+        }
+      }
+    } catch (err) {
+      this.setState({ error: 'could not upload data' });
+    }
   };
 
   toggle = () => {
@@ -1411,9 +1466,8 @@ export default class SessionMaterial extends Component {
             </CardBody>
           </Card>
           {/* <Button className="mt-4 btn13">Next</Button> */}
+          <Button onClick={this.handleFinalSubmit}>Submit</Button>
         </Card>
-
-        <Button onClick={this.handleFinalSubmit}>Submit</Button>
 
         <br />
         <br />
