@@ -154,6 +154,7 @@ const Themepage = () => {
     customer_website_url: '',
     customer_twitter_url: '',
   });
+  const [displayProfileImage, setDisplayProfileImage] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -867,7 +868,7 @@ const Themepage = () => {
                       <Row className="ml-1">
                         {' '}
                         <img
-                          src={userProfile.customer_profile_picture}
+                          src={displayProfileImage}
                           style={{ width: '20%', marginLeft: '10px' }}
                         />
                         <label className="mr-auto ml-4">
@@ -875,7 +876,32 @@ const Themepage = () => {
                             type="file"
                             name="customer_profile_picture"
                             accept=".jpg,.jpeg,.png"
-                            onChange={onFileChange}
+                            onChange={(e) => {
+                              console.log(e.target.files[0]);
+                              const file = URL.createObjectURL(
+                                e.target.files[0]
+                              );
+                              const currentImage = e.target.files[0];
+                              if (
+                                currentImage.type != 'image/jpg' &&
+                                currentImage.type != 'image/jpeg' &&
+                                currentImage.type != 'image/png'
+                              )
+                                setError(
+                                  'only jpg,jpeg,png formats are allowed'
+                                );
+                              else {
+                                if (currentImage.size > 2048000)
+                                  setError('max image size limit is 2MB');
+                                else {
+                                  setUserProfile((prevState) => ({
+                                    ...prevState,
+                                    ['customer_profile_picture']: currentImage,
+                                  }));
+                                  setDisplayProfileImage(file);
+                                }
+                              }
+                            }}
                           />
                           <FiUpload
                             className="text-center "

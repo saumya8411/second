@@ -243,11 +243,13 @@ router.post('/users/reset-password',async (req, res) => {
 
 router.put('/users', auth, async (req, res) => {
     try {
+        let flg = 0;
         // console.log(req.files.profile_picture,JSON.parse(req.body.values))
         if (req.files && req.files.profile_picture) {
             const file = req.files.profile_picture;
             file.mv(`${process.env.FILE_UPLOAD_PATH_CLIENT}${file.name}`, err => {
                 if (err) {
+                    flg = 1;
                     console.log(err)
                     return res.status(500).json({
                         success: 0,
@@ -257,63 +259,65 @@ router.put('/users', auth, async (req, res) => {
                 console.log('profile picture updated')
             })
         }
+        
+        if(!flg){
+            const {
+                customer_subdomain_name,
+                customer_institute_name,
+                customer_about_me,
+                customer_career_summary,
+                customer_role,
+                customer_linkedin_url,
+                customer_occupation,
+                customer_facebook_url,
+                customer_website_url,
+                customer_twitter_url, } = JSON.parse(req.body.values);
             
-        const {
-            customer_subdomain_name,
-            customer_institute_name,
-            customer_about_me,
-            customer_career_summary,
-            customer_role,
-            customer_linkedin_url,
-            customer_occupation,
-            customer_facebook_url,
-            customer_website_url,
-            customer_twitter_url, } = JSON.parse(req.body.values);
-        
-        const user = await User.findOne({ where: { customer_id: req.user.customer_id } });
-        if (!user)
-            return res.status(400).json({
-                success: 0,
-                error:'user does not exists'
-            })
-        
-        // const user = sqlCheck.dataValues;
-        if (customer_subdomain_name != user.customer_subdomain_name) {
-            const isPresent = await User.findOne({
-                where: {
-                    customer_id: { $not: req.user.customer_id },
-                    $and:{ customer_subdomain_name }
-                }
-            })
-            if (isPresent)
+            const user = await User.findOne({ where: { customer_id: req.user.customer_id } });
+            if (!user)
                 return res.status(400).json({
                     success: 0,
-                    error:'provided subdomain name already exists'
+                    error:'user does not exists'
                 })
-        }
-        console.log(user)
-        // user.customer_profile_picture = customer_profile_picture;
-        user.customer_subdomain_name = customer_subdomain_name;
-        user.customer_institute_name=customer_institute_name;
-        user.customer_about_me = customer_about_me;
-        user.customer_career_summary = customer_career_summary;
-        user.customer_role = customer_role;
-        user.customer_linkedin_url = customer_linkedin_url;
-        user.customer_occupation = customer_occupation;
-        user.customer_facebook_url = customer_facebook_url;
-        user.customer_website_url = customer_website_url;
-        user.customer_twitter_url = customer_twitter_url;
+            
+            // const user = sqlCheck.dataValues;
+            if (customer_subdomain_name != user.customer_subdomain_name) {
+                const isPresent = await User.findOne({
+                    where: {
+                        customer_id: { $not: req.user.customer_id },
+                        $and:{ customer_subdomain_name }
+                    }
+                })
+                if (isPresent)
+                    return res.status(400).json({
+                        success: 0,
+                        error:'provided subdomain name already exists'
+                    })
+            }
+            console.log(user)
+            // user.customer_profile_picture = customer_profile_picture;
+            user.customer_subdomain_name = customer_subdomain_name;
+            user.customer_institute_name=customer_institute_name;
+            user.customer_about_me = customer_about_me;
+            user.customer_career_summary = customer_career_summary;
+            user.customer_role = customer_role;
+            user.customer_linkedin_url = customer_linkedin_url;
+            user.customer_occupation = customer_occupation;
+            user.customer_facebook_url = customer_facebook_url;
+            user.customer_website_url = customer_website_url;
+            user.customer_twitter_url = customer_twitter_url;
 
-        const updatedUser = await user.save();
-        if (!updatedUser)
-            return res.status(400).json({
-                success: 0,
-                error:'unable to update user info'
+            const updatedUser = await user.save();
+            if (!updatedUser)
+                return res.status(400).json({
+                    success: 0,
+                    error:'unable to update user info'
+                })
+            res.status(200).json({
+                success: 1,
+                user:updatedUser
             })
-        res.status(200).json({
-            success: 1,
-            user:updatedUser
-        })
+        }
     } catch (err) {
         console.log(err);
         return res.status(400).json({
