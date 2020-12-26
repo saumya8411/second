@@ -475,13 +475,30 @@ const Themepage = () => {
       return { error: 'provide user email', success: 0 };
     return { success: 1 };
   };
-  const handleInviteUserSubmit = () => {
+  const handleInviteUserSubmit = async () => {
     toggle();
     console.log(inviteUser);
     const validate = validateInviteUser();
+    console.log(validate);
     if (!validate.success) setError(validate.error);
     else {
       //do a network request
+      try {
+        const values = Object.assign(inviteUser);
+        const result = await axiosInstance.post('/invite/trainer/invite', {
+          values,
+        });
+        console.log(result);
+        if (result.data.success) setSuccess('Invitation Sent');
+        else setError(result.data.error);
+      } catch (err) {
+        console.log(err);
+        try {
+          setError(err.response.data.error);
+        } catch (error) {
+          setError('unable to invite user');
+        }
+      }
     }
   };
 

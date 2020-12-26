@@ -1,55 +1,71 @@
-import React ,{useEffect} from 'react'
-import * as Yup from "yup";
-import { Formik, Form, Field} from "formik";
-import {FormGroup,Button,Label,Card,Row,CardTitle,InputGroupAddon,InputGroup,InputGroupText,Input } from 'reactstrap'
-import { NavLink, Redirect } from "react-router-dom";
-import { Colxx } from "../../components/common/CustomBootstrap";
-import { connect } from "react-redux"
+import React, { useEffect } from 'react';
+import * as Yup from 'yup';
+import { Formik, Form, Field } from 'formik';
+import {
+  FormGroup,
+  Button,
+  Label,
+  Card,
+  Row,
+  CardTitle,
+  InputGroupAddon,
+  InputGroup,
+  InputGroupText,
+  Input,
+} from 'reactstrap';
+import { NavLink, Redirect } from 'react-router-dom';
+import { Colxx } from '../../components/common/CustomBootstrap';
+import { connect } from 'react-redux';
 import { NotificationManager } from '../../components/common/react-notifications';
 
-import { registerUser } from "../../redux/actions";
+import { registerUser } from '../../redux/actions';
 
 const initialValues = {
-    institutename: "",
-    subdomain: "",
-    // otp_in_mobile: "",
-    // otp_in_email:""
-  };
+  institutename: '',
+  subdomain: '',
+  // otp_in_mobile: "",
+  // otp_in_email:""
+};
 
+const validation = Yup.object().shape({
+  institutename: Yup.string()
+    .min(2, 'please enter correct insitute')
+    .max(50, 'please enter correct institute')
+    .required('insitute name is required'),
+  subdomain: Yup.string()
+    .min(2, 'Subdomain should be min 2 characters')
+    .max(50, 'please enter correct subdomian')
+    .required('Subdomain is required'),
+  // otp_in_mobile: Yup.string()
+  // .min(4, "Please Enter valid otp")
+  // .max(6, "Please Enter correct otp")
+  // .required("OTP is Required"),
+  // otp_in_email: Yup.string()
+  // .min(4, "Please Enter valid otp")
+  // .max(6, "Please Enter correct otp")
+  // .required("OTP is Required")
+});
 
-  const validation = Yup.object().shape({
-    institutename: Yup.string()
-    .min(2, "please enter correct insitute")
-    .max(50, "please enter correct institute")
-    .required("insitute name is required"),
-    subdomain: Yup.string()
-      .min(2, "Subdomain should be min 2 characters")
-      .max(50, "please enter correct subdomian")
-      .required("Subdomain is required"),
-    // otp_in_mobile: Yup.string()
-    // .min(4, "Please Enter valid otp")
-    // .max(6, "Please Enter correct otp")
-    // .required("OTP is Required"),
-    // otp_in_email: Yup.string()
-    // .min(4, "Please Enter valid otp")
-    // .max(6, "Please Enter correct otp")
-    // .required("OTP is Required")
-  });
-
-function DomainRegistration({history,loading,error,registerUserAction,...props}) {
-
-    const onSubmit = (values) => {
-      console.log(values);
-      const data = {
-        customer_first_name :props.location.state.data.name,  
-        customer_email : props.location.state.data.email,    
-        customer_profile_picture:props.location.state.data.imageUrl,
-        customer_institute_name: values.institutename,
-        customer_subdomain_name: values.subdomain,
-        using_google:true
-      };
-      values = data;
-      registerUserAction({ history, values });
+function DomainRegistration({
+  history,
+  loading,
+  error,
+  registerUserAction,
+  ...props
+}) {
+  const onSubmit = (values) => {
+    console.log(values);
+    const data = {
+      customer_first_name: props.location.state.data.first_name,
+      customer_last_name: props.location.state.data.last_name,
+      customer_email: props.location.state.data.email,
+      customer_profile_picture: props.location.state.data.imageUrl,
+      customer_institute_name: values.institutename,
+      customer_subdomain_name: values.subdomain,
+      using_google: true,
+    };
+    values = data;
+    registerUserAction({ history, values });
   };
   useEffect(() => {
     if (error) {
@@ -57,54 +73,47 @@ function DomainRegistration({history,loading,error,registerUserAction,...props})
     }
   }, [error]);
 
-    return (
-        
-            <Row className="h-100">
+  return (
+    <Row className="h-100">
       <Colxx xxs="12" md="10" className="mx-auto my-auto">
         <Card className="auth-card">
           <div className="position-relative image-side ">
-            <p className="text-white h2"> Ed - tech startup </p> 
+            <p className="text-white h2"> Ed - tech startup </p>
             <p className="white mb-0">
               Please use this form to register. <br />
-              If you are a member, please 
+              If you are a member, please
               <NavLink to="/Tutor/user/login" className="black">
-                <b> login </b> 
+                <b> login </b>
               </NavLink>
-            </p> 
-          </div> 
+            </p>
+          </div>
           <div className="form-side">
             <NavLink to="/" className="white">
               <span className="logo-single" />
-            </NavLink> 
-            <CardTitle className="mb-4">
-              Register Your Domain
-            </CardTitle> 
-    
-               <Formik
-            
+            </NavLink>
+            <CardTitle className="mb-4">Register Your Domain</CardTitle>
+
+            <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
               validationSchema={validation}
             >
-               
-              {({ handleSubmit,
+              {({
+                handleSubmit,
                 setFieldValue,
                 setFieldTouched,
                 values,
                 errors,
                 touched,
-                isSubmitting }) => (
+                isSubmitting,
+              }) => (
                 <Form
                   className="av-tooltip tooltip-label-bottom"
                   autoComplete="true"
                 >
                   <FormGroup className="form-group has-float-label">
-                    <Label>
-                      institute Name
-                    </Label> 
-                    <Field
-                      className="form-control"
-                      name="institutename"/> 
+                    <Label>institute Name</Label>
+                    <Field className="form-control" name="institutename" />
                     {errors.institutename && touched.institutename ? (
                       <div className="invalid-feedback d-block">
                         {errors.institutename}
@@ -113,17 +122,14 @@ function DomainRegistration({history,loading,error,registerUserAction,...props})
                   </FormGroup>
                   <FormGroup className="form-group has-float-label">
                     <InputGroup>
-                    <Label>
-                      SubDomain
-                    </Label> 
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>https://</InputGroupText>
-                    </InputGroupAddon>
-                    <Field className="form-control"
-                      name="subdomain"/>
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>.oyestershowtime.in</InputGroupText>
-                    </InputGroupAddon>
+                      <Label>SubDomain</Label>
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>https://</InputGroupText>
+                      </InputGroupAddon>
+                      <Field className="form-control" name="subdomain" />
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>.oyestershowtime.in</InputGroupText>
+                      </InputGroupAddon>
                     </InputGroup>
                     {errors.subdomain && touched.subdomain ? (
                       <div className="invalid-feedback d-block">
@@ -159,7 +165,7 @@ function DomainRegistration({history,loading,error,registerUserAction,...props})
                       </div>
                     ) : null}
                   </FormGroup>  */}
-               {/* <FormGroup className="form-group has-float-label">
+                  {/* <FormGroup className="form-group has-float-label">
                     <Label>
                       SubDomain
                     </Label> 
@@ -168,21 +174,17 @@ function DomainRegistration({history,loading,error,registerUserAction,...props})
                     /> 
                     
                       </FormGroup> */}
-                    <Button color="primary" type="submit">
+                  <Button color="primary" type="submit">
                     Complete Registration
-                  </Button> 
-                  
+                  </Button>
                 </Form>
-              )} 
-              
+              )}
             </Formik>
-        </div>
+          </div>
         </Card>
-        </Colxx>
-        </Row>
-    
-    
-    )
+      </Colxx>
+    </Row>
+  );
 }
 
 // export default DomainRegistration;
@@ -193,7 +195,5 @@ const mapStateToProps = ({ authUser }) => {
 };
 
 export default connect(mapStateToProps, {
-  registerUserAction: registerUser
+  registerUserAction: registerUser,
 })(DomainRegistration);
-
-     

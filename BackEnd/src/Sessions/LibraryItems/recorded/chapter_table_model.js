@@ -9,13 +9,17 @@ const ChapterTable = db.define('chapter_table', {
     },
     session_id: {
         type: DataTypes.INTEGER(255),
-        references: 'session_tables', // <<< Note, its table's name, not object name
-        referencesKey: 'session_id' // <<< Note, its a column name
+        references: {
+            model: 'sesion_table',
+            key:'session_id'
+        }
     },
     customer_id: {
         type: DataTypes.INTEGER(255),
-        references: 'customer_table',
-        referencesKey:'customer_id'
+        references: {
+            model: 'customer_table',
+            key:'customer_id'
+        }
     },
     chapter_name: {
         type: DataTypes.STRING,

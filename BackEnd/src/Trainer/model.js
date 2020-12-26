@@ -10,8 +10,10 @@ const Trainer = db.define('trainer_profile', {
     },
     customer_id: {
         type: INTEGER,
-        references: 'customer_table',
-        referenceKey: 'customer_id'
+        references: {
+            model: 'customer_table',
+            key:'customer_id'
+        }
     },
     trainer_image_url: {
         type: STRING,

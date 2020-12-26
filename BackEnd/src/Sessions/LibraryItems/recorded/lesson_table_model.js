@@ -10,18 +10,24 @@ const LessonTable = db.define('lesson_table', {
     },
     session_id: {
         type: DataTypes.INTEGER,
-        references: 'session_table',
-        referencesKey:'session_id'
+        references: {
+            model: 'session_table',
+            key:'session_id'
+        }
     },
     customer_id: {
         type: DataTypes.INTEGER,
-        references: 'customer_table',
-        referencesKey:'customer_id'
+        references: {
+            model: 'customer_table',
+            key:'customer_id'
+        }
     },
     chapter_id: {
         type: DataTypes.INTEGER,
-        references: 'chapter_table',
-        referencesKey:'chapter_id'
+        references: {
+            model: 'chapter_table',
+            key:'chapter_id'
+        }
     },
     lesson_name: {
         type: DataTypes.STRING,
