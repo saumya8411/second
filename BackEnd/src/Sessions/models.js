@@ -118,6 +118,10 @@ const Session = db.define("session_table", {
 		type: DataTypes.STRING,
 		allowNull: true,
 		// defaultValue: Null
+	},
+	session_thumbnail: {
+		type: DataTypes.STRING,
+		allowNull:true
 	}
 });
 

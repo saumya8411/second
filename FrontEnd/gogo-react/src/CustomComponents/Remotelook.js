@@ -6,12 +6,9 @@ import {
   CardBody,
   CardTitle,
   Row,
-  FormGroup,
   Label,
   Input,
   Col,
-  Form,
-  Badge,
   Modal,
   ModalHeader,
   ModalBody,
@@ -19,11 +16,8 @@ import {
 } from 'reactstrap';
 import './Customcss.css';
 import Avatar from './avatarnew.png';
-import { func } from 'prop-types';
-// import produtcs from '../data/products';
-import { iconsmind, simplelineicons } from '../data/icons';
+import { iconsmind } from '../data/icons';
 import { Link } from 'react-router-dom';
-import { Scrollbars } from 'react-custom-scrollbars';
 import { FiUpload } from 'react-icons/fi';
 import { VscLibrary } from 'react-icons/vsc';
 import axiosInstance from '../helpers/axiosInstance';
@@ -54,7 +48,7 @@ const Remotelook = (props) => {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [data, setData] = useState([]);
   const [file, setFile] = useState('');
-  const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [displayThumbnail, setDisplayThumbnail] = useState(null);
 
   useEffect(() => {
     //call your data from backend with uniquesessionid and store in data
@@ -195,6 +189,32 @@ const Remotelook = (props) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
+  const uploadThumbnail = async (currentImage) => {
+    try {
+      const formData = new FormData();
+      formData.append('thumbnail', currentImage);
+      formData.append('session_id', uniquesessionid);
+      const result = await axiosInstance.post(
+        '/sessions/upload/thumbnail',
+        formData
+      );
+      console.log(result);
+      if (result.data.success) setSuccess('thumbnail uploaded successfully');
+      else {
+        try {
+          setError(result.data.error);
+        } catch (err) {
+          setError('unable to upload thumbnail');
+        }
+      }
+    } catch (err) {
+      try {
+        setError(err.response.data.error);
+      } catch (err) {
+        setError('Could not update...try again');
+      }
+    }
+  };
   return (
     <section style={{ marginLeft: '7%', marginRight: '7%' }}>
       <Link to="/app/dashboard/default">
@@ -382,6 +402,55 @@ const Remotelook = (props) => {
               <h3 className="font-weight-bold">Fees Type</h3>
               <p>{data.session_fee_type}</p>
             </Colxx>
+          </Row>
+        </CardBody>
+      </Card>
+      <Card className="mb-3">
+        <CardTitle
+          className="font-weight-bold pl-4 pt-4"
+          style={{ fontSize: '1.3rem' }}
+        >
+          Add Thumbnail
+        </CardTitle>
+        <CardBody>
+          <Row className="text-center">
+            <img
+              src={displayThumbnail}
+              style={{ width: '20%', marginLeft: '10px' }}
+            />
+            <label className="input-label-1">
+              <input
+                type="file"
+                name="thumbnail"
+                accept=".jpg,.jpeg,.png"
+                onChange={(e) => {
+                  console.log(e.target.files[0]);
+                  const file = URL.createObjectURL(e.target.files[0]);
+                  const currentImage = e.target.files[0];
+                  if (
+                    currentImage.type != 'image/jpg' &&
+                    currentImage.type != 'image/jpeg' &&
+                    currentImage.type != 'image/png'
+                  )
+                    setError('only jpg,jpeg,png formats are allowed');
+                  else {
+                    if (currentImage.size > 2048000)
+                      setError('max image size limit is 2MB');
+                    else {
+                      setDisplayThumbnail(file);
+                      uploadThumbnail(currentImage);
+                    }
+                  }
+                }}
+              />
+              <FiUpload />
+              <p id="ufd">Upload from device</p>
+            </label>
+            <label className="input-label-2">
+              <input type="file" />
+              <VscLibrary />
+              <p id="ufl">Upload from Library</p>
+            </label>
           </Row>
         </CardBody>
       </Card>

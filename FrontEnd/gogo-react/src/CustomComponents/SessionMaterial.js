@@ -55,6 +55,8 @@ export default class SessionMaterial extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.state = {
       error: null,
+      displayThumbnail: '',
+      session_thumbnail: '',
       success: null,
       modal: false,
       showMessage: false,
@@ -97,6 +99,7 @@ export default class SessionMaterial extends Component {
         session_link: '',
         session_fee_type: '',
         session_duration: '',
+
         Trainer: {
           name: 'Vedant',
           skills: [
@@ -504,7 +507,33 @@ export default class SessionMaterial extends Component {
         }
       });
   };
-
+  uploadThumbnail = async (currentImage) => {
+    try {
+      const formData = new FormData();
+      formData.append('thumbnail', currentImage);
+      formData.append('session_id', this.props.location.state.uniquesessionid);
+      const result = await axiosInstance.post(
+        '/sessions/upload/thumbnail',
+        formData
+      );
+      console.log(result);
+      if (result.data.success)
+        this.setState({ success: 'thumbnail uploaded successfully' });
+      else {
+        try {
+          this.setState({ error: result.data.error });
+        } catch (err) {
+          this.setState({ error: 'unable to upload thumbnail' });
+        }
+      }
+    } catch (err) {
+      try {
+        this.setState({ error: err.response.data.error });
+      } catch (err) {
+        this.setState({ error: 'Could not update...try again' });
+      }
+    }
+  };
   render() {
     return (
       <section style={{ marginLeft: '7%', marginRight: '7%' }}>
@@ -612,22 +641,6 @@ export default class SessionMaterial extends Component {
                       Tagline
                     </h3>
                     <p>{this.state.data.tagline}</p>
-                    {/* <Input
-                      type="text"
-                      name="tagline"
-                      placeholder="Write a good tagline"
-                      value={this.state.data.tagline}
-                      onChange={(e) => this.changepageattribute(e)}
-                    /> */}
-                    {/* <p>Tagline is here</p> */}
-                    {/* <Editable
-                      style={{ fontSize: '15px' }}
-                      text={this.state.data.tagline}
-                      placeholder="Write a good tagline"
-                      type="input"
-                    >
-                      
-                    </Editable> */}
                   </Colxx>
                 </Row>
               </Colxx>
@@ -645,22 +658,6 @@ export default class SessionMaterial extends Component {
                     </h3>
 
                     <p>{this.state.data.seo}</p>
-                    {/* <Input
-                      type="text"
-                      name="seo"
-                      placeholder="SEO"
-                      value={this.state.data.seo}
-                      onChange={(e) => this.changepageattribute(e)}
-                    /> */}
-                    {/* <Editable
-                      style={{ fontSize: '15px' }}
-                      text={this.state.data.seo}
-                      placeholder="SEO"
-                      type="input"
-                    >
-                      
-                     
-                    </Editable> */}
                   </Colxx>
                 </Row>
                 <Row style={{ marginBottom: '20px' }}>
@@ -672,22 +669,6 @@ export default class SessionMaterial extends Component {
                       Description
                     </h3>
                     <p>{this.state.data.description}</p>
-                    {/* <Input
-                      type="text"
-                      name="description"
-                      placeholder="Write a good description"
-                      value={this.state.data.description}
-                      onChange={(e) => this.changepageattribute(e)}
-                    /> */}
-                    {/* <Editable
-                      style={{ fontSize: '15px' }}
-                      text={this.state.data.description}
-                      placeholder="Write a good description"
-                      type="input"
-                    >
-                     
-                     
-                    </Editable> */}
                   </Colxx>
                 </Row>
                 <Row style={{ marginBottom: '20px' }}>
@@ -699,25 +680,60 @@ export default class SessionMaterial extends Component {
                       Fees Type
                     </h3>
                     <p>{this.state.data.session_fee_type}</p>
-                    {/* <Input
-                      type="text"
-                      name="description"
-                      placeholder="Write a good description"
-                      value={this.state.data.description}
-                      onChange={(e) => this.changepageattribute(e)}
-                    /> */}
-                    {/* <Editable
-                      style={{ fontSize: '15px' }}
-                      text={this.state.data.description}
-                      placeholder="Write a good description"
-                      type="input"
-                    >
-                     
-                     
-                    </Editable> */}
                   </Colxx>
                 </Row>
               </Colxx>
+            </Row>
+          </CardBody>
+        </Card>
+        <Card className="mb-3">
+          <CardTitle
+            className="font-weight-bold pl-4 pt-4"
+            style={{ fontSize: '1.3rem' }}
+          >
+            Add Thumbnail
+          </CardTitle>
+          <CardBody>
+            <Row className="text-center">
+              <img
+                src={this.state.displayThumbnail || Avatar}
+                style={{ width: '20%', marginLeft: '10px' }}
+              />
+              <label className="input-label-1">
+                <input
+                  type="file"
+                  name="thumbnail"
+                  accept=".jpg,.jpeg,.png"
+                  onChange={(e) => {
+                    console.log(e.target.files[0]);
+                    const file = URL.createObjectURL(e.target.files[0]);
+                    const currentImage = e.target.files[0];
+                    if (
+                      currentImage.type != 'image/jpg' &&
+                      currentImage.type != 'image/jpeg' &&
+                      currentImage.type != 'image/png'
+                    )
+                      this.setState({
+                        error: 'only jpg,jpeg,png formats are allowed',
+                      });
+                    else {
+                      if (currentImage.size > 2048000)
+                        this.setState({ error: 'max image size limit is 2MB' });
+                      else {
+                        this.setState({ displayThumbnail: file });
+                        this.uploadThumbnail(currentImage);
+                      }
+                    }
+                  }}
+                />
+                <FiUpload />
+                <p id="ufd">Upload from device</p>
+              </label>
+              <label className="input-label-2">
+                <input type="file" />
+                <VscLibrary />
+                <p id="ufl">Upload from Library</p>
+              </label>
             </Row>
           </CardBody>
         </Card>
@@ -820,16 +836,6 @@ export default class SessionMaterial extends Component {
               </CardTitle>
             </Col>
           </Row>
-
-          {/* <FormGroup className="error-l-100">
-                      <Label>Multiple Chapters: </Label>
-                      <Switch
-                  className="custom-switch custom-switch-secondary custom-switch-small"
-                  checked={multiplechapters}
-                  onChange={(secondary) => setMultiplechapters(secondary)}
-                />
-                      </FormGroup> */}
-
           <Row>
             {' '}
             <Col md="6">

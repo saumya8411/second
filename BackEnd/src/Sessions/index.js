@@ -6,22 +6,6 @@ const router = require('express').Router()
 const auth = require('../middleware/deepakAuth');
 const { Op } = require("sequelize");
 
-//Connecting to database
-// let connection = mysql.createConnection({
-//     host     : 'localhost',
-//     user     : 'root',
-//     password : '',
-//     database : 'oyesters'
-//   });
-   
-//   connection.connect(err => {
-//       if(err){
-//           throw err;
-//       }
-//       console.log("MYSQL Connected")
-//   });
-
-
 
 router.post('/createLiveSession',auth,async (req,res)=>{
   console.log('❓', req.body);
@@ -495,4 +479,51 @@ router.post('/deleteSession',async (req,res)=>{
 
 });
 
+router.post('/upload/thumbnail', auth, async (req, res) => {
+  try {
+    console.log(req.files,req.body)
+    const thumbnail = req.files.thumbnail;
+    const session_id = req.body.session_id;
+
+    if (!req.files.thumbnail)
+      return res.status(400).json({
+        success: 0,
+        error:'thumbnail not provided'
+      })
+    if (!session_id)
+      return res.status(400).json({
+        success: 0,
+        error:'session id not provided'
+      })
+    
+    const file = req.files.thumbnail;
+    file.mv(`${process.env.FILE_UPLOAD_PATH_CLIENT}${file.name}`, err => {
+      if (err)
+        return res.status(500).json({
+          success: 0,
+          error: 'unable to upload thumbnail',
+          errorReturned:JSON.stringify(err)
+        })
+    })
+
+    const result = await Session.update({ session_thumbnail: ` URL OF ${thumbnail}` },
+      { where: { session_id } }
+    );
+    if (!result)
+      return res.status(400).json({
+        success: 0,
+        error:'unable to upload thumbnail'
+      })
+    return res.status(200).json({
+      success: 1
+    })
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      success: 0,
+      error: 'unable to upload thumbnail',
+      errorReturned:JSON.stringify(err)
+    })
+  }
+})
 module.exports = router
