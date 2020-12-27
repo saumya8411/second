@@ -73,8 +73,8 @@ const TutorProfile = () => {
       const result = await axiosInstance.put('/users', formData);
 
       if (result.data.success) {
-        setUserProfile(result.data.user);
         setSuccess('Profile Updated Scuuessfully');
+        setUserProfile(result.data.user);
       } else {
         if (result.data.error) setError(result.data.error);
         else setError('could not update details');
@@ -112,7 +112,7 @@ const TutorProfile = () => {
   }, []);
 
   return (
-    <Row className="p-4" style={{ width: '100% !important' }}>
+    <Row className="p-4">
       <Form onSubmit={handleUserProfileSubmit}>
         <div className="mx-4">
           <Card body>
@@ -159,7 +159,7 @@ const TutorProfile = () => {
                     <p id="ufd">Upload from device</p>
                   </label>
                 </Row>
-                <label className="mt-4">SubDomain Name</label>
+                <label className="mt-5">SubDomain Name</label>
                 <Input
                   type="text"
                   name="customer_subdomain_name"
@@ -186,65 +186,102 @@ const TutorProfile = () => {
                 />
               </Col>
             </Row>
-            <label className="mt-4 mx-1">Career Summary</label>
-            <Input
-              type="text"
-              className="mr-2"
-              name="customer_career_summary"
-              value={userProfile.customer_career_summary}
-              onChange={handleUserProfileChange}
-            />
-            <p className="mt-2">
-              <b>Note:</b>&nbsp;Please add ',' to separte skills.
-            </p>
             <Row>
               <Col md={6}>
-                <label>Role</label>
-                <Input type="text" value="Instructor" disabled />
-                <label className="mt-4">Occupation</label>
-                <Input
+                <label className="mt-4 mx-1">Career Summary</label> <br />
+                <textarea
                   type="text"
-                  placeholder="Occupation"
-                  name="customer_occupation"
-                  value={userProfile.customer_occupation}
+                  name="customer_career_summary"
+                  style={{
+                    fontFamily: 'inherit',
+                    fontSize: 'inherit',
+                    height: '300px',
+                    width: '100%',
+                    maxWidth: '100% !important',
+                  }}
+                  value={userProfile.customer_career_summary}
                   onChange={handleUserProfileChange}
+                  onKeyPress={(e) => (e.key === 'Enter' ? false : true)}
                 />
-                <label className="mt-4">Website</label>
-                <Input
-                  type="text"
-                  placeholder="example: www.xyz.com"
-                  name="customer_website_url"
-                  value={userProfile.customer_website_url}
-                  onChange={handleUserProfileChange}
-                />
+                <p className="mt-2">
+                  <b>Note:</b>&nbsp;Please add ',' to separte skills.
+                </p>
               </Col>
-              <Col md={6}>
-                <label className="">LinkedIn</label>
-                <Input
-                  type="text"
-                  placeholder="Your LinkedIn Account URL"
-                  name="customer_linkedin_url"
-                  value={userProfile.customer_linkedin_url}
-                  onChange={handleUserProfileChange}
-                />
-                <label className="mt-4">Facebook</label>
-                <Input
-                  type="text"
-                  placeholder="Your Facebook Account URL"
-                  name="customer_facebook_url"
-                  value={userProfile.customer_facebook_url}
-                  onChange={handleUserProfileChange}
-                />
-                <label className="mt-4">Twitter</label>
-                <Input
-                  type="text"
-                  placeholder="Your Twitter Account URL"
-                  name="customer_twitter_url"
-                  value={userProfile.customer_twitter_url}
-                  onChange={handleUserProfileChange}
-                />
+              <Col
+                md={6}
+                className="mt-3"
+                // style={{ alignItems: 'center', justifyContent: 'center' }}
+              >
+                <Row
+                  className="mt-5"
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-evenly',
+                  }}
+                >
+                  <Col md={3}>
+                    <label>Role</label>
+                    <Input
+                      type="text"
+                      value="Instructor"
+                      disabled
+                      style={{ width: '170%' }}
+                    />
+
+                    <label className="mt-4">Occupation</label>
+                    <Input
+                      type="text"
+                      placeholder="Occupation"
+                      name="customer_occupation"
+                      value={userProfile.customer_occupation}
+                      onChange={handleUserProfileChange}
+                      style={{ width: '170%' }}
+                    />
+
+                    <label className="mt-4">Website</label>
+                    <Input
+                      type="text"
+                      placeholder="example: www.xyz.com"
+                      name="customer_website_url"
+                      value={userProfile.customer_website_url}
+                      onChange={handleUserProfileChange}
+                      style={{ width: '170%' }}
+                    />
+                  </Col>
+                  <Col md={3}>
+                    <label className="">LinkedIn</label>
+                    <Input
+                      type="text"
+                      placeholder="Your LinkedIn Account URL"
+                      name="customer_linkedin_url"
+                      value={userProfile.customer_linkedin_url}
+                      onChange={handleUserProfileChange}
+                      style={{ width: '170%' }}
+                    />
+                    <label className="mt-4">Facebook</label>
+                    <Input
+                      type="text"
+                      placeholder="Your Facebook Account URL"
+                      name="customer_facebook_url"
+                      value={userProfile.customer_facebook_url}
+                      onChange={handleUserProfileChange}
+                      style={{ width: '170%' }}
+                    />
+                    <label className="mt-4">Twitter</label>
+                    <Input
+                      type="text"
+                      placeholder="Your Twitter Account URL"
+                      name="customer_twitter_url"
+                      value={userProfile.customer_twitter_url}
+                      onChange={handleUserProfileChange}
+                      style={{ width: '170%' }}
+                    />
+                  </Col>
+                </Row>
               </Col>
             </Row>
+
             <Row className="">
               <Button
                 type="reset"
@@ -267,5 +304,6 @@ const TutorProfile = () => {
     </Row>
   );
 };
+// font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji'
 
 export default TutorProfile;
