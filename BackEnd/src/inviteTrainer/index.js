@@ -189,5 +189,30 @@ router.post('/', async (req, res) => {
         })
     }
 })
-
+router.post('/delete', auth, async (req, res) => {
+    try {
+        console.log(req.body)
+        const result = await InviteTrainer.destroy({
+            where: {
+                customer_id: req.user.customer_id,
+                invited_user_email:req.body.values.invited_user_email
+            }
+        })
+        if (!result)
+            return res.status(400).json({
+                success: 0,
+                error:'unable to delete tutor'
+            })
+        return res.status(200).json({
+            success: 1
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error: 'unable to delete user',
+            errorReturned:JSON.stringify(err)
+        })
+    }
+})
 module.exports = router;

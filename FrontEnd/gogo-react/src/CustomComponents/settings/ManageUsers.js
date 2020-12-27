@@ -129,7 +129,80 @@ const ManageUsers = () => {
       getInvitedUsers();
     }, 1500);
   }, [success, error, setSuccess, setError]);
+  const cols = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Email',
+      accessor: 'email',
+      cellClass: 'color',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Role',
+      accessor: 'role',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => <p>{props.value}</p>,
+      sortType: 'basic',
+    },
+    {
+      Header: 'Invitation',
+      accessor: 'invite',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => (
+        <Button
+          disabled="true"
+          color={props.value === 'Accepted' ? 'success' : 'danger'}
+        >
+          {props.value}
+        </Button>
+      ),
+      sortType: 'basic',
+    },
+    {
+      Header: 'Action',
+      cellClass: 'text-muted w-25',
+      Cell: (props) => (
+        <Button
+          onClick={(e) => handleDelete(props.cell.row.values)}
+          color="danger"
+        >
+          Delete
+        </Button>
+      ),
+      sortType: 'basic',
+    },
+  ];
 
+  const handleDelete = async (data) => {
+    try {
+      const values = { invited_user_email: data.email };
+      const result = await axiosInstance.post('/invite/trainer/delete', {
+        values,
+      });
+      console.log(result);
+      if (result.data.success) setSuccess('Tutor deleted successfuly');
+      else {
+        try {
+          setError('unable to delete tutor');
+        } catch (error) {
+          setError('unable to delete tutor');
+        }
+      }
+    } catch (err) {
+      try {
+        setError(err.response.data.error);
+      } catch (error) {
+        setError('unable to delete tutor');
+      }
+    }
+  };
   return (
     <>
       <Button
@@ -200,56 +273,7 @@ const ManageUsers = () => {
     </>
   );
 };
-const cols = [
-  {
-    Header: 'Name',
-    accessor: 'name',
-    cellClass: 'text-muted w-25',
-    Cell: (props) => <p>{props.value}</p>,
-    sortType: 'basic',
-  },
-  {
-    Header: 'Email',
-    accessor: 'email',
-    cellClass: 'color',
-    Cell: (props) => <p>{props.value}</p>,
-    sortType: 'basic',
-  },
-  {
-    Header: 'Role',
-    accessor: 'role',
-    cellClass: 'text-muted w-25',
-    Cell: (props) => <p>{props.value}</p>,
-    sortType: 'basic',
-  },
-  {
-    Header: 'Invitation',
-    accessor: 'invite',
-    cellClass: 'text-muted w-25',
-    Cell: (props) => (
-      <Button
-        disabled="true"
-        color={props.value === 'Accepted' ? 'success' : 'danger'}
-      >
-        {props.value}
-      </Button>
-    ),
-    sortType: 'basic',
-  },
-  {
-    Header: 'Action',
-    cellClass: 'text-muted w-25',
-    Cell: () => (
-      <Button onClick={(e) => handleDelete(e)} color="danger">
-        Delete
-      </Button>
-    ),
-    sortType: 'basic',
-  },
-];
-const handleDelete = (e) => {
-  console.log(e);
-};
+
 const Table = ({ columns, data }) => {
   const {
     getTableProps,

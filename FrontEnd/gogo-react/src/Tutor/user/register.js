@@ -97,7 +97,6 @@ const Register = ({ loading, error, registerUserAction, ...props }) => {
   const [registerTrainerError, setRegisterTrainerError] = useState(null);
   const [registerTrainerSuccess, setRegistertrainerSuccess] = useState(null);
 
-  //don't do network request ...please define network requests in /redux/auth/saga.js
   const onSubmit = async (values) => {
     console.log(values);
     if (!isTrainer) registerUserAction({ history, values });
@@ -112,8 +111,7 @@ const Register = ({ loading, error, registerUserAction, ...props }) => {
         ).customer_id;
         const result = await axiosInstance.post('/invite/trainer', { values });
         console.log(result);
-        if (result.data.success)
-          setRegistertrainerSuccess('Registered Scuuessfully');
+        if (result.data.success) history.push('/app/dashboard');
         else {
           try {
             setRegisterTrainerError(result.data.error);
@@ -211,9 +209,24 @@ const Register = ({ loading, error, registerUserAction, ...props }) => {
       initialValues.customer_first_name = parsed.first_name;
       initialValues.customer_email = parsed.email;
       initialValues.customer_last_name = parsed.last_name;
-      initialValues.customer_institute_name = 'No need to specify';
-      initialValues.customer_subdomain_name = 'No need to specify';
-      setIsTrainer(true);
+
+      if (
+        initialValues.customer_first_name &&
+        initialValues.customer_email &&
+        initialValues.customer_last_name
+      ) {
+        initialValues.customer_institute_name = 'No need to specify';
+        initialValues.customer_subdomain_name = 'No need to specify';
+      }
+
+      if (
+        initialValues.customer_first_name &&
+        initialValues.customer_email &&
+        initialValues.customer_last_name &&
+        initialValues.customer_institute_name &&
+        initialValues.customer_subdomain_name
+      )
+        setIsTrainer(true);
     } catch (err) {
       console.log(err);
       history.push('/Tutor/user/register');
