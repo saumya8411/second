@@ -61,23 +61,31 @@ const ThirdPartyIntegration = () => {
   }, [success, error]);
 
   const handleSubmit = async () => {
-    try {
-      const values = { customer_zoom_email, customer_zoom_jwt_token };
-      const result = await axiosInstance.put('/user/zoom/token', { values });
-      if (result.data.success) setSuccess('Details updated successfully');
-      else {
-        try {
-          setError(result.data.error);
-        } catch (error) {
-          setError('unable to update details');
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    const values = { customer_zoom_email, customer_zoom_jwt_token };
+    if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        customer_zoom_email
+      )
+    )
+      setError('Invalid Email');
+    else {
       try {
-        setError(err.response.data.error);
-      } catch (error) {
-        setError('unable to update zoom details');
+        const result = await axiosInstance.put('/user/zoom/token', { values });
+        if (result.data.success) setSuccess('Details updated successfully');
+        else {
+          try {
+            setError(result.data.error);
+          } catch (error) {
+            setError('unable to update details');
+          }
+        }
+      } catch (err) {
+        console.log(err);
+        try {
+          setError(err.response.data.error);
+        } catch (error) {
+          setError('unable to update zoom details');
+        }
       }
     }
   };
