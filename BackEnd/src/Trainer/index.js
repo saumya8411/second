@@ -2,7 +2,31 @@ const router = require('express').Router();
 const { Trainer } = require('./model');
 const auth=require('../middleware/deepakAuth')
 
-router.post('/',auth, (req, res) => {
+router.get('/', auth, async (req, res) => {
+    try {
+        const result = await Trainer.findAll({ where: { customer_id: req.user.customer_id } });
+        console.log('from trainer index',result.dataValues);
+        if (!result)
+            return res.status(400).json({
+                success: 0,
+                error:'could not find trainers data'
+            })
+        return res.status(200).json({
+            success:1,
+            trainers:result
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error: 'database error',
+            errorReturned:JSON.stringify(err)
+        })
+    }
+})
+
+
+router.post('/',auth,async (req, res) => {
     // return res.send('hi');
     try {
         let flg = 0;
@@ -25,7 +49,8 @@ router.post('/',auth, (req, res) => {
             })
         }
 
-        if(!flg){
+        if (!flg) {
+            await Trainer.destroy({ where: { customer_id: req.user.customer_id } });
             const trainerArray = JSON.parse(req.body.values);
             trainerArray.forEach(doc => console.log(doc));
             trainerArray.forEach(async trainer => {

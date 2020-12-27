@@ -240,7 +240,6 @@ router.post('/users/reset-password',async (req, res) => {
 
 })
 
-
 router.put('/users', auth, async (req, res) => {
     try {
         let flg = 0;
@@ -259,7 +258,7 @@ router.put('/users', auth, async (req, res) => {
                 console.log('profile picture updated')
             })
         }
-        
+
         if(!flg){
             const {
                 customer_subdomain_name,
@@ -366,7 +365,93 @@ router.post('/user/payment/details', auth, async(req, res) => {
    
 })
 
+router.get('/user/payment/details', auth, async (req, res) => {
+    try {
+        const paymentDetails = await User.findOne({
+            where: { customer_id: req.user.customer_id },
+            attributes: [
+                'customer_payment_full_name',
+    'customer_payment_bank_name',
+    'customer_payment_account_number',
+    'customer_payment_IFSC_code',
+    'customer_payment_bank_address'
+            ]
+        })
+        if (!paymentDetails)
+            return res.status(400).json({
+                success: 0,
+                error:'unable to fetch payment details'
+            })
+        return res.status(200).json({
+            success: 1,
+            paymentDetails
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error:'database error'
+        })
+    }
+})
 
+router.get('/user/zoom/token', auth, async (req, res) => {
+    try {
+        const result = await User.findOne({
+            where:{ customer_id:req.user.customer_id},
+            attributes:['customer_zoom_email','customer_zoom_jwt_token']
+        },
+      
+        )
+        if (!result)
+            return res.status(400).json({
+                success: 0,
+                error:'unable to fetch zoom details'
+            })
+        return res.status(200).json({
+            success: 1,
+            customer_zoom_email:result.dataValues.customer_zoom_email,
+            customer_zoom_jwt_token:result.dataValues.customer_zoom_jwt_token
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            success: 0,
+            error:'unable to fetch zoom details'
+        })
+    }
+})
+
+router.put('/user/zoom/token', auth, async (req, res) => {
+    try {
+        const { customer_zoom_email,
+            customer_zoom_jwt_token } = req.body.values;
+        const result = await User.update({
+                customer_zoom_email,
+                customer_zoom_jwt_token
+            },
+            {
+                where:
+                    { customer_id: req.user.customer_id }
+            }
+        )
+        console.log(result)
+        if (!result)
+            return res.status(400).json({
+                success: 0,
+                error:'could not update details'
+            })
+        return res.status(200).json({
+            success:1
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({
+            success: 0,
+            error:'could not update details'
+        })
+    }
+})
 // these 2 routes we don't need
 // create a user registered via google auth
 router.post('/users/google' , async (req,res) => {

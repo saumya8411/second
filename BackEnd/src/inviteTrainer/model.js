@@ -1,5 +1,5 @@
 const { db } = require('../Sessions/connection');
-const { DataTypes, INTEGER, STRING } = require('sequelize');
+const { DataTypes, INTEGER, STRING, BOOLEAN } = require('sequelize');
 
 const InviteTrainer = db.define('invited_user', {
     invited_user_id: {
@@ -33,12 +33,16 @@ const InviteTrainer = db.define('invited_user', {
     },
     invited_user_phone_number: {
         type: STRING,
-        allowNull:false
+        allowNull:true
     },
     invited_user_password: {
         type: STRING,   
-        allowNull:false
+        allowNull:true
     },
+    invited_user_status: {
+        type: BOOLEAN,
+        defaultValue:0
+    }
 })
 
 db.sync();

@@ -14,6 +14,36 @@ const validateData = (data) => {
     return { success: 1 };
 }
 
+
+router.get('/', auth, async(req, res) => {
+    try {
+        let tutors = await InviteTrainer.findAll({ 
+            where:{ customer_id:req.user.customer_id}
+        })
+        console.log(tutors)
+        if (!tutors)
+            return res.status(400).json({
+                success: 0,
+                error:'unable to find trainers'
+            })
+        tutors = tutors.map(doc => ({
+            name:`${doc.invited_user_first_name} ${doc.invited_user_last_name}`,
+            role:doc.invited_user_role,
+            email: doc.invited_user_email,
+            invite:doc.invited_user_status ? 'Accepted':'Pending'
+        }))
+        return res.status(200).json({
+            success: 1,
+            tutors
+        })
+    }catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error:'unable to find trainers'
+        })
+    }
+})
 router.post('/invite', auth, async (req, res) => {
     try {
         const {
@@ -29,6 +59,29 @@ router.post('/invite', auth, async (req, res) => {
                 error:validate.error
             })
         try {
+
+            try {
+                const trainer = InviteTrainer.create({
+                    customer_id: req.user.customer_id,
+                    invited_user_first_name,
+                    invited_user_last_name,
+                    invited_user_role,
+                    invited_user_email,
+                })
+                if (!trainer)
+                return res.status(400).json({
+                    success: 0,
+                    error: 'unable to save data to database',
+                })
+            } catch (error) {
+                console.log(error);
+                return res.status(400).json({
+                    success: 0,
+                    error: 'unable to save data to database',
+                    errorReturned:JSON.stringify(error)
+                })
+            }
+
             const mailSent = sendInvitationMail(invited_user_first_name,
                 invited_user_last_name,
                 invited_user_role,
@@ -74,7 +127,12 @@ router.post('/', async (req, res) => {
             customer_id
         } = req.body.values;
 
-        const sqlCheck = await InviteTrainer.findOne({ where: { invited_user_email: customer_email } });
+        const sqlCheck = await InviteTrainer.findOne({
+            where: {
+                invited_user_email: customer_email,
+                'invited_user_status':1
+            }
+        });
         if (sqlCheck)
             return res.status(400).json({
                 success: 0,
@@ -88,17 +146,25 @@ router.post('/', async (req, res) => {
                 error:validate.error
             })
         const salt = bcrypt.genSaltSync(10);
-        customer_password = await bcrypt.hashSync(customer_password, salt);
+        customer_password =  bcrypt.hashSync(customer_password, salt);
 
-        const savedTrainer = await InviteTrainer.create({
-            customer_id,
-            invited_user_first_name:customer_first_name,
-            invited_user_last_name:customer_last_name,
-            invited_user_role,
-            invited_user_email: customer_email,
-            invited_user_phone_number: customer_phone_number,
-            invited_user_password:customer_password
-        })
+        const savedTrainer = await InviteTrainer.update({
+                // customer_id,
+                // invited_user_first_name:customer_first_name,
+                // invited_user_last_name:customer_last_name,
+                // invited_user_role,
+                // invited_user_email: customer_email,
+                invited_user_phone_number: customer_phone_number,
+                invited_user_password: customer_password,
+                'invited_user_status':1
+            },  
+            {
+                where: {
+                    customer_id,
+                     invited_user_email: customer_email 
+                }
+            }
+        )
         if (!savedTrainer)
             return res.status(400).json({
                 success: 0,
