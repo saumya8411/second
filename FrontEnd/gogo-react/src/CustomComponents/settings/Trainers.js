@@ -104,14 +104,38 @@ const Trainer = () => {
     console.log(inputList1);
     let flg = 0;
     inputList1.forEach((doc) => {
-      if (!doc.fullname) setError('provide full name of trainer');
-      else if (!doc.occupation) setError('provide occupation of trainer');
-      else if (!doc.phone) setError('provide phone no of trainer');
-      else if (!doc.email) setError('provide email of trainer');
-      else if (!doc.address) setError('provide address of trainer');
-      else if (!doc.career_summary)
+      if (!doc.fullname) {
+        flg = 1;
+        setError('provide full name of trainer');
+      } else if (!doc.occupation) {
+        flg = 1;
+        setError('provide occupation of trainer');
+      } else if (!doc.phone) {
+        flg = 1;
+        setError('provide phone no of trainer');
+      } else if (isNaN(doc.phone)) {
+        flg = 1;
+        setError('only digits are allowed');
+      } else if (!doc.email) {
+        flg = 1;
+        setError('provide email of trainer');
+      } else if (
+        !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+          doc.email
+        )
+      ) {
+        flg = 1;
+        setError('invalid email');
+      } else if (!doc.address) {
+        flg = 1;
+        setError('provide address of trainer');
+      } else if (!doc.career_summary) {
+        flg = 1;
         setError('provide career summary of trainer');
-      else if (!doc.experience) setError('provide experience of trainer');
+      } else if (!doc.experience) {
+        flg = 1;
+        setError('provide experience of trainer');
+      }
     });
     const formData = new FormData();
     inputList1.forEach((doc, index) => {
@@ -223,35 +247,6 @@ const Trainer = () => {
                           }
                         }}
                       />
-                      {/* <input
-                        type="file"
-                        accept=".jpg,.jpeg,.png"
-                        onChange={(e) => {
-                          const file = e.target.files[0];
-                          const fileName = e.target.files[0].name;
-                          const ext = fileName.slice(
-                            fileName.lastIndexOf('.') + 1
-                          );
-                          console.log(ext);
-                          if (
-                            ext == 'jpeg' ||
-                            ext == 'JPEG' ||
-                            ext == 'jpg' ||
-                            ext == 'JPG' ||
-                            ext == 'png' ||
-                            ext == 'PNG'
-                          ) {
-                            const list = [...inputList1];
-                            list[i]['profile_picture'] = file;
-                            setInputList1(list);
-                          } else {
-                            console.log('here', ext, ext == 'PNG');
-                            setError(
-                              ' trainer pic only jpg,jpeg and png formats are allowed'
-                            );
-                          }
-                        }}
-                      /> */}
                       <FiUpload
                         className="text-center "
                         style={{ marginLeft: '50px' }}
@@ -369,24 +364,51 @@ const Trainer = () => {
                 <Row className="mt-4">
                   <Col md={6} xs={12}>
                     <label style={{ fontSize: '15px' }}>Career Summary</label>
-                    <Input
+                    <textarea
+                      type="text"
+                      style={{
+                        fontFamily: 'inherit',
+                        fontSize: 'inherit',
+                        height: '230px',
+                        width: '100%',
+                        maxWidth: '100% !important',
+                      }}
+                      name="career_summary"
+                      placeholder="Please use ',' to separte your skills"
+                      value={x.career_summary}
+                      onChange={(e) => handleInputChange1(e, i)}
+                    />
+                    {/* <Input
                       type="textarea"
                       className="ml10"
                       name="career_summary"
                       placeholder="Please use ',' to separte your skills"
                       value={x.career_summary}
                       onChange={(e) => handleInputChange1(e, i)}
-                    />
+                    /> */}
                   </Col>
                   <Col md={6} xs={12}>
                     <label style={{ fontSize: '15px' }}>Experience</label>
-                    <Input
+                    <textarea
+                      type="text"
+                      style={{
+                        fontFamily: 'inherit',
+                        fontSize: 'inherit',
+                        height: '230px',
+                        width: '100%',
+                        maxWidth: '100% !important',
+                      }}
+                      name="experience"
+                      value={x.experience}
+                      onChange={(e) => handleInputChange1(e, i)}
+                    />
+                    {/* <Input
                       type="textarea"
                       className="ml10"
                       name="experience"
                       value={x.experience}
                       onChange={(e) => handleInputChange1(e, i)}
-                    />
+                    /> */}
                   </Col>
                 </Row>
                 <div className="btn-box">
