@@ -3,7 +3,8 @@ const auth = require('../middleware/deepakAuth');
 const {InviteTrainer} = require('./model');
 const { sendInvitationMail } = require('../emails/account');
 const bcrypt = require('bcryptjs')
-const jwt=require('jsonwebtoken')
+const jwt=require('jsonwebtoken');
+const { sendsms } = require('../completed_test_modules/sendSmsModule');
 
 const validateData = (data) => {
     const arr = Object.keys(data).map(key => key);
@@ -176,6 +177,8 @@ router.post('/', async (req, res) => {
                 success: 0,
                 error:'unable to send mail'
             })
+            const smssent=await sendsms(customer_phone_number,'test')
+            console.log(smssent)
         res.redirect(307,'/invite/trainer/login')
         // return res.status(200).json({
         //     success:1
