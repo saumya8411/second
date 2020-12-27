@@ -3,7 +3,7 @@ const auth = require('../middleware/deepakAuth');
 const {InviteTrainer} = require('./model');
 const { sendInvitationMail } = require('../emails/account');
 const bcrypt = require('bcryptjs')
-
+const jwt=require('jsonwebtoken')
 
 const validateData = (data) => {
     const arr = Object.keys(data).map(key => key);
@@ -81,19 +81,19 @@ router.post('/invite', auth, async (req, res) => {
                     errorReturned:JSON.stringify(error)
                 })
             }
+            const customer_id=req.user.customer_id
 
             const mailSent = sendInvitationMail(invited_user_first_name,
                 invited_user_last_name,
                 invited_user_role,
                 invited_user_email,
-                req.user.customer_id
+                customer_id
             );
             if (!mailSent)
                 return res.status(400).json({
                     success: 0,
                     error:'unable to send mail'
                 })
-            console.log('deom index.js s',mailSent)
         } catch (err) {
             console.log(err);
             return res.status(400).json({
@@ -115,7 +115,6 @@ router.post('/invite', auth, async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    console.log(req.body)
     try {
         let {
             customer_first_name,
@@ -146,7 +145,7 @@ router.post('/', async (req, res) => {
                 error:validate.error
             })
         const salt = bcrypt.genSaltSync(10);
-        customer_password =  bcrypt.hashSync(customer_password, salt);
+        customer_password = bcrypt.hashSync(customer_password, salt);
 
         const savedTrainer = await InviteTrainer.update({
                 // customer_id,
@@ -177,10 +176,10 @@ router.post('/', async (req, res) => {
                 success: 0,
                 error:'unable to send mail'
             })
-        
-        return res.status(200).json({
-            success:1
-        })
+        res.redirect(307,'/invite/trainer/login')
+        // return res.status(200).json({
+        //     success:1
+        // })
     } catch (err) {
         console.log(err);
         return res.status(500).json({
@@ -189,6 +188,64 @@ router.post('/', async (req, res) => {
         })
     }
 })
+
+router.post('/login', async (req, res) => {
+    
+    try {
+        console.log('login route',req.body)
+        
+        const { customer_email, customer_password } = req.body.values;
+        if (!customer_email)
+            return res.status(400).json({
+                success: 0,
+                error:'email not provided'
+            })
+        if (!customer_password)
+            return res.status(400).json({
+                success: 0,
+                error:'password not provided'
+        })
+        
+        const result = await InviteTrainer.findOne({ where: { invited_user_email: customer_email } });
+        if (!result)
+            return res.status(400).json({
+                success: 0,
+                error:'email does not exists'
+            })
+        
+        let storedPassword = result.dataValues.invited_user_password;
+        const matchPassword = bcrypt.compareSync(customer_password,storedPassword);
+
+        if(!matchPassword){
+            return res.status(200).json({
+                success:0,
+                error:"Incorrect Password",
+            });
+        }
+
+        const jwtToken = jwt.sign({temporaryResult: {customer_id:result.dataValues.invited_user_id}},process.env.JWT_KEY,{
+            expiresIn:"1h"
+        });
+
+
+        return res.status(200).json({
+            success:1,
+            message:"Login Successful",
+            user:result.dataValues,
+            token:jwtToken
+        });
+
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error: 'database error',
+            errorReturned: JSON.stringify(err)
+        })
+    }
+
+})
+
 router.post('/delete', auth, async (req, res) => {
     try {
         console.log(req.body)
