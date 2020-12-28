@@ -696,7 +696,7 @@ export default class SessionMaterial extends Component {
           <CardBody>
             <Row className="text-center">
               <img
-                src={this.state.displayThumbnail || Avatar}
+                src={this.state.displayThumbnail}
                 style={{ width: '20%', marginLeft: '10px' }}
               />
               <label className="input-label-1">

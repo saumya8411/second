@@ -4,10 +4,12 @@ import { FiUpload } from 'react-icons/fi';
 
 import NotificationManager from '../../components/common/react-notifications/NotificationManager';
 import axiosInstance from '../../helpers/axiosInstance';
+import Loader from './Loader';
 
 const TutorProfile = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (error) {
@@ -64,6 +66,7 @@ const TutorProfile = () => {
 
   const handleUserProfileSubmit = async (e) => {
     e.preventDefault();
+
     const values = userProfile;
     console.log(values);
     try {
@@ -92,6 +95,7 @@ const TutorProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
+        setIsLoaded(false);
         const result = await axiosInstance.get('/user');
         console.log(result);
         if (result.data.success) setUserProfile(result.data.user);
@@ -106,11 +110,13 @@ const TutorProfile = () => {
         } catch (error) {
           setError('could not fetch details');
         }
+      } finally {
+        setIsLoaded(true);
       }
     };
     getUser();
   }, []);
-
+  if (!isLoaded) return <Loader />;
   return (
     <Row className="p-4">
       <Form onSubmit={handleUserProfileSubmit}>

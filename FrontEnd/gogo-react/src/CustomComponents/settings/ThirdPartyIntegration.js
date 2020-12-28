@@ -38,7 +38,7 @@ const ThirdPartyIntegration = () => {
         console.log(result);
         if (result.data.success) {
           setCustomer_zoom_email(result.data.customer_zoom_email);
-          setCustomer_zoom_jwt_token(result.data.customer_zoom_email);
+          setCustomer_zoom_jwt_token(result.data.customer_zoom_jwt_token);
         } else {
           try {
             setError(result.data.error);
@@ -55,9 +55,9 @@ const ThirdPartyIntegration = () => {
         }
       }
     };
-    setTimeout(() => {
-      getThirdPartyDetails();
-    }, 1500);
+    // setTimeout(() => {
+    getThirdPartyDetails();
+    // }, 1500);
   }, [success, error]);
 
   const handleSubmit = async () => {

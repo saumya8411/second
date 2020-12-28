@@ -4,6 +4,8 @@ import { Card, Row, Input, CardBody, Button, Col } from 'reactstrap';
 import { FiUpload } from 'react-icons/fi';
 import axiosInstance from '../../helpers/axiosInstance';
 import NotificationManager from '../../components/common/react-notifications/NotificationManager';
+import Loader from './Loader';
+
 const Trainer = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -49,10 +51,12 @@ const Trainer = () => {
       experience: '',
     },
   ]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const getTrainers = async () => {
       try {
+        setIsLoaded(false);
         const result = await axiosInstance.get('/trainer');
         console.log(result);
         if (result.data.success) {
@@ -72,6 +76,7 @@ const Trainer = () => {
             experience: doc.trainer_experience,
           }));
           setInputList1(list);
+          setIsLoaded(true);
         } else {
           try {
             setError(result.data.error);
@@ -88,9 +93,9 @@ const Trainer = () => {
         }
       }
     };
-    setTimeout(() => {
-      getTrainers();
-    }, 1500);
+    // setTimeout(() => {
+    getTrainers();
+    // }, 1500);
   }, [success, setSuccess]);
 
   const handleInputChange1 = (e, index) => {
@@ -199,6 +204,8 @@ const Trainer = () => {
       },
     ]);
   };
+
+  if (!isLoaded) return <Loader />;
 
   return (
     <>
