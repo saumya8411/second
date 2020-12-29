@@ -73,7 +73,7 @@ const Login = ({ loading, error, loginUserAction }) => {
       console.log(values);
 
       loginUserAction({ history, values });
-      setSubmitting(false);
+      // setSubmitting(false);
 
       // axios.post("http://localhost:5000/users/login" , {
       //   values

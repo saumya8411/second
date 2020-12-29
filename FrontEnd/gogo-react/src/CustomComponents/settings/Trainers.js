@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Input, CardBody, Button, Col } from 'reactstrap';
-
 import { FiUpload } from 'react-icons/fi';
+
+import { Editor } from 'react-draft-wysiwyg';
+import {
+  EditorState,
+  convertToRaw,
+  ContentState,
+  convertFromHTML,
+} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 import axiosInstance from '../../helpers/axiosInstance';
 import NotificationManager from '../../components/common/react-notifications/NotificationManager';
 import Loader from './Loader';
@@ -9,7 +19,9 @@ import Loader from './Loader';
 const Trainer = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  //   const [displayProfileImage, setDisplayProfileImage] = useState(null);
+
+  // const [editorState1, setEditorState1] = useState(EditorState.createEmpty());
+  // const [editorState2, setEditorState2] = useState(EditorState.createEmpty());
 
   useEffect(() => {
     if (error) {
@@ -49,9 +61,20 @@ const Trainer = () => {
       instagram: '',
       career_summary: '',
       experience: '',
+      editorState1: EditorState.createEmpty(),
+      editorstate2: EditorState.createEmpty(),
     },
   ]);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const getDraft = (data) => {
+    const blocksFromHTML = convertFromHTML(data);
+    const state = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+    return EditorState.createWithContent(state);
+  };
 
   useEffect(() => {
     const getTrainers = async () => {
@@ -74,9 +97,11 @@ const Trainer = () => {
             instagram: doc.trainer_instagram_id,
             career_summary: doc.trainer_career_summary,
             experience: doc.trainer_experience,
+            editorState1: getDraft(doc.trainer_career_summary),
+            editorState2: getDraft(doc.trainer_experience),
           }));
+
           setInputList1(list);
-          setIsLoaded(true);
         } else {
           try {
             setError(result.data.error);
@@ -91,6 +116,8 @@ const Trainer = () => {
         } catch (error) {
           setError('could not fetch trainers data');
         }
+      } finally {
+        setIsLoaded(true);
       }
     };
     // setTimeout(() => {
@@ -142,6 +169,7 @@ const Trainer = () => {
         setError('provide experience of trainer');
       }
     });
+
     const formData = new FormData();
     inputList1.forEach((doc, index) => {
       if (!doc.profile_picture) {
@@ -201,6 +229,8 @@ const Trainer = () => {
         facebook: '',
         instagram: '',
         career_summary: '',
+        editorState1: EditorState.createEmpty(),
+        editorstate2: EditorState.createEmpty(),
       },
     ]);
   };
@@ -210,6 +240,7 @@ const Trainer = () => {
   return (
     <>
       {inputList1.map((x, i) => {
+        console.log(i);
         return (
           <>
             <Card className="box mb-4">
@@ -371,7 +402,22 @@ const Trainer = () => {
                 <Row className="mt-4">
                   <Col md={6} xs={12}>
                     <label style={{ fontSize: '15px' }}>Career Summary</label>
-                    <textarea
+                    <Editor
+                      editorState={x.editorState1}
+                      toolbarClassName="toolbarClassName"
+                      wrapperClassName="wrapperClassName"
+                      editorClassName="editorClassName"
+                      onEditorStateChange={(editorState1) => {
+                        const list = [...inputList1];
+                        list[i].editorState1 = editorState1;
+                        list[i].career_summary = draftToHtml(
+                          convertToRaw(list[i].editorState1.getCurrentContent())
+                        );
+                        setInputList1(list);
+                      }}
+                      editorStyle={{ height: '150px' }}
+                    />
+                    {/* <textarea
                       type="text"
                       style={{
                         fontFamily: 'inherit',
@@ -384,7 +430,7 @@ const Trainer = () => {
                       placeholder="Please use ',' to separte your skills"
                       value={x.career_summary}
                       onChange={(e) => handleInputChange1(e, i)}
-                    />
+                    /> */}
                     {/* <Input
                       type="textarea"
                       className="ml10"
@@ -396,7 +442,22 @@ const Trainer = () => {
                   </Col>
                   <Col md={6} xs={12}>
                     <label style={{ fontSize: '15px' }}>Experience</label>
-                    <textarea
+                    <Editor
+                      editorState={x.editorState2}
+                      toolbarClassName="toolbarClassName"
+                      wrapperClassName="wrapperClassName"
+                      editorClassName="editorClassName"
+                      onEditorStateChange={(currentState) => {
+                        const list = [...inputList1];
+                        list[i].editorState2 = currentState;
+                        list[i].experience = draftToHtml(
+                          convertToRaw(list[i].editorState2.getCurrentContent())
+                        );
+                        setInputList1(list);
+                      }}
+                      editorStyle={{ height: '150px' }}
+                    />
+                    {/* <textarea
                       type="text"
                       style={{
                         fontFamily: 'inherit',
@@ -408,7 +469,7 @@ const Trainer = () => {
                       name="experience"
                       value={x.experience}
                       onChange={(e) => handleInputChange1(e, i)}
-                    />
+                    /> */}
                     {/* <Input
                       type="textarea"
                       className="ml10"
@@ -432,18 +493,18 @@ const Trainer = () => {
                 </div>
               </CardBody>
             </Card>
-            {inputList1.length - 1 === i && (
-              <Button
-                style={{ borderRadius: '0px' }}
-                className="mr-auto ml-auto d-flex"
-                onClick={handleAddClick1}
-              >
-                Add
-              </Button>
-            )}
           </>
         );
       })}
+      {/* {inputList1.length - 1 === i && ( */}
+      <Button
+        style={{ borderRadius: '0px' }}
+        className="mr-auto ml-auto d-flex"
+        onClick={handleAddClick1}
+      >
+        Add
+      </Button>
+      {/* )} */}
       <Button onClick={handleTrainerSubmit}>Submit</Button>
     </>
   );

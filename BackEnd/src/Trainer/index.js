@@ -31,23 +31,7 @@ router.post('/',auth,async (req, res) => {
     try {
         let flg = 0;
         //save files
-        if(req.files){
-            const filesArray = Object.keys(req.files).map(key => req.files[key])
-            // console.log(filesArray)
-            filesArray.forEach(doc => {
-                doc.mv(`${process.env.FILE_UPLOAD_PATH_CLIENT}${doc.name}`, err => {
-                    if (err) {
-                        flg = 1;
-                    console.error(err);
-                        return res.status(500).json({
-                            success: 0,
-                            error: 'could not upload file',
-                            errorReturned:JSON.stringify(err)
-                    });
-                    }
-                });
-            })
-        }
+       
 
         if (!flg) {
             await Trainer.destroy({ where: { customer_id: req.user.customer_id } });
@@ -84,6 +68,23 @@ router.post('/',auth,async (req, res) => {
                         errorReturned:JSON.stringify(err)
                     })
                 }
+            })
+        }
+        if(req.files){
+            const filesArray = Object.keys(req.files).map(key => req.files[key])
+            // console.log(filesArray)
+            filesArray.forEach(doc => {
+                doc.mv(`${process.env.FILE_UPLOAD_PATH_CLIENT}${doc.name}`, err => {
+                    if (err) {
+                        flg = 1;
+                    console.error(err);
+                        return res.status(500).json({
+                            success: 0,
+                            error: 'could not upload file',
+                            errorReturned:JSON.stringify(err)
+                    });
+                    }
+                });
             })
         }
         if(!flg)

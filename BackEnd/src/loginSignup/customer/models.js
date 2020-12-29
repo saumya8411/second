@@ -138,8 +138,19 @@ const User = db.define("customer_table", {
   customer_payment_bank_address: {
     type: DataTypes.STRING,
     allowNull:true
-  }
-
+  },
+  // customer_storage_zone_name: {
+  //   type:DataTypes.STRING,
+  //   allowNull:false
+  // },
+  // customer_pull_zone_name: {
+  //   type:DataTypes.STRING,
+  //   allowNull:false
+  // },
+  // customer_cdn_url: {
+  //   type:DataTypes.STRING,
+  //   allowNull:false
+  // }
 });
 
 db.sync();

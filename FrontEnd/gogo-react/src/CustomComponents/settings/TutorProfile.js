@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Input, Button, Form, Col } from 'reactstrap';
 import { FiUpload } from 'react-icons/fi';
+import { Editor } from 'react-draft-wysiwyg';
+import {
+  EditorState,
+  convertToRaw,
+  ContentState,
+  convertFromHTML,
+} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import NotificationManager from '../../components/common/react-notifications/NotificationManager';
 import axiosInstance from '../../helpers/axiosInstance';
@@ -64,10 +73,15 @@ const TutorProfile = () => {
     }));
   };
 
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
   const handleUserProfileSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(editorState);
     const values = userProfile;
+    values.customer_career_summary = draftToHtml(
+      convertToRaw(editorState.getCurrentContent())
+    );
     console.log(values);
     try {
       const formData = new FormData();
@@ -92,14 +106,27 @@ const TutorProfile = () => {
     }
   };
 
+  const onEditorStateChange = (editorState) => setEditorState(editorState);
+
   useEffect(() => {
     const getUser = async () => {
       try {
         setIsLoaded(false);
         const result = await axiosInstance.get('/user');
         console.log(result);
-        if (result.data.success) setUserProfile(result.data.user);
-        else {
+        if (result.data.success) {
+          const blocksFromHTML = convertFromHTML(
+            result.data.user.customer_career_summary
+          );
+          const state = ContentState.createFromBlockArray(
+            blocksFromHTML.contentBlocks,
+            blocksFromHTML.entityMap
+          );
+
+          setEditorState(EditorState.createWithContent(state));
+
+          setUserProfile(result.data.user);
+        } else {
           if (result.data.error) setError(result.data.error);
           else setError('could not fetch details');
         }
@@ -116,6 +143,7 @@ const TutorProfile = () => {
     };
     getUser();
   }, []);
+
   if (!isLoaded) return <Loader />;
   return (
     <Row className="p-4">
@@ -195,7 +223,15 @@ const TutorProfile = () => {
             <Row>
               <Col md={6}>
                 <label className="mt-4 mx-1">Career Summary</label> <br />
-                <textarea
+                <Editor
+                  editorState={editorState}
+                  toolbarClassName="toolbarClassName"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
+                  onEditorStateChange={onEditorStateChange}
+                  editorStyle={{ height: '150px' }}
+                />
+                {/* <textarea
                   type="text"
                   name="customer_career_summary"
                   style={{
@@ -211,7 +247,7 @@ const TutorProfile = () => {
                 />
                 <p className="mt-2">
                   <b>Note:</b>&nbsp;Please add ',' to separte skills.
-                </p>
+                </p> */}
               </Col>
               <Col
                 md={6}
