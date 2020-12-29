@@ -115,15 +115,19 @@ const TutorProfile = () => {
         const result = await axiosInstance.get('/user');
         console.log(result);
         if (result.data.success) {
-          const blocksFromHTML = convertFromHTML(
-            result.data.user.customer_career_summary
-          );
-          const state = ContentState.createFromBlockArray(
-            blocksFromHTML.contentBlocks,
-            blocksFromHTML.entityMap
-          );
+          try {
+            const blocksFromHTML = convertFromHTML(
+              result.data.user.customer_career_summary
+            );
+            const state = ContentState.createFromBlockArray(
+              blocksFromHTML.contentBlocks,
+              blocksFromHTML.entityMap
+            );
 
-          setEditorState(EditorState.createWithContent(state));
+            setEditorState(EditorState.createWithContent(state));
+          } catch (e) {
+            setEditorState(EditorState.createEmpty());
+          }
 
           setUserProfile(result.data.user);
         } else {
