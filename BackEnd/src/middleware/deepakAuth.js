@@ -5,7 +5,7 @@ const connection = require('../db/sql')
 
 const auth = (req,res,next) => {
     try{
-        let token = req.get("authorization");
+        let token = req.cookies['auth-token'];
         
         //If there is no token
         if(!token){
@@ -15,7 +15,7 @@ const auth = (req,res,next) => {
             });
         }
         //Remove Bearer
-        token = token.slice(7);
+        // token = token.slice(7);
         jwt.verify(token,process.env.JWT_KEY,async (err,decoded) => {
             if(err){
                 return res.status(500).json({

@@ -378,7 +378,7 @@ const Remotelook = (props) => {
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
           </Colxx> */}
 
-            <Colxx xs="12" md="12">
+            <Colxx xs="12" md="12" style={{ marginTop: -30 }}>
               <h3 className="font-weight-bold">Description</h3>
               <p>{data.session_description}</p>
             </Colxx>

@@ -1,9 +1,40 @@
 const Router = require('express').Router();
 const auth = require('../../../middleware/deepakAuth');
+const { db } = require('../connections');
 const { LibraryItem } = require('../model');
 const { ChapterTable } = require('./chapter_table_model');
 const { LessonTable } = require('./lesson_table_model');
 
+
+Router.get('/:id', auth, async (req, res) => {
+    try {
+        if (!req.params.id)
+            return res.status(400).json({
+                success: 0,
+                error:'Session id not provided'
+            })
+        const result = await db.query(`SELECT DISTINCT chapter_number,chapter_name,chapter_learnings,lesson_number,lesson_name FROM
+            chapter_tables as c INNER JOIN lesson_tables as l ON c.session_id=l.session_id AND c.session_id=${req.params.id}
+        `, { type: db.QueryTypes.SELECT });
+        
+        if (!result)
+            return res.status(400).json({
+                success: 0,
+                error:'could not fetch details'
+            })
+        return res.status(200).json({
+            success: 1,
+            result
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: 0,
+            error: 'Unable to fetch details',
+            errorReturned:err
+        })
+    }
+})
 
 Router.post('/',auth,async (req, res) => {
     // console.log(req.files);

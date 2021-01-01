@@ -146,6 +146,10 @@ router.post('/users/login', async (req, res) => {
                 expiresIn:"1h"
             });
 
+            res.cookie('auth-token', jwtToken, {
+                httpOnly: true,
+              });
+        
 
             return res.status(200).json({
                 success:1,

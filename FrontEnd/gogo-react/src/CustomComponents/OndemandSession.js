@@ -179,6 +179,7 @@ const OndemandSession = ({ closeModal, propHandle }) => {
               options={options}
               onChange={setFieldValue}
               onBlur={setFieldTouched}
+              style={{ fontSize: '20rem' }}
             />
             {errors.trainer && touched.trainer ? (
               <div className="invalid-feedback d-block">{errors.trainer}</div>

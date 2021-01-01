@@ -621,7 +621,7 @@ export default class SessionMaterial extends Component {
             </Row>
           </CardBody>
         </Card>
-        <Card className="p-4 mb-3">
+        <Card className=" mb-3">
           <CardBody>
             <Make_modal
               session_id={this.props.location.state.uniquesessionid}
@@ -632,7 +632,7 @@ export default class SessionMaterial extends Component {
             />
             <Row>
               <Colxx sm="12">
-                <Row style={{ marginBottom: '20px' }}>
+                <Row style={{ marginBottom: '20px', marginTop: -30 }}>
                   <Colxx xxs="12" md="4">
                     <h3
                       className="font-weight-bold"

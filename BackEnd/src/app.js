@@ -2,7 +2,8 @@ const express = require('express')
 const mysql = require('mysql')
 const morgan = require('morgan')
 const cors = require('cors');
-const fileUpload=require('express-fileupload')
+const fileUpload = require('express-fileupload')
+const cookieParser = require('cookie-parser');
 // require('./db/mongoose')
 
 
@@ -17,6 +18,7 @@ const app = express()
 
 app.use(cors());
 app.use(fileUpload());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

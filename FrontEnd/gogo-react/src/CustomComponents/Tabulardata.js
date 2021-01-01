@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Card, CardBody, CardTitle, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { useTable, usePagination, useSortBy } from 'react-table';
 import classnames from 'classnames';
-import products from '../data/products';
-import DatatablePagination from '../components/DatatablePagination';
 import CreateSession from './CreateSessions';
 import Library from './Library';
 import './Customcss.css';
@@ -238,7 +236,7 @@ export const TabularData = () => {
       {
         Header: 'Title',
         accessor: 'title',
-        cellClass: 'list-item-heading w-20',
+        cellClass: 'w-20 ',
         Cell: (props) => <>{props.value}</>,
       },
       {

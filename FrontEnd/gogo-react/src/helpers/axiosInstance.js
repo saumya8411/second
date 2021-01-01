@@ -23,9 +23,7 @@ const getToken = () => {
 };
 
 const Instance = axios.create({
-  headers: {
-    Authorization: `Bearer ${getToken()}`,
-  },
+  credentials: 'include',
 });
 
 export default Instance;
