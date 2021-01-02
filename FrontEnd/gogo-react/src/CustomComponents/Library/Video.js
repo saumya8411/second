@@ -58,6 +58,7 @@ const Video = ({ columns }) => {
         }
       } finally {
         setIsLoaded(true);
+        console.log(data, data.length);
       }
     };
     getData();

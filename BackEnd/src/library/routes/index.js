@@ -42,6 +42,7 @@ router.get('/videos' ,auth, async (req,res) => {
             if(err) throw err;
             console.log('RAN successfully') 
             res.status(200).json({
+                success:1,
                 result
             });
         })
