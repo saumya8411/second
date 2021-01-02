@@ -28,7 +28,7 @@ const Table = ({ columns, data, divided = false, defaultPageSize = 6 }) => {
   );
 
   return (
-    <>
+    <div style={{ marginBottom: '25rem' }}>
       <table
         style={{ maxWidth: '1100px', margin: '0 auto' }}
         {...getTableProps()}
@@ -98,7 +98,7 @@ const Table = ({ columns, data, divided = false, defaultPageSize = 6 }) => {
           onPageSizeChange={(s) => setPageSize(s)}
           paginationMaxSize={pageCount}
         /> */}
-    </>
+    </div>
   );
 };
 export default Table;

@@ -66,7 +66,8 @@ const Quiz = ({ columns }) => {
   //backend team find a way to sort or filter data via this feature and show in tabs
   if (!isLoaded) return <Loader />;
 
-  if (!data.length) return <div>No Quiz Data Found</div>;
+  if (!data.length)
+    return <div style={{ marginBottom: '25rem' }}>No Quiz Data Found</div>;
   return <Table columns={columns} data={data} divided />;
 };
 export default Quiz;

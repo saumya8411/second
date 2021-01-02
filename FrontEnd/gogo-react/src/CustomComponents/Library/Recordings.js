@@ -65,7 +65,8 @@ const Recordings = ({ columns }) => {
   //backend team find a way to sort or filter data via this feature and show in tabs
   if (!isLoaded) return <Loader />;
 
-  if (!data.length) return <div>No Recording Data Found</div>;
+  if (!data.length)
+    return <div style={{ marginBottom: '25rem' }}>No Recording Data Found</div>;
   return <Table columns={columns} data={data} divided />;
 };
 export default Recordings;
