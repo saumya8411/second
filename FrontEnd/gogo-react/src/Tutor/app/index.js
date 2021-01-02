@@ -8,29 +8,35 @@ import AppLayout from '../../layout/AppLayout';
 const Dashboards = React.lazy(() =>
   import(/* webpackChunkName: "dashboards" */ './dashboards')
 );
-const Pages = React.lazy(() =>
-  import(/* webpackChunkName: "pages" */ '../../CustomComponents/Library')
-);
+const Pages = React.lazy(() => import('../../CustomComponents/Library/index'));
 const LiveSession = React.lazy(() =>
   import(/* webpackChunkName: "pages" */ '../../CustomComponents/Remotelook')
 );
 const RecordedSession = React.lazy(() =>
-  import(/* webpackChunkName: "pages" */ '../../CustomComponents/SessionMaterial')
+  import(
+    /* webpackChunkName: "pages" */ '../../CustomComponents/SessionMaterial'
+  )
 );
 const Applications = React.lazy(() =>
   import(/* webpackChunkName: "applications" */ './applications')
 );
-const Ui = React.lazy(() => import(/* webpackChunkName: "ui" */ '../../CustomComponents/EmailCommunicationfunction'));
-const Menu = React.lazy(() => import(/* webpackChunkName: "menu" */ './menu'));
-/* const BlankPage = React.lazy(() =>
-  import(/* webpackChunkName: "blank-page" */ /*'./blank-page')
+const Ui = React.lazy(() =>
+  import(
+    /* webpackChunkName: "ui" */ '../../CustomComponents/EmailCommunicationfunction'
+  )
+);
+const Menu = React.lazy(() =>
+  import(/* webpackChunkName: "menu" */ './menu')
+); /*'./blank-page')
 ); */
-
-const Mydash = React.lazy(() =>
-  import(/* webpackChunkName: "blank-page" */ './mydashboard')
+/* const BlankPage = React.lazy(() =>
+  import(/* webpackChunkName: "blank-page" */ const Mydash = React.lazy(
+  () => import(/* webpackChunkName: "blank-page" */ './mydashboard')
 );
 const Themepage = React.lazy(() =>
-  import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/ThemePage')
+  import(
+    /* webpackChunkName: "blank-page" */ '../../CustomComponents/ThemePage'
+  )
 );
 const Message = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ './message')
@@ -60,17 +66,17 @@ const Abuse = React.lazy(() =>
   import(/* webpackChunkName: "blank-page" */ './abuse')
 );
 
-const Validate = React.lazy(() =>
-  import ('./Validate')
-);
+const Validate = React.lazy(() => import('./Validate'));
 
 const SessionDetail = React.lazy(() =>
-import(/* webpackChunkName: "blank-page" */ '../../CustomComponents/RemotesessionLook')
+  import(
+    /* webpackChunkName: "blank-page" */ '../../CustomComponents/RemotesessionLook'
+  )
 );
 const App = ({ match }) => {
   return (
     <AppLayout>
-      <Validate/>
+      <Validate />
       <div className="dashboard-wrapper">
         <Suspense fallback={<div className="loading" />}>
           <Switch>
@@ -136,31 +142,31 @@ const App = ({ match }) => {
               path={`${match.url}/message`}
               render={(props) => <Message {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/sessiondetail`}
               render={(props) => <SessionDetail {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/privacy`}
               render={(props) => <Privacy {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/cookie`}
               render={(props) => <Cookie {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/terms`}
               render={(props) => <Terms {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/irp`}
               render={(props) => <IRP {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/antispam`}
               render={(props) => <Anti {...props} />}
             />
-              <Route
+            <Route
               path={`${match.url}/abuse`}
               render={(props) => <Abuse {...props} />}
             />

@@ -12,12 +12,13 @@ router.get('/',auth,async (req,res) => {
 
     try{
         //Fetch User Specific Data 
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE  CUSTOMER_ID =${req.user.customer_id} `;
+        let sql = `SELECT * FROM library_items WHERE  customer_id =${req.user.customer_id} `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
             console.log('RAN successfully') 
             res.status(200).json({
+                success:1,
                 result
             })
         })
@@ -35,7 +36,7 @@ router.get('/',auth,async (req,res) => {
 //To fetch all the data where type = video
 router.get('/videos' ,auth, async (req,res) => {
     try{
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='video' AND CUSTOMER_ID = ${req.user.customer_id} `;
+        let sql = `SELECT * FROM library_items WHERE item_type='video' AND customer_id = ${req.user.customer_id} `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
@@ -57,12 +58,12 @@ router.get('/videos' ,auth, async (req,res) => {
 //To fetch all the data where type = recording
 router.get('/recordings' ,auth, async (req,res) => {
     try{
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='recording' AND CUSTOMER_ID = ${req.user.customer_id} `;
+        let sql = `SELECT * FROM library_items WHERE item_type='recording' AND customer_id = ${req.user.customer_id} `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
             console.log('RAN successfully') 
-            res.status(200).json({
+            res.status(200).json({success:1,
                 result
             });
         })
@@ -78,12 +79,12 @@ router.get('/recordings' ,auth, async (req,res) => {
 //To fetch all the data where type = assignment
 router.get('/assignments' ,auth, async (req,res) => {
     try{
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='assignment' AND CUSTOMER_ID = ${req.user.customer_id} `;
+        let sql = `SELECT * FROM library_items WHERE item_type='assignment' AND customer_id = ${req.user.customer_id} `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
             console.log('RAN successfully') 
-            res.status(200).json({
+            res.status(200).json({success:1,
                 result
             });
         })
@@ -99,12 +100,12 @@ router.get('/assignments' ,auth, async (req,res) => {
 //To fetch all the data where type = quiz
 router.get('/quizs' ,auth, async (req,res) => {
     try{
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='quiz' AND CUSTOMER_ID = ${req.user.customer_id} `;
+        let sql = `SELECT * FROM library_items WHERE item_type='quiz' AND customer_id = ${req.user.customer_id} `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
             console.log('RAN successfully') 
-            res.status(200).json({
+            res.status(200).json({success:1,
                 result
             });
         })
@@ -121,12 +122,13 @@ router.get('/quizs' ,auth, async (req,res) => {
 //To fetch all the data where type = handout
 router.get('/handouts' ,auth, async (req,res) => {
     try{
-        let sql = `SELECT * FROM LIBRARY_TABLE WHERE LIBRARY_ITEM_TYPE='handout' AND CUSTOMER_ID = ${req.user.customer_id} `;
+        let sql = `SELECT * FROM library_items WHERE item_type='handout' AND customer_id = ${req.user.customer_id} `;
 
         let query = await connection.query(sql , (err, result) => {
             if(err) throw err;
             console.log('RAN successfully') 
             res.status(200).json({
+                success:1,
                 result
             });
         })
