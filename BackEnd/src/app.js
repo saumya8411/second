@@ -50,5 +50,6 @@ app.use('/shorturl', require('./urlShorten'));
 app.use('/libraryItems', require('./Sessions/LibraryItems'));
 app.use('/libraryItems/recorded', require('./Sessions/LibraryItems/recorded'));
 app.use('/trainer', require('./Trainer'));
-app.use('/invite/trainer',require('./inviteTrainer'))
+app.use('/invite/trainer', require('./inviteTrainer'))
+app.use('/stats',require('./stats'))
 module.exports = app

@@ -25,19 +25,14 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 import { Colxx, Separator } from '../../../components/common/CustomBootstrap';
-import Breadcrumb from '../../../containers/navs/Breadcrumb';
 import classnames from 'classnames';
 import { setContainerClassnames } from '../../../redux/actions';
-import IntlMessages from '../../../helpers/IntlMessages';
-import products from '../../../data/products';
-import DatatablePagination from '../../../components/DatatablePagination';
 import my_table from '../../../data/my_table';
 import affiliate from '../../../data/affiliate';
 import { FaShoePrints, FaUsers } from 'react-icons/fa';
 import { FaFilter } from 'react-icons/fa';
 import { LineChart } from '../../../components/charts';
 import { lineChartData } from '../../../data/charts';
-import { ImBooks } from 'react-icons/im';
 import { MdEmail } from 'react-icons/md';
 import { FaBookOpen } from 'react-icons/fa';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
@@ -45,11 +40,9 @@ import { AiFillBank } from 'react-icons/ai';
 import { FaHandHoldingUsd } from 'react-icons/fa';
 import Communication_table from '../../../data/Communication_table';
 import Monitization_table from '../../../data/Monitization_table';
-import { BiBroadcast } from 'react-icons/bi';
 import { BiMessageRoundedDots } from 'react-icons/bi';
 import { BiTime } from 'react-icons/bi';
 import { RiMailSendFill } from 'react-icons/ri';
-import { MdLocalLibrary } from 'react-icons/md';
 import { IoIosPeople } from 'react-icons/io';
 import { FaUserCheck } from 'react-icons/fa';
 import { FaBlog } from 'react-icons/fa';
@@ -76,6 +69,8 @@ import device from '../../../data/device';
 import ShowForm from './ShowForm';
 import { NotificationManager } from '../../../components/common/react-notifications';
 import { BsTypeStrikethrough } from 'react-icons/bs';
+import CourseTab from './CourseTab';
+import StudentsTab from './StudentsTab';
 
 const MenuTypes = ({
   match,
@@ -969,27 +964,6 @@ const MenuTypes = ({
     setchartstatus(!chartstatus);
     console.log(chartstatus);
   };
-
-  /* const [tab, settab] = useState('8') */
-  /*   var myChart =  {
-    type: 'bar',
-    data: {
-       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-       datasets: [{
-            label: '# of Votes',
-            data: [90, 60, 30, 50, 30, 80],
-       }]
-    },
-    options: {
-       scales: {
-            xAxes: [{
-               gridLines: {
-                  display: false
-               }
-            }],
-          }
-        }
-      } */
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     /* scaleShowLabels: false, */
@@ -1058,34 +1032,7 @@ const MenuTypes = ({
       <Row>
         <Colxx xxs="12"></Colxx>
       </Row>
-      {/*       <Row>
-        <Colxx xxs="12" className="mb-4">
-          <Button
-            outline
-            color="primary"
-            className="mb-2"
-            onClick={(e) => changeDefaultMenuType(e, 'menu-default')}
-          >
-            <IntlMessages id="menu.default" />
-          </Button>{' '}
-          <Button
-            outline
-            color="primary"
-            className="mb-2"
-            onClick={(e) => changeDefaultMenuType(e, 'menu-sub-hidden')}
-          >
-            <IntlMessages id="menu.subhidden" />
-          </Button>{' '}
-          <Button
-            outline
-            color="primary"
-            className="mb-2"
-            onClick={(e) => changeDefaultMenuType(e, 'menu-hidden')}
-          >
-            <IntlMessages id="menu.hidden" />
-          </Button>
-        </Colxx>
-      </Row> */}
+
       <Nav tabs className="card-header-tabs mb-3">
         <NavItem>
           <NavLink
@@ -1200,117 +1147,18 @@ const MenuTypes = ({
       <div className="mb-4">
         <TabContent activeTab={activeFirstTab}>
           <TabPane tabId="1">
-            <Card className="h-120 ">
+            <StudentsTab />
+            {/* <Card className="h-120 ">
               <Scrollbars style={{ width: '100%', height: 400 }}>
                 <CardBody>
                   <Table columns={cols} data={my_table} />
                 </CardBody>
               </Scrollbars>
-            </Card>
+            </Card> */}
             <br />
           </TabPane>
           <TabPane tabId="2">
-            <Row>
-              <Col sm="3" xs="12" className="mb-3">
-                <Card
-                  body
-                  id="crd"
-                  className="text-center"
-                  style={{ backgroundColor: '#F4A261' }}
-                >
-                  <Row>
-                    <Col md="6" xs="6">
-                      <FaUsers id="myicon" className="text-light" />
-                    </Col>
-                    <Col md="6" xs="6">
-                      <CardText className="font-weight-bold head text-light">
-                        13
-                      </CardText>
-                      <CardText className="font-weight-bold para text-light">
-                        Total Students Enrolled
-                      </CardText>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-              <Col sm="3" xs="12" className="mb-3">
-                <Card
-                  body
-                  id="crd"
-                  className="text-center"
-                  style={{ backgroundColor: '#ab47bc' }}
-                >
-                  <Row>
-                    <Col md="6" xs="6">
-                      <ImBooks id="myicon" className="text-light" />
-                    </Col>
-                    <Col md="6" xs="6">
-                      <CardText className="font-weight-bold head text-light">
-                        23
-                      </CardText>
-                      <CardText className="font-weight-bold para text-light">
-                        Total Courses Created
-                      </CardText>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-              <Col sm="3" xs="12" className="mb-3">
-                <Card
-                  body
-                  id="crd"
-                  className="text-center"
-                  style={{ backgroundColor: '#E9C46A' }}
-                >
-                  <Row>
-                    <Col md="6" xs="6">
-                      <BiBroadcast id="myicon" className="text-light" />
-                    </Col>
-                    <Col md="6" xs="6">
-                      <CardText className="font-weight-bold head text-light">
-                        12
-                      </CardText>
-                      <CardText className="font-weight-bold para text-light">
-                        Total Live Lectures
-                      </CardText>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-              <Col sm="3" xs="12" className="mb-3">
-                <Card
-                  body
-                  id="crd"
-                  className="text-center"
-                  style={{ backgroundColor: '#457B9D' }}
-                >
-                  <Row>
-                    <Col md="6" xs="6">
-                      <MdLocalLibrary id="myicon" className="text-light" />
-                    </Col>
-                    <Col md="6" xs="6">
-                      <CardText className="font-weight-bold head text-light">
-                        60
-                      </CardText>
-                      <CardText className="font-weight-bold para text-light">
-                        Total Library Items
-                      </CardText>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            </Row>
-            <Row>
-              <Col md="12" xs="12">
-                <Card className="h-100  ">
-                  <Scrollbars style={{ width: '100%', height: 400 }}>
-                    <CardBody>
-                      <Table columns={cols2} data={my_table_courses} />
-                    </CardBody>
-                  </Scrollbars>
-                </Card>
-              </Col>
-            </Row>
+            <CourseTab />
             <br />
             <br />
           </TabPane>
