@@ -32,6 +32,6 @@
     "sequelize": "^6.3.5",
     "sharp": "^0.26.2",
     "shortid": "^2.2.16",
-    "validator": "^13.1.17"
+    "validator": "^13.7.0"
   }
 }
